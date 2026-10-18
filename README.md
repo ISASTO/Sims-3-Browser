@@ -13,7 +13,18 @@ bridge. Menu composition and text rendering remain incorrect in the graphics
 test environment. Character creation, entering the town, sustained gameplay,
 audio, and saving/reloading a playable session have not been validated.
 
-## Run the prototype
+## GitHub Pages
+
+Publish this repository from **main / (root)** in **Settings → Pages**, using
+**Deploy from a branch**. The root entry page opens the browser build in `web/`;
+`.nojekyll` keeps the existing static files intact. Future updates to `main` are
+published automatically once Pages is enabled.
+
+Site address: <https://isasto.github.io/Sims-3-Browser/>.
+The hosted version needs no Python installation or local server. It has the
+same unfinished gameplay and rendering limitations described above.
+
+## Run the prototype locally
 
 Requires a current desktop Chrome or Firefox browser with WebGL and
 OffscreenCanvas, and Python 3 to serve the files. Browser behavior has not been
