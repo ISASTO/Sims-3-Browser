@@ -1,0 +1,3392 @@
+[
+  {
+    "name": "bin/anim2d.bin",
+    "bytes": 5834,
+    "sha256": "c2607941fc8556a18ef9a8b9860f388a064e734c316697166d7d219e48157ccf"
+  },
+  {
+    "name": "bin/anim3d.bin",
+    "bytes": 1622,
+    "sha256": "c64b4276ce68c9c2c76efa26b9391d2f66e990147981bee0135793536cbb7848"
+  },
+  {
+    "name": "bin/animdata.bin",
+    "bytes": 1527,
+    "sha256": "82349bad72b30a2c214e1e262b7f4e306e495d0b8b642da1a8b1e4ed50d01fbd"
+  },
+  {
+    "name": "bin/color.bin",
+    "bytes": 300,
+    "sha256": "c429f2c4f38d79e21e40ed353adc9d43c7ea0e721d10e5443df2d6c6e06cd8cc"
+  },
+  {
+    "name": "bin/image.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "bin/minigame_repairing_board_0.bin",
+    "bytes": 317,
+    "sha256": "5d54dba1791c96c44c367e19e4800cef54e67aabdd21963a11ed890ca9aeb34c"
+  },
+  {
+    "name": "bin/simsdata.bin",
+    "bytes": 22030,
+    "sha256": "778c385d6ee62e48bacfea06d5a61b71d1caced5a68b45edaf3cfdb1801511f4"
+  },
+  {
+    "name": "bin/simsui.bin",
+    "bytes": 270,
+    "sha256": "ec066f642a3e7c985b96cf0b2c590494cbdbd93a636f4347e617a6ea6cddf4d1"
+  },
+  {
+    "name": "bin/soundevents.bin",
+    "bytes": 445,
+    "sha256": "78a527265a493c2a58e3416f20dc2e6a1701ab4d8e86b9dc7a68c191e0d5ff18"
+  },
+  {
+    "name": "fonts/fonts.group.bin",
+    "bytes": 63953,
+    "sha256": "2f8380864dd9f0a2b51ae73129cfb2c3fb02bd5b9deb4b54037933a9ac9d4138"
+  },
+  {
+    "name": "images/cameramode_on.png",
+    "bytes": 16428,
+    "sha256": "d1f551cd25cb4378429879f91956e05ac4f9abbae72af55f2a058dab4dc39e00"
+  },
+  {
+    "name": "images/cameramode_off.png",
+    "bytes": 16428,
+    "sha256": "7ec206b7fc82a6ecc70379b3968b883e68358264d60588e91b22ff829d813d15"
+  },
+  {
+    "name": "images/btn_hand.png",
+    "bytes": 4359,
+    "sha256": "343f9e2609a49d21a25915cc6b96926ff09131d82c8d38dc3a705382234e336a"
+  },
+  {
+    "name": "l10n/de/strings_generic.bin",
+    "bytes": 42894,
+    "sha256": "1453540784e1cc047f2785ddb2a391a9a48542dcb0c0a7ff80bcedde20799bb1"
+  },
+  {
+    "name": "l10n/de/strings_hdr.bin",
+    "bytes": 39,
+    "sha256": "5b9c1335fa7ba96585c8e4c063bea767f6df8bce25b366a87c68afa19e65a077"
+  },
+  {
+    "name": "l10n/en/strings_generic.bin",
+    "bytes": 37763,
+    "sha256": "e317ed5aec1d1830ba15ed320940abe9a735c74009346f08cb91b016b5b58bf4"
+  },
+  {
+    "name": "l10n/en/strings_hdr.bin",
+    "bytes": 40,
+    "sha256": "bcde0bf33ded6b14a10a91d86734788beccf591d0873e77b794612f2f6ce46ad"
+  },
+  {
+    "name": "l10n/es_ES/strings_generic.bin",
+    "bytes": 41884,
+    "sha256": "78cd39d8a58f729b51928bae497653e1283eaf699a14da79ffa23b209c47ecc9"
+  },
+  {
+    "name": "l10n/es_ES/strings_hdr.bin",
+    "bytes": 42,
+    "sha256": "8119417190bbf8926ae9cdeed6a6784c1a1f75dfc0a95734c2a5df1aef206e25"
+  },
+  {
+    "name": "l10n/fr_FR/strings_generic.bin",
+    "bytes": 44173,
+    "sha256": "a65912b8026777eacfd115d321273ab78955fafa451788835b9cb6cebabbb9e9"
+  },
+  {
+    "name": "l10n/fr_FR/strings_hdr.bin",
+    "bytes": 43,
+    "sha256": "8acda1ea85fd15d1ea637ca628446cc486e4c596c3801a66b98d479d72227ae5"
+  },
+  {
+    "name": "l10n/it/strings_generic.bin",
+    "bytes": 41255,
+    "sha256": "b9c77fa20f603aec4fb14047fc8c2a7da35775cffa4595bdb0521583b0174c85"
+  },
+  {
+    "name": "l10n/it/strings_hdr.bin",
+    "bytes": 39,
+    "sha256": "c7ef121e33ed048b7c88668aa36b9c9fbdc06fafb28c65c36e01af9a03b57a94"
+  },
+  {
+    "name": "l10n/pt_BR/strings_generic.bin",
+    "bytes": 41748,
+    "sha256": "09c7c14713999e28f15cbe30ecd9cb4baa203ef31bb28ffe90f7080df578c798"
+  },
+  {
+    "name": "l10n/pt_BR/strings_hdr.bin",
+    "bytes": 47,
+    "sha256": "051e63db3313e2d58e700cfb278fe695f59f1d4fbe1ad65845f15e1788190bba"
+  },
+  {
+    "name": "sounds/sfx_amb_birds_chirping_1.raw",
+    "bytes": 21546,
+    "sha256": "e1ceb6f5e22c5bab28e0bfddeafbcb50f8176773b20ede1bdb268ce642798b5d"
+  },
+  {
+    "name": "sounds/sfx_amb_birds_chirping_2.raw",
+    "bytes": 13774,
+    "sha256": "e266e201333f153f9944e54f2bfc59b4ccfdde0e2fc5c58adf3264681186a98b"
+  },
+  {
+    "name": "sounds/sfx_amb_traffic_bkg_1.raw",
+    "bytes": 35094,
+    "sha256": "839985b3ed8e9abe7a6959384679bca4c3c2c4bdb000d3f1b76a0519a675ec71"
+  },
+  {
+    "name": "sounds/sfx_amb_traffic_bkg_2.raw",
+    "bytes": 38425,
+    "sha256": "fe6a8735df9d9f5ce041a50f465e4612d2f89bad8b7c033c4d18fb3962d68400"
+  },
+  {
+    "name": "sounds/sfx_buy.raw",
+    "bytes": 17786,
+    "sha256": "d3739bc69e206125871002c17c9055ab5e46cb4dc34cc33b64a2c1ea7bb2e80d"
+  },
+  {
+    "name": "sounds/sfx_cash.raw",
+    "bytes": 17786,
+    "sha256": "d3739bc69e206125871002c17c9055ab5e46cb4dc34cc33b64a2c1ea7bb2e80d"
+  },
+  {
+    "name": "sounds/sfx_caught_fish.raw",
+    "bytes": 15687,
+    "sha256": "7d0d2b2e1b5ce08e40116ec85b8f4896c7bd0853b4318296f35f704c9863bbe6"
+  },
+  {
+    "name": "sounds/sfx_cooking_bubbling.raw",
+    "bytes": 35072,
+    "sha256": "e4b726ffc8b1df469e3bd2d34d510f2f0932ac1efb22edbc4abe31f77c123e97"
+  },
+  {
+    "name": "sounds/sfx_Cooking_v1.raw",
+    "bytes": 271164,
+    "sha256": "736ca5b52e4322db4f95f1acee183fa48d0e4c87d1f336a9806b8ea7373e3a69"
+  },
+  {
+    "name": "sounds/sfx_Door_Close.raw",
+    "bytes": 8736,
+    "sha256": "e058cb9c36740e7a995946208f625d40ac50ec38cada6f1fab1551ba4a405bd2"
+  },
+  {
+    "name": "sounds/sfx_Door_Knock.raw",
+    "bytes": 16256,
+    "sha256": "3f3c62667b3f6e9a4560f64c8b8bfadc659e9554973be52a182818ad3aa0fc38"
+  },
+  {
+    "name": "sounds/sfx_Door_Open.raw",
+    "bytes": 7104,
+    "sha256": "4f6bf54628b37acb467bcabdd45c6937baf968b4a1f096680366490446af10f2"
+  },
+  {
+    "name": "sounds/sfx_Driving_v3.raw",
+    "bytes": 282972,
+    "sha256": "62e5fe341fc0aeb377f2ed21d19f8ebf2d01ffaee56d280d923ea46c8ae094b7"
+  },
+  {
+    "name": "sounds/sfx_earned_money.raw",
+    "bytes": 20507,
+    "sha256": "f393eefe8d6c4ae0b91f2dae8d285c7fc1a8a1a0f2bb446d0e619f2c9de1c9bc"
+  },
+  {
+    "name": "sounds/sfx_eating.raw",
+    "bytes": 48491,
+    "sha256": "c221a01b739081d0e3863ebb961e52c6d9dc6b8053539509f2a686de79f24433"
+  },
+  {
+    "name": "sounds/sfx_event_death_1.raw",
+    "bytes": 65820,
+    "sha256": "d5d6494cd452696f41d52056852289f69fe83c43e56a1120d2053af6b20dadac"
+  },
+  {
+    "name": "sounds/sfx_event_houseupgrade_1.raw",
+    "bytes": 56975,
+    "sha256": "00be22e613bd2655d83f783bdb79d907d099c50dee07d2bcc97fc5e66fe0ccb3"
+  },
+  {
+    "name": "sounds/sfx_event_promotion_1.raw",
+    "bytes": 10064,
+    "sha256": "3e95e7a91ed63a57fdf5bf29e5226b8a7ee26b9bc56d05cfbc26c8f25c682415"
+  },
+  {
+    "name": "sounds/sfx_event_romance_1.raw",
+    "bytes": 66108,
+    "sha256": "9ed5ccfce39fe58ab30602300b5e6fc58f18d237427c20f468374ba7e3deef1e"
+  },
+  {
+    "name": "sounds/sfx_event_skillmax_1.raw",
+    "bytes": 13161,
+    "sha256": "585e6afbfa19fd29784ba2167866bdb1d1485f4bb513ee1d2785b0e3de8e6946"
+  },
+  {
+    "name": "sounds/sfx_event_wedding_1.raw",
+    "bytes": 89436,
+    "sha256": "6830c67717a862bc678454eb8fe3a44a4ba7d0a635fa7ea02011c21acd8bb715"
+  },
+  {
+    "name": "sounds/sfx_Farting.raw",
+    "bytes": 9271,
+    "sha256": "527d1dc491c27a07b69025d45ca51ae7dcfeb509c7a9aedac244ce2b11789b9b"
+  },
+  {
+    "name": "sounds/sfx_Farting_04.raw",
+    "bytes": 6400,
+    "sha256": "63525e841224b28ab05487192fcb5a8c43e0e946b0722d40c67d9821c949a225"
+  },
+  {
+    "name": "sounds/sfx_female0_angry0.raw",
+    "bytes": 34180,
+    "sha256": "67054a5168abeca9d4acaae4f9c505eeee914886e3951f8ae297468b31d38095"
+  },
+  {
+    "name": "sounds/sfx_female0_convo0.raw",
+    "bytes": 46674,
+    "sha256": "1a4953c2ea19d78a127df290eb4087a2c32772e7f41d39d68da042a32c8ebfad"
+  },
+  {
+    "name": "sounds/sfx_female0_convo1.raw",
+    "bytes": 47534,
+    "sha256": "5e73710a97af31f498f9886f3ba656c636c4190c8ab1a93c40bb438d042cf9c4"
+  },
+  {
+    "name": "sounds/sfx_female0_convo2.raw",
+    "bytes": 58619,
+    "sha256": "be7032709bd2a399460703f74ee54fbc0b53829272f1e6949d568e0d27e247e4"
+  },
+  {
+    "name": "sounds/sfx_female0_flirt0.raw",
+    "bytes": 26326,
+    "sha256": "c02e510e4f66a6076cd18dfaece1983cb0067db9a421f0f0ea5d6299e56e1a84"
+  },
+  {
+    "name": "sounds/sfx_female0_happy0.raw",
+    "bytes": 45708,
+    "sha256": "0bb39a891a8759a387b15defcf2018ea004088fa1ee65daa60625823e6e729bb"
+  },
+  {
+    "name": "sounds/sfx_female0_joke0.raw",
+    "bytes": 28882,
+    "sha256": "ecac9d359365e1bcbdedeace0ff5120483f5f48e987a8a74feb0e2485b177952"
+  },
+  {
+    "name": "sounds/sfx_female0_laugh0.raw",
+    "bytes": 17926,
+    "sha256": "925648f4ed4e56d73a5da23f4c8e7f8d2d746069633a56676322b4dbfe7dd1b0"
+  },
+  {
+    "name": "sounds/sfx_female0_sad0.raw",
+    "bytes": 33100,
+    "sha256": "039ecae467e8fe69964d67cdc690ff8799f2de1b90f1e234b6a6776df21f37b6"
+  },
+  {
+    "name": "sounds/sfx_female1_angry0.raw",
+    "bytes": 23885,
+    "sha256": "50ad34c4a972aaf8eb186aa872ca2a3be963151f208da5d503bdc1880c620d76"
+  },
+  {
+    "name": "sounds/sfx_female1_convo0.raw",
+    "bytes": 38964,
+    "sha256": "d1c1fba5586fc1261a9ab0396821eaa39c9667ba68be53616d1c924b590254d9"
+  },
+  {
+    "name": "sounds/sfx_female1_convo1.raw",
+    "bytes": 51243,
+    "sha256": "de74adc11bc4d341796d13c8c03eb9795272ee103ba4ad473e5eb86a0c0f44d6"
+  },
+  {
+    "name": "sounds/sfx_female1_convo2.raw",
+    "bytes": 54316,
+    "sha256": "b4c1d2a6912bef150d5b3658433d9f7cbbaa3a757c3e5467ad742ca98b0ce88e"
+  },
+  {
+    "name": "sounds/sfx_female1_flirt0.raw",
+    "bytes": 35165,
+    "sha256": "2b706b7c515ab24ab9d00820f349422909769f1eb41fdf3252596705227d50d6"
+  },
+  {
+    "name": "sounds/sfx_female1_happy0.raw",
+    "bytes": 51070,
+    "sha256": "13f90d718d1d2c786a499905d484ffd288fa81930bedf3b02d806e9d82f97d09"
+  },
+  {
+    "name": "sounds/sfx_female1_joke0.raw",
+    "bytes": 40579,
+    "sha256": "030fad75d646b499a5cf9163ed577eb0a46bdc3ebf43ed390c18e670ac50c6f0"
+  },
+  {
+    "name": "sounds/sfx_female1_laugh0.raw",
+    "bytes": 31276,
+    "sha256": "65a7ccfac36a9813af839415cc6eee0b9a3dfa3eb3f77a6b709d8fdaf28eec1f"
+  },
+  {
+    "name": "sounds/sfx_female1_sad0.raw",
+    "bytes": 51492,
+    "sha256": "bef139449341c00fb3f724384e0a3b26dcbb77a55778cac5668b21e945221994"
+  },
+  {
+    "name": "sounds/sfx_fishing_reel.raw",
+    "bytes": 33560,
+    "sha256": "797a0904af8171e3bb99db12ae67b30304d0e1ee00cae7069d39137ab0882e31"
+  },
+  {
+    "name": "sounds/sfx_Fishing_v1.raw",
+    "bytes": 251004,
+    "sha256": "53d2150f8b146f04100d1acb082075bb7855193c9d810805f3162824c0f7bfb7"
+  },
+  {
+    "name": "sounds/sfx_Home_v1.raw",
+    "bytes": 267132,
+    "sha256": "026e78b5ecad266a9b2c16cf2993932bbc9decc7d89901ad3278b7396c79d27e"
+  },
+  {
+    "name": "sounds/sfx_Joy_buzzer.raw",
+    "bytes": 10672,
+    "sha256": "c72f7390e0af901e29b406d1d131ce917ffb0a713a18ed17ca47e96f22437951"
+  },
+  {
+    "name": "sounds/sfx_kick_over.raw",
+    "bytes": 30881,
+    "sha256": "02a6891f9b8c01cfb7e6cb141bac9d1b9c3d5a58ab05c219ee6fadbdfa3b189e"
+  },
+  {
+    "name": "sounds/sfx_male0_angry0.raw",
+    "bytes": 47891,
+    "sha256": "45d816f895ba8336bff2136db13d0b33e91d99b03baf6702a3e84c63e0366c16"
+  },
+  {
+    "name": "sounds/sfx_male0_convo0.raw",
+    "bytes": 45898,
+    "sha256": "597a5269a6ce62bf58d35baf1aa1f125b6cf89f4acdf61d9c184a69e8b577ef2"
+  },
+  {
+    "name": "sounds/sfx_male0_convo1.raw",
+    "bytes": 57470,
+    "sha256": "90f03997e4ec9539f40db20a8a6fbf2e47d92eaa545d0c29b1d7eafdc1fba40e"
+  },
+  {
+    "name": "sounds/sfx_male0_convo2.raw",
+    "bytes": 46241,
+    "sha256": "fa01b52c36748af7bcce8104261e541bf53bcf4ea43796de8b1081d7d3e38469"
+  },
+  {
+    "name": "sounds/sfx_male0_flirt0.raw",
+    "bytes": 24679,
+    "sha256": "1e7b1032fbc22df904a596c30b4eda069924a6a00d24066995658e9f85c2e6a4"
+  },
+  {
+    "name": "sounds/sfx_male0_happy0.raw",
+    "bytes": 46619,
+    "sha256": "68af40012bb1516daf029f6b056af21c3d2e68dc617ba620e552e7b8143dd84f"
+  },
+  {
+    "name": "sounds/sfx_male0_joke0.raw",
+    "bytes": 63688,
+    "sha256": "507619214b6c0353331ef59ff646c541a61b31ed77fc89b60a9ba3b2d3658221"
+  },
+  {
+    "name": "sounds/sfx_male0_laugh0.raw",
+    "bytes": 21978,
+    "sha256": "214b4eafbf93f61db2b6f4816c423de976c7894b67a340d20438c7cbc07c0670"
+  },
+  {
+    "name": "sounds/sfx_male0_sad0.raw",
+    "bytes": 51147,
+    "sha256": "5bc0e8c5a913126eabea6943506cbc42e017d018637f02e9b116ed6282f70f95"
+  },
+  {
+    "name": "sounds/sfx_male1_angry0.raw",
+    "bytes": 44255,
+    "sha256": "5bfa5fdfedcaa23abec49e691fea51a7c2232a659a185546639f8763a6e1a848"
+  },
+  {
+    "name": "sounds/sfx_male1_convo0.raw",
+    "bytes": 64680,
+    "sha256": "0142409c4b6d5e9c04b6916728afb8ecb7e84c93fb4dc0ffe189198a84468072"
+  },
+  {
+    "name": "sounds/sfx_male1_convo1.raw",
+    "bytes": 57225,
+    "sha256": "e44eb67a060761c26820259f63840e997e2ebffac52b5b2a9d780473ce7d2b48"
+  },
+  {
+    "name": "sounds/sfx_male1_convo2.raw",
+    "bytes": 46958,
+    "sha256": "429f26fb70e80343deff6c8a9a9f66cfd210426d7373c0de049e7463fc9e3f0d"
+  },
+  {
+    "name": "sounds/sfx_male1_flirt0.raw",
+    "bytes": 30693,
+    "sha256": "ccf397a5720740787902b211e77da4be1cd0e2d5c585add8d5e97a94bfe049cf"
+  },
+  {
+    "name": "sounds/sfx_male1_happy0.raw",
+    "bytes": 23139,
+    "sha256": "0278212ba61e471d51ea890b5b719e80382f2a45151be604eb6c0901c6f8e8bc"
+  },
+  {
+    "name": "sounds/sfx_male1_joke0.raw",
+    "bytes": 41380,
+    "sha256": "24181154808ddfe10848e300075e57b11e8032a7d5997860f1ee929916c8a613"
+  },
+  {
+    "name": "sounds/sfx_male1_laugh0.raw",
+    "bytes": 29489,
+    "sha256": "57518762dbdabcb6c143091270ca547d4bebb5215f4d057c0e0632d497877541"
+  },
+  {
+    "name": "sounds/sfx_male1_sad0.raw",
+    "bytes": 53458,
+    "sha256": "7e5eb7bcf3cd27f9ba3dfe6a6a557bb560bd0e04ed4fa83920b23eec777b8464"
+  },
+  {
+    "name": "sounds/sfx_minigame_win.raw",
+    "bytes": 14368,
+    "sha256": "5e550e5aca6309e4ef31f7f7183211fd29b517d9b001f7efd85b888cbf229ce1"
+  },
+  {
+    "name": "sounds/sfx_object_breaking.raw",
+    "bytes": 12491,
+    "sha256": "f97cbfd973ff1d990858712c08ee133a25156ff28b03406c9c90696fdcc2f33e"
+  },
+  {
+    "name": "sounds/sfx_placeitem.raw",
+    "bytes": 7440,
+    "sha256": "d20fa663de4865a0caf7e2834976765139cbb1b8705ff98ab7ade245672b9adb"
+  },
+  {
+    "name": "sounds/sfx_relieving_self.raw",
+    "bytes": 33024,
+    "sha256": "545f89093ad1b75820f6783666c86bc35112f546d7cd8cc3cbaf2d0225817436"
+  },
+  {
+    "name": "sounds/sfx_repair_spark.raw",
+    "bytes": 16704,
+    "sha256": "4d95035dd0fcc6b4c0315e769d159601b98503631074f510126a02efe5c88b28"
+  },
+  {
+    "name": "sounds/sfx_shower_running.raw",
+    "bytes": 34304,
+    "sha256": "62d5aacb45a8a4c7fbf830b9c8334ab22352a6eef1cddd5915887fb73d4fc766"
+  },
+  {
+    "name": "sounds/sfx_Slap.raw",
+    "bytes": 4713,
+    "sha256": "a826d5585679936fc207ad96c566933fbd01b7889e446519a144bae416cc1d5b"
+  },
+  {
+    "name": "sounds/sfx_timer_minigame.raw",
+    "bytes": 4878,
+    "sha256": "06dcabb5209fa5666e3bd6bdd280336264eee2349c1f8afd72dcf8b183009a1b"
+  },
+  {
+    "name": "sounds/sfx_trash_can_over.raw",
+    "bytes": 61762,
+    "sha256": "0aa011bd440cfbb1f34c6ecf74690e5fd6ee7dce0ad993422a1cc4291481c639"
+  },
+  {
+    "name": "sounds/sfx_tv_action.raw",
+    "bytes": 58203,
+    "sha256": "058cb916ef7dc9247b6d8f7391ec0cfcf9c720b71fa92524fc411b2d47696d2e"
+  },
+  {
+    "name": "sounds/sfx_tv_comedy.raw",
+    "bytes": 60032,
+    "sha256": "4b8d4077fdd9d4cca9dfdd5425e7c24d84d9da2120231ec69f045b8ce969ac89"
+  },
+  {
+    "name": "sounds/sfx_ui_back.raw",
+    "bytes": 11976,
+    "sha256": "78ea8dba740e4e6df7a1342c0b3792f0e89365a610acf5aad9e2807bf38f9a32"
+  },
+  {
+    "name": "sounds/sfx_ui_click.raw",
+    "bytes": 340,
+    "sha256": "c164a1dd1b3abb0c0e69c95787e01352628df6939a6921629df924d5f4db3802"
+  },
+  {
+    "name": "sounds/sfx_ui_navigate.raw",
+    "bytes": 4287,
+    "sha256": "be0bc4fd3b3c44cf1018cf99f75c8b1d300a06247a1f1f80a018b185154b13f7"
+  },
+  {
+    "name": "sounds/sfx_ui_select.raw",
+    "bytes": 13296,
+    "sha256": "9a3f368964d44858f64e218ec01be8bbe999b9bd39db58b3e9656dfe616566dd"
+  },
+  {
+    "name": "sounds/sfx_ui_toggle.raw",
+    "bytes": 4096,
+    "sha256": "85ba9c711265385f6e043dae2a2095ddebab2e96a66f3eafd498c95d6ecea164"
+  },
+  {
+    "name": "sounds/sfx_wish_complete.raw",
+    "bytes": 22691,
+    "sha256": "68bba97be2f290b72b035262d97db04717ccc434546606e4eed3050cc0075e95"
+  },
+  {
+    "name": "anim2d.m3g",
+    "bytes": 141632,
+    "sha256": "d2cd083b6cdb5132a3de8dee171526b91d28894d8742c001ab2b77e06438b779"
+  },
+  {
+    "name": "centralpark.m3g",
+    "bytes": 179902,
+    "sha256": "414963e93dbaebd718a1d26e788df7cd318c1afca049cbfae4057e01838ced05"
+  },
+  {
+    "name": "fx_bathwater.m3g",
+    "bytes": 20181,
+    "sha256": "35df7a2aeef7b9668d7ce6f329e4bfa8a21a1fd300505795a03796954a3f26cb"
+  },
+  {
+    "name": "fx_broken_electrics_sparks.m3g",
+    "bytes": 2922,
+    "sha256": "42dbc16897356bb42327a530cd5dfcfdcaf0a2d0ae6e36bcf8b0600e697fae55"
+  },
+  {
+    "name": "fx_steam_add.m3g",
+    "bytes": 15931,
+    "sha256": "8b4442908d706c024d4b457932ff9b1322aa53c6ba781cd30f7e06a33be20532"
+  },
+  {
+    "name": "fx_stereo_cheap_on_add.m3g",
+    "bytes": 6886,
+    "sha256": "a119bc8894036b49785d5866afa7fc5a88a78473f86f0c89ac5e40972e820926"
+  },
+  {
+    "name": "fx_stereo_unique_on_add.m3g",
+    "bytes": 6811,
+    "sha256": "d8bd817824f74fa4516231b0dbdb26c4af5dc37a9a9ec0d2a8a294324694a3fa"
+  },
+  {
+    "name": "fx_stink_cloud_add.m3g",
+    "bytes": 15931,
+    "sha256": "6936be122ccfce45d078c91d0d81c185035f5d5199edcea12047c7e6b4e77a51"
+  },
+  {
+    "name": "gardening_fruit_bellpepper.m3g",
+    "bytes": 5777,
+    "sha256": "352b121dfe60e23d5efa8c2cf9ea117eb4d00cd46487aecf55fb01c24e44b613"
+  },
+  {
+    "name": "gardening_fruit_carrot.m3g",
+    "bytes": 6843,
+    "sha256": "b63cce91252c6d175c15867407a5f6d04bc5644c8e6021ff228f901b47a4ad92"
+  },
+  {
+    "name": "gardening_fruit_corn.m3g",
+    "bytes": 4169,
+    "sha256": "a28492a6f2668209bcb6d6455176944d51864b4cf0d5ec30eedbcdb30de1965f"
+  },
+  {
+    "name": "gardening_fruit_lettuce.m3g",
+    "bytes": 6300,
+    "sha256": "a2f6d479d82975b464bb6d2e67ddfa3840f01a2f70db612e99a1b3f652d54259"
+  },
+  {
+    "name": "gardening_fruit_tomato.m3g",
+    "bytes": 3955,
+    "sha256": "14f38a1a97230dbadd80f81b95fcee232ba68ec7dfa276d9f2168030e62c8e16"
+  },
+  {
+    "name": "gardening_plant_short.m3g",
+    "bytes": 893,
+    "sha256": "38f49df89793ebef66b67e0b094a59605dadcf73be4cded9dfd43676ef672085"
+  },
+  {
+    "name": "gardening_plant_tall.m3g",
+    "bytes": 21204,
+    "sha256": "3e19935ec3257cdae37ef0d31ac03ce50288ed1fbe4ba6a8d1f18cc5e629745c"
+  },
+  {
+    "name": "gardening_stake.m3g",
+    "bytes": 904,
+    "sha256": "701775864d48b52978eefd1dfc72b3f8a966a877b7ec2d6becc32a75e875a194"
+  },
+  {
+    "name": "gardening_veggiepatch_2x2.m3g",
+    "bytes": 1851,
+    "sha256": "bdf76ecca87e636505d0fe1cfec61726895362b6ea57f55e8dfa413289962904"
+  },
+  {
+    "name": "gardening_veggiepatch_2x3.m3g",
+    "bytes": 2461,
+    "sha256": "2d1576377f482e0724731d0979e92390f9b5a2b73aa30f57bbde9c192587006f"
+  },
+  {
+    "name": "house_path_and_road.m3g",
+    "bytes": 3286,
+    "sha256": "8837f73b880d05eec228fb7dd5ec94c254e61f1f19e9fc51daf2630a53ac78fb"
+  },
+  {
+    "name": "house_path_and_road_and_carspot.m3g",
+    "bytes": 3273,
+    "sha256": "3852b5ed1cd47f4d32174704d284c8d5db48f872ff5376ef1541fd6af4931954"
+  },
+  {
+    "name": "mini_sim_car.m3g",
+    "bytes": 13693,
+    "sha256": "b6f38622fe74ac726e802dd38dbbc907675940f8b58ed6462a917f321ab0c159"
+  },
+  {
+    "name": "mini_sim_npc.m3g",
+    "bytes": 10838,
+    "sha256": "184e4cfe3dc1faf589b23fa48842eb132d9beea0215c70842603adfb50c76edd"
+  },
+  {
+    "name": "mini_sim_player.m3g",
+    "bytes": 10913,
+    "sha256": "64001c01c40e35b7eef9ddd8bc93fed53cdfbeec3bff72528374b8b53c66c16c"
+  },
+  {
+    "name": "minigame_cooking_pot.m3g",
+    "bytes": 55814,
+    "sha256": "b4e021f84a8f83fa642bac91aa98a1b1f83a6c47473cb597fb57cbfbe4eb087f"
+  },
+  {
+    "name": "minigame_elecrepair_capacitor.m3g",
+    "bytes": 3794,
+    "sha256": "c35cd8a22595b09b79883c3620e1a3de931f152ca0266d273350172fb3d9d713"
+  },
+  {
+    "name": "minigame_elecrepair_capacitor_dud.m3g",
+    "bytes": 3794,
+    "sha256": "b22483f600abc17a69f1da5e24da44f2e4b72e79391b04c240807ede78e737ad"
+  },
+  {
+    "name": "minigame_elecrepair_circuit_fx_01.m3g",
+    "bytes": 1884,
+    "sha256": "568694329b31f723accde97f475b9b234c0101c4a96b41bd5cf6544de59a9885"
+  },
+  {
+    "name": "minigame_elecrepair_circuit_fx_02.m3g",
+    "bytes": 1884,
+    "sha256": "e7bb87e04686437e65833ccbcc04cd0c85716fb1044653ab3258f860fa62b39d"
+  },
+  {
+    "name": "minigame_elecrepair_circuit_fx_03.m3g",
+    "bytes": 1884,
+    "sha256": "a62b94121075ad4dc9c7a02e7e8630e290d85d0f5a517c7538ff6b6f8848adff"
+  },
+  {
+    "name": "minigame_elecrepair_circuit_fx_04.m3g",
+    "bytes": 1884,
+    "sha256": "96291567607b4f011ce2d5cafd443427403e6f4ce704d7d89675271da1579fa5"
+  },
+  {
+    "name": "minigame_elecrepair_circuit_fx_05.m3g",
+    "bytes": 1884,
+    "sha256": "09e0eeb1e0962cb35729df4d7eda8f424de9099adabb2e2e8494d1fbf35b8d32"
+  },
+  {
+    "name": "minigame_elecrepair_circuit_fx_06.m3g",
+    "bytes": 1884,
+    "sha256": "d370a2f6248ada12e577c505102c6433f1b93ff10c12e7aa401f8c62a7a1a58a"
+  },
+  {
+    "name": "minigame_elecrepair_circuit_fx_07.m3g",
+    "bytes": 1884,
+    "sha256": "fc8b35c157430c4f243a4b3d2f3cb731a37fe08d15209adb2ccf177d9ce17965"
+  },
+  {
+    "name": "minigame_elecrepair_circuit_fx_08.m3g",
+    "bytes": 1884,
+    "sha256": "7128c09f9683b2abfd33201d858cd881a5775fd18d6ad40f1687422be73d77f1"
+  },
+  {
+    "name": "minigame_elecrepair_circuit_fx_09.m3g",
+    "bytes": 1884,
+    "sha256": "dd943804bad8d0fecc1dd4d7142ae3e55556f647150cd952563221eb4c1df7ab"
+  },
+  {
+    "name": "minigame_elecrepair_circuit_fx_10.m3g",
+    "bytes": 1884,
+    "sha256": "5d9da159e370b53b57bb0ac8f3d2205b6f0c1c03f6d35e4e8c639ae33100f645"
+  },
+  {
+    "name": "minigame_elecrepair_circuit_fx_11.m3g",
+    "bytes": 1884,
+    "sha256": "bc6d62ea84fae2688122bbbe2a4bb79cd14f8223a6edc3305d5ed68f690a8843"
+  },
+  {
+    "name": "minigame_elecrepair_circuit_fx_12.m3g",
+    "bytes": 1884,
+    "sha256": "3df47abafdb10e764fc206f5c039fc0fff62604f1fc48eed1bb769f0a238653b"
+  },
+  {
+    "name": "minigame_elecrepair_circuit_fx_13.m3g",
+    "bytes": 4240,
+    "sha256": "d9fc536ed63e6ff1dc13e4bee81b8fa460b58aec7705203548aea37e6307d903"
+  },
+  {
+    "name": "minigame_elecrepair_circuit_fx_14.m3g",
+    "bytes": 4240,
+    "sha256": "6638c3063d042b58a1020c9c85330beb68c06a77b7d9d819a2734c945547b0ea"
+  },
+  {
+    "name": "minigame_elecrepair_circuitboard.m3g",
+    "bytes": 26237,
+    "sha256": "7bee86ef51f4225b9752399d11820a43ae888564da9dd5b2b532d9a6f56fe426"
+  },
+  {
+    "name": "minigame_elecrepair_resistor.m3g",
+    "bytes": 2496,
+    "sha256": "e680fe0f9c16ac1a892e1ce1819a6ace5743479bb77f727da61256be0e20c6a6"
+  },
+  {
+    "name": "minigame_elecrepair_resistor_dud.m3g",
+    "bytes": 2496,
+    "sha256": "3a7a4b2d046dd7477ba2be91a5f7a1f308a0c6481dc324c1091b93ae9aaa2fa4"
+  },
+  {
+    "name": "minigame_elecrepair_spark_fx.m3g",
+    "bytes": 13147,
+    "sha256": "6ab56c94a2024a0b27037169f25c011d5e61e3be67599e14111c33aa24ddab5e"
+  },
+  {
+    "name": "minigame_elecrepair_transistor.m3g",
+    "bytes": 2496,
+    "sha256": "1e23d38c718bb2243c42a6d53401ab60163a5eaf2c36ace6d03d4f1b9da9fbc1"
+  },
+  {
+    "name": "minigame_elecrepair_transistor_dud.m3g",
+    "bytes": 2496,
+    "sha256": "ff0d3b880f58c9621f6b63f810e5d5dcd81d0234a191bd4be819829baf906cef"
+  },
+  {
+    "name": "minigame_fish_01.m3g",
+    "bytes": 26413,
+    "sha256": "fe92aa133de5df5e9b49513c7f4784511ed0c17886c345e6f86a2885bc669cec"
+  },
+  {
+    "name": "minigame_fish_02.m3g",
+    "bytes": 19985,
+    "sha256": "3f140807ff583d3a76397c7eb7bb0e751c418e49b7430a536693c28663f7464e"
+  },
+  {
+    "name": "minigame_fish_03.m3g",
+    "bytes": 19985,
+    "sha256": "522b4e20703e60a21e515429790f74f1e849414cb6e3f50b8f62b282ffdd081e"
+  },
+  {
+    "name": "minigame_fish_04.m3g",
+    "bytes": 19985,
+    "sha256": "32dcc6c2683f73de7390ac708883a049779e0af194b9b5b178f35603fea1bd03"
+  },
+  {
+    "name": "minigame_fishing_rod.m3g",
+    "bytes": 51069,
+    "sha256": "b3ce7ecf062dc070ef15be2b5e2631ec393a38cb5649e4c9ad919a32b0d731d5"
+  },
+  {
+    "name": "object_bathtub_basic.m3g",
+    "bytes": 12723,
+    "sha256": "dfb3eedad8d148a290cecb5034a0797c8517eda66ac53cfef45b3b5511be0ab3"
+  },
+  {
+    "name": "object_bathtub_oriental.m3g",
+    "bytes": 11123,
+    "sha256": "27ecc91a70a4f6e6139227622bd1daf5243a144186a495ad6f4cab4ecdd723d0"
+  },
+  {
+    "name": "object_bed_bohemian.m3g",
+    "bytes": 17197,
+    "sha256": "56cbf32995fc67da3cc8de9831778d2f0919efc08ad2c89cb7e1898187d50f28"
+  },
+  {
+    "name": "object_bed_cheap.m3g",
+    "bytes": 7470,
+    "sha256": "3c652b419b0f5e38d0c8312ba02eb7855f9224adfa7a1e0c5c39ea63d2516093"
+  },
+  {
+    "name": "object_bed_mission.m3g",
+    "bytes": 9989,
+    "sha256": "30619131c2d5915b25da3efb0024c51ad71f5e8f3ee2003ca433d69a2a6fc2ed"
+  },
+  {
+    "name": "object_bed_modern.m3g",
+    "bytes": 7342,
+    "sha256": "dd8072e3aa71b853631302dcf451626bd67c934902662a2ce6bf5519d815f3f8"
+  },
+  {
+    "name": "object_bed_retro.m3g",
+    "bytes": 5902,
+    "sha256": "33d5730da1ffd7e5b71470edabdf8a0169eede714dada7739b3701f9728a659e"
+  },
+  {
+    "name": "object_benchtop_atomic_age_a.m3g",
+    "bytes": 3841,
+    "sha256": "289347b387efe4fcacaf027721beada9dfcd085debc5746af78fd50f2cf19ae4"
+  },
+  {
+    "name": "object_benchtop_atomic_age_b.m3g",
+    "bytes": 4429,
+    "sha256": "ead6cff5d27d36ce60db92e94d61ff5c5c14a990832e388edc93de07895a2492"
+  },
+  {
+    "name": "object_benchtop_atomic_age_corner.m3g",
+    "bytes": 2125,
+    "sha256": "390134f5e030b19a7cb9c464412f8cb2285d7d02b65c0816627dc802ac3bbfba"
+  },
+  {
+    "name": "object_benchtop_mission_a.m3g",
+    "bytes": 2897,
+    "sha256": "f135019f72c8c3242a645709056403a2de7dd0cbe426962066a38d2c6e6af0a8"
+  },
+  {
+    "name": "object_benchtop_mission_b.m3g",
+    "bytes": 2897,
+    "sha256": "6fddeebd7fafac935b1c02c2096922e83ca70bf88ec096664ddfa38ca7deb26e"
+  },
+  {
+    "name": "object_benchtop_mission_corner.m3g",
+    "bytes": 3640,
+    "sha256": "99869f441bb851df2e03b6624ae9e771f9d5f26cdca6f31c51ebab5c1e0a1ba8"
+  },
+  {
+    "name": "object_benchtop_modern_a.m3g",
+    "bytes": 4077,
+    "sha256": "0c6bf3023a5a3adb7b0c15c125da016e9468203f1efb8b3228739c3d114bc245"
+  },
+  {
+    "name": "object_benchtop_modern_b.m3g",
+    "bytes": 4009,
+    "sha256": "01370a1d119aace07cebc2ec74f5efd3d0164b55268139834e7ac70be28a8055"
+  },
+  {
+    "name": "object_benchtop_modern_corner.m3g",
+    "bytes": 2217,
+    "sha256": "a23b61b642b0ea860b5189b91b1901f02671d099d407ab3f69a36f4becbeaa1c"
+  },
+  {
+    "name": "object_bookcase_cheap.m3g",
+    "bytes": 15627,
+    "sha256": "5eaf773cb3f32a85b73f6410e5bf89b860ce5b6c8f68818d08a047e1109081f9"
+  },
+  {
+    "name": "object_bookcase_modern.m3g",
+    "bytes": 7912,
+    "sha256": "8f87bc6df6be967fdc82bf55f31dcf8e4654ac73d742af86f653ceb0f0f44e6e"
+  },
+  {
+    "name": "object_car.m3g",
+    "bytes": 15276,
+    "sha256": "044c1d45e083593b4d8ee1125fd45ce4b74d31b33778a18590187f97335f2bd4"
+  },
+  {
+    "name": "object_chair_living_colonial.m3g",
+    "bytes": 9862,
+    "sha256": "b08cad1a53fc510420e33e8993108eebcc457c862ae25a10f77c30c387504c93"
+  },
+  {
+    "name": "object_chair_living_comfy.m3g",
+    "bytes": 5246,
+    "sha256": "4449ef1258fc6a9f16bde0270433fd4e33eb1591e638c886d88b61bb22738439"
+  },
+  {
+    "name": "object_chair_living_fun.m3g",
+    "bytes": 3794,
+    "sha256": "38f1473148fe9890e552422e8df86eb64db24a23e3ec95c3232cf1fc1251a46c"
+  },
+  {
+    "name": "object_chair_living_mission.m3g",
+    "bytes": 8340,
+    "sha256": "5c9846839b755d219b2e14632a2e04a2db3ef1c99dd2631bc06e06a9599152ab"
+  },
+  {
+    "name": "object_chair_living_modern.m3g",
+    "bytes": 10720,
+    "sha256": "cf45390e3eb4bf1fe31476df816425f08707bc5217ae198677f3de3a09342921"
+  },
+  {
+    "name": "object_coffeemaker_fun.m3g",
+    "bytes": 4795,
+    "sha256": "5380a926f3e7297a9c1c96962fcf32d5e2db0edde488e08db5265775d2589bd3"
+  },
+  {
+    "name": "object_coffeemaker_modern.m3g",
+    "bytes": 3550,
+    "sha256": "2fdbfb85ebe5e2b5249362ee2399298f87e15dfc4dd3bde116365bd2393c30e1"
+  },
+  {
+    "name": "object_coffeetable_cheap.m3g",
+    "bytes": 6000,
+    "sha256": "62ca023556ef47438b368e38ea7cd2bc430906fda8f1b312ef5571b210918be1"
+  },
+  {
+    "name": "object_coffeetable_colonial.m3g",
+    "bytes": 7235,
+    "sha256": "2ac69ac1b610b314818ce40357b11e553637f678dfb258936e8d8b81a2bcc495"
+  },
+  {
+    "name": "object_coffeetable_fun.m3g",
+    "bytes": 5056,
+    "sha256": "afad83c56b90e9485eb0832436a6008947f812da81da69022d71dfcd650b0dc8"
+  },
+  {
+    "name": "object_coffeetable_mission.m3g",
+    "bytes": 9565,
+    "sha256": "6bc4d52c2d1ba7f70a96885affe33ab7703f659b4cd7390088f3e9027de11952"
+  },
+  {
+    "name": "object_coffeetable_modern.m3g",
+    "bytes": 4416,
+    "sha256": "9afc884d3ddd1892df8535504299324a665875fb4c8753645ad7f31be637c986"
+  },
+  {
+    "name": "object_computer.m3g",
+    "bytes": 8012,
+    "sha256": "03a6aaaea832ea91f9d65fb65fba6e946a6e3304ea6baae5ad864a53bc9db980"
+  },
+  {
+    "name": "object_diningchair_cheap.m3g",
+    "bytes": 2249,
+    "sha256": "7237a1ee879981aa0d2016f89cfdac47ffa0b8ee9f56080808b28ff8fabe858f"
+  },
+  {
+    "name": "object_diningchair_colonial.m3g",
+    "bytes": 7202,
+    "sha256": "cb5575bf71cd667299fb8cad4c8109101a7a85f2a8f6fad8b08c5eae46b773f2"
+  },
+  {
+    "name": "object_diningchair_fun.m3g",
+    "bytes": 3982,
+    "sha256": "580806194ead5925000e49fc67144f48701cb684fbfa1d2800ef2b56162af795"
+  },
+  {
+    "name": "object_diningchair_mission.m3g",
+    "bytes": 7068,
+    "sha256": "139c24976963bd38c4da8f9a694dd9c73b8261a44e3e8689f6176daede5fd3ba"
+  },
+  {
+    "name": "object_diningchair_modern.m3g",
+    "bytes": 4140,
+    "sha256": "d9a825bc4e62c7df35d63cd608604f497025d01e6506cdc9131325f9238da5b7"
+  },
+  {
+    "name": "object_diningtable_cheap.m3g",
+    "bytes": 6984,
+    "sha256": "8bc01b0e7a5282f4be97bea9556d181016649366cca09f2707fc43b3b54fde4f"
+  },
+  {
+    "name": "object_diningtable_colonial.m3g",
+    "bytes": 6961,
+    "sha256": "7f44ada8c65efec3eb6a8f13a866009ba16c3d0dc4ee19258e3a1849ac90b5d1"
+  },
+  {
+    "name": "object_diningtable_fun.m3g",
+    "bytes": 5056,
+    "sha256": "6df897b7c0703f5d638f7e8a453ffcd9d69d3e1ba55a9b3f27c39b522620bce0"
+  },
+  {
+    "name": "object_diningtable_mission.m3g",
+    "bytes": 8571,
+    "sha256": "d75a05fffb86f88b9320864e9e20bd25f029346e8e7b8256b63b6ea4b7e2b166"
+  },
+  {
+    "name": "object_diningtable_modern.m3g",
+    "bytes": 4641,
+    "sha256": "20bc760ad720e861291f91067ccecd38f89962c98760d8c26c0ebabd6737f1b5"
+  },
+  {
+    "name": "object_diningtable_outdoor.m3g",
+    "bytes": 6287,
+    "sha256": "ef325b1f4cf9f1b0bbd21b7c6639f43db1e9853149118cca13421a355b2d69e5"
+  },
+  {
+    "name": "object_door_basic_double.m3g",
+    "bytes": 2750,
+    "sha256": "990e1c9f057239aa52e917e6ee183bcbb049db477d7acef9dec1349eec772c8a"
+  },
+  {
+    "name": "object_door_basic_single.m3g",
+    "bytes": 2595,
+    "sha256": "bfc95dc9e15b630de6968bc4dcfca195061f428fa8835d6cf81b96bfbbdb6554"
+  },
+  {
+    "name": "object_door_cheap.m3g",
+    "bytes": 5879,
+    "sha256": "3d387c6ba65ebed0248fe4ae74f7a505646d005834b38681ffab8cb81500b80d"
+  },
+  {
+    "name": "object_door_colonial.m3g",
+    "bytes": 5879,
+    "sha256": "5024be6085ec1a5866a0fa7f1b54ccd4e3daa3ef20ad1d5e2426717ecb8a773c"
+  },
+  {
+    "name": "object_door_modern.m3g",
+    "bytes": 6999,
+    "sha256": "6e232772bc82ec1879380e2bfebcf2fce09f9f56a1ab316a48cb56eff091484f"
+  },
+  {
+    "name": "object_door_retro.m3g",
+    "bytes": 6525,
+    "sha256": "86e9809e3cb2396567957f295cdefb9a1786c6755936714c1b1bb4dd7d758e5b"
+  },
+  {
+    "name": "object_endtable_mission.m3g",
+    "bytes": 4805,
+    "sha256": "dcfef2571843f8a0e57fa6025d0575ee7c7cedc71eb470075d8f5154d6288cfe"
+  },
+  {
+    "name": "object_fence_cheap.m3g",
+    "bytes": 2363,
+    "sha256": "01b02b6379606d18acb445066306f7fce09a5ac3ad54b72b904c8f1b8f3d7a9a"
+  },
+  {
+    "name": "object_fence_corner_cheap.m3g",
+    "bytes": 3330,
+    "sha256": "2decb2e8d7fa88fedd54993254799e73891d55a466b2fda0303b59e2bbba3fdd"
+  },
+  {
+    "name": "object_fence_corner_mission.m3g",
+    "bytes": 3530,
+    "sha256": "83e0afd798ec4ccf58340e3cb7189bebc37976cb43ed7c0023d0463f72cee837"
+  },
+  {
+    "name": "object_fence_corner_modern.m3g",
+    "bytes": 3100,
+    "sha256": "9415b70efdf6d17e1fe7dd3891327cfd5d2f67209cab28627f76410b49285f4c"
+  },
+  {
+    "name": "object_fence_corner_unique.m3g",
+    "bytes": 2808,
+    "sha256": "e04e89016220f9b88fe0d00dd3f61d45bf357133fe09768829222e162e959a02"
+  },
+  {
+    "name": "object_fence_mission.m3g",
+    "bytes": 2451,
+    "sha256": "d324f65a08bac94471e238475c193e4a2fa4162fb8775863d3140826d311b8c6"
+  },
+  {
+    "name": "object_fence_modern.m3g",
+    "bytes": 2423,
+    "sha256": "2f827282c814f385b171febddd453adfd370587eb2581a02132b1590ecea61b6"
+  },
+  {
+    "name": "object_fence_unique.m3g",
+    "bytes": 2273,
+    "sha256": "1c37b12c71f7975cc880b12fce408093e7562fb52e3fe583bc03b594a22f5ccc"
+  },
+  {
+    "name": "object_fridge_basic.m3g",
+    "bytes": 6165,
+    "sha256": "fd48150178a71c734dd1a0dfdd1616b70e0da16d1af1c1c41353e44b2cac60af"
+  },
+  {
+    "name": "object_fridge_cheap.m3g",
+    "bytes": 7371,
+    "sha256": "480b927b664072c29684bab3e9feb6cb4cec7cf24194943bdb0a8602b9b4425a"
+  },
+  {
+    "name": "object_fridge_fun.m3g",
+    "bytes": 10366,
+    "sha256": "86ea43a325ba8f81a81b744f54349777e3b9dd2641bcb97738f05ee3fadf3b46"
+  },
+  {
+    "name": "object_lamp_tablelamp_colonial.m3g",
+    "bytes": 9324,
+    "sha256": "ceed3d3a45aaefccc184d43d9e86ca4d41932b8f225fb4d7ff6d21fcce952d5a"
+  },
+  {
+    "name": "object_lamp_tablelamp_fun.m3g",
+    "bytes": 7311,
+    "sha256": "5e7969ef336bf017ca66618f0309fada1ace979fda1de66440e2ba3e04959cc3"
+  },
+  {
+    "name": "object_lamp_tablelamp_mission.m3g",
+    "bytes": 7490,
+    "sha256": "bf0ffd3d45a69f25dc1cdecc4038bf5df189c567d2f4714fa63c79dafe466aa4"
+  },
+  {
+    "name": "object_lamp_tablelamp_modern.m3g",
+    "bytes": 8855,
+    "sha256": "68db3721fa40819f425172ab29d61d6f61fb83689dde8417839836af5fe793c6"
+  },
+  {
+    "name": "object_lamp_tablelamp_retro.m3g",
+    "bytes": 11121,
+    "sha256": "312f99c8a5430731fe4cce64e769af0e5e579733b9408fbeffd708f17817e7f8"
+  },
+  {
+    "name": "object_lamp_tall_fun.m3g",
+    "bytes": 9806,
+    "sha256": "40c9d8d68b0aac44eb73fd56da0216a4dd7b343f5e1bce93915de6ef6894658d"
+  },
+  {
+    "name": "object_lamp_tall_mission.m3g",
+    "bytes": 8688,
+    "sha256": "4d1a6697b3c6fabe63bfe80bc7556a6e079707f6f35146f05e18ac98bd2b0cef"
+  },
+  {
+    "name": "object_lamp_tall_modern.m3g",
+    "bytes": 7658,
+    "sha256": "3a281809d7d3a8cea9c40677b4bb8487b26a80806b08bb24a0d543d9bce38a15"
+  },
+  {
+    "name": "object_lamp_tall_retro.m3g",
+    "bytes": 8758,
+    "sha256": "038d92b4556a6ebabc2d77607daa750eb3c2e006c1f473d432b487a771c935cc"
+  },
+  {
+    "name": "object_marker.m3g",
+    "bytes": 724,
+    "sha256": "26f11014487ae5111a8e6595027586c432ee66c6acac49a497492cdc71c1f5aa"
+  },
+  {
+    "name": "object_marker_icon_fishing.m3g",
+    "bytes": 6099,
+    "sha256": "01ab479a1e3c0bd94eab12542324243af3e9bb7b5af6c880422a28fc71fbda9e"
+  },
+  {
+    "name": "object_marker_icon_home.m3g",
+    "bytes": 6099,
+    "sha256": "6e518708613a3b298f16ea50569fc60019c3879491ea6d345e6ae49fb645826d"
+  },
+  {
+    "name": "object_marker_icon_townmap.m3g",
+    "bytes": 6099,
+    "sha256": "09f54657bf133d0c30e6a61b3dd8d86cf8602c595f75b672bb855c5439340c97"
+  },
+  {
+    "name": "object_marker_icon_walk_to.m3g",
+    "bytes": 7499,
+    "sha256": "02968f5f38d44497cd05f7f5eca3644f56d48638538dd6d461185369593a832e"
+  },
+  {
+    "name": "object_oven_cheap.m3g",
+    "bytes": 7015,
+    "sha256": "ef7c5349457129f31797020ab877329dfd68152839637a839f4bad1f0c075acf"
+  },
+  {
+    "name": "object_oven_modern.m3g",
+    "bytes": 5174,
+    "sha256": "5e65555f561e61469eedf9c8886f7620a768967c611c735635f52fe77d927d2a"
+  },
+  {
+    "name": "object_oven_unique.m3g",
+    "bytes": 5491,
+    "sha256": "0113f00b4c0c2a7cdf6d9f20ac1905eab177b1257d82dcaa3b0807723132701f"
+  },
+  {
+    "name": "object_plant_garden_flowers_cheap.m3g",
+    "bytes": 4453,
+    "sha256": "264358a33232fc1f292b33c56bbf6fee3b9e19fd0ccb19f51706d9a26c6ad8ef"
+  },
+  {
+    "name": "object_plant_potted_cactus_mission.m3g",
+    "bytes": 8435,
+    "sha256": "2d811a49ac8bbe23ba3abab169dc7ba6eb3b000c33014ad7cc7a3171fbc5fc43"
+  },
+  {
+    "name": "object_plant_potted_houseplant_unique.m3g",
+    "bytes": 2894,
+    "sha256": "023afe97f5c3d9e5f5ebb49885f09345844c88251f23015f9524228abfafdbb6"
+  },
+  {
+    "name": "object_plant_potted_posies_cheap.m3g",
+    "bytes": 3127,
+    "sha256": "6120316e0dffbaae14e4cd6d91174879ee0c8f31681f82140d841f5e776aa5e7"
+  },
+  {
+    "name": "object_plant_potted_sunflower_retro.m3g",
+    "bytes": 3041,
+    "sha256": "2ae20075d2e1418a49cb212a66f0411e3c86e45b6009d1dda079b6b41890e677"
+  },
+  {
+    "name": "object_plant_potted_topiary_modern.m3g",
+    "bytes": 9115,
+    "sha256": "e2346bf6ed2a269ae9e00091bd5a78187a1da3a6cbcdf0bb625cd44b60c07181"
+  },
+  {
+    "name": "object_plant_tree_cherryblossom.m3g",
+    "bytes": 6883,
+    "sha256": "db12a7a52a208892d92f9ce14ac9f0502063bc6ad7cf2a0aa0448ba9e6fcdbfa"
+  },
+  {
+    "name": "object_plant_tree_silverbirch.m3g",
+    "bytes": 3182,
+    "sha256": "08c3351b636a4e5f64a981e251c465e4f083b03e119a8dc5666b6f10eeeaac96"
+  },
+  {
+    "name": "object_plant_tree_tallfir.m3g",
+    "bytes": 3626,
+    "sha256": "d2a44870bbf4fd8e72719667cb8cc27d703bba4aeaa3dcde0014b607b91b3da5"
+  },
+  {
+    "name": "object_shower_basic.m3g",
+    "bytes": 11042,
+    "sha256": "240228cc6a0408f4685a71401c3916d39ab87686a60681a671e43cd2c5270f8c"
+  },
+  {
+    "name": "object_shower_loft.m3g",
+    "bytes": 12396,
+    "sha256": "a18b5cab421cecbb655347e6e09c921d4ffbc4d521d4e929300a18f4b710af5f"
+  },
+  {
+    "name": "object_sink_cheap.m3g",
+    "bytes": 5845,
+    "sha256": "6adfcd176a8e14a3e637b36dfa793118e3584b7dd53190cb76bfe91b4ebbb5fc"
+  },
+  {
+    "name": "object_sink_mission.m3g",
+    "bytes": 8994,
+    "sha256": "d84a34356a30109057a66273eab8978524f038fa4d72fa6c85785b397ac3d932"
+  },
+  {
+    "name": "object_sink_modern.m3g",
+    "bytes": 6525,
+    "sha256": "8109c35e3180670b7f066ca955b8ab50b35dc30425ec12b0a9a075df913c6100"
+  },
+  {
+    "name": "object_sink_retro.m3g",
+    "bytes": 8995,
+    "sha256": "6b02805e1690dd2ffebf8675e7b99aaab1fbd6ed0d40f2fdad0c0ea16a8f5904"
+  },
+  {
+    "name": "object_sofa_colonial.m3g",
+    "bytes": 10509,
+    "sha256": "5c312844f747d4dcb6ac832c7980c09a363defbc5f6bd6921ffcc1c48891fa69"
+  },
+  {
+    "name": "object_sofa_comfy.m3g",
+    "bytes": 11620,
+    "sha256": "e4adea996e5cc60fda5757d6978fffb2c58b82d029eeb6ae6b66577982cce1e3"
+  },
+  {
+    "name": "object_sofa_mission.m3g",
+    "bytes": 10791,
+    "sha256": "b0fb883e2647de2cc300de648c555ce2d6852073c7cb83f7e8640a56f4296c37"
+  },
+  {
+    "name": "object_sofa_modern.m3g",
+    "bytes": 12126,
+    "sha256": "ee725433338071df05718c69c9a711b9e1a3c0c28474a995cf259f9873688ded"
+  },
+  {
+    "name": "object_sofa_retro.m3g",
+    "bytes": 8506,
+    "sha256": "b52fac70475d2205ff2ae416bcbac798dd4b9055aad150bafde179a5df000d66"
+  },
+  {
+    "name": "object_stereo_cheap.m3g",
+    "bytes": 3336,
+    "sha256": "1d1ac30b5ed630a34febcd6478d5806fb373e76177dc2764184fcf86784ddf08"
+  },
+  {
+    "name": "object_stereo_unique.m3g",
+    "bytes": 8131,
+    "sha256": "f301b0dfde84665b7808fc7f152bf9d27871641322ad64ad5676ec38b759e737"
+  },
+  {
+    "name": "object_toilet_expensive.m3g",
+    "bytes": 8748,
+    "sha256": "61ab909df7a150a4e5c4eefe9d0e7f09d3e4d64e2434224b529cb5f51f450e2c"
+  },
+  {
+    "name": "object_trash_can.m3g",
+    "bytes": 16396,
+    "sha256": "f22ca2dcb09de48caa653be19749bcb09f1e820c9080115712b5993b2392399f"
+  },
+  {
+    "name": "object_tv_cheap.m3g",
+    "bytes": 5548,
+    "sha256": "9767a09e95e18021130cf7d49711d4c760d0ddf2b2b3d08644f92078906eb1c0"
+  },
+  {
+    "name": "object_tv_fun.m3g",
+    "bytes": 10227,
+    "sha256": "e67dd4da0b4628ed6c353f02b1d927800acc56430354b994572246918d31beb8"
+  },
+  {
+    "name": "object_tv_modern.m3g",
+    "bytes": 5762,
+    "sha256": "1c68b601737243947c342338a95b6f9d55c8e93e79c42c48a339101cc34363f7"
+  },
+  {
+    "name": "object_wallphone_unique.m3g",
+    "bytes": 9157,
+    "sha256": "50dce5402c20cd329a07627378b95978c4986951606a5f2c8c32d5e85cb108e6"
+  },
+  {
+    "name": "object_window_basic_double.m3g",
+    "bytes": 3934,
+    "sha256": "6e3324341fec538c3437cf8a585b5b42791b03128241d83fa91b0b12b0e60cc2"
+  },
+  {
+    "name": "object_window_basic_single.m3g",
+    "bytes": 3438,
+    "sha256": "07fd84cde73194602f408cfc9b6dc28a5f8daf20508d125eb2e72f40696ed2dc"
+  },
+  {
+    "name": "object_window_colonial_double.m3g",
+    "bytes": 3908,
+    "sha256": "76b8cdcb00b1bb5ae642a1bdc53aee72c1835d8b5a2b9eab79a7d93f044a2f8c"
+  },
+  {
+    "name": "object_window_colonial_single.m3g",
+    "bytes": 3372,
+    "sha256": "c02cd703d1bf1b39fd8ecaac0b1aa0cd54be9e32816dda18145e763cebc0ab93"
+  },
+  {
+    "name": "object_window_retro_double.m3g",
+    "bytes": 3870,
+    "sha256": "1b6d02885cf4fce537a5dec11eae4c063fd7c133a55b5b649a51457ab388b5cb"
+  },
+  {
+    "name": "object_window_retro_single.m3g",
+    "bytes": 3304,
+    "sha256": "0b9218fe9d4799cc769468345cd8f7b2cd739ec1cbefc91cb98682dfec47113c"
+  },
+  {
+    "name": "opaque_sf_naked_feet_skin01.png",
+    "bytes": 20507,
+    "sha256": "1e2da36ebfe9d7e518b718ebc1903639dfe16f4229c215e69096c6ff0fdbcbbc"
+  },
+  {
+    "name": "opaque_sf_naked_feet_skin02.png",
+    "bytes": 14686,
+    "sha256": "da302aa2313b0e14d0bd9d199767df4fa591b646a4b43a31b6d675cd9424f190"
+  },
+  {
+    "name": "opaque_sf_naked_feet_skin03.png",
+    "bytes": 22265,
+    "sha256": "fe260619ee0a116dd4ccbb3c870e4d607db7635500ac3948864e8426b49d46b4"
+  },
+  {
+    "name": "opaque_sf_naked_feet_skin04.png",
+    "bytes": 18827,
+    "sha256": "0626750e1fcfdcc45f4d63068fbbbf2e982271a2f9b0ccb3b2b7097b965c9c4d"
+  },
+  {
+    "name": "opaque_sf_naked_head_skin01.png",
+    "bytes": 57573,
+    "sha256": "9539def0ddad2aaaf647a4353aa2246f5ce4ba8be84508b08eb0290b025fe89d"
+  },
+  {
+    "name": "opaque_sf_naked_head_skin02.png",
+    "bytes": 46559,
+    "sha256": "5527fd5d757d472c6cfed7ef7de6c774e66568e92b7412a9280662065655fc5c"
+  },
+  {
+    "name": "opaque_sf_naked_head_skin03.png",
+    "bytes": 59076,
+    "sha256": "70895ca561a4d0803dfd98bdfc0a50daa31bcb986efcf8ed6d73334260fb438b"
+  },
+  {
+    "name": "opaque_sf_naked_head_skin04.png",
+    "bytes": 47763,
+    "sha256": "a7dbc0dfcaf709a1b6b9dc0d27db68e18560123460d8409e83bd5206c89a4279"
+  },
+  {
+    "name": "opaque_sf_naked_legs_skin01.png",
+    "bytes": 47515,
+    "sha256": "e3092dfab870f8348fd94846e8f4f320e6ba9d1cc159a36f45254451295e8ad0"
+  },
+  {
+    "name": "opaque_sf_naked_legs_skin02.png",
+    "bytes": 48669,
+    "sha256": "3c785be2d036a8da1fb0cc40dd3e41d65bd5738e772047ef33acaac6180d7fe6"
+  },
+  {
+    "name": "opaque_sf_naked_legs_skin03.png",
+    "bytes": 48555,
+    "sha256": "56bb7484e57138ea9b5572887f32ac8b5600dde30a69c93f94150f9351a1c129"
+  },
+  {
+    "name": "opaque_sf_naked_legs_skin04.png",
+    "bytes": 44724,
+    "sha256": "c8404a815a20d23bf555ac30586604aeb31e4f979e6b5670b2cd7a8c0ab27e55"
+  },
+  {
+    "name": "opaque_sf_naked_torso_skin01.png",
+    "bytes": 61893,
+    "sha256": "fb27c2b17a7cf224ff162fad4ed2813b0d3a62eb4dd9816079562f2024dd51d4"
+  },
+  {
+    "name": "opaque_sf_naked_torso_skin02.png",
+    "bytes": 63785,
+    "sha256": "9491d326152118a2ea1ada6caf7cdab31a10ffba4412efb11aa378f92bbbdee4"
+  },
+  {
+    "name": "opaque_sf_naked_torso_skin03.png",
+    "bytes": 65110,
+    "sha256": "2cd969f0b992a2c6a29029c638bc3bfd9bb08c2786c714f793c2f570aeee8a9b"
+  },
+  {
+    "name": "opaque_sf_naked_torso_skin04.png",
+    "bytes": 58688,
+    "sha256": "faf8ee4da087eba4cebdbb7f3d827d0edb800b55639c44f84f1e7b1dc7f917ef"
+  },
+  {
+    "name": "opaque_sm_naked_feet_skin01.png",
+    "bytes": 28197,
+    "sha256": "8f05eec6d1f3ccf2ecf77efee02ead4a20fcdd0576863423aba5714de9a9842e"
+  },
+  {
+    "name": "opaque_sm_naked_feet_skin02.png",
+    "bytes": 27670,
+    "sha256": "a9b6687411bd6ccccb0083b7d4cd03795fd13dfcb53221fb5ae78c602f773481"
+  },
+  {
+    "name": "opaque_sm_naked_feet_skin03.png",
+    "bytes": 26119,
+    "sha256": "5880dae4f98fbbc24f664e00b6dadab4c1d603826bf5c86fb2f5d38ca708b676"
+  },
+  {
+    "name": "opaque_sm_naked_feet_skin04.png",
+    "bytes": 21402,
+    "sha256": "8bd5413eea7743b1e99360f19fe8d76bf266586737b48ea8dd4a1dcc6f22e80f"
+  },
+  {
+    "name": "opaque_sm_naked_head_skin01.png",
+    "bytes": 52725,
+    "sha256": "99165c744a24921d1baf15240da9b24e5a87465d45f692b0ad2e33ce2ede4cdf"
+  },
+  {
+    "name": "opaque_sm_naked_head_skin02.png",
+    "bytes": 43543,
+    "sha256": "efa62dbc9319e530fb3392d85453da8de725caa0390e90ab17b62299a7eb95bc"
+  },
+  {
+    "name": "opaque_sm_naked_head_skin03.png",
+    "bytes": 52410,
+    "sha256": "9e70ff19053a753b7b27e1f6e4c54b0bc20cc91167a9fda21cd9dcec11c387df"
+  },
+  {
+    "name": "opaque_sm_naked_head_skin04.png",
+    "bytes": 42889,
+    "sha256": "ccabf177e7e206d40364a21f56e90215c84b4080b22daca4d708303dd60c419d"
+  },
+  {
+    "name": "opaque_sm_naked_legs_skin01.png",
+    "bytes": 59899,
+    "sha256": "e7c9e318534871badb9490f49b7dc3483eeb1618369137808cb423c19799aa6e"
+  },
+  {
+    "name": "opaque_sm_naked_legs_skin02.png",
+    "bytes": 64803,
+    "sha256": "fb28e0d957720b9a15d8576a868d87c3ba8009f51601dddb7fad6150ffcb07f2"
+  },
+  {
+    "name": "opaque_sm_naked_legs_skin03.png",
+    "bytes": 61323,
+    "sha256": "d91d2d69684c23c460c4540498a9b19b7d0acc42dca2d5334386c0bfa8d4bac2"
+  },
+  {
+    "name": "opaque_sm_naked_legs_skin04.png",
+    "bytes": 52376,
+    "sha256": "6b5b11e7d2afd9f9b0e77d434b83b0cb24268ce2f0ee5470b9aa4e356f251c94"
+  },
+  {
+    "name": "opaque_sm_naked_torso_skin01.png",
+    "bytes": 69334,
+    "sha256": "dda4b7c921993dbf49a528795375192053eded5a9bfe2d89128d268a6298ac1b"
+  },
+  {
+    "name": "opaque_sm_naked_torso_skin02.png",
+    "bytes": 77674,
+    "sha256": "1e85c324da7f126d19d71f5bc0c60f6d05394e7c4bd90507d2e9343cb37dc4f6"
+  },
+  {
+    "name": "opaque_sm_naked_torso_skin03.png",
+    "bytes": 73381,
+    "sha256": "e1c06096e5e50991d72669f132814c4f4ffd29a8960b0d768f7676e2f80d9828"
+  },
+  {
+    "name": "opaque_sm_naked_torso_skin04.png",
+    "bytes": 59129,
+    "sha256": "3bffef33e5150374999817bce02a00bb247046dd645fb4a5c3da27c3d90aaf6e"
+  },
+  {
+    "name": "paintover_sf_feet_boots_blueleather.png",
+    "bytes": 21909,
+    "sha256": "0a885f393ef6cae1acfb202cc6ed7b2868f97c456314d666b1a9984faf013784"
+  },
+  {
+    "name": "paintover_sf_feet_boots_brownleather.png",
+    "bytes": 27783,
+    "sha256": "a5dcdfdb61e206787cca996b2bf7665a244427e3205c6f51467050f66f0bf6e0"
+  },
+  {
+    "name": "paintover_sf_feet_boots_furry_black.png",
+    "bytes": 21317,
+    "sha256": "f7e791a5d70b1b81692c44de8872364731b32b4410fb8b0b692746c3033e3ef4"
+  },
+  {
+    "name": "paintover_sf_feet_boots_furry_brown.png",
+    "bytes": 24220,
+    "sha256": "3c875757510287737da1d0f697a101e35856890a0a14a0bdbbb01aec7e716ba2"
+  },
+  {
+    "name": "paintover_sf_feet_boots_furry_purple.png",
+    "bytes": 22209,
+    "sha256": "643344365edd601d5c5f62f9945130112e22a65efbb9db179544846ddcdca8da"
+  },
+  {
+    "name": "paintover_sf_feet_boots_furryblack.png",
+    "bytes": 23016,
+    "sha256": "8b32e68c65f50e91259d892553526ff454feefd76d0ac6553f6a49c85806a704"
+  },
+  {
+    "name": "paintover_sf_feet_boots_greenleather.png",
+    "bytes": 28996,
+    "sha256": "bc930e1caefcfa92c87725d644fe1baf86aa52dbb6983d7adef9e17367490d31"
+  },
+  {
+    "name": "paintover_sf_feet_boots_leather_brown.png",
+    "bytes": 17876,
+    "sha256": "994c8f2f4c18e74e5577e392d660bcb202c4c848311c48f3ad66dd850021fae0"
+  },
+  {
+    "name": "paintover_sf_feet_boots_leather_purple.png",
+    "bytes": 29712,
+    "sha256": "c921c443208d9031545f7b1f194da12a3d07774fd4818796a4410e4c1c42aa2a"
+  },
+  {
+    "name": "paintover_sf_feet_boots_leather_red.png",
+    "bytes": 18175,
+    "sha256": "5d94800e4685cb3f1ee8f9415ef17a9358e151417f42978b1b5d413dc759a56e"
+  },
+  {
+    "name": "paintover_sf_feet_boots_purpleleather.png",
+    "bytes": 27913,
+    "sha256": "a3cea35b087a1dee9df8c458d20104e2d4e5a41a376ea08b0cfe3997d5d86a49"
+  },
+  {
+    "name": "paintover_sf_feet_boots_strapped_lightblue.png",
+    "bytes": 19835,
+    "sha256": "0d89db64f8e4a742227bdd58cf160ffa3d66d0875df16895156c43f195dab5a9"
+  },
+  {
+    "name": "paintover_sf_feet_boots_strapped_red.png",
+    "bytes": 27978,
+    "sha256": "e771cf304e8cbb4619c6f88b8dfb2c2529a9a21cf28cfb51faef1c841db3a4da"
+  },
+  {
+    "name": "paintover_sf_feet_boots_strapped_tan.png",
+    "bytes": 29077,
+    "sha256": "a722b330ef0f7ebde74e7037926f622c2e720bebf1781771549cfdbef4297d0b"
+  },
+  {
+    "name": "paintover_sf_feet_boots_strappedtan.png",
+    "bytes": 30141,
+    "sha256": "45af5e45eff1e810006c3f6dd3991fc9b797d51860817f1f1829f27220e428b6"
+  },
+  {
+    "name": "paintover_sf_feet_flipflops_lightblue.png",
+    "bytes": 18113,
+    "sha256": "4d41b5b17faa02bb742308d89d42463c7e511a304e1a75216fc5c0f58f6fdaac"
+  },
+  {
+    "name": "paintover_sf_feet_flipflops_lime.png",
+    "bytes": 16712,
+    "sha256": "ff7ed4993ba15655c33879ce3df91bb42d5438ef76d39f3da27f74010edd6941"
+  },
+  {
+    "name": "paintover_sf_feet_flipflops_pink.png",
+    "bytes": 18903,
+    "sha256": "dca08df0a6a539ecbafc7b7ce4da92a76fda0255e4d3148159072062162919d1"
+  },
+  {
+    "name": "paintover_sf_feet_flipflops_yellow.png",
+    "bytes": 18266,
+    "sha256": "418562c605e142ce0120324bd2b9420956226066aa6786c1b03d5ff4a072c406"
+  },
+  {
+    "name": "paintover_sf_feet_highheels_black.png",
+    "bytes": 7994,
+    "sha256": "1284db563c8888eef191ec37e7c3fafe81e86832572d219b53e31d7bf56eced7"
+  },
+  {
+    "name": "paintover_sf_feet_highheels_blue.png",
+    "bytes": 13903,
+    "sha256": "2770032766771ed779031fe9fbe45ce0040bfa699694ccfa9bf4be716c505851"
+  },
+  {
+    "name": "paintover_sf_feet_highheels_jade.png",
+    "bytes": 12082,
+    "sha256": "486b79ed03d37ce7e4dfd873fef1c1627513bc7f6c90ce003f5362675b69eacb"
+  },
+  {
+    "name": "paintover_sf_feet_highheels_lightblue.png",
+    "bytes": 12376,
+    "sha256": "f3023c09a3bf7abcedcf7f2599f13d645bf80a992d395411f513d5d050fe07ca"
+  },
+  {
+    "name": "paintover_sf_feet_highheels_red.png",
+    "bytes": 10241,
+    "sha256": "22dcd5234bc4f9e6748c0563aea905a622e373d2a2cf541e04df4334bdbdf010"
+  },
+  {
+    "name": "paintover_sf_feet_runners_bluecasual.png",
+    "bytes": 18895,
+    "sha256": "359d444ead292a6ef359e602449361cea0f07c70e7cb884e1fc91b85eba586e3"
+  },
+  {
+    "name": "paintover_sf_feet_runners_casual_blue.png",
+    "bytes": 19209,
+    "sha256": "e00a16b8dc4b68e939cabae431b61c35049937a80e097af91efd9c631b04eaa2"
+  },
+  {
+    "name": "paintover_sf_feet_runners_casual_green.png",
+    "bytes": 20048,
+    "sha256": "fc9e75185e6faab961c185f9e7ef6e6dd2ca93e4a9545c458f3f67d9821beb83"
+  },
+  {
+    "name": "paintover_sf_feet_runners_casual_red.png",
+    "bytes": 19024,
+    "sha256": "924dd9db63385b69c5fd64f96bb97ee6a64cf109f8a77fd1e9f47ac9a8c3b99b"
+  },
+  {
+    "name": "paintover_sf_feet_runners_greencasual.png",
+    "bytes": 19197,
+    "sha256": "0ccef3a7a0b950fcb408868f94c513fc093995dc509254ab55ceebaf6e1903ac"
+  },
+  {
+    "name": "paintover_sf_feet_runners_pinkcasual.png",
+    "bytes": 19023,
+    "sha256": "da7470b2e10849f0557f9e860b73156c8fa14de1c707eeca3e4b080515365e28"
+  },
+  {
+    "name": "paintover_sf_feet_runners_redcasual.png",
+    "bytes": 19259,
+    "sha256": "b0c8bd6bb42a0956721f468e6cc75e21129c167706080347e7c876abbab5c05d"
+  },
+  {
+    "name": "paintover_sf_feet_sneakers_emostyle.png",
+    "bytes": 27284,
+    "sha256": "90ae719495e74b5e3c3854d5cc0edaed7b7b3bf901af46c502024ee06cb775ad"
+  },
+  {
+    "name": "paintover_sf_feet_sneakers_emostyle_blue.png",
+    "bytes": 37172,
+    "sha256": "3a9865c38c634402aa3ce7afb1e55693a9b5bc8b0aaad3c1ab6678db1706aa05"
+  },
+  {
+    "name": "paintover_sf_feet_sneakers_emostyle_green.png",
+    "bytes": 36873,
+    "sha256": "eb5e93cbcfebf77cca74d0ad9a165619c286f762e3c62819426416eb55b63240"
+  },
+  {
+    "name": "paintover_sf_feet_sneakers_emostyle_purple.png",
+    "bytes": 35913,
+    "sha256": "04a96a8e41b3de8b01dec84535b341f7184321a11b19f39445524e9149c8a047"
+  },
+  {
+    "name": "paintover_sf_feet_sneakers_emostyle_red.png",
+    "bytes": 36216,
+    "sha256": "b4cb9fe84f840b3cf9db8e1b13380b5ab702e2ef2e2439cf1f3faa11b057db31"
+  },
+  {
+    "name": "paintover_sf_legs_dressbottom_baroquedress_lightblue.png",
+    "bytes": 30512,
+    "sha256": "a3bfa7af6e40c77482d8fbf4cd591ad3166c1259af7878d0ba75427a29d62693"
+  },
+  {
+    "name": "paintover_sf_legs_dressbottom_baroquedress_purple.png",
+    "bytes": 29204,
+    "sha256": "b17a87bb57709d1f4e265bf617fddfdcacd6d7976972efc668e6e318b7c003d8"
+  },
+  {
+    "name": "paintover_sf_legs_dressbottom_baroquedress_red.png",
+    "bytes": 29988,
+    "sha256": "22c13c2ea10ae52d2ed9b6e75f84c171b965b42dd6e6a51701277f1a2401f45d"
+  },
+  {
+    "name": "paintover_sf_legs_dressbottom_leafdress_blue.png",
+    "bytes": 43968,
+    "sha256": "d1f58dd49710f5fb460aacede0d20e68fcf4be662c2863e20601c56d3f61d1b8"
+  },
+  {
+    "name": "paintover_sf_legs_dressbottom_leafdress_lime.png",
+    "bytes": 43718,
+    "sha256": "139ce4c64d5cf928ee7ad80a8e72b392bfdad45769ecb77c35f02e7839463d60"
+  },
+  {
+    "name": "paintover_sf_legs_dressbottom_leafdress_pink.png",
+    "bytes": 42329,
+    "sha256": "90b9a3fb9d4640b188b7a41ed2e3c6286d5e4ec1c8df87a4af110b2ff49b6168"
+  },
+  {
+    "name": "paintover_sf_legs_dressbottom_leafdress_yellow.png",
+    "bytes": 42136,
+    "sha256": "115634db86c39c10822d3879835af4b6de0095619ed41f201a09f965c31a081c"
+  },
+  {
+    "name": "paintover_sf_legs_dressbottom_silk_cyan.png",
+    "bytes": 49093,
+    "sha256": "bf1642cb5ec63fa6bd3859c6045724dc58fac3bee94d7b2f87809f5a441c947b"
+  },
+  {
+    "name": "paintover_sf_legs_dressbottom_silk_purple.png",
+    "bytes": 50193,
+    "sha256": "297199c35a9e88186f3a0dfd16424f7ae9862fcad16209c00c0d4120b9b6b9bd"
+  },
+  {
+    "name": "paintover_sf_legs_dressbottom_silk_red.png",
+    "bytes": 49297,
+    "sha256": "5a280222d0eb4e9a5fb37b1c061bbb87283726e920122a806dede91eda97d4fc"
+  },
+  {
+    "name": "paintover_sf_legs_longpants_blackjeans.png",
+    "bytes": 47932,
+    "sha256": "707955f842851d3827a5ee288d4555c3289dd8d12a4c3b1d5d382bd9613adbfe"
+  },
+  {
+    "name": "paintover_sf_legs_longpants_bluejeans.png",
+    "bytes": 125834,
+    "sha256": "dc251fd9a489745a96dac3ed84791f3bd424a7573b24ec65e8a4a634efa48854"
+  },
+  {
+    "name": "paintover_sf_legs_longpants_brownjeans.png",
+    "bytes": 97602,
+    "sha256": "91187f6b08e3abe28f05836db18a3991f46dfb1a437c4760db7503da1410c857"
+  },
+  {
+    "name": "paintover_sf_legs_longpants_greyjeans.png",
+    "bytes": 47966,
+    "sha256": "088fdfe6b31b29684c2ba6b22243ec441ce622c4a9b8cf0d434c29c804ad2d93"
+  },
+  {
+    "name": "paintover_sf_legs_longpants_jeans_black.png",
+    "bytes": 76258,
+    "sha256": "3e436a5293d9e01b6df89e6781e973635a86174b0239c0da7c3f9f1ff81cc057"
+  },
+  {
+    "name": "paintover_sf_legs_longpants_jeans_blue.png",
+    "bytes": 125087,
+    "sha256": "1da31050afed0a927958a99479a8571e2514ad447a04053d8d261de33fd65b60"
+  },
+  {
+    "name": "paintover_sf_legs_longpants_jeans_lightblue.png",
+    "bytes": 125511,
+    "sha256": "0afd1645d1342a08677e17217ef0e34bb266dbff56ee0b081169bb85e70c56aa"
+  },
+  {
+    "name": "paintover_sf_legs_longpants_leather_black.png",
+    "bytes": 74248,
+    "sha256": "44d918963ab648ec771759214740081855640358b7860b7a099b3f76d5c8b0a2"
+  },
+  {
+    "name": "paintover_sf_legs_longpants_leather_brown.png",
+    "bytes": 114438,
+    "sha256": "799b6f10eb555d03d4ab1f204b76faa95bbad4c7cccb7a04e75d14412f3a7298"
+  },
+  {
+    "name": "paintover_sf_legs_longpants_leather_snakeskin.png",
+    "bytes": 132094,
+    "sha256": "63bf4d814078fe00d9cdc84635464cef18ac289a509fce2ea2737ddc4cf8d05a"
+  },
+  {
+    "name": "paintover_sf_legs_longpants_leatherblack.png",
+    "bytes": 74248,
+    "sha256": "44d918963ab648ec771759214740081855640358b7860b7a099b3f76d5c8b0a2"
+  },
+  {
+    "name": "paintover_sf_legs_longpants_leatherbrown.png",
+    "bytes": 114438,
+    "sha256": "799b6f10eb555d03d4ab1f204b76faa95bbad4c7cccb7a04e75d14412f3a7298"
+  },
+  {
+    "name": "paintover_sf_legs_longpants_leathersnakeskin.png",
+    "bytes": 132094,
+    "sha256": "63bf4d814078fe00d9cdc84635464cef18ac289a509fce2ea2737ddc4cf8d05a"
+  },
+  {
+    "name": "paintover_sf_legs_longpants_slacks_beish.png",
+    "bytes": 99814,
+    "sha256": "efe2ae691a039ca24bd9238ad8c66bc14bd0a8b4dc61e491f0cf0c80daf734a6"
+  },
+  {
+    "name": "paintover_sf_legs_longpants_slacks_brown.png",
+    "bytes": 74141,
+    "sha256": "0f60567f2d316428bbf0532e34cca3d97577bd125cb5098e5fe3ff530835da71"
+  },
+  {
+    "name": "paintover_sf_legs_longpants_slacks_green.png",
+    "bytes": 74220,
+    "sha256": "2d2eafcad0ac3c41569fe37d58c749ef7e7dc517b3c27e07b959d4610358bedb"
+  },
+  {
+    "name": "paintover_sf_legs_miniskirt_emostyle.png",
+    "bytes": 85087,
+    "sha256": "b13219486df3d23a4409788f27cd1e62ed085406ecb84095502d0b1d122440fa"
+  },
+  {
+    "name": "paintover_sf_legs_miniskirt_emostyle_blue.png",
+    "bytes": 76686,
+    "sha256": "f602a6d64998a1f39efb955d1750952248e5e8d7b5ad28ebde8a33ecf8dcda29"
+  },
+  {
+    "name": "paintover_sf_legs_miniskirt_emostyle_green.png",
+    "bytes": 69363,
+    "sha256": "5df48ddc57e36caf0bf13763d26d88ad4575293d01d99a9209801b13f448cd9a"
+  },
+  {
+    "name": "paintover_sf_legs_miniskirt_emostyle_yellow.png",
+    "bytes": 83183,
+    "sha256": "e94a4d00441b1ce9308298106ed4ec5613da2b35bf684c4fa22fde006ef6a5bc"
+  },
+  {
+    "name": "paintover_sf_legs_miniskirt_leafdressblue.png",
+    "bytes": 42806,
+    "sha256": "b50a05ff7dd234de8d5000d740ee91242f3862ad109d7448fe1c6f371a70c6cf"
+  },
+  {
+    "name": "paintover_sf_legs_miniskirt_leafdresslime.png",
+    "bytes": 43885,
+    "sha256": "3ed8c6dac89fe3094e4b1c1dc5e610bad03937ff26ac7aab601404e6fff65e57"
+  },
+  {
+    "name": "paintover_sf_legs_miniskirt_leafdresspink.png",
+    "bytes": 42999,
+    "sha256": "ade74cd5b1d181556c78aef758cbf37666f5cbf512ef2ad38438ae493da133f9"
+  },
+  {
+    "name": "paintover_sf_legs_miniskirt_leafdressyellow.png",
+    "bytes": 42827,
+    "sha256": "42a4855279733ca2adb624b91acc828862dc6f8171ef3354ba5dcaf04aab84c8"
+  },
+  {
+    "name": "paintover_sf_legs_miniskirt_plain_purple.png",
+    "bytes": 43795,
+    "sha256": "d999a81a998c9a74a6f848b2b781a772b35c03857771ff6366a9d7bc82547139"
+  },
+  {
+    "name": "paintover_sf_legs_miniskirt_plain_red.png",
+    "bytes": 22330,
+    "sha256": "83c3982e79a015497a883fac91dc5d449a04df436cb76a87b33eafa461490bb3"
+  },
+  {
+    "name": "paintover_sf_legs_miniskirt_plain_yellow.png",
+    "bytes": 22219,
+    "sha256": "daab5bb6fdc96a7a7e6ef0c5cd154c5efb1af8abd7010f709b7b03e91025dfc2"
+  },
+  {
+    "name": "paintover_sf_legs_shorts_blackjeans.png",
+    "bytes": 17700,
+    "sha256": "c3c8ac755b1b3cf9682855749fa03098cd9f91ceceff43d1bc467bed8e6e8006"
+  },
+  {
+    "name": "paintover_sf_legs_shorts_bluejeans.png",
+    "bytes": 45652,
+    "sha256": "e8f04dc0400642ae483550055a465a095c75bf78c7ca436f8a2e7a5e7379c9e5"
+  },
+  {
+    "name": "paintover_sf_legs_shorts_brownjeans.png",
+    "bytes": 35879,
+    "sha256": "a10911e7b0ee37fd6be525a9560224096896159456ea71153a233f4322caa3d2"
+  },
+  {
+    "name": "paintover_sf_legs_shorts_greyjeans.png",
+    "bytes": 20846,
+    "sha256": "fded57696ebe907fb2c2c3744aa0039946c39ff53242f85611078ec43d421ff6"
+  },
+  {
+    "name": "paintover_sf_legs_shorts_jeans_black.png",
+    "bytes": 24810,
+    "sha256": "46d8e199933266cde27d2bdef4d17bed463c7d6ab0b2c6fd9cc68c9762c2f1fd"
+  },
+  {
+    "name": "paintover_sf_legs_shorts_jeans_blue.png",
+    "bytes": 45417,
+    "sha256": "22a40f54def70be6afcd92fefad573e592d07f8b0f6303a10181b5e2c596ec30"
+  },
+  {
+    "name": "paintover_sf_legs_shorts_jeans_grey.png",
+    "bytes": 25909,
+    "sha256": "70131c42ae9f18ad5a2b3f665b70c82c3e64fcc10c720f346994f5a28eeda465"
+  },
+  {
+    "name": "paintover_sf_legs_shorts_safari_beish.png",
+    "bytes": 20427,
+    "sha256": "a1e8f7dd2731d0b1bedbfa12b0b11a571fd28a48d89363cebb2076b5fcaeab73"
+  },
+  {
+    "name": "paintover_sf_legs_shorts_safari_green.png",
+    "bytes": 19682,
+    "sha256": "303d08ea7f3f7519fc89217e7171af3d729cbb260628da178a59e49caec7c4b0"
+  },
+  {
+    "name": "paintover_sf_legs_shorts_safari_navy.png",
+    "bytes": 19282,
+    "sha256": "00ce080a212823c8f72bc8f6f422ce167c75db82aa26b8c57d813ff6aa9763c0"
+  },
+  {
+    "name": "paintover_sf_legs_shorts_safaribeish.png",
+    "bytes": 38175,
+    "sha256": "6b0a623695cb63d31fab4a55124c8b930ab3683bec2c7affaa156db42546eca2"
+  },
+  {
+    "name": "paintover_sf_legs_shorts_sporty_green.png",
+    "bytes": 22458,
+    "sha256": "e0619e254c31d046462b7e5029901ce951b392d75e1faf8c92094ccb57e9bfa5"
+  },
+  {
+    "name": "paintover_sf_legs_shorts_sporty_lightblue.png",
+    "bytes": 36670,
+    "sha256": "9815a1efa965284e5db2fc97351213b2ae855c071e30601d2bad2a250b6ab0bc"
+  },
+  {
+    "name": "paintover_sf_legs_shorts_sporty_yellow.png",
+    "bytes": 18189,
+    "sha256": "dc33242fe255442983f60c7386955eababa1d6b51cce6dfce8aa19a611937fd0"
+  },
+  {
+    "name": "paintover_sf_legs_shorts_sportylightblue.png",
+    "bytes": 40288,
+    "sha256": "4ffb474d2351f4f9508d25dcd82673c279b61d902f3fdbdc25fd4070821d4b68"
+  },
+  {
+    "name": "paintover_sf_legs_shortskirt_dress_silkblue.png",
+    "bytes": 50005,
+    "sha256": "1e539925ad439c4a74ac71f682a89c4ae12ccd2cd57012effa8315c8e0b0a276"
+  },
+  {
+    "name": "paintover_sf_legs_shortskirt_dress_silkred.png",
+    "bytes": 49297,
+    "sha256": "5a280222d0eb4e9a5fb37b1c061bbb87283726e920122a806dede91eda97d4fc"
+  },
+  {
+    "name": "paintover_sf_legs_shortskirt_emostyle.png",
+    "bytes": 85123,
+    "sha256": "2b59ac96ecccf07c5f4240233c4fbf43d3ff3f20bd7ccb1b7f779f1b0a87eeaf"
+  },
+  {
+    "name": "paintover_sf_legs_shortskirt_emostyle_red.png",
+    "bytes": 81117,
+    "sha256": "47fd10ab9f96639c761b7781d752638b8f28e388699e1e7a6a068ffdb40c9b83"
+  },
+  {
+    "name": "paintover_sf_legs_shortskirt_leather_black.png",
+    "bytes": 28008,
+    "sha256": "5f2fb3f12ff8227d119028e0b9beebd013c654d37a5446bdae507d80ca41d0d1"
+  },
+  {
+    "name": "paintover_sf_legs_shortskirt_leather_brown.png",
+    "bytes": 36179,
+    "sha256": "1b9f7496bf7aa127473332e9a52e465dd3ef9613697d68d3cb44aa5a7dbb87c3"
+  },
+  {
+    "name": "paintover_sf_legs_shortskirt_leather_green.png",
+    "bytes": 36985,
+    "sha256": "beaa2302ecbd97077f82dfc6d9f06cc02e9f016aad6c2007cdff9558b81a2a23"
+  },
+  {
+    "name": "paintover_sf_legs_shortskirt_leatherblack.png",
+    "bytes": 28008,
+    "sha256": "5f2fb3f12ff8227d119028e0b9beebd013c654d37a5446bdae507d80ca41d0d1"
+  },
+  {
+    "name": "paintover_sf_torso_dresstop_baroquedress_lightblue.png",
+    "bytes": 40941,
+    "sha256": "315cecbda1277b394628f7437c47011af3d5c0aa7e0d02b4e6edc6ebf2b874e0"
+  },
+  {
+    "name": "paintover_sf_torso_dresstop_baroquedress_purple.png",
+    "bytes": 38778,
+    "sha256": "21557c56cf00b0d8ec0c16e55916097ebf9812cd6715c3bf30de0c5553e98542"
+  },
+  {
+    "name": "paintover_sf_torso_dresstop_baroquedress_red.png",
+    "bytes": 39690,
+    "sha256": "f51b54a8a210d9398e426dacea3ce373b6967604f68d8afbd1c11f80c80ee144"
+  },
+  {
+    "name": "paintover_sf_torso_dresstop_dress_silk_cyan.png",
+    "bytes": 74488,
+    "sha256": "68037d79cfd50df7017fdfd03f453a18e972c50009360e6616ca60e652966b22"
+  },
+  {
+    "name": "paintover_sf_torso_dresstop_dress_silk_purple.png",
+    "bytes": 77031,
+    "sha256": "9f50b5b253d0f7e83bc57b42334dc4fa6b353f58295d283c3bf250d0a243e2fd"
+  },
+  {
+    "name": "paintover_sf_torso_dresstop_dress_silk_red.png",
+    "bytes": 74837,
+    "sha256": "8bafd2618befd5f7d8988ecc608ba381f251fab7b5c459099327c5b1a245ee0b"
+  },
+  {
+    "name": "paintover_sf_torso_dresstop_leafdress_blue.png",
+    "bytes": 76909,
+    "sha256": "bef28fe198e1c3b0a73f03cffde3e4f25e3852d695edd0227016a70069f89bc1"
+  },
+  {
+    "name": "paintover_sf_torso_dresstop_leafdress_lime.png",
+    "bytes": 78196,
+    "sha256": "24e703865a270bf0e36d36357be2d94b953fc2172a87146697c4759ca34706ae"
+  },
+  {
+    "name": "paintover_sf_torso_dresstop_leafdress_pink.png",
+    "bytes": 76035,
+    "sha256": "d8d173573de7ff49c631474c0d2ec3abfb7ec35c44ee540a69b9f1b691b4bf75"
+  },
+  {
+    "name": "paintover_sf_torso_dresstop_leafdress_yellow.png",
+    "bytes": 75992,
+    "sha256": "cacff37719cc063e3e8cf48857806936e276b7dc8f0848b657909371658f1744"
+  },
+  {
+    "name": "paintover_sf_torso_top_blouse_blue.png",
+    "bytes": 118435,
+    "sha256": "9ffff8ad7d19a1406d99091735fed386d12ea941e56489779dc002191695b9e8"
+  },
+  {
+    "name": "paintover_sf_torso_top_blouse_green.png",
+    "bytes": 121784,
+    "sha256": "e5ac8d4144b059919e859480890900cbf5dafd78d66bb7d92ce6dc4c10c73525"
+  },
+  {
+    "name": "paintover_sf_torso_top_blouse_orange.png",
+    "bytes": 121803,
+    "sha256": "6c78ec0f9158306d40b904d62d8e91ac94ce72083ca641f176c1ef1906162398"
+  },
+  {
+    "name": "paintover_sf_torso_top_blouse_pink.png",
+    "bytes": 126077,
+    "sha256": "4357d4311574355046fc46d8ceea118ba42abf3d401cd84ec888478c5ec20453"
+  },
+  {
+    "name": "paintover_sf_torso_top_blouse_purple.png",
+    "bytes": 120177,
+    "sha256": "d372bafd975f88e2d68afff61de8cdd85449d9b41fd35fe5b4f83a63b9c4ab80"
+  },
+  {
+    "name": "paintover_sf_torso_top_blouse_stripes_blue.png",
+    "bytes": 70915,
+    "sha256": "01bc2bfd01d766629bb73c305b36dcfc5c70b8092d96497eefb6f96172c827f8"
+  },
+  {
+    "name": "paintover_sf_torso_top_blouse_stripes_purple.png",
+    "bytes": 70345,
+    "sha256": "39597c20ebe290a22dbecf3f3579027956361151e3724020cc6b8077ccf00421"
+  },
+  {
+    "name": "paintover_sf_torso_top_blouse_stripes_rainbow.png",
+    "bytes": 56561,
+    "sha256": "af84ee19b411ddaea1cad1b593840c7340b795541a3ad3f6e16a85af0ed4927d"
+  },
+  {
+    "name": "paintover_sf_torso_top_blueblouse.png",
+    "bytes": 118435,
+    "sha256": "9ffff8ad7d19a1406d99091735fed386d12ea941e56489779dc002191695b9e8"
+  },
+  {
+    "name": "paintover_sf_torso_top_bratop_purple.png",
+    "bytes": 55755,
+    "sha256": "ee274cb6fe2dbfa942c1e7f7a5fbea4a361be9d40cea31d8fdeeea24051814e0"
+  },
+  {
+    "name": "paintover_sf_torso_top_dress_silkblue.png",
+    "bytes": 74372,
+    "sha256": "ff638466bc94a4d06e07dc015d6b31820df6a20990c3d3a839894cd03fd0ff3b"
+  },
+  {
+    "name": "paintover_sf_torso_top_dress_silkred.png",
+    "bytes": 74710,
+    "sha256": "162205087f2eb8d6d59a92ac5ce7e8df84f32860ec7cb76c343b2e9fbb511a81"
+  },
+  {
+    "name": "paintover_sf_torso_top_emostyle.png",
+    "bytes": 66935,
+    "sha256": "68653b0fff999e229375f0779cee07b0cf6f289ab9149ee2b29e088687eadfd5"
+  },
+  {
+    "name": "paintover_sf_torso_top_emostyle_blue.png",
+    "bytes": 68109,
+    "sha256": "5b6c61fd99f93eb323d8e6f2b83f4513a28ee91c4e2125f7c23c09fde96e0af6"
+  },
+  {
+    "name": "paintover_sf_torso_top_emostyle_green.png",
+    "bytes": 68030,
+    "sha256": "b3c8be8e81655cd593ebe8b94fce56392faf1a983a7b889fa2a24b7a2db3ab1d"
+  },
+  {
+    "name": "paintover_sf_torso_top_emostyle_orange.png",
+    "bytes": 64897,
+    "sha256": "afa1b904df8c66031689ea0accb85814809f3904e5281f7bd3107cadd074f9fe"
+  },
+  {
+    "name": "paintover_sf_torso_top_emostyle_purple.png",
+    "bytes": 62703,
+    "sha256": "dfc7da02cb3d05a9ec84c7f04cc55334ffe0027bbc510f8bf37b35c73974619c"
+  },
+  {
+    "name": "paintover_sf_torso_top_emostyle_red.png",
+    "bytes": 64320,
+    "sha256": "1862618ecdaea186c11317c99adc4577b06ae076d0be113615b17c13bb835103"
+  },
+  {
+    "name": "paintover_sf_torso_top_emostyle_yellow.png",
+    "bytes": 65401,
+    "sha256": "6675b2b8df8b6df8f8458606dd4f258bc53faf3c59a683a95da5e49acb5a708c"
+  },
+  {
+    "name": "paintover_sf_torso_top_greenblouse.png",
+    "bytes": 121498,
+    "sha256": "9a52cbc9221686402f246d71be814ff4261e873e8a6cdb9e954c7a926c4324e5"
+  },
+  {
+    "name": "paintover_sf_torso_top_jacket_bomber_black.png",
+    "bytes": 86655,
+    "sha256": "0d9814855c841eabc90e43e03975e3c95cb3d79512869b21f102292ae226c7af"
+  },
+  {
+    "name": "paintover_sf_torso_top_jacket_bomber_burgundy.png",
+    "bytes": 100920,
+    "sha256": "521ef99ad3f57f0190590ef5938c09b2faf7e10db8bdac3e18f50686e2544bbe"
+  },
+  {
+    "name": "paintover_sf_torso_top_jacket_bomber_darkgreen.png",
+    "bytes": 90931,
+    "sha256": "f64ca54b1597d15c9c27b16cf3e2aaabd0be31ea840e743c28843a0dfb04814c"
+  },
+  {
+    "name": "paintover_sf_torso_top_jacket_standard_blue.png",
+    "bytes": 111082,
+    "sha256": "563d54b838731d307158033126bbd2f5bc5a6e9827ae5ce7be41e5dbde2ec867"
+  },
+  {
+    "name": "paintover_sf_torso_top_jacket_standard_green.png",
+    "bytes": 110854,
+    "sha256": "f8c0f96b656d97a118f6083f42902a7c450478bddec4fe6b85ab5c905c747ad2"
+  },
+  {
+    "name": "paintover_sf_torso_top_jacket_standard_purple.png",
+    "bytes": 108456,
+    "sha256": "2f86bac2d9d5f4205c3f17548b849da022fde8afc277aa92620a301f4bc79d1d"
+  },
+  {
+    "name": "paintover_sf_torso_top_jacket_standard_red.png",
+    "bytes": 110911,
+    "sha256": "3baeef5fbcc1df5c1f4f2d9e20e665ff63e86ba03465a2b775fc34d5d1657ea2"
+  },
+  {
+    "name": "paintover_sf_torso_top_jacket_striped_blue.png",
+    "bytes": 107268,
+    "sha256": "d7204f02083b5c0f20c43056d9ddba2124ae75612a2a1589a564321e385a9911"
+  },
+  {
+    "name": "paintover_sf_torso_top_jacket_striped_orange.png",
+    "bytes": 99531,
+    "sha256": "308754c0d0e9cd3a2d252eed10db7dc0d5af94625a74c9d49a1fa61b069e6ab9"
+  },
+  {
+    "name": "paintover_sf_torso_top_jacket_striped_red.png",
+    "bytes": 110911,
+    "sha256": "3baeef5fbcc1df5c1f4f2d9e20e665ff63e86ba03465a2b775fc34d5d1657ea2"
+  },
+  {
+    "name": "paintover_sf_torso_top_jacketblue.png",
+    "bytes": 57350,
+    "sha256": "41ca74829d46bea875e1a3cc8275e3a543d83f737c4aa7563bd20db47a63eecb"
+  },
+  {
+    "name": "paintover_sf_torso_top_jacketbomberblack.png",
+    "bytes": 88048,
+    "sha256": "bc395062913ede5948789872bb9ec273dcb70861f1101327473dc01a8c8e6d9d"
+  },
+  {
+    "name": "paintover_sf_torso_top_jacketgreen.png",
+    "bytes": 55477,
+    "sha256": "640946941227bb2c0679e1b0cd13c2d6fcbca9bd62525c7ea4f0cec7ed02983f"
+  },
+  {
+    "name": "paintover_sf_torso_top_jacketpurple.png",
+    "bytes": 108429,
+    "sha256": "e41e85b2e2ef230190b7017a8d92fabb2023084aa9dcd48ea82df7c9d513ec7e"
+  },
+  {
+    "name": "paintover_sf_torso_top_jacketred.png",
+    "bytes": 54385,
+    "sha256": "7fd36dd9eae72e2ea3a3c85f8436fe1cb00291a34d071141f8af7166c69ff882"
+  },
+  {
+    "name": "paintover_sf_torso_top_jacketredwhite.png",
+    "bytes": 106478,
+    "sha256": "ea1e45b2154df3237f09832279b6d46312dd3a592de24859f28a474f3302abbe"
+  },
+  {
+    "name": "paintover_sf_torso_top_leafdressblue.png",
+    "bytes": 75759,
+    "sha256": "001edcd60f3c6c3dfb215ff2fdbc0d9a2f2143ec8de96bde286e205964bea39a"
+  },
+  {
+    "name": "paintover_sf_torso_top_leafdresslime.png",
+    "bytes": 76942,
+    "sha256": "591d0365bff07fbddcf0754f2e2c44939d07bf36717e85a7c9a94811fbd1e213"
+  },
+  {
+    "name": "paintover_sf_torso_top_leafdresspink.png",
+    "bytes": 75983,
+    "sha256": "851a0f0396d730ed83c293dfd16bdaaae934b29ced5335b1b265c783ad900435"
+  },
+  {
+    "name": "paintover_sf_torso_top_leafdressyellow.png",
+    "bytes": 75647,
+    "sha256": "8d81aa6fbfbdec92c164b2358e6d7ef5fc6ae13e93140f4c3c13b53c9d9cd276"
+  },
+  {
+    "name": "paintover_sf_torso_top_leafshirt_cyan.png",
+    "bytes": 106059,
+    "sha256": "e39372fc00a148d9744710b5a6d29d98c96d94c6dc16cae88be513614fc8d5a7"
+  },
+  {
+    "name": "paintover_sf_torso_top_leafshirt_red.png",
+    "bytes": 91256,
+    "sha256": "1fb8992102647f7fec8e6bb73f3e06b10a3fb57b23b1b738db0a640d4004cbb9"
+  },
+  {
+    "name": "paintover_sf_torso_top_leafshirt_yellow.png",
+    "bytes": 106400,
+    "sha256": "0db15d95bb5dce46924d87d0f467ab9003291972fc8b32385811164c14e46009"
+  },
+  {
+    "name": "paintover_sf_torso_top_orangeblouse.png",
+    "bytes": 121803,
+    "sha256": "6c78ec0f9158306d40b904d62d8e91ac94ce72083ca641f176c1ef1906162398"
+  },
+  {
+    "name": "paintover_sf_torso_top_pinkblouse.png",
+    "bytes": 121569,
+    "sha256": "c2862939ecdbca749ed8b31424226bb486d4d4e84e69f949eebcb5d44c265fbe"
+  },
+  {
+    "name": "paintover_sf_torso_top_plainblouse_green.png",
+    "bytes": 95252,
+    "sha256": "a1150408394013325142751dbc5ca3f82c2056fbfc3877d4b078f4d4a0f78317"
+  },
+  {
+    "name": "paintover_sf_torso_top_plainblouse_pink.png",
+    "bytes": 95397,
+    "sha256": "9352a9cd83ba3bd333dba9671296e5c376047e9f65c641287194275994c573a2"
+  },
+  {
+    "name": "paintover_sf_torso_top_plainblouse_purple.png",
+    "bytes": 94846,
+    "sha256": "9cde65d182a7551350c8479eaa2f4cdc2d60327a75b4a285af594a034949fc67"
+  },
+  {
+    "name": "paintover_sf_torso_top_plainblousepink.png",
+    "bytes": 95397,
+    "sha256": "9352a9cd83ba3bd333dba9671296e5c376047e9f65c641287194275994c573a2"
+  },
+  {
+    "name": "paintover_sf_torso_top_purpleblouse.png",
+    "bytes": 120177,
+    "sha256": "d372bafd975f88e2d68afff61de8cdd85449d9b41fd35fe5b4f83a63b9c4ab80"
+  },
+  {
+    "name": "paintover_sf_torso_top_rainbowblouse.png",
+    "bytes": 56561,
+    "sha256": "af84ee19b411ddaea1cad1b593840c7340b795541a3ad3f6e16a85af0ed4927d"
+  },
+  {
+    "name": "paintover_sf_torso_top_shirtclean_green.png",
+    "bytes": 96506,
+    "sha256": "ed73159c314c768814eee0e3ac9468fe38e4315c742b3714ee65962a2c1856bf"
+  },
+  {
+    "name": "paintover_sf_torso_top_shirtclean_lightblue.png",
+    "bytes": 94487,
+    "sha256": "0c4647993af2f0d0d22f3875083e8e51822ccbab19f98d3dcce1503729614095"
+  },
+  {
+    "name": "paintover_sf_torso_top_shirtclean_yellow.png",
+    "bytes": 91734,
+    "sha256": "18ecdfa1d1adb01c6408fe0d2ca4a6b9cdffd7b5d37223cfcd5a7516dfb1b503"
+  },
+  {
+    "name": "paintover_sf_torso_top_shirtlongsleave_black.png",
+    "bytes": 38825,
+    "sha256": "80c806a3925272ba57d8225861c494a69a1b1c57a6c1df090ce2b74f3153adad"
+  },
+  {
+    "name": "paintover_sf_torso_top_shirtlongsleave_orange.png",
+    "bytes": 88575,
+    "sha256": "254239b52b1c7cf2d1093263ca3933e73d51e925339c5d445b3fbce9d2983155"
+  },
+  {
+    "name": "paintover_sf_torso_top_shirtlongsleave_pink.png",
+    "bytes": 97198,
+    "sha256": "c72d25c5cedf9119d3130e7368b6d35a9022e627b517f27332e441d775baed9e"
+  },
+  {
+    "name": "paintover_sf_torso_top_stripedshirt.png",
+    "bytes": 94874,
+    "sha256": "785f950d81479a5cee75964baafb8a34c8ea44ca9659571018415d5d25d02b3b"
+  },
+  {
+    "name": "paintover_sf_torso_top_stripedshirt_green.png",
+    "bytes": 96306,
+    "sha256": "5d75df57f9e5aabc4e33f890cf7209358f042f2eca56fabe55ee0e3eb40c8cf5"
+  },
+  {
+    "name": "paintover_sf_torso_top_stripedshirt_lightblue.png",
+    "bytes": 93021,
+    "sha256": "8e3086400160f639ae73f277ed295107efaf840bdf6d5b689a236b497f71fa0d"
+  },
+  {
+    "name": "paintover_sf_torso_top_stripedshirt_pink.png",
+    "bytes": 94874,
+    "sha256": "785f950d81479a5cee75964baafb8a34c8ea44ca9659571018415d5d25d02b3b"
+  },
+  {
+    "name": "paintover_sf_torso_top_stripedshirt_yellow.png",
+    "bytes": 45819,
+    "sha256": "23c6991f579da0a1a58e7d3b658eb8b6887dc1d195b8fdd4f2465c686cc20e6a"
+  },
+  {
+    "name": "paintover_sm_feet_alligator_blue.png",
+    "bytes": 30459,
+    "sha256": "be4b41e4c8c1c96b773d13f6620050f1b6eaff1e3a0198cf4ee65f9068a9b8a7"
+  },
+  {
+    "name": "paintover_sm_feet_alligator_brown.png",
+    "bytes": 31082,
+    "sha256": "13976b6b9fd90ff4c25f48d91270cf6281c4ca46fb6a74f09e3db3148bd6ef52"
+  },
+  {
+    "name": "paintover_sm_feet_alligator_cowboyboot_blue.png",
+    "bytes": 29331,
+    "sha256": "2de37d9216fe483eb5b298734d34278664f7f397c9c8236c13aa1179117836bb"
+  },
+  {
+    "name": "paintover_sm_feet_alligator_cowboyboot_brown.png",
+    "bytes": 29195,
+    "sha256": "9e128423a12dc5627674f0be9995ec5642994178b9ad37197c883f84b38be56d"
+  },
+  {
+    "name": "paintover_sm_feet_alligator_cowboyboot_cream.png",
+    "bytes": 28701,
+    "sha256": "95abe075fd9cc66cf5d7ce5369c2c096b862eba714b6b607d5d59c54de65f871"
+  },
+  {
+    "name": "paintover_sm_feet_alligator_red.png",
+    "bytes": 31007,
+    "sha256": "a2dc28b165f349afbd662e17c8712981df3ebd3512450116c9b48613114f8d89"
+  },
+  {
+    "name": "paintover_sm_feet_alligator_steeltoes_blue.png",
+    "bytes": 19155,
+    "sha256": "752a5545cf424965a7d83e78d5c114d956d7162e904e9aa04bf967753fefaaf1"
+  },
+  {
+    "name": "paintover_sm_feet_alligator_steeltoes_green.png",
+    "bytes": 19193,
+    "sha256": "9d164458ef6753cd319af6d0780686f704cc3a59100a14bae56936f71aba574b"
+  },
+  {
+    "name": "paintover_sm_feet_alligator_steeltoes_red.png",
+    "bytes": 21589,
+    "sha256": "746cfa66df357e989cb38fad8d5e783b6b1e2b8f7c60f8810ecfc537d303f933"
+  },
+  {
+    "name": "paintover_sm_feet_alligator_steeltoes_white.png",
+    "bytes": 16138,
+    "sha256": "c55e379e26932ed976f3793da4b3cc7fa60ad1d5af79a100892ad8f503a8e251"
+  },
+  {
+    "name": "paintover_sm_feet_fisherman_sandal_blue.png",
+    "bytes": 18846,
+    "sha256": "af555c51ea17cd0ddaf1d6e4867e3b794cfb15fb0d1e3a28885856570c19e032"
+  },
+  {
+    "name": "paintover_sm_feet_fisherman_sandal_brown.png",
+    "bytes": 20673,
+    "sha256": "082c7bf752303321ee0c4447e309849156191749fb4410a963caa74617545338"
+  },
+  {
+    "name": "paintover_sm_feet_fisherman_sandal_tan.png",
+    "bytes": 20340,
+    "sha256": "f4b473a6ed91222b95c5c7de7dfe30773791387411f2cc3d61ad1ecc0d9b6dd8"
+  },
+  {
+    "name": "paintover_sm_feet_oldsneakers_blue.png",
+    "bytes": 31461,
+    "sha256": "6c5d0a6e9f2d2e00a38a68a45378f97d8753472d44d3d6188297cc7e09f204ac"
+  },
+  {
+    "name": "paintover_sm_feet_oldsneakers_red.png",
+    "bytes": 31103,
+    "sha256": "88f89295d7eed19b099e173e9ec1dd42cdda78941662604e2b3960575ab5d746"
+  },
+  {
+    "name": "paintover_sm_feet_oldsneakers_yellow.png",
+    "bytes": 27232,
+    "sha256": "7ebf6c65c32a39bf7d61a1f3d82eb82c04b141db0ef513a3438b3260d52a3100"
+  },
+  {
+    "name": "paintover_sm_feet_sandal_flipflop_brown.png",
+    "bytes": 10434,
+    "sha256": "42e3b379cb2ffdb235df6bde9a95dd9de0085bd2d9a5cecbc573be50467f7b4c"
+  },
+  {
+    "name": "paintover_sm_feet_sandal_flipflop_red.png",
+    "bytes": 12080,
+    "sha256": "b43d8f14e1c3a2a9c361b5647a464428e0e8df80f713ad314a8a53463cda39b4"
+  },
+  {
+    "name": "paintover_sm_feet_sandal_flipflop_teal.png",
+    "bytes": 12995,
+    "sha256": "3ede7cab90686acff6ce5dbc43f2a81087f2c75c5f3ec1c4650474d7aa6b4102"
+  },
+  {
+    "name": "paintover_sm_feet_sandal_slipon_blue.png",
+    "bytes": 14495,
+    "sha256": "f6656e0e7a45e920b3b4b3c258b2cbcf7685f01ca14eeb36a779b8ee5cb6f88c"
+  },
+  {
+    "name": "paintover_sm_feet_sandal_slipon_green.png",
+    "bytes": 15437,
+    "sha256": "87f053ba1ecd6be16894300eef648844eeec2984f56acb2f74e4ad5189480995"
+  },
+  {
+    "name": "paintover_sm_feet_sandal_slipon_red.png",
+    "bytes": 15077,
+    "sha256": "697168da0ff3cda5b93446812921e9fc3a590eee0fce0f25d1464e90a96abe1e"
+  },
+  {
+    "name": "paintover_sm_feet_sportsneaker_black.png",
+    "bytes": 30134,
+    "sha256": "cc620d68fba892a3318a6c5fe617be053f4d06812a22c830364d5c471b18acdf"
+  },
+  {
+    "name": "paintover_sm_feet_sportsneaker_blue.png",
+    "bytes": 29921,
+    "sha256": "1a059471e6c85d8874b1b157218eff8a90edd295d09102b773b4e0381771af86"
+  },
+  {
+    "name": "paintover_sm_feet_sportsneaker_breathables_green.png",
+    "bytes": 18390,
+    "sha256": "026f2bf24aac663d41298a1eb1931aaa644c9181173f6692ebcb10c13be6086d"
+  },
+  {
+    "name": "paintover_sm_feet_sportsneaker_breathables_purple.png",
+    "bytes": 16592,
+    "sha256": "fab971999aed15258886776ecc1e30a4ac2d24b5d7c96cc4bd24e8dfdd2401b7"
+  },
+  {
+    "name": "paintover_sm_feet_sportsneaker_breathables_red.png",
+    "bytes": 13881,
+    "sha256": "fcef7c38c125b31f8cd4b9684af559194c694baf8a9ae5dfd4289e1aba998e3a"
+  },
+  {
+    "name": "paintover_sm_feet_sportsneaker_white.png",
+    "bytes": 32528,
+    "sha256": "abcab416f875fed0a3bad3f39b5aa73de4b14f28c16ef35b86b83521c15f154c"
+  },
+  {
+    "name": "paintover_sm_legs_basketshorts.png",
+    "bytes": 69367,
+    "sha256": "340f510bb7dbc60dbc3b86a1c092069cd9b20404484dd160727e052229bd400a"
+  },
+  {
+    "name": "paintover_sm_legs_basketshorts_green.png",
+    "bytes": 54301,
+    "sha256": "b5bac9f866d19daa42150d5cabc3ff7b858fd3d0ec4be10d70400aa2ee73b277"
+  },
+  {
+    "name": "paintover_sm_legs_basketshorts_white.png",
+    "bytes": 37052,
+    "sha256": "15f741a31e0eb611236f71e0d8441b74e1e88e0e7fdd55b6e835d2cc0c010c57"
+  },
+  {
+    "name": "paintover_sm_legs_naked_bikeshorts_black.png",
+    "bytes": 21745,
+    "sha256": "d0816441bb790a3fca22f5c1f89aab87a7727a4f424176126884a8151b1d8c5c"
+  },
+  {
+    "name": "paintover_sm_legs_naked_bikeshorts_green.png",
+    "bytes": 29122,
+    "sha256": "8a51a3457cb5fe5db42a3801ae02eb103dd6550421e01df7def61d2cd5e03e4c"
+  },
+  {
+    "name": "paintover_sm_legs_naked_bikeshorts_red.png",
+    "bytes": 29141,
+    "sha256": "054d17733f67c3eaa0562c6b9e7f9985a61ee388f0310963e4d65d808d132a1b"
+  },
+  {
+    "name": "paintover_sm_legs_oldjeans_blue_stonewash.png",
+    "bytes": 153871,
+    "sha256": "1733f10b18857dc7fe670b95b28981fcc1856ee817ce24d08ccf8598a8bb0d39"
+  },
+  {
+    "name": "paintover_sm_legs_oldjeans_brown.png",
+    "bytes": 139311,
+    "sha256": "da6d9118a2ed7ebe37b76acd915f00ab60fea833586ce151bf61bd1d082a3249"
+  },
+  {
+    "name": "paintover_sm_legs_oldjeans_cargos_brown.png",
+    "bytes": 77629,
+    "sha256": "5baae1d8f4f26bab74aed95663dd1c4e45e72ce8345a000849fb2c57442d552e"
+  },
+  {
+    "name": "paintover_sm_legs_oldjeans_cargos_camo.png",
+    "bytes": 204254,
+    "sha256": "a9563e9beaa123093db56fa1494d7d94fd5fb7882250d9d9dcfc50135eab51ae"
+  },
+  {
+    "name": "paintover_sm_legs_oldjeans_cargos_green.png",
+    "bytes": 70605,
+    "sha256": "25988ee182cffe660d374cef2d0f6292e35d90d61cc46bc66c65eb68bc616580"
+  },
+  {
+    "name": "paintover_sm_legs_oldjeans_greygreen.png",
+    "bytes": 136044,
+    "sha256": "978e511fb86446a9f59941f82a174655f0fb2436f34037e744137862de7d5816"
+  },
+  {
+    "name": "paintover_sm_legs_skateshorts.png",
+    "bytes": 46104,
+    "sha256": "994cfb688ef221dc91736f136f64a434e4305692c2551ac91b12896e47521ca7"
+  },
+  {
+    "name": "paintover_sm_legs_skateshorts_cargo_brown.png",
+    "bytes": 50166,
+    "sha256": "ea7b7e30226f03ae2eed52d97edd2310d40a618960d8989d75657cf38977a6bd"
+  },
+  {
+    "name": "paintover_sm_legs_skateshorts_cargo_camo.png",
+    "bytes": 93658,
+    "sha256": "cfa6b0d0a4d815a84f0d852f4c250e1078d9bbb8c5e6f340e1d796d55a4409ac"
+  },
+  {
+    "name": "paintover_sm_legs_skateshorts_cargo_green.png",
+    "bytes": 43067,
+    "sha256": "e59ba330d87d19d82ef7bc293c028b17af0c5a3ad02a7e7da0b6d453147be34c"
+  },
+  {
+    "name": "paintover_sm_legs_skateshorts_greygreen.png",
+    "bytes": 46860,
+    "sha256": "6356a981af5dc8b9757cb96c8375f12ec98f7e4ba8e1bd93232fa266418a8b87"
+  },
+  {
+    "name": "paintover_sm_legs_skateshorts_red.png",
+    "bytes": 47548,
+    "sha256": "b896281455478687ea79daa3cff6c67fcaa43f127e9248c1b17e31aa205753e6"
+  },
+  {
+    "name": "paintover_sm_legs_suitpants.png",
+    "bytes": 95965,
+    "sha256": "ea48d3bf2bede000d4ecb83ab3c51f906d4f87e5b0679384ca4ca4c2955b6bcf"
+  },
+  {
+    "name": "paintover_sm_legs_suitpants_green.png",
+    "bytes": 75157,
+    "sha256": "27fe07bc88d8cd58b9813acd718f88f2283be8a1847c9cd22c8259a50a200f81"
+  },
+  {
+    "name": "paintover_sm_legs_suitpants_greyscale.png",
+    "bytes": 43801,
+    "sha256": "95a089bcd42e32fd385bc39ba1c1d1ef176b26f7771e21030b6da2df579b9242"
+  },
+  {
+    "name": "paintover_sm_legs_suitpants_leather_black.png",
+    "bytes": 113339,
+    "sha256": "5a563cf104edcf97f77c8ce51b393d0670caa1474762f66e5ce2dfb5eff4f692"
+  },
+  {
+    "name": "paintover_sm_legs_suitpants_leather_browncow.png",
+    "bytes": 131847,
+    "sha256": "765ac88e8a68333d41db9323bdeb451be68e5a1d5d25e0a05228b4ca525acf0c"
+  },
+  {
+    "name": "paintover_sm_legs_suitpants_leather_red.png",
+    "bytes": 118082,
+    "sha256": "efe567a7de5907fc30e1c6153cd9933efdf64911bceaed38b29a5a8417e7dc77"
+  },
+  {
+    "name": "paintover_sm_legs_suitpants_tuxedo_blue.png",
+    "bytes": 47025,
+    "sha256": "c6f57597c1fa79a4b44db43d83f1ae064ea0e484a059707d7f712f8764622e56"
+  },
+  {
+    "name": "paintover_sm_legs_suitpants_tuxedo_crimson.png",
+    "bytes": 47693,
+    "sha256": "4eae6427c649a097c88ce674397629072f47a9a26de10267169e0a0136cd8e9b"
+  },
+  {
+    "name": "paintover_sm_legs_suitpants_tuxedo_pink.png",
+    "bytes": 44987,
+    "sha256": "de4f3db82760e66dc8c9c3898e883d976dac8fb1743768f0cf281e54046e08d7"
+  },
+  {
+    "name": "paintover_sm_torso_loggerjacket_blue.png",
+    "bytes": 83435,
+    "sha256": "253c0e88d6aab6e3c7cde9db1216fb8730a978241eb22401c307f2b2dcefee57"
+  },
+  {
+    "name": "paintover_sm_torso_loggerjacket_brown.png",
+    "bytes": 82356,
+    "sha256": "724216451cac1e3e63fe7d868d210ed9e857cd9af265a6a21b244a832c752581"
+  },
+  {
+    "name": "paintover_sm_torso_loggerjacket_green.png",
+    "bytes": 72346,
+    "sha256": "46173f0b0149e66f271cffe8788c19723065f96317ee73fba8bbcb6e46c64253"
+  },
+  {
+    "name": "paintover_sm_torso_sims3camotee_armygreen.png",
+    "bytes": 121623,
+    "sha256": "e5ab30dffd85b798121cfaef38c1562ec17b6b26fd303013b2347d7b1715f341"
+  },
+  {
+    "name": "paintover_sm_torso_sims3camotee_black.png",
+    "bytes": 73366,
+    "sha256": "44bd50f21f0e81c473a2504cd8a73915d9562c71553431aca8676608ab53287b"
+  },
+  {
+    "name": "paintover_sm_torso_sims3camotee_purple.png",
+    "bytes": 143379,
+    "sha256": "150cc2644c433fcc7b21115bd0333b189b23052539592005e99b2e5b159eb298"
+  },
+  {
+    "name": "paintover_sm_torso_suitcoat.png",
+    "bytes": 64086,
+    "sha256": "533744c7b82d3fb3cf9640cf9f8cc0605ffc06558e11ea0d5f15845c862eae31"
+  },
+  {
+    "name": "paintover_sm_torso_suitcoat_green.png",
+    "bytes": 57517,
+    "sha256": "0cfca9ce62f555599c86abe714ff7cf0c6e4282741e1411b2b489f05d171c149"
+  },
+  {
+    "name": "paintover_sm_torso_suitcoat_greyscale.png",
+    "bytes": 41742,
+    "sha256": "b238fd876a71d615a2acd82288172e961f3444bf5fc19f12ea34a8f4c501f94b"
+  },
+  {
+    "name": "paintover_sm_torso_suitcoat_tuxedo_blue.png",
+    "bytes": 57080,
+    "sha256": "2ba166760d9ccf8f712186da6c0ed4ef3701175465a55bc671f0759c2393499f"
+  },
+  {
+    "name": "paintover_sm_torso_suitcoat_tuxedo_crimson.png",
+    "bytes": 52854,
+    "sha256": "1adf0e35472fb3d19234d2350ced8c3de653a0b8e5dd7489e061801e112dae72"
+  },
+  {
+    "name": "paintover_sm_torso_suitcoat_tuxedo_pink.png",
+    "bytes": 56880,
+    "sha256": "36af3602d25d0a1ddd6773d43bf00eb9b022624d31ce64220d63eb2995a0d209"
+  },
+  {
+    "name": "paintover_sm_torso_teamjacket_blue.png",
+    "bytes": 61450,
+    "sha256": "1712a1cdac22990d185bc9ecb5691556962a14394cacbbf7123e3046cbaa6825"
+  },
+  {
+    "name": "paintover_sm_torso_teamjacket_green.png",
+    "bytes": 66967,
+    "sha256": "a9e0e07b833302cb28d700321771e20ce0aa4fa1f9cb8c9bb225d246e815e2de"
+  },
+  {
+    "name": "paintover_sm_torso_teamjacket_oldmansweater_beige.png",
+    "bytes": 95450,
+    "sha256": "56e6031ddc27261ee956313a0b406fc5b65a7324c6306c13b46bb2f4e84fd598"
+  },
+  {
+    "name": "paintover_sm_torso_teamjacket_oldmansweater_green.png",
+    "bytes": 94288,
+    "sha256": "942065b82223ba9393bde260ec2dd3f7ff17dd6a46f2759f1d7d43427443f1d4"
+  },
+  {
+    "name": "paintover_sm_torso_teamjacket_oldmansweater_powderblue.png",
+    "bytes": 100299,
+    "sha256": "c3e06083fd3000698da630b965bffcd98ee4ffe303320e9b01ced304d2850c9f"
+  },
+  {
+    "name": "paintover_sm_torso_teamjacket_red.png",
+    "bytes": 55549,
+    "sha256": "0f83b8ac1e11cfbeb9cc46c3b762f4edf82bd37c44c5af7597d5c10660fb5e33"
+  },
+  {
+    "name": "paintover_sm_torso_teamjacket_sweattop_grey.png",
+    "bytes": 86525,
+    "sha256": "be0bf35f9443ff6e9a2d581a10ad21ec643d02db74b8824d62cce857b3b9d218"
+  },
+  {
+    "name": "paintover_sm_torso_teamjacket_sweattop_red.png",
+    "bytes": 86935,
+    "sha256": "7d231d38fefb67512c858357e226851eecc0745dd8806e98f7fbb9f85b373f97"
+  },
+  {
+    "name": "paintover_sm_torso_teamjacket_sweattop_yellow.png",
+    "bytes": 90980,
+    "sha256": "7dcd88e110e163b241073b0aec6bd851a22d4af49613a78299dc85e7fbbbd118"
+  },
+  {
+    "name": "paintover_sm_torso_trenchcoat_black.png",
+    "bytes": 57865,
+    "sha256": "149cbf1e1288db264b184fdb727cf21d7ed6002a3c45c689c11b2e4548586673"
+  },
+  {
+    "name": "paintover_sm_torso_trenchcoat_green.png",
+    "bytes": 61015,
+    "sha256": "13da6d084d3eb88162ec5d76a01445e1de6f616f6fe24fc9f05e24c75d1d4bc8"
+  },
+  {
+    "name": "paintover_sm_torso_trenchcoat_yellow.png",
+    "bytes": 65521,
+    "sha256": "3406b644fcb5c5c44268da1cb3397ec6e4218078947d192ef2b59f2e21953edd"
+  },
+  {
+    "name": "paintover_sm_torso_tshirt_longsleeve_black.png",
+    "bytes": 52575,
+    "sha256": "790badefa756e144733026f568cb3e844ef6e01938b3f4c934a77134674f2bd0"
+  },
+  {
+    "name": "paintover_sm_torso_tshirt_longsleeve_crimson.png",
+    "bytes": 58515,
+    "sha256": "1216dfb6305e3a6070caa48cd392b1fab1cb644fb5d150cb71a23f361bda80a7"
+  },
+  {
+    "name": "paintover_sm_torso_tshirt_longsleeve_purple.png",
+    "bytes": 66975,
+    "sha256": "48eae596389108f794736848c9f76184474360173d9e2bb94477e9275d7a45e2"
+  },
+  {
+    "name": "paintover_sm_torso_tshirt_striped_blues.png",
+    "bytes": 62827,
+    "sha256": "6aa4d85a0a9185eca6f27f2b087945b46acdef34c27575ab4864c837e4e8bc7a"
+  },
+  {
+    "name": "paintover_sm_torso_tshirt_striped_greens.png",
+    "bytes": 57031,
+    "sha256": "45fb02e46a9515d3dbbf3e97508a49674a610cd5e1f0113da7a81c6c7882549f"
+  },
+  {
+    "name": "paintover_sm_torso_tshirt_striped_reds.png",
+    "bytes": 58302,
+    "sha256": "1f4e85cc342697e98516950b0a93d51076fded1add493d22878d5799399f413f"
+  },
+  {
+    "name": "plumb_bob.m3g",
+    "bytes": 1567,
+    "sha256": "b6223530bb4020c291dd5fd2429bde1e61e73f0574976273ac43ee2036520f01"
+  },
+  {
+    "name": "prop_coffeecup.m3g",
+    "bytes": 4641,
+    "sha256": "eb772d9e990a6e63c67d5dbbd8a88f9a8eed5aa59a8e3b52902d53e7f7aae353"
+  },
+  {
+    "name": "prop_dinnerplate.m3g",
+    "bytes": 853,
+    "sha256": "d449f0385d35ab0dfffc4e96023b37aef08c2a90a6d2396b1c6bc8b7fa1a302f"
+  },
+  {
+    "name": "prop_mop.m3g",
+    "bytes": 17600,
+    "sha256": "d5608f311574ef7259c8373e55dbb4368ae5fe79e913491e4ed85f7cb2a0d8f2"
+  },
+  {
+    "name": "prop_pee_puddle.m3g",
+    "bytes": 1959,
+    "sha256": "0ca77be02eae2647ee35c4d204a520993c237d60d53e351df5f44249ef23c080"
+  },
+  {
+    "name": "prop_readingbook.m3g",
+    "bytes": 9994,
+    "sha256": "1e77198e6f39d53ac5d341639d4c6998f47b375e0ce499971db978a0eba578eb"
+  },
+  {
+    "name": "prop_watering_can.m3g",
+    "bytes": 8085,
+    "sha256": "6495f42d99b62601909cd48cef821892e20e896e1e1db75c14ea0982ed33e0f2"
+  },
+  {
+    "name": "scene_cas.m3g",
+    "bytes": 18556,
+    "sha256": "fa1f46ffcfc9b40adcd6cbf525ddda8b37708336e67cbddeaa45542971b84a62"
+  },
+  {
+    "name": "scene_town_map.m3g",
+    "bytes": 401649,
+    "sha256": "4a348e412001a9996852156ed4178f1682a52af0c75fba9a3defdf9ee27f11d0"
+  },
+  {
+    "name": "sim_female.m3g",
+    "bytes": 2429305,
+    "sha256": "107c2450484fc88751383b410a4eb872b09c7f03e7baac4d2760f3c4c507bb86"
+  },
+  {
+    "name": "sim_male.m3g",
+    "bytes": 2330953,
+    "sha256": "57c0023cb8e5cc2e59854fcab2c5974a48874bd612b70f74ae703f30e004cf42"
+  },
+  {
+    "name": "streetside.m3g",
+    "bytes": 123506,
+    "sha256": "e760a1d14e24bf48fe2f6f22b4684ecb4d1d3269d6f75f36f3d2201a3b4cf730"
+  },
+  {
+    "name": "texture_alpha_sf_hair_dreds_black.m3g",
+    "bytes": 65638,
+    "sha256": "3b653ed6070c3ce480c8e86513332bad9c0772ee06e943123f2be417b596eacc"
+  },
+  {
+    "name": "texture_alpha_sf_hair_dreds_blonde.m3g",
+    "bytes": 65638,
+    "sha256": "b5fcc8a614df82cec5de3d54bf9f14dcb8ab097403cc61d1aff12e2828081559"
+  },
+  {
+    "name": "texture_alpha_sf_hair_dreds_brown.m3g",
+    "bytes": 65638,
+    "sha256": "da1b82f159b7994914fc77157f00385f8d0008afd7787e4f540a7ce3af4bd3b9"
+  },
+  {
+    "name": "texture_alpha_sf_hair_dreds_grey.m3g",
+    "bytes": 65638,
+    "sha256": "a6609c55a971fd4d4af28161c5d7050b96ed5bce81ff8bdcecbb2000a1a9909d"
+  },
+  {
+    "name": "texture_alpha_sf_hair_dreds_red.m3g",
+    "bytes": 65638,
+    "sha256": "fbe927035c8849a1e85ec38bbd3bd85076be8e44f66fca2986697c4f819f082a"
+  },
+  {
+    "name": "texture_alpha_sf_hair_long_black.m3g",
+    "bytes": 65638,
+    "sha256": "899881c203a4d5308a0230a5db512bd393d519197964e7d37b12e19c6fc34046"
+  },
+  {
+    "name": "texture_alpha_sf_hair_long_blonde.m3g",
+    "bytes": 65638,
+    "sha256": "38dc70b3f45e0d70d8a61114516bb6a4093a0c313d34f099a7f8d816492257e8"
+  },
+  {
+    "name": "texture_alpha_sf_hair_long_brown.m3g",
+    "bytes": 65638,
+    "sha256": "7c74218a29ddc11e65717ff9815023cb0fdc850bf8d1e81c72721d041d12016c"
+  },
+  {
+    "name": "texture_alpha_sf_hair_long_grey.m3g",
+    "bytes": 65638,
+    "sha256": "2d92712c6362fc37243d5d2141dfe2fe32daf38b7560bfdb6ce587fb7a235410"
+  },
+  {
+    "name": "texture_alpha_sf_hair_long_red.m3g",
+    "bytes": 65638,
+    "sha256": "1b5c16ae02ff317898e578c97b2453eeba5434322bf656812ec3afe513aff839"
+  },
+  {
+    "name": "texture_alpha_sf_hair_long_strawberryblack.m3g",
+    "bytes": 65638,
+    "sha256": "8ccae945faa5edbe739436fc0cf8acbb45080a9e96b6a27b5a521541dbb42dd5"
+  },
+  {
+    "name": "texture_alpha_sf_hair_piggytails_black.m3g",
+    "bytes": 65638,
+    "sha256": "0d6a14154247e1d1e99ea0fadb338f7fd1e5c3842e0f0b3b95d4cf4070eda93b"
+  },
+  {
+    "name": "texture_alpha_sf_hair_piggytails_blonde.m3g",
+    "bytes": 65638,
+    "sha256": "30d00efe17d350727ae340cd694498ce00cd7083769563bd1c6e1b3c8f00283b"
+  },
+  {
+    "name": "texture_alpha_sf_hair_piggytails_brown.m3g",
+    "bytes": 65638,
+    "sha256": "ba9b6ff5fce3b7a93bb676b223b49e84cd4f1966be44edccbf201848dd18ded0"
+  },
+  {
+    "name": "texture_alpha_sf_hair_piggytails_grey.m3g",
+    "bytes": 65638,
+    "sha256": "68fbe92b5b6f0045907acc7a0f716b46d2939e8e8a1d4a4da6c5ebfe9846f332"
+  },
+  {
+    "name": "texture_alpha_sf_hair_piggytails_red.m3g",
+    "bytes": 65638,
+    "sha256": "1e2d8c756c5d8fdacf1ddedf7637df4350c4942436b5548c265247800a296f54"
+  },
+  {
+    "name": "texture_alpha_sf_hair_ponytail_black.m3g",
+    "bytes": 65638,
+    "sha256": "1cc4b573fa334ab90c5621ec409a4f5cf052efd25e7a5b75439e180359b66fad"
+  },
+  {
+    "name": "texture_alpha_sf_hair_ponytail_blonde.m3g",
+    "bytes": 65638,
+    "sha256": "e97d9fb5e029cd2e99365b2c16211936509c15dd6c60954b70eb32e3dcc9a24c"
+  },
+  {
+    "name": "texture_alpha_sf_hair_ponytail_brown.m3g",
+    "bytes": 65638,
+    "sha256": "5a8087b926a989573b4d1f33b97eafe0115bf74536c831ae6b0a7e40b451d7a2"
+  },
+  {
+    "name": "texture_alpha_sf_hair_ponytail_grey.m3g",
+    "bytes": 65638,
+    "sha256": "77a752ee85d90459dc003c7ca6c60118bfea6d27f106e8d8f1330c1e5f42e7a3"
+  },
+  {
+    "name": "texture_alpha_sf_hair_ponytail_red.m3g",
+    "bytes": 65638,
+    "sha256": "48a5097587445ba13c05c320c22fdba650eb5ee213e5b8d38729d533344ffc36"
+  },
+  {
+    "name": "texture_alpha_sf_hair_short_black.m3g",
+    "bytes": 65638,
+    "sha256": "4e28698301545dfd6e97a9bef2fca64a2a80c0ca5872fe6bde7d827c01e6d304"
+  },
+  {
+    "name": "texture_alpha_sf_hair_short_blonde.m3g",
+    "bytes": 65638,
+    "sha256": "6902ad8e231255770374a7e4b20e4b55b8792816cf2b03462db20306bea9a96f"
+  },
+  {
+    "name": "texture_alpha_sf_hair_short_brown.m3g",
+    "bytes": 65638,
+    "sha256": "7a6db28462be9a2dd3220142f21a43858264a6a54131b044f0d4475ccd55a451"
+  },
+  {
+    "name": "texture_alpha_sf_hair_short_grey.m3g",
+    "bytes": 65638,
+    "sha256": "269ab174adaf8fb4f13e0e602ee6208ddff12cdc9fe3770b142fb8f9df35cd68"
+  },
+  {
+    "name": "texture_alpha_sf_hair_short_red.m3g",
+    "bytes": 65638,
+    "sha256": "8f1d27ad0f827c9e68ac4903d47a04367a8f3bbf41fd26147e89976e4ddd1e58"
+  },
+  {
+    "name": "texture_alpha_sm_hair_eraserfro_black.m3g",
+    "bytes": 65638,
+    "sha256": "f90f1460c06bc45134a71fcfdee5d4fe3482126298a6b154b2f3b155626fe48e"
+  },
+  {
+    "name": "texture_alpha_sm_hair_eraserfro_blonde.m3g",
+    "bytes": 65638,
+    "sha256": "4ca716c541544f328b1bf4b1aa169d55ec20f40fb46aad7ce491eb51abeff7dc"
+  },
+  {
+    "name": "texture_alpha_sm_hair_eraserfro_brown.m3g",
+    "bytes": 65638,
+    "sha256": "1644ff99ce02b4187f9be20a79c58f0045306bf5d9bdac9a9ea2fc1f1e79329f"
+  },
+  {
+    "name": "texture_alpha_sm_hair_eraserfro_grey.m3g",
+    "bytes": 65638,
+    "sha256": "f72c20ac1a77b46f2ae64d455d60dee51acfe76bbb73dc06e5926ee2ae85808f"
+  },
+  {
+    "name": "texture_alpha_sm_hair_eraserfro_red.m3g",
+    "bytes": 65638,
+    "sha256": "8016b789b6d400470bd7ae749f421ac06b47e56e3568c6b425af7241c0de582a"
+  },
+  {
+    "name": "texture_alpha_sm_hair_long_black.m3g",
+    "bytes": 65638,
+    "sha256": "3cf5828c71cf3da7788109d85a0e332fc6de7382283bf625528311f5af4fb523"
+  },
+  {
+    "name": "texture_alpha_sm_hair_long_blonde.m3g",
+    "bytes": 65638,
+    "sha256": "3a16cf72e02f80f98247a9d9e11c3bcc455d0d4ebeee4948bf1da6646b408e16"
+  },
+  {
+    "name": "texture_alpha_sm_hair_long_brown.m3g",
+    "bytes": 65638,
+    "sha256": "324b45015d237b79b380266c39a012639ebb3964c52802ddb3f136aa6647efe8"
+  },
+  {
+    "name": "texture_alpha_sm_hair_long_grey.m3g",
+    "bytes": 65638,
+    "sha256": "7437021487ccfc7833a9f66248041190ebdc5b2ad3e82f1070b4c5786b165917"
+  },
+  {
+    "name": "texture_alpha_sm_hair_long_red.m3g",
+    "bytes": 65638,
+    "sha256": "fbb348f185dea1ff66ab5b6a27ee32f3b8743a8ac3d3b38b35a5d7bb14b0445a"
+  },
+  {
+    "name": "texture_alpha_sm_hair_punkneedles_black.m3g",
+    "bytes": 65638,
+    "sha256": "9577223df2d374ede125804162a29ee8d2089f72bea2fb0f300ff17a6dceabfa"
+  },
+  {
+    "name": "texture_alpha_sm_hair_punkneedles_blonde.m3g",
+    "bytes": 65638,
+    "sha256": "2e552866b211ebbe3e3affc78a5fe67a419df7184f2ba08f909dc68404fe5c4e"
+  },
+  {
+    "name": "texture_alpha_sm_hair_punkneedles_brown.m3g",
+    "bytes": 65638,
+    "sha256": "b968c73199e110dd9db97e8bf04bcf1fbe55482765117cbb319f61ba5d2b3a59"
+  },
+  {
+    "name": "texture_alpha_sm_hair_punkneedles_grey.m3g",
+    "bytes": 65638,
+    "sha256": "04e67eff8a7aeb44b4af1388e998898a4cd8ae9cb723a0585c8a11f1f81fb948"
+  },
+  {
+    "name": "texture_alpha_sm_hair_punkneedles_red.m3g",
+    "bytes": 65638,
+    "sha256": "50ca7bc78b255873352915e54a70c6e6c1ffb2472819fe2bda0399c68ebcd262"
+  },
+  {
+    "name": "texture_alpha_sm_hair_rockabilly_black.m3g",
+    "bytes": 65639,
+    "sha256": "d4ef1003f3b97fb4b417d69f8270942dddef2fe3f615212adb51c4cb87e9b76a"
+  },
+  {
+    "name": "texture_alpha_sm_hair_rockabilly_blonde.m3g",
+    "bytes": 65639,
+    "sha256": "0a6fbdf5e30bbef7cc9abb457ba2313bf12edc462ac1c92f9f25506c166f85b5"
+  },
+  {
+    "name": "texture_alpha_sm_hair_rockabilly_brown.m3g",
+    "bytes": 65639,
+    "sha256": "55c75d61bff6a5f041f314b40566a064d833860c4f8ba5213d2a5460f859b696"
+  },
+  {
+    "name": "texture_alpha_sm_hair_rockabilly_grey.m3g",
+    "bytes": 65639,
+    "sha256": "2a2ac8865bb71e8a12c5bbd4f44d7127cda1647b47e89dd41ddc4d8c2d2b9cb1"
+  },
+  {
+    "name": "texture_alpha_sm_hair_rockabilly_red.m3g",
+    "bytes": 65639,
+    "sha256": "327be3e60e26e611e16837682d9d86328cb73babecfaf33eb7ecfdd56019d0bf"
+  },
+  {
+    "name": "texture_alpha_sm_hair_rough_modern_black.m3g",
+    "bytes": 65638,
+    "sha256": "3290d091f1151377b1e6657f7f591c3ffef44411b8d10ba933140b6a0fae9dc3"
+  },
+  {
+    "name": "texture_alpha_sm_hair_rough_modern_blonde.m3g",
+    "bytes": 65638,
+    "sha256": "c5d0e46467f24621499f9b81ed319b99dca25424681a060546671d09b4d54056"
+  },
+  {
+    "name": "texture_alpha_sm_hair_rough_modern_brown.m3g",
+    "bytes": 65638,
+    "sha256": "c6cdb06a8452521f57152cd45c0cc32040d3cb086f7e8c296c52c4fe63665e3c"
+  },
+  {
+    "name": "texture_alpha_sm_hair_rough_modern_grey.m3g",
+    "bytes": 65638,
+    "sha256": "3906c11576bbfe16092428a57908e4667c9e1c0d7b27029a7652babd33940254"
+  },
+  {
+    "name": "texture_alpha_sm_hair_rough_modern_red.m3g",
+    "bytes": 65638,
+    "sha256": "b57d2093f95a102d4c3a227501ef9b1fd746685e3f15e17e0555ac5396b34781"
+  },
+  {
+    "name": "texture_alpha_sm_hair_shortparted_black.m3g",
+    "bytes": 65638,
+    "sha256": "ed4c6817ae882892e7fcccccbf5e23624846254f26acb7db6fd9ed5610ef1241"
+  },
+  {
+    "name": "texture_alpha_sm_hair_shortparted_blonde.m3g",
+    "bytes": 65638,
+    "sha256": "896e2505eceb85335dda99c301f2ef9913cd0f997dec7e05cf17491be55939b4"
+  },
+  {
+    "name": "texture_alpha_sm_hair_shortparted_brown.m3g",
+    "bytes": 65638,
+    "sha256": "c8496ed63c3360c495bc25e0b136ef54a26b7da04a68e35e37d557d866b8e312"
+  },
+  {
+    "name": "texture_alpha_sm_hair_shortparted_grey.m3g",
+    "bytes": 65638,
+    "sha256": "7e6a7fddb0b481f59430ff1cada5e28d6218faf7843433a2665f76ce0fb3f714"
+  },
+  {
+    "name": "texture_alpha_sm_hair_shortparted_red.m3g",
+    "bytes": 65638,
+    "sha256": "3e6db072c11fe0877509689fc329a1871b5b0ed0082dc42ea093b79622986839"
+  },
+  {
+    "name": "texture_centralpark.m3g",
+    "bytes": 4194406,
+    "sha256": "d4c063f24145f2cebfacfbd8fe8157179cb8a110815ce74079a317d2bc7ab78b"
+  },
+  {
+    "name": "texture_centralpark_water_layer2.m3g",
+    "bytes": 65638,
+    "sha256": "69cca1f5e2891a716bbb475af512d0afbbe15c6e92d2f4dc7603a26d5d8f515f"
+  },
+  {
+    "name": "texture_centralpark_water_layer3.m3g",
+    "bytes": 262246,
+    "sha256": "1da4597839e1d6bc3d28cd973fd475f72d264823a59fa12c295d6e0c0c23afdc"
+  },
+  {
+    "name": "texture_centralpark_water_layer4.m3g",
+    "bytes": 32870,
+    "sha256": "1ed4b9f415e7de61c449621b21a0b829e9d949a1b73a9428af2194714fc7661c"
+  },
+  {
+    "name": "texture_env_cas_room.m3g",
+    "bytes": 1048678,
+    "sha256": "cdad0acfbc63e6b7734ce70d82144250ea5c151774ee70360fd100f2b9d88667"
+  },
+  {
+    "name": "texture_envmap_garage_day.m3g",
+    "bytes": 11038,
+    "sha256": "3f3b5867a305c24d6085fb7a36f7bb538d71c4577ae95944ba838561f67f8c86"
+  },
+  {
+    "name": "texture_envmap_garage_night.m3g",
+    "bytes": 11038,
+    "sha256": "6ba4a9daa783ac8d8dfe0e553f26ac2d16a13973e5f67b0859bb88b680166dc7"
+  },
+  {
+    "name": "texture_fx_tv_screen.m3g",
+    "bytes": 43806,
+    "sha256": "a87826f08c66cc1a2716e15bd61cc2ad24371f6e67916aeb0089fe0420684c19"
+  },
+  {
+    "name": "texture_markers.m3g",
+    "bytes": 65638,
+    "sha256": "01de982b81c87fa0f53729bf8181ec4e5288845c8754340e6192018533f68827"
+  },
+  {
+    "name": "texture_minigames.m3g",
+    "bytes": 1048678,
+    "sha256": "be5c3bef54280ccf7eaccc48ef6043c00f39529020a70a25471cdc36d72067f7"
+  },
+  {
+    "name": "texture_object_car_blue.m3g",
+    "bytes": 43806,
+    "sha256": "d16de9eee040551859f9416212fe375d663e70dc3e840ef5f1af28f0c4ec1ae7"
+  },
+  {
+    "name": "texture_object_car_gold.m3g",
+    "bytes": 43806,
+    "sha256": "72621d7e340d728e74c21dc2245aeaf3eaa05ea0226d9c80b346836e8fb9b6aa"
+  },
+  {
+    "name": "texture_object_car_green.m3g",
+    "bytes": 43806,
+    "sha256": "49393cb0f50335192842df46130a9deda40234b89a75998663a5cfce89dea7e1"
+  },
+  {
+    "name": "texture_object_car_red.m3g",
+    "bytes": 43806,
+    "sha256": "69414c99c504bdf2e00dec6d8f07ddfc1acc58944b7ce8202d22d9218d39e739"
+  },
+  {
+    "name": "texture_objects.m3g",
+    "bytes": 4194406,
+    "sha256": "b84a478641e3dac2aff61a3e9c443a0b77a3e2be4019049975eaa9c39ffca02e"
+  },
+  {
+    "name": "texture_plumb_bob_green.m3g",
+    "bytes": 16486,
+    "sha256": "3278fc19a7eafecb4c807630b2df1e92840cd4c21fa19864c3dd41decee6b556"
+  },
+  {
+    "name": "texture_quad_event_death.m3g",
+    "bytes": 196710,
+    "sha256": "b386e5c74ae74a1558eb3591eac306ebdc73920a3dee237a044e02e371e00c44"
+  },
+  {
+    "name": "texture_quad_event_hired.m3g",
+    "bytes": 196710,
+    "sha256": "84ee9a986fd64fe414bfcc34c0394664c8751e5e213f97a36cf2747536d477c7"
+  },
+  {
+    "name": "texture_quad_event_houseupgrade.m3g",
+    "bytes": 196710,
+    "sha256": "28fedca2cf0e466bc68cfadf4534614432ba1b8d7c7fe54f1343586e494c7076"
+  },
+  {
+    "name": "texture_quad_event_kiss.m3g",
+    "bytes": 262246,
+    "sha256": "0aabf44692b95c61501b0cc20387e80e7e64a64b08aeeaab01370f7cdd7b8e5b"
+  },
+  {
+    "name": "texture_quad_event_marriage.m3g",
+    "bytes": 196710,
+    "sha256": "3924d9a86f6af613f60b405ce6b1efcb52e6d6053157553ca7aa7e420a57ba54"
+  },
+  {
+    "name": "texture_quad_event_persona.m3g",
+    "bytes": 196710,
+    "sha256": "27b64482eade21d6c63a404f03d978e75a7a2bb6c29a6f7722517c427d68b2b1"
+  },
+  {
+    "name": "texture_quad_event_promotion.m3g",
+    "bytes": 196710,
+    "sha256": "bb975d35a25d049bf0340452acb7b13e8b9b314695099f1e39ab7ea69a481841"
+  },
+  {
+    "name": "texture_quad_event_skillmax.m3g",
+    "bytes": 196710,
+    "sha256": "36e5a92d36d02b4dfe763cffbd77bf2034ae8fd333492d38857a8095391813ce"
+  },
+  {
+    "name": "texture_quad_event_woohoo.m3g",
+    "bytes": 196710,
+    "sha256": "c79dbd86891fb4ceaa7a4df40448ea22c988a20831153acf38eee44a4a28e809"
+  },
+  {
+    "name": "texture_quad_hud_censor_pixellation.m3g",
+    "bytes": 3174,
+    "sha256": "4a1255c9949f0b9d8929cbed6857576ac144ce7d46916d99848f8227a7359cc8"
+  },
+  {
+    "name": "texture_quad_hud_fishing.m3g",
+    "bytes": 16486,
+    "sha256": "1a177f1d5890588707e85f21614c9c68802c45a0fca7e8adf999cd22135d3ac2"
+  },
+  {
+    "name": "texture_quad_hud_group01.m3g",
+    "bytes": 1048678,
+    "sha256": "b21b40e9d2801b549a5afb1d3a2f5f58aaa10e3a1db5320fe224cc0c506e966b"
+  },
+  {
+    "name": "texture_quad_hud_group02_cas_and_fe.m3g",
+    "bytes": 262246,
+    "sha256": "8b21b5c4f01835a51e326e421c5d732a4dc7b76904cd0789a73ba29dda56261a"
+  },
+  {
+    "name": "texture_quad_hud_group03_sims_info.m3g",
+    "bytes": 1048678,
+    "sha256": "d2bbed689bc7e9b3ffe442e119949ec3dc1587e43954da814890cd15b08eb811"
+  },
+  {
+    "name": "texture_quad_hud_group04_cas.m3g",
+    "bytes": 262246,
+    "sha256": "cd95ff91358bdede190afc2cdb1628019aa547d5cf2948ad827f26b0d26af7a3"
+  },
+  {
+    "name": "texture_quad_hud_group05.m3g",
+    "bytes": 1048678,
+    "sha256": "7e9e5ba3d8e26ba1fde7de9254ea87f03603457e8a84339384cb8d9db6eb2219"
+  },
+  {
+    "name": "texture_quad_hud_group06.m3g",
+    "bytes": 262246,
+    "sha256": "da0ae41291cc35f7a5e10d74eb7834c4e80d7018a9f187087ad98fdc37f8337d"
+  },
+  {
+    "name": "texture_quad_hud_group07_cas_and_fe.m3g",
+    "bytes": 262246,
+    "sha256": "6de044bcfa9012030c1c190a85110c6c81033ed023a4e26e43bfe46e04a2964e"
+  },
+  {
+    "name": "texture_quad_hud_group08_loadscreen.m3g",
+    "bytes": 262246,
+    "sha256": "879e2c721de6090bc316e93f50851c634efaf6203ca012dc11e6131ad4369d26"
+  },
+  {
+    "name": "texture_quad_hud_group09_build.m3g",
+    "bytes": 65638,
+    "sha256": "d56c47caae4c149273dff54ac763d7c9e0d06e94836f70c87706213a43e5bd03"
+  },
+  {
+    "name": "texture_quad_hud_npc_portraits.m3g",
+    "bytes": 262246,
+    "sha256": "2f8cfed4b31364ae487f4ee44ce73741e6b801da6b5a3aec233a3af93972394b"
+  },
+  {
+    "name": "texture_quad_icons_inventory.m3g",
+    "bytes": 262246,
+    "sha256": "bfec69d9a0ee633c7118e50839f7d5908ad77a46d6bc5fcf46294efb0bdb70f7"
+  },
+  {
+    "name": "texture_quad_logo_local_les_los.m3g",
+    "bytes": 16486,
+    "sha256": "6325b3f7fb7a305f2ffc202d3b5adf9eebea1623cb6a2dc4f14a046b651cd8ff"
+  },
+  {
+    "name": "texture_quad_logo_local_the_die.m3g",
+    "bytes": 16486,
+    "sha256": "c226f00b2fc6e874d5e5b60e3e86f6c2118ba93a4176fda44d68008654e8ae72"
+  },
+  {
+    "name": "texture_quad_ui_sims_logo_small.m3g",
+    "bytes": 65638,
+    "sha256": "1941dbf270f0e532099a9c64a03a61930137bad5a47d67927caed20a9943513e"
+  },
+  {
+    "name": "texture_shadows_01.m3g",
+    "bytes": 65638,
+    "sha256": "64349f1b76bcacca440ac9edc1ae65ab532685199010f07dc2c85d6ad12d4216"
+  },
+  {
+    "name": "texture_sim_eye_01.m3g",
+    "bytes": 870,
+    "sha256": "30c11f03e2b1058f575b57e40dddac47a11405a886ca616f40135b4e3438d316"
+  },
+  {
+    "name": "texture_sim_eye_02.m3g",
+    "bytes": 870,
+    "sha256": "475ce55db3145f6e428f0a5392d83e1af9a9b94b93cb11e59880dfe1f5c85102"
+  },
+  {
+    "name": "texture_sim_eye_03.m3g",
+    "bytes": 870,
+    "sha256": "5a898901cc06ce216616e144a2dc15a6cbba20179fe64ea299502f40bdf3d8b9"
+  },
+  {
+    "name": "texture_sim_eye_04.m3g",
+    "bytes": 870,
+    "sha256": "01370ba73c990002d9a525c3644ef00e13373285016a88c8d4c32840c3bfe47b"
+  },
+  {
+    "name": "texture_sim_eye_05.m3g",
+    "bytes": 870,
+    "sha256": "f4d2937a59c3daa543dd030468f97c642dd7f9f80531827392568ddf995fc7a6"
+  },
+  {
+    "name": "texture_tiles_house.m3g",
+    "bytes": 4194406,
+    "sha256": "8a0b1c890b15f6546b1d9086daca4ea05127ba4efcec75d4cc5e3a4be70e8cd3"
+  },
+  {
+    "name": "texture_title_screen_backdrop.m3g",
+    "bytes": 1048678,
+    "sha256": "dba9feff95ceb334672a9c2effc518e961944ad8249e188e24586dba4d16f471"
+  },
+  {
+    "name": "texture_townmap.m3g",
+    "bytes": 4194406,
+    "sha256": "6060155563f26392a08e2bbb34d3949b4abf1daceb68ed14c85e58cbb34d8eda"
+  },
+  {
+    "name": "texture_townmap_windows_daylight.m3g",
+    "bytes": 1048678,
+    "sha256": "719b9b179bff155ac6699b98b9925f9d31f7a63650011350c165c02c7e0e8b23"
+  },
+  {
+    "name": "title_background.m3g",
+    "bytes": 12253,
+    "sha256": "0bc8df4e89312d7cb394e2f5a37b8aad047bda76fa9c5c98a89066a6c22ee3d3"
+  },
+  {
+    "name": "townmap_car_blue.m3g",
+    "bytes": 21893,
+    "sha256": "aa5265df5f9377dc295acb7d8529afc7355434e782ec508f751dd2213619e224"
+  },
+  {
+    "name": "townmap_car_green.m3g",
+    "bytes": 21893,
+    "sha256": "c8b79f56c6b8d6529c45c638d973a23a49553a056771b5354012b86bd967a4f8"
+  },
+  {
+    "name": "townmap_car_red.m3g",
+    "bytes": 21893,
+    "sha256": "3fed66afd6eed3f86b2d458fc1c5f976afbed5cd2b5807b6f0eec98c2751c04f"
+  },
+  {
+    "name": "townmap_car_yellow.m3g",
+    "bytes": 21893,
+    "sha256": "592f35f51755c6cd06679757c182997e4790eecee9590a89d8d86d9f8febfa30"
+  }
+]

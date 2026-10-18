@@ -1,0 +1,347 @@
+[
+  {
+    "name": "META-INF/MANIFEST.MF",
+    "bytes": 5057,
+    "crc32": "131a8a82"
+  },
+  {
+    "name": "META-INF/CERT.SF",
+    "bytes": 5110,
+    "crc32": "1e64697b"
+  },
+  {
+    "name": "META-INF/CERT.RSA",
+    "bytes": 1714,
+    "crc32": "12de5884"
+  },
+  {
+    "name": "assets/audio/bgm_stereo_latin_salsa.mp3",
+    "bytes": 3747885,
+    "crc32": "2ff4b4b3"
+  },
+  {
+    "name": "assets/eaLogo.png",
+    "bytes": 4435,
+    "crc32": "b52236ea"
+  },
+  {
+    "name": "res/drawable-hdpi-v4/icon.png",
+    "bytes": 10531,
+    "crc32": "8ed70c2e"
+  },
+  {
+    "name": "res/drawable/android_icon_170x170_0.png",
+    "bytes": 18788,
+    "crc32": "c3d7af8f"
+  },
+  {
+    "name": "assets/ic_launcher.png",
+    "bytes": 5893,
+    "crc32": "ed7835a1"
+  },
+  {
+    "name": "assets/audio/bgm_stereo_classical_divert.mp3",
+    "bytes": 4265323,
+    "crc32": "7d635793"
+  },
+  {
+    "name": "lib/armeabi/libthesims3.so",
+    "bytes": 531164,
+    "crc32": "358aa5f7"
+  },
+  {
+    "name": "assets/images/splash_ea.png",
+    "bytes": 32796,
+    "crc32": "d3a83de5"
+  },
+  {
+    "name": "assets/T5strings.xml",
+    "bytes": 47091,
+    "crc32": "457b6555"
+  },
+  {
+    "name": "assets/Tstrings_fr.xml",
+    "bytes": 2047,
+    "crc32": "8167d78f"
+  },
+  {
+    "name": "assets/images/grb_icon_a.png",
+    "bytes": 1012,
+    "crc32": "c2656d08"
+  },
+  {
+    "name": "assets/audio/bgm_minigame_cooking_1.mp3",
+    "bytes": 4912319,
+    "crc32": "d5882398"
+  },
+  {
+    "name": "assets/The Sims 3.s3e",
+    "bytes": 596299,
+    "crc32": "54974d8b"
+  },
+  {
+    "name": "assets/audio/bgm_minigame_fishing_1.mp3",
+    "bytes": 5224535,
+    "crc32": "c53aa33e"
+  },
+  {
+    "name": "assets/Tstrings_es.xml",
+    "bytes": 2003,
+    "crc32": "76fff078"
+  },
+  {
+    "name": "assets/bgVerti.png",
+    "bytes": 214,
+    "crc32": "5ddb0ee5"
+  },
+  {
+    "name": "assets/Tstrings_de.xml",
+    "bytes": 1969,
+    "crc32": "0715343e"
+  },
+  {
+    "name": "assets/images/splash_sims.png",
+    "bytes": 52395,
+    "crc32": "5fa61983"
+  },
+  {
+    "name": "assets/sim3dat7",
+    "bytes": 0,
+    "crc32": "00000000"
+  },
+  {
+    "name": "assets/T5deploymentFile.xml",
+    "bytes": 1624,
+    "crc32": "8dcf76a0"
+  },
+  {
+    "name": "assets/spinner.png",
+    "bytes": 9397,
+    "crc32": "dafa24fc"
+  },
+  {
+    "name": "assets/Tstrings_col.xml",
+    "bytes": 1909,
+    "crc32": "51c00c55"
+  },
+  {
+    "name": "assets/s3e.icf",
+    "bytes": 21233,
+    "crc32": "995a582e"
+  },
+  {
+    "name": "assets/sim3dat",
+    "bytes": 0,
+    "crc32": "00000000"
+  },
+  {
+    "name": "assets/audio/bgm_stereo_electro_born.mp3",
+    "bytes": 3030250,
+    "crc32": "b46f479e"
+  },
+  {
+    "name": "assets/sim3dat0",
+    "bytes": 0,
+    "crc32": "00000000"
+  },
+  {
+    "name": "assets/splash1.png",
+    "bytes": 33437,
+    "crc32": "c8d569fc"
+  },
+  {
+    "name": "resources.arsc",
+    "bytes": 1384,
+    "crc32": "65defe6f"
+  },
+  {
+    "name": "assets/audio/bgm_walking_1.mp3",
+    "bytes": 379961,
+    "crc32": "1c3001b0"
+  },
+  {
+    "name": "assets/sim3dat2",
+    "bytes": 0,
+    "crc32": "00000000"
+  },
+  {
+    "name": "assets/sim3dat1",
+    "bytes": 0,
+    "crc32": "00000000"
+  },
+  {
+    "name": "assets/sim3dat4",
+    "bytes": 0,
+    "crc32": "00000000"
+  },
+  {
+    "name": "assets/sim3dat3",
+    "bytes": 0,
+    "crc32": "00000000"
+  },
+  {
+    "name": "assets/sim3dat6",
+    "bytes": 0,
+    "crc32": "00000000"
+  },
+  {
+    "name": "assets/sim3dat5",
+    "bytes": 0,
+    "crc32": "00000000"
+  },
+  {
+    "name": "AndroidManifest.xml",
+    "bytes": 6436,
+    "crc32": "dfc5572a"
+  },
+  {
+    "name": "assets/Tstrings_it.xml",
+    "bytes": 1925,
+    "crc32": "4bd5cb31"
+  },
+  {
+    "name": "res/drawable-ldpi-v4/icon.png",
+    "bytes": 3539,
+    "crc32": "318223ee"
+  },
+  {
+    "name": "assets/audio/bgm_stereo_kids_nimbo.mp3",
+    "bytes": 1399371,
+    "crc32": "764aebe5"
+  },
+  {
+    "name": "assets/res.dz",
+    "bytes": 31952389,
+    "crc32": "02d26392"
+  },
+  {
+    "name": "assets/app.icf",
+    "bytes": 1253,
+    "crc32": "dd34f15b"
+  },
+  {
+    "name": "assets/sim3set0",
+    "bytes": 0,
+    "crc32": "00000000"
+  },
+  {
+    "name": "assets/opera-fan",
+    "bytes": 707,
+    "crc32": "422fbc36"
+  },
+  {
+    "name": "assets/sim3set1",
+    "bytes": 0,
+    "crc32": "00000000"
+  },
+  {
+    "name": "assets/sim3set2",
+    "bytes": 0,
+    "crc32": "00000000"
+  },
+  {
+    "name": "assets/sim3set3",
+    "bytes": 0,
+    "crc32": "00000000"
+  },
+  {
+    "name": "assets/sim3set4",
+    "bytes": 0,
+    "crc32": "00000000"
+  },
+  {
+    "name": "assets/sim3set5",
+    "bytes": 0,
+    "crc32": "00000000"
+  },
+  {
+    "name": "assets/sim3set6",
+    "bytes": 0,
+    "crc32": "00000000"
+  },
+  {
+    "name": "assets/sim3set7",
+    "bytes": 0,
+    "crc32": "00000000"
+  },
+  {
+    "name": "assets/audio/bgm_menu_1.mp3",
+    "bytes": 3225435,
+    "crc32": "2f033959"
+  },
+  {
+    "name": "assets/images/splash_ea.jpg",
+    "bytes": 11318,
+    "crc32": "c9bd5442"
+  },
+  {
+    "name": "assets/sim3set",
+    "bytes": 0,
+    "crc32": "00000000"
+  },
+  {
+    "name": "assets/Tstrings_en.xml",
+    "bytes": 1831,
+    "crc32": "400512a4"
+  },
+  {
+    "name": "assets/images/grb_table.png",
+    "bytes": 17733,
+    "crc32": "e9287202"
+  },
+  {
+    "name": "assets/audio/bgm_home_1.mp3",
+    "bytes": 392496,
+    "crc32": "ec70f103"
+  },
+  {
+    "name": "assets/Tstrings_zh.xml",
+    "bytes": 1796,
+    "crc32": "ca321425"
+  },
+  {
+    "name": "assets/images/grb_icon_b.png",
+    "bytes": 1359,
+    "crc32": "25c3ca8e"
+  },
+  {
+    "name": "assets/audio/bgm_stereo_pop_ramooned.mp3",
+    "bytes": 3635037,
+    "crc32": "0ed86029"
+  },
+  {
+    "name": "assets/Tstrings_ko.xml",
+    "bytes": 2070,
+    "crc32": "a04de2da"
+  },
+  {
+    "name": "assets/audio/bgm_stereo_indie_catmouse.mp3",
+    "bytes": 2926180,
+    "crc32": "b69e6e28"
+  },
+  {
+    "name": "res/drawable-mdpi-v4/icon.png",
+    "bytes": 5638,
+    "crc32": "eff53f0c"
+  },
+  {
+    "name": "assets/config.bin",
+    "bytes": 69318,
+    "crc32": "14f1efa4"
+  },
+  {
+    "name": "classes.dex",
+    "bytes": 1228156,
+    "crc32": "1a99a709"
+  },
+  {
+    "name": "assets/Tstrings_pt.xml",
+    "bytes": 1920,
+    "crc32": "3d137fee"
+  },
+  {
+    "name": "assets/audio/bgm_loading_1.mp3",
+    "bytes": 4986707,
+    "crc32": "0101bb0a"
+  }
+]

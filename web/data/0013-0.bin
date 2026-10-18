@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lang">de</string>
+    <string name="options">OPTIONEN</string>
+    <string name="start_game">SPIEL STARTEN</string>
+    <string name="exit">BEENDEN</string>
+    <string name="recommend">EMPFOHLEN</string>
+    <string name="about">Über </string>
+    <string name="about_text1"> EA Game Box (c) 2013 Electronic Arts Inc. EA and the EA logo are trademarks of Electronic Arts Inc.</string>
+    <string name="about_text2"> Version: </string>
+    <string name="about_text3"> Kundendienst: </string>
+    <string name="lic_agreement">Endbenutzer-Lizenzvertrag</string>
+    <string name="terms">Nutzungsbedingungen</string>
+    <string name="privacy_policy">Datenschutzrichtlinie</string>
+    <string name="all_rights_reserved">© 2013 Electronic Arts Inc. Alle Rechte vorbehalten.</string>
+    <string name="locale">de</string>    
+    <string name="lic_act_failed">Lizenzaktivierung gescheitert. Bitte später erneut versuchen.</string>
+    <string name="no_network_1">Keine Netzwerkverbindung zur Lizenzaktivierung</string>
+    <string name="no_network_2">Keine Netzwerkverbindung</string>
+    <string name="do_exit">Möchtest du beenden?</string>
+    <string name="ok">Ja</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="payment_in_process">Zahlung wird durchgeführt. Bitte später erneut versuchen.</string>
+    <string name="payment_failed">Zahlung gescheitert. Bitte später erneut versuchen.</string>    
+    <string name="loading">Lädt</string>
+    <string name="your">Die fünf </string>
+    <string name="minutes_trial"> minuten sind vorüber! Drücke bitte OK, um fortzufahren.</string>
+    <string name="quit_app">Möchtest du die Anwendung schließen?</string>
+    <string name="trials_completed">%1$d Demo-Testversionen abgeschlossen. Um weiterzuspielen, bitte auf „Freischalten“ drücken, um das Spiel zu kaufen.</string>
+</resources>

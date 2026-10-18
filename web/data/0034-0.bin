@@ -1,0 +1,69 @@
+# comments and whitespace stripped by deployment tool
+[s3e]
+MemSize0=40000000
+MemSize2=10000000
+SysStackSize=128000
+DispFixRot=2
+SplashscreenBkR=0
+SplashscreenBkG=0
+SplashscreenBkB=0
+SplashScreenFile=images/splash_ea.jpg
+SplashScreenWidth=130
+SplashScreenHeight=266
+SplashScreenMinTime=3000
+AndroidFileNoMemoryCard=1
+WinMobVolKeyIgnoreForUpDown=360000000
+DispFixRot=”FixedLandscape”
+[gx]
+GlesDepthBuffFixedPoint=1
+[util]
+MemMgrMaxAllocWarning=0
+[GetMoreGames]
+url=""
+exit=1
+[Telefonica]
+isTelefonicaDemo=0
+[Tnb]
+isTnbDemo=0
+[Game]
+Version="1.5.18"
+ForceTextureCache=0
+Language=efigs
+{ID=SYMBIAN 536998049} # Sony Ericsson Satio
+[Game]
+SoundOrAudio=1
+{ID=SYMBIAN 537022188} # Sony Ericsson Kurara
+[Game]
+SoundOrAudio=1
+{OS=ANDROID}
+[GL]
+EGLTerminateOnSuspend=1
+[GX]
+UseGLContextShadow=0
+[S3E]
+MemSize6=0
+MemSize0=34500000
+AndroidIgnoreResizeWhilePaused=1
+{ID=WINMOBILE "HTC HD2 T8585", "Toshiba TG01", "Toshiba TG01CV", 0xf25dcd12}
+[game]
+SnapdragonAlphaWorkaround=1
+{}
+{ID=ANDROID "X10a", "X10i"}
+[game]
+SnapdragonAlphaWorkaround=1
+{}
+{}
+[S3E]
+MemSize0=60000000
+{}
+{}
+[game]
+enableUIDoubleScaling=1
+{}
+{}
+[Game]
+LimitUIScale=1
+{}
+[s3e]
+SysAppVersion=1.5.18
+SysAppCaption="The Sims 3"

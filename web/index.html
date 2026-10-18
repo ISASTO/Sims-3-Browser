@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Sims 3 · Browser build</title>
+<meta name="description" content="An experimental browser compatibility build for the original Sims 3 mobile game.">
+<style>
+:root{color-scheme:dark;font-family:Arial,Helvetica,sans-serif;background:#000;color:#eee}*{box-sizing:border-box}body{margin:0}main{width:min(100% - 36px,1100px);margin:0 auto;padding:34px 0 24px}header{display:flex;align-items:center;gap:15px;margin-bottom:28px}header svg{width:28px;height:48px;flex:none}h1{font-size:23px;margin:0 0 5px;font-weight:650;letter-spacing:-.7px}.sub{color:#8e969d;font-size:13px}.badge{margin-left:auto;border:1px solid #354232;color:#b4d29f;border-radius:20px;padding:7px 12px;font-size:11px;letter-spacing:.5px;text-transform:uppercase}.stage{position:relative;background:#000;border:1px solid #243037;border-radius:8px;overflow:hidden;aspect-ratio:3/2;max-height:calc(100svh - 220px);margin:0 auto;min-height:220px;display:grid;place-items:center}canvas{display:block;width:100%;height:100%;object-fit:contain;touch-action:none;image-rendering:auto}.cover{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;background:radial-gradient(ellipse at 50% 85%,#10251f 0%,#060a0a 45%,#000 80%);padding:24px;text-align:center}.cover svg{height:88px;width:52px;margin-bottom:24px}.cover h2{font-size:30px;font-weight:600;letter-spacing:-1px;margin:0 0 12px}.cover p{font-size:14px;line-height:1.65;color:#a6afb3;max-width:390px;margin:0 0 24px}button,.file-button{border:1px solid #30383c;border-radius:6px;background:#121719;color:#e0e6e8;padding:10px 15px;font-size:13px;cursor:pointer;text-decoration:none}button:hover,.file-button:hover{background:#1e282b}button:focus-visible,.file-button:focus-visible{outline:2px solid #83dcb2;outline-offset:3px}#start{background:#8bd9a6;color:#062515;border:0;font-size:14px;font-weight:bold;padding:13px 27px}#start:hover{background:#b1f3c3}button:disabled{opacity:.55;cursor:wait}.bar{display:flex;align-items:center;gap:8px;margin:15px 0}.status{font-size:13px;color:#a1aeb4;line-height:1.5;flex:1}.running{color:#a3daba}.controls{display:flex;gap:7px}.hint{color:#7f8b91;font-size:12px;line-height:1.7;margin:13px 0 0}details{margin-top:24px;border-top:1px solid #1d2428;padding-top:15px;font-size:12px;color:#89969d}summary{cursor:pointer}pre{white-space:pre-wrap;word-break:break-word;max-height:220px;overflow:auto;font-size:11px;color:#899c93;line-height:1.6}.save-controls{display:flex;gap:8px;align-items:center;margin-top:15px;flex-wrap:wrap}.notice{color:#b6bfc4;font-size:12px;line-height:1.6;max-width:800px}input[type=file]{display:none}.error{color:#f1ae92}:fullscreen{background:#000}:fullscreen canvas{max-height:100svh;max-width:100vw;object-fit:contain}@media(max-width:640px){main{width:100%;padding:20px 0}header,.bar,.hint,details{margin-left:16px;margin-right:16px}h1{font-size:20px}.badge{font-size:9px;padding:6px 8px}.stage{border-left:0;border-right:0;border-radius:0;min-height:0;max-height:none}.bar{align-items:flex-start;flex-wrap:wrap}.status{flex-basis:100%}.controls{margin-top:4px}.cover h2{font-size:23px}.cover svg{height:45px;margin-bottom:12px}.cover p{font-size:12px;margin-bottom:16px}.cover{padding:12px}.sub{font-size:11px}}
+</style></head><body><main>
+<header><svg viewBox="0 0 40 66" aria-hidden="true"><path fill="#86e39a" d="M20 0 39 29 20 66 1 29Z"/><path fill="#3f9b63" d="M20 0v66L1 29Z"/><path fill="#bbf6ae" d="M20 0 39 29H20Z"/></svg><div><h1>The Sims 3</h1><div class="sub">Original mobile game · compatibility prototype</div></div><span class="badge">Experimental build</span></header>
+<section class="stage" id="stage" aria-label="Game screen"><canvas id="game" width="480" height="320" aria-label="The Sims 3 game. Use your mouse or touch to play."></canvas><div class="cover" id="cover"><svg viewBox="0 0 40 66" aria-hidden="true"><path fill="#86e39a" d="M20 0 39 29 20 66 1 29Z"/><path fill="#3f9b63" d="M20 0v66L1 29Z"/><path fill="#bbf6ae" d="M20 0 39 29H20Z"/></svg><h2>The Sims 3 browser prototype</h2><p>Menu rendering is incomplete. This build is not fully playable yet.<br>First startup can take 1–2 minutes.</p><button id="start">Run prototype</button></div></section>
+<div class="bar"><div class="status" id="status" role="status" aria-live="polite">Ready when you are.</div><div class="controls"><button id="sound" aria-pressed="true">Sound on</button><button id="pause" disabled>Pause</button><button id="fullscreen">Fullscreen</button></div></div>
+<p class="hint">Click or tap to interact. Your saves stay in this browser. Keep this tab open while the game starts.</p>
+<details><summary>Build details &amp; save files</summary><p class="notice">This is a compatibility prototype running the uploaded game's original code and assets. Graphics, sound, and gameplay compatibility are still being tested. A successful startup is not a guarantee that every game feature works.</p><div class="save-controls"><button id="export">Export saves</button><label class="file-button" for="import">Import saves</label><input id="import" type="file" accept="application/json,.json"><span id="save-status">No saves stored yet.</span></div><pre id="log" aria-label="Runtime diagnostic log"></pre></details>
+</main><script>
+'use strict';
+let worker,started=false,paused=false,muted=false,audioContext,music,gain,lastFrames=0,frameTime=0,saves=[],saveTimer;
+const byId=id=>document.getElementById(id),status=byId('status'),log=byId('log');
+function addLog(text){log.textContent=(log.textContent+'\n'+text).split('\n').slice(-150).join('\n');log.scrollTop=log.scrollHeight;}
+function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open('sims3-browser',1);req.onupgradeneeded=()=>req.result.createObjectStore('data');req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});}
+async function loadSaves(){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction('data'),req=tx.objectStore('data').get('saves');req.onsuccess=()=>{db.close();resolve(req.result||[]);};req.onerror=()=>reject(req.error);});}
+async function persistSaves(value){const db=await openDB();await new Promise((resolve,reject)=>{const tx=db.transaction('data','readwrite');tx.objectStore('data').put(value,'saves');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);});db.close();byId('save-status').textContent=value.length+' save files stored.';}
+async function handleAudio(data){
+  if(!audioContext)return;
+  try{if(data.action==='play'){if(music){try{music.stop();}catch{}}const buffer=await audioContext.decodeAudioData(data.bytes.slice().buffer);music=audioContext.createBufferSource();music.buffer=buffer;music.loop=data.repeats===0;music.connect(gain);music.start();}
+    else if(data.action==='stop'){if(music){try{music.stop();}catch{}}music=null;}
+    else if(data.action==='pause')await audioContext.suspend();else if(data.action==='resume')await audioContext.resume();
+  }catch(error){addLog('Audio: '+error.message);}
+}
+byId('start').onclick=async()=>{
+  if(started)return;started=true;byId('start').disabled=true;
+  try{
+    if(!byId('game').transferControlToOffscreen)throw Error('This build needs OffscreenCanvas with WebGL. Use a current desktop Chrome or Firefox browser.');
+    try{audioContext=new (window.AudioContext||window.webkitAudioContext)();gain=audioContext.createGain();gain.gain.value=muted?0:0.55;gain.connect(audioContext.destination);await audioContext.resume();}catch(error){addLog('Audio unavailable: '+error.message);}
+    saves=await loadSaves().catch(()=>[]);worker=new Worker('worker.js');
+    worker.onmessage=event=>{
+      const m=event.data;
+      if(m.type==='log')addLog(m.text);
+      if(m.type==='status')status.textContent=m.text;
+      if(m.type==='error'){status.textContent='The experimental build stopped: '+m.text;status.className='status error';addLog(m.text);}
+      if(m.type==='audio')handleAudio(m.audio);
+      if(m.type==='save'){saves=m.saves;clearTimeout(saveTimer);saveTimer=setTimeout(()=>persistSaves(saves).catch(e=>addLog('Save failed: '+e.message)),500);}
+      if(m.type==='stats'){
+        if(m.frames>20){const now=performance.now(),fps=frameTime?((m.frames-lastFrames)*1000/(now-frameTime)).toFixed(1):'…';status.textContent=paused?'Paused.':`Prototype active · ${fps} FPS`;status.className='status running';lastFrames=m.frames;frameTime=now;}
+        else if(m.frames>0)status.textContent='Loading the town… '+Math.round(m.downloaded/1048576)+' MB loaded';
+      }
+    };
+    worker.onerror=e=>{status.textContent='The experimental build stopped: '+e.message;status.className='status error';};
+    const offscreen=byId('game').transferControlToOffscreen();worker.postMessage({type:'start',canvas:offscreen,saves},[offscreen]);
+    byId('cover').style.display='none';byId('pause').disabled=false;
+  }catch(error){status.textContent=error.message;status.className='status error';addLog(error.stack||error.message);}
+};
+let down=false;function position(event){const rect=byId('game').getBoundingClientRect();return {x:Math.max(0,Math.min(479,(event.clientX-rect.left)/rect.width*480)),y:Math.max(0,Math.min(319,(event.clientY-rect.top)/rect.height*320))};}
+byId('game').onpointerdown=e=>{if(!worker)return;e.preventDefault();byId('game').setPointerCapture(e.pointerId);down=true;worker.postMessage({type:'pointer',...position(e),down:true});};
+byId('game').onpointerup=byId('game').onpointercancel=e=>{if(!worker)return;e.preventDefault();down=false;worker.postMessage({type:'pointer',...position(e),down:false});};
+byId('game').onpointermove=e=>{if(worker&&down)worker.postMessage({type:'motion',...position(e)});};
+byId('game').oncontextmenu=e=>e.preventDefault();
+byId('sound').onclick=()=>{muted=!muted;if(gain)gain.gain.value=muted?0:0.55;byId('sound').textContent=muted?'Sound off':'Sound on';byId('sound').setAttribute('aria-pressed',String(!muted));};
+byId('pause').onclick=()=>{paused=!paused;worker?.postMessage({type:'pause',paused});byId('pause').textContent=paused?'Resume':'Pause';status.textContent=paused?'Paused.':'Game running.';if(paused)audioContext?.suspend();else audioContext?.resume();};
+byId('fullscreen').onclick=()=>{if(document.fullscreenElement)document.exitFullscreen();else byId('stage').requestFullscreen().catch(e=>addLog(e.message));};
+byId('export').onclick=()=>{const value={format:'sims3-browser-saves-v1',saves:saves.map(([name,bytes])=>[name,Array.from(bytes)])};const url=URL.createObjectURL(new Blob([JSON.stringify(value)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='sims3-saves.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);};
+byId('import').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;if(file.size>8*1048576)throw Error('Save file is too large.');const value=JSON.parse(await file.text());if(value.format!=='sims3-browser-saves-v1'||!Array.isArray(value.saves)||value.saves.some(x=>!Array.isArray(x)||typeof x[0]!=='string'||!Array.isArray(x[1])||x[1].some(v=>!Number.isInteger(v)||v<0||v>255)))throw Error('Invalid save file.');saves=value.saves.map(([name,data])=>[name,new Uint8Array(data)]);await persistSaves(saves);status.textContent='Saves imported. Reload this page before starting the game.';}catch(error){status.textContent=error.message;}};
+loadSaves().then(value=>{saves=value;if(saves.length)byId('save-status').textContent=saves.length+' save files stored.';}).catch(()=>{});
+</script></body></html>

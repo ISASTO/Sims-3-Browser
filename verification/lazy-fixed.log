@@ -1,0 +1,58 @@
+Mapped original ARM game; 270 imported services.
+s3eExtGetHash(0xcc0b4a28, 0x4a1a1b90, 0x4c, 0x0)
+Extension request 0xcc0b4a28 (76 bytes)
+s3eMemoryGetInt(0x0, 0x4a0574c5, 0x4c, 0x4a154059)
+s3eMemorySetInt(0x0, 0x7, 0x4c, 0x4a154059)
+s3eMallocBase(0x8, 0x7, 0x4c, 0x4a154059)
+s3eReallocBase(0x0, 0x4, 0x0, 0x4a15f2eb)
+s3eMemorySetUserMemMgr(0xe1fffb8, 0x4a183420, 0x4a161571, 0x4a161671)
+s3eConfigGetString(0x4a00d2c4, 0x4a00d2b8, 0xe1fff24, 0x4a001881)
+s3eDeviceGetString(0x1f, 0x0, 0x4a161671, 0x4a1653dc)
+s3eTimerGetLocaltimeOffset(0xe1ffec8, 0x0, 0x0, 0x4a154095)
+s3eDeviceGetInt(0x0, 0x4a0004f0, 0xe1ffe44, 0x4a0bc1d0)
+s3eSurfaceGetInt(0x4, 0x4a0004f0, 0xe1ffe44, 0x4a0bc1d0)
+s3eConfigGetInt(0x4a17eb40, 0x4a17eb48, 0xe1ffda8, 0x80000020)
+s3eTimerGetMs(0x380000, 0x0, 0x0, 0x4a060300)
+s3eFreeBase(0x0, 0x4a0574c0, 0xe1ffd98, 0x4a161539)
+s3eSurfaceRegister(0x1, 0x4a03d069, 0x0, 0x4a03021f)
+s3eSurfacePtr(0x4, 0x0, 0x0, 0x4a037c4f)
+s3eSurfaceSetup(0x422, 0x0, 0x0, 0x4)
+s3eGLGetInt(0x0, 0x4a03b861, 0x8, 0x4a03e693)
+eglGetCurrentContext(0x0, 0x1, 0x8, 0x4a03e693)
+eglGetCurrentDisplay(0x0, 0x1, 0x8, 0x4a03e693)
+eglGetCurrentSurface(0x3059, 0x1, 0x8, 0x4a03e693)
+eglQueryContext(0x1, 0x1, 0x3028, 0x4a191f48)
+s3eGLRegister(0x0, 0x4a02ca05, 0x0, 0x4a00ac99)
+eglGetConfigAttrib(0x1, 0x1, 0x302c, 0xe1ffd30)
+s3eFileOpenFromMemory(0x4a192ca8, 0x249, 0x60000000, 0x4a03bf8b)
+s3eFileRead(0xe1ffd38, 0x1, 0x4, 0x1)
+s3eFileGetSize(0x1, 0x1, 0x4, 0x1)
+s3eFileSeek(0x1, 0xfffffffc, 0x1, 0x1)
+s3eFileClose(0x1, 0xe1ffd80, 0xffffffe0, 0x4a03bfaf)
+Extension request 0x167d1038 (8 bytes)
+s3eFileCheckExists(0x4a18df98, 0x4a0479dc, 0x4a061472, 0x4a0479de)
+s3eFileOpen(0xe1ff9f8, 0x4a061470, 0xe1ffa0f, 0x4a03f505)
+PENDING images/splash_sims.png already false pc 4a0006bc lr 4a03f511
+Open images/splash_sims.png (52395 bytes)
+s3eCompressionDecomp(0x1019cec0, 0x40100, 0xe1ffa34, 0xe1ffa38)
+s3eDeviceYield(0x80000000, 0x4a191ddc, 0x1013db6c, 0x4a0363ec)
+eglSwapBuffers(0x1, 0x1, 0x1013db6c, 0x4a0363ec)
+s3eFileAddUserFileSys(0xe1ffd74, 0x0, 0x2701, 0x4a15d174)
+Missing file: dlc.dz
+PENDING res.dz already false pc 4a0006bc lr 4a09187b
+Open res.dz (31952389 bytes)
+s3eFileGetChar(0x5, 0x4a091a5c, 0x0, 0x5a525444)
+PENDING bin/image.bin already false pc 4a0006bc lr 4a05bfd3
+Open /bin/image.bin (0 bytes)
+s3eFileGetFileInt(0x1025b130, 0x1, 0x0, 0x0)
+PENDING bin/animdata.bin already false pc 4a0006bc lr 4a05bfd3
+Open /bin/animdata.bin (1527 bytes)
+PENDING bin/color.bin already false pc 4a0006bc lr 4a05bfd3
+Open /bin/color.bin (300 bytes)
+PENDING bin/anim3d.bin already false pc 4a0006bc lr 4a05bfd3
+Open /bin/anim3d.bin (1622 bytes)
+PENDING bin/anim2d.bin already false pc 4a0006bc lr 4a05bfd3
+Open /bin/anim2d.bin (5834 bytes)
+PENDING anim2d.m3g already false pc 4a0006bc lr 4a05bfd3
+Open /anim2d.m3g (141632 bytes)
+RESULT {"blocks":48,"frames":1,"elapsedMs":12451.572791,"pc":"0x4a0ae9b8","heap":3005424,"quit":false,"counts":{"s3eExtGetHash":2,"s3eMemoryGetInt":13,"s3eMemorySetInt":23010,"s3eMallocBase":11507,"s3eReallocBase":22,"s3eMemorySetUserMemMgr":1,"s3eConfigGetString":9,"s3eDeviceGetString":2,"s3eTimerGetLocaltimeOffset":3,"s3eDeviceGetInt":4,"s3eSurfaceGetInt":20,"s3eConfigGetInt":102,"s3eTimerGetMs":8,"s3eFreeBase":7109,"s3eSurfaceRegister":2,"s3eSurfacePtr":2,"s3eSurfaceSetup":2,"s3eGLGetInt":18,"eglGetCurrentContext":2,"eglGetCurrentDisplay":1,"eglGetCurrentSurface":1,"eglQueryContext":1,"glGetString":8,"s3eGLRegister":2,"glGetIntegerv":11,"glLightf":40,"glLightfv":40,"glAlphaFunc":1,"glColor4f":1,"glFogx":2,"glFogf":3,"glFogfv":1,"glClientActiveTexture":5,"glDisable":31,"glEnable":7,"glDisableClientState":4,"glLightModelf":1,"glLightModelfv":1,"glMaterialf":1,"glMaterialfv":4,"glNormal3f":1,"glShadeModel":2,"glLogicOp":1,"glMatrixMode":12,"glLoadIdentity":4,"glScalef":1,"glRotatef":1,"glMultMatrixf":1,"glLoadMatrixf":3,"glHint":6,"glStencilFunc":1,"glStencilMask":1,"glStencilOp":1,"glClearColor":1,"glClearDepthf":1,"glDepthRangef":1,"glActiveTexture":3,"glColorMask":1,"glCullFace":1,"glDepthFunc":2,"glDepthMask":2,"glLineWidth":1,"glBindBuffer":2,"glBlendFunc":2,"glScissor":2,"glClearStencil":1,"glFrontFace":1,"glPixelStorei":3,"glPolygonOffset":1,"eglGetConfigAttrib":1,"s3eFileOpenFromMemory":3,"s3eFileRead":5960,"s3eFileGetSize":4,"s3eFileSeek":10,"s3eFileClose":10,"glColor4x":2,"glLightModelxv":1,"glMaterialxv":4,"glLightxv":3,"glLightModelx":1,"glClearColorx":2,"glGenTextures":4,"glBindTexture":14,"glTexParameterx":24,"glTexImage2D":12,"glDeleteTextures":1,"s3eFileCheckExists":22,"s3eFileOpen":17,"s3eCompressionDecomp":1,"glViewport":2,"glClear":1,"glLoadMatrixx":4,"glRotatex":6,"glScalex":2,"glAlphaFuncx":1,"glTexEnvx":3,"glEnableClientState":3,"glVertexPointer":2,"glTexCoordPointer":2,"glDrawElements":2,"glDepthRangex":1,"s3eDeviceYield":1,"eglSwapBuffers":1,"s3eFileAddUserFileSys":1,"s3eFileGetChar":23146,"glIsEnabled":5,"glGetFloatv":1,"s3eFileGetFileInt":18}}

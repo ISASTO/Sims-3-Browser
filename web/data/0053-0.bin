@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <string name="lang">ko</string>
+    <string name="options">옵션</string>
+    <string name="start_game">게임을 시작</string>
+    <string name="exit">出口</string>
+    <string name="recommend">권장</string>
+    <string name="about">관련 </string>
+    <string name="about_text1"> EA Game Box (c) 2013 Electronic Arts Inc. EA and the EA logo are trademarks of Electronic Arts Inc.</string>
+    <string name="about_text2"> 버전: </string>
+    <string name="about_text3"> 고객 지원: </string>
+    <string name="lic_agreement">최종사용자 라이선스 계약</string>
+    <string name="terms">서비스 이용약관</string>
+    <string name="privacy_policy">개인정보 보호정책</string>
+    <string name="all_rights_reserved">© 2013 Electronic Arts Inc. All Rights Reserved</string>
+    <string name="locale">ko</string>    
+    <string name="lic_act_failed">라이센스 활성화에 실패했습니다. 나중에 다시 시도하십시오.</string>
+    <string name="no_network_1">라이센스를 활성화 할 네트워크 연결 없음</string>
+    <string name="no_network_2">어떤 네트워크 연결 없음</string>
+    <string name="do_exit">당신은 종료 하시겠습니까?</string>
+    <string name="ok">확인을</string>
+    <string name="cancel">취소</string>
+    <string name="payment_in_process">지불 과정에 있습니다. 잠시 후 다시 시도해</string>
+    <string name="payment_failed">결제에 실패했습니다. 나중에 다시 시도하십시오</string>    
+    <string name="loading">로드</string>
+    <string name="your">당신의 </string>
+    <string name="minutes_trial"> 분 간의 시도가 종료되었습니다. 확인을 눌러 계속 진행해 주십시오</string>
+    <string name="quit_app">종료할까요?</string>
+    <string name="trials_completed">%1$d 데모 버전이 종료되었습니다. 게임을 계속하려면, "해제"를 눌러 구입을 진행해 주십시오.</string>
+</resources>

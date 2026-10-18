@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <string name="lang">zh</string>
+    <string name="options">选项</string>
+    <string name="start_game">开始游戏</string>
+    <string name="exit">退出</string>
+    <string name="recommend">推荐</string>
+    <string name="about">产品说明 </string>
+    <string name="about_text1"> EA Game Box (c) 2013 Electronic Arts Inc. EA and the EA logo are trademarks of Electronic Arts Inc.</string>
+    <string name="about_text2"> 版本: </string>
+    <string name="about_text3"> 客户服务: </string>
+    <string name="lic_agreement">最终用户许可协议</string>
+    <string name="terms">服务条款</string>
+    <string name="privacy_policy">保密协议</string>
+    <string name="all_rights_reserved">© 2013 Electronic Arts Inc. All Rights Reserved</string>
+    <string name="locale">sc</string>    
+    <string name="lic_act_failed">许可证激活失败。请稍后再试。</string>
+    <string name="no_network_1">没有网络连接到激活许可证</string>
+    <string name="no_network_2">没有网络连接</string>
+    <string name="do_exit">你想退出吗？</string>
+    <string name="ok">行</string>
+    <string name="cancel">取消</string>
+    <string name="payment_in_process">付款过程中。试用一段时间后</string>
+    <string name="payment_failed">付款失败。请稍后再试</string>    
+    <string name="loading">载入中</string>
+    <string name="your">您的  </string>
+    <string name="minutes_trial"> 分钟试玩已结束。请点击“确定”以继续。</string>
+    <string name="quit_app">你想退出吗？</string>
+    <string name="trials_completed">%1$d 次试玩已结束。要继续游戏 ，按解锁来购买。</string>
+</resources>

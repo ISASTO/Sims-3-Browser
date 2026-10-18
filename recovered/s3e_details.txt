@@ -1,0 +1,578 @@
+ *** BASIC HEADER *** 
+ident        = 0x55334558 (XE3U)
+version      = 0x42200 (4.34.0)
+flags        = 0b100 (rvct)
+arch         = 0x0 (ARMv4t)
+vfp          = 0x0
+fixupOffset  = 0x48
+fixupSize    = 0xeaa0
+codeOffset   = 0xeae8
+codeFileSize = 0x19486c
+codeMemSize  = 0x1aa550
+sigOffset    = 0x0
+sigSize      = 0x0
+entryOffset  = 0x165364
+configOffset = 0x48
+configSize   = 0x0
+baseAddrOrig = 0x4a000000
+extraOffset  = 0x1a3354
+extraSize    = 0x180
+
+Section information:
+ - has a data section: no
+ - code + data size = 0x19486c
+ - bss size = 0x15ce4 (implicit)
+
+ *** FIXUP CONTENTS *** 
+Have 270 symbol names:
+ * [0] glActiveTexture
+ * [1] glAlphaFunc
+ * [2] glAlphaFuncx
+ * [3] glAttachShader
+ * [4] glBindAttribLocation
+ * [5] glBindBuffer
+ * [6] glBindFramebuffer
+ * [7] glBindRenderbuffer
+ * [8] glBindTexture
+ * [9] glBlendColor
+ * [10] glBlendEquationSeparate
+ * [11] glBlendFunc
+ * [12] glBlendFuncSeparate
+ * [13] glBufferData
+ * [14] glBufferSubData
+ * [15] glCheckFramebufferStatus
+ * [16] glClear
+ * [17] glClearColor
+ * [18] glClearColorx
+ * [19] glClearDepthf
+ * [20] glClearDepthx
+ * [21] glClearStencil
+ * [22] glClientActiveTexture
+ * [23] glClipPlanef
+ * [24] glClipPlanex
+ * [25] glColor4f
+ * [26] glColor4x
+ * [27] glColorMask
+ * [28] glColorPointer
+ * [29] glCompileShader
+ * [30] glCompressedTexImage2D
+ * [31] glCompressedTexSubImage2D
+ * [32] glCreateProgram
+ * [33] glCreateShader
+ * [34] glCullFace
+ * [35] glDeleteBuffers
+ * [36] glDeleteFramebuffers
+ * [37] glDeleteProgram
+ * [38] glDeleteRenderbuffers
+ * [39] glDeleteShader
+ * [40] glDeleteTextures
+ * [41] glDepthFunc
+ * [42] glDepthMask
+ * [43] glDepthRangef
+ * [44] glDepthRangex
+ * [45] glDetachShader
+ * [46] glDisable
+ * [47] glDisableClientState
+ * [48] glDisableVertexAttribArray
+ * [49] glDrawArrays
+ * [50] glDrawElements
+ * [51] glEnable
+ * [52] glEnableClientState
+ * [53] glEnableVertexAttribArray
+ * [54] glFinish
+ * [55] glFogf
+ * [56] glFogfv
+ * [57] glFogx
+ * [58] glFogxv
+ * [59] glFramebufferRenderbuffer
+ * [60] glFramebufferTexture2D
+ * [61] glFrontFace
+ * [62] glFrustumf
+ * [63] glGenBuffers
+ * [64] glGenFramebuffers
+ * [65] glGenRenderbuffers
+ * [66] glGenTextures
+ * [67] glGenerateMipmap
+ * [68] glGetActiveUniform
+ * [69] glGetAttribLocation
+ * [70] glGetBooleanv
+ * [71] glGetError
+ * [72] glGetFloatv
+ * [73] glGetFramebufferAttachmentParameteriv
+ * [74] glGetIntegerv
+ * [75] glGetProgramInfoLog
+ * [76] glGetProgramiv
+ * [77] glGetRenderbufferParameteriv
+ * [78] glGetShaderInfoLog
+ * [79] glGetShaderiv
+ * [80] glGetTexParameteriv
+ * [81] glGetUniformLocation
+ * [82] glHint
+ * [83] glIsEnabled
+ * [84] glIsFramebuffer
+ * [85] glIsRenderbuffer
+ * [86] glLightModelf
+ * [87] glLightModelfv
+ * [88] glLightModelx
+ * [89] glLightModelxv
+ * [90] glLightf
+ * [91] glLightfv
+ * [92] glLightx
+ * [93] glLightxv
+ * [94] glLineWidth
+ * [95] glLineWidthx
+ * [96] glLinkProgram
+ * [97] glLoadIdentity
+ * [98] glLoadMatrixf
+ * [99] glLoadMatrixx
+ * [100] glLogicOp
+ * [101] glMaterialf
+ * [102] glMaterialfv
+ * [103] glMaterialx
+ * [104] glMaterialxv
+ * [105] glMatrixMode
+ * [106] glMultMatrixf
+ * [107] glMultMatrixx
+ * [108] glMultiTexCoord4f
+ * [109] glMultiTexCoord4x
+ * [110] glNormal3f
+ * [111] glNormal3x
+ * [112] glNormalPointer
+ * [113] glOrthof
+ * [114] glOrthox
+ * [115] glPixelStorei
+ * [116] glPolygonOffset
+ * [117] glPolygonOffsetx
+ * [118] glPopMatrix
+ * [119] glPushMatrix
+ * [120] glReadPixels
+ * [121] glRenderbufferStorage
+ * [122] glRotatef
+ * [123] glRotatex
+ * [124] glScalef
+ * [125] glScalex
+ * [126] glScissor
+ * [127] glShadeModel
+ * [128] glShaderBinary
+ * [129] glShaderSource
+ * [130] glStencilFunc
+ * [131] glStencilFuncSeparate
+ * [132] glStencilMask
+ * [133] glStencilMaskSeparate
+ * [134] glStencilOp
+ * [135] glStencilOpSeparate
+ * [136] glTexCoordPointer
+ * [137] glTexEnvf
+ * [138] glTexEnvfv
+ * [139] glTexEnvi
+ * [140] glTexEnvx
+ * [141] glTexEnvxv
+ * [142] glTexImage2D
+ * [143] glTexParameteri
+ * [144] glTexParameterx
+ * [145] glTexSubImage2D
+ * [146] glTranslatef
+ * [147] glTranslatex
+ * [148] glUniform1f
+ * [149] glUniform1fv
+ * [150] glUniform1i
+ * [151] glUniform1iv
+ * [152] glUniform2f
+ * [153] glUniform2fv
+ * [154] glUniform2iv
+ * [155] glUniform3f
+ * [156] glUniform3fv
+ * [157] glUniform3iv
+ * [158] glUniform4f
+ * [159] glUniform4fv
+ * [160] glUniform4iv
+ * [161] glUniformMatrix2fv
+ * [162] glUniformMatrix3fv
+ * [163] glUniformMatrix4fv
+ * [164] glUseProgram
+ * [165] glVertexAttribPointer
+ * [166] glVertexPointer
+ * [167] glViewport
+ * [168] s3eFreeBase
+ * [169] s3eMallocBase
+ * [170] s3eMemorySetUserMemMgr
+ * [171] s3eReallocBase
+ * [172] eglBindAPI
+ * [173] eglCreateContext
+ * [174] eglCreateWindowSurface
+ * [175] eglDestroyContext
+ * [176] eglDestroySurface
+ * [177] eglGetConfigAttrib
+ * [178] eglGetConfigs
+ * [179] eglGetCurrentContext
+ * [180] eglGetCurrentDisplay
+ * [181] eglGetCurrentSurface
+ * [182] eglGetDisplay
+ * [183] eglGetError
+ * [184] eglGetProcAddress
+ * [185] eglInitialize
+ * [186] eglMakeCurrent
+ * [187] eglQueryContext
+ * [188] eglSwapBuffers
+ * [189] eglTerminate
+ * [190] glGetString
+ * [191] s3eAccelerometerGetInt
+ * [192] s3eAccelerometerGetX
+ * [193] s3eAccelerometerGetY
+ * [194] s3eAccelerometerGetZ
+ * [195] s3eAccelerometerStart
+ * [196] s3eAccelerometerStop
+ * [197] s3eAudioGetInt
+ * [198] s3eAudioIsCodecSupported
+ * [199] s3eAudioPause
+ * [200] s3eAudioPlay
+ * [201] s3eAudioResume
+ * [202] s3eAudioSetInt
+ * [203] s3eAudioStop
+ * [204] s3eCompressionDecomp
+ * [205] s3eCompressionDecompFinal
+ * [206] s3eCompressionDecompInit
+ * [207] s3eCompressionDecompRead
+ * [208] s3eConfigGetInt
+ * [209] s3eConfigGetString
+ * [210] s3eDebugAssertShow
+ * [211] s3eDebugErrorShow
+ * [212] s3eDebugGetInt
+ * [213] s3eDebugIsDebuggerPresent
+ * [214] s3eDebugOutputString
+ * [215] s3eDebugPrint
+ * [216] s3eDeviceCheckQuitRequest
+ * [217] s3eDeviceExit
+ * [218] s3eDeviceGetInt
+ * [219] s3eDeviceGetString
+ * [220] s3eDeviceRegister
+ * [221] s3eDeviceRequestQuit
+ * [222] s3eDeviceUnRegister
+ * [223] s3eDeviceYield
+ * [224] s3eDeviceYieldUntilEvent
+ * [225] s3eExtGetHash
+ * [226] s3eFileAddUserFileSys
+ * [227] s3eFileCheckExists
+ * [228] s3eFileClose
+ * [229] s3eFileEOF
+ * [230] s3eFileGetChar
+ * [231] s3eFileGetError
+ * [232] s3eFileGetFileInt
+ * [233] s3eFileGetSize
+ * [234] s3eFileMakeDirectory
+ * [235] s3eFileOpen
+ * [236] s3eFileOpenFromMemory
+ * [237] s3eFileRead
+ * [238] s3eFileSeek
+ * [239] s3eFileTell
+ * [240] s3eFileWrite
+ * [241] s3eGLGetInt
+ * [242] s3eGLGetNativeWindow
+ * [243] s3eGLRegister
+ * [244] s3eGLUnRegister
+ * [245] s3eKeyboardRegister
+ * [246] s3eKeyboardSetInt
+ * [247] s3eMemoryGetInt
+ * [248] s3eMemoryHeapCreate
+ * [249] s3eMemorySetInt
+ * [250] s3ePointerGetX
+ * [251] s3ePointerGetY
+ * [252] s3ePointerRegister
+ * [253] s3ePointerUpdate
+ * [254] s3eSocketClose
+ * [255] s3eSoundChannelPlay
+ * [256] s3eSoundChannelSetInt
+ * [257] s3eSoundChannelStop
+ * [258] s3eSoundChannelUnRegister
+ * [259] s3eSoundGetFreeChannel
+ * [260] s3eSoundGetInt
+ * [261] s3eSurfaceGetInt
+ * [262] s3eSurfacePtr
+ * [263] s3eSurfaceRegister
+ * [264] s3eSurfaceSetup
+ * [265] s3eSurfaceShow
+ * [266] s3eSurfaceUnRegister
+ * [267] s3eTimerGetLocaltimeOffset
+ * [268] s3eTimerGetMs
+ * [269] s3eTimerSetTimer
+Note: still had 0x3 unread bytes at end of section parsing...
+Have 13526 internal relocations:
+[too many internal relocs to print]
+Have 273 external relocs
+ + 0x4 -> glActiveTexture (0)
+ + 0xc -> glAlphaFunc (1)
+ + 0x14 -> glAlphaFuncx (2)
+ + 0x1c -> glAttachShader (3)
+ + 0x24 -> glBindAttribLocation (4)
+ + 0x2c -> glBindBuffer (5)
+ + 0x30 -> glBindFramebuffer (6)
+ + 0x34 -> glBindRenderbuffer (7)
+ + 0x3c -> glBindTexture (8)
+ + 0x44 -> glBlendColor (9)
+ + 0x4c -> glBlendEquationSeparate (10)
+ + 0x54 -> glBlendFunc (11)
+ + 0x5c -> glBlendFuncSeparate (12)
+ + 0x64 -> glBufferData (13)
+ + 0x6c -> glBufferSubData (14)
+ + 0x70 -> glCheckFramebufferStatus (15)
+ + 0x78 -> glClear (16)
+ + 0x80 -> glClearColor (17)
+ + 0x88 -> glClearColorx (18)
+ + 0x90 -> glClearDepthf (19)
+ + 0x98 -> glClearDepthx (20)
+ + 0xa0 -> glClearStencil (21)
+ + 0xa8 -> glClientActiveTexture (22)
+ + 0xb0 -> glClipPlanef (23)
+ + 0xb8 -> glClipPlanex (24)
+ + 0xc0 -> glColor4f (25)
+ + 0xc8 -> glColor4x (26)
+ + 0xd0 -> glColorMask (27)
+ + 0xd8 -> glColorPointer (28)
+ + 0xe0 -> glCompileShader (29)
+ + 0xe4 -> glCompressedTexImage2D (30)
+ + 0xec -> glCompressedTexSubImage2D (31)
+ + 0xf4 -> glCreateProgram (32)
+ + 0xfc -> glCreateShader (33)
+ + 0x104 -> glCullFace (34)
+ + 0x10c -> glDeleteBuffers (35)
+ + 0x110 -> glDeleteFramebuffers (36)
+ + 0x118 -> glDeleteProgram (37)
+ + 0x11c -> glDeleteRenderbuffers (38)
+ + 0x124 -> glDeleteShader (39)
+ + 0x12c -> glDeleteTextures (40)
+ + 0x134 -> glDepthFunc (41)
+ + 0x13c -> glDepthMask (42)
+ + 0x144 -> glDepthRangef (43)
+ + 0x14c -> glDepthRangex (44)
+ + 0x154 -> glDetachShader (45)
+ + 0x15c -> glDisable (46)
+ + 0x164 -> glDisableClientState (47)
+ + 0x16c -> glDisableVertexAttribArray (48)
+ + 0x170 -> glDrawArrays (49)
+ + 0x174 -> glDrawElements (50)
+ + 0x17c -> glEnable (51)
+ + 0x184 -> glEnableClientState (52)
+ + 0x18c -> glEnableVertexAttribArray (53)
+ + 0x194 -> glFinish (54)
+ + 0x19c -> glFogf (55)
+ + 0x1a4 -> glFogfv (56)
+ + 0x1ac -> glFogx (57)
+ + 0x1b4 -> glFogxv (58)
+ + 0x1b8 -> glFramebufferRenderbuffer (59)
+ + 0x1bc -> glFramebufferTexture2D (60)
+ + 0x1c4 -> glFrontFace (61)
+ + 0x1cc -> glFrustumf (62)
+ + 0x1d4 -> glGenBuffers (63)
+ + 0x1d8 -> glGenFramebuffers (64)
+ + 0x1dc -> glGenRenderbuffers (65)
+ + 0x1e4 -> glGenTextures (66)
+ + 0x1ec -> glGenerateMipmap (67)
+ + 0x1f4 -> glGetActiveUniform (68)
+ + 0x1fc -> glGetAttribLocation (69)
+ + 0x204 -> glGetBooleanv (70)
+ + 0x20c -> glGetError (71)
+ + 0x214 -> glGetFloatv (72)
+ + 0x218 -> glGetFramebufferAttachmentParameteriv (73)
+ + 0x220 -> glGetIntegerv (74)
+ + 0x228 -> glGetProgramInfoLog (75)
+ + 0x230 -> glGetProgramiv (76)
+ + 0x238 -> glGetRenderbufferParameteriv (77)
+ + 0x240 -> glGetShaderInfoLog (78)
+ + 0x248 -> glGetShaderiv (79)
+ + 0x250 -> glGetTexParameteriv (80)
+ + 0x258 -> glGetUniformLocation (81)
+ + 0x260 -> glHint (82)
+ + 0x268 -> glIsEnabled (83)
+ + 0x26c -> glIsFramebuffer (84)
+ + 0x270 -> glIsRenderbuffer (85)
+ + 0x278 -> glLightModelf (86)
+ + 0x280 -> glLightModelfv (87)
+ + 0x288 -> glLightModelx (88)
+ + 0x290 -> glLightModelxv (89)
+ + 0x298 -> glLightf (90)
+ + 0x2a0 -> glLightfv (91)
+ + 0x2a8 -> glLightx (92)
+ + 0x2b0 -> glLightxv (93)
+ + 0x2b8 -> glLineWidth (94)
+ + 0x2c0 -> glLineWidthx (95)
+ + 0x2c8 -> glLinkProgram (96)
+ + 0x2d0 -> glLoadIdentity (97)
+ + 0x2d4 -> glLoadMatrixf (98)
+ + 0x2dc -> glLoadMatrixx (99)
+ + 0x2e4 -> glLogicOp (100)
+ + 0x2ec -> glMaterialf (101)
+ + 0x2f4 -> glMaterialfv (102)
+ + 0x2fc -> glMaterialx (103)
+ + 0x304 -> glMaterialxv (104)
+ + 0x308 -> glMatrixMode (105)
+ + 0x310 -> glMultMatrixf (106)
+ + 0x318 -> glMultMatrixx (107)
+ + 0x320 -> glMultiTexCoord4f (108)
+ + 0x328 -> glMultiTexCoord4x (109)
+ + 0x330 -> glNormal3f (110)
+ + 0x338 -> glNormal3x (111)
+ + 0x340 -> glNormalPointer (112)
+ + 0x348 -> glOrthof (113)
+ + 0x350 -> glOrthox (114)
+ + 0x358 -> glPixelStorei (115)
+ + 0x360 -> glPolygonOffset (116)
+ + 0x368 -> glPolygonOffsetx (117)
+ + 0x370 -> glPopMatrix (118)
+ + 0x378 -> glPushMatrix (119)
+ + 0x380 -> glReadPixels (120)
+ + 0x384 -> glRenderbufferStorage (121)
+ + 0x38c -> glRotatef (122)
+ + 0x394 -> glRotatex (123)
+ + 0x39c -> glScalef (124)
+ + 0x3a4 -> glScalex (125)
+ + 0x3ac -> glScissor (126)
+ + 0x3b4 -> glShadeModel (127)
+ + 0x3bc -> glShaderBinary (128)
+ + 0x3c4 -> glShaderSource (129)
+ + 0x3cc -> glStencilFunc (130)
+ + 0x3d4 -> glStencilFuncSeparate (131)
+ + 0x3dc -> glStencilMask (132)
+ + 0x3e4 -> glStencilMaskSeparate (133)
+ + 0x3ec -> glStencilOp (134)
+ + 0x3f4 -> glStencilOpSeparate (135)
+ + 0x3fc -> glTexCoordPointer (136)
+ + 0x404 -> glTexEnvf (137)
+ + 0x40c -> glTexEnvfv (138)
+ + 0x414 -> glTexEnvi (139)
+ + 0x41c -> glTexEnvx (140)
+ + 0x424 -> glTexEnvxv (141)
+ + 0x428 -> glTexImage2D (142)
+ + 0x430 -> glTexParameteri (143)
+ + 0x434 -> glTexParameterx (144)
+ + 0x43c -> glTexSubImage2D (145)
+ + 0x444 -> glTranslatef (146)
+ + 0x44c -> glTranslatex (147)
+ + 0x454 -> glUniform1f (148)
+ + 0x45c -> glUniform1fv (149)
+ + 0x464 -> glUniform1i (150)
+ + 0x46c -> glUniform1iv (151)
+ + 0x474 -> glUniform2f (152)
+ + 0x47c -> glUniform2fv (153)
+ + 0x484 -> glUniform2iv (154)
+ + 0x48c -> glUniform3f (155)
+ + 0x494 -> glUniform3fv (156)
+ + 0x49c -> glUniform3iv (157)
+ + 0x4a4 -> glUniform4f (158)
+ + 0x4ac -> glUniform4fv (159)
+ + 0x4b4 -> glUniform4iv (160)
+ + 0x4bc -> glUniformMatrix2fv (161)
+ + 0x4c4 -> glUniformMatrix3fv (162)
+ + 0x4cc -> glUniformMatrix4fv (163)
+ + 0x4d4 -> glUseProgram (164)
+ + 0x4dc -> glVertexAttribPointer (165)
+ + 0x4e4 -> glVertexPointer (166)
+ + 0x4e8 -> glViewport (167)
+ + 0x4ec -> s3eFreeBase (168)
+ + 0x4f0 -> s3eMallocBase (169)
+ + 0x4f8 -> s3eMemorySetUserMemMgr (170)
+ + 0x4fc -> s3eReallocBase (171)
+ + 0x504 -> eglBindAPI (172)
+ + 0x50c -> eglCreateContext (173)
+ + 0x514 -> eglCreateWindowSurface (174)
+ + 0x51c -> eglDestroyContext (175)
+ + 0x524 -> eglDestroySurface (176)
+ + 0x52c -> eglGetConfigAttrib (177)
+ + 0x534 -> eglGetConfigs (178)
+ + 0x53c -> eglGetCurrentContext (179)
+ + 0x544 -> eglGetCurrentDisplay (180)
+ + 0x54c -> eglGetCurrentSurface (181)
+ + 0x554 -> eglGetDisplay (182)
+ + 0x55c -> eglGetError (183)
+ + 0x564 -> eglGetProcAddress (184)
+ + 0x56c -> eglInitialize (185)
+ + 0x574 -> eglMakeCurrent (186)
+ + 0x57c -> eglQueryContext (187)
+ + 0x584 -> eglSwapBuffers (188)
+ + 0x58c -> eglTerminate (189)
+ + 0x594 -> glGetString (190)
+ + 0x598 -> s3eAccelerometerGetInt (191)
+ + 0x59c -> s3eAccelerometerGetX (192)
+ + 0x5a0 -> s3eAccelerometerGetY (193)
+ + 0x5a4 -> s3eAccelerometerGetZ (194)
+ + 0x5a8 -> s3eAccelerometerStart (195)
+ + 0x5ac -> s3eAccelerometerStop (196)
+ + 0x5b0 -> s3eAudioGetInt (197)
+ + 0x5b4 -> s3eAudioIsCodecSupported (198)
+ + 0x5b8 -> s3eAudioPause (199)
+ + 0x5bc -> s3eAudioPlay (200)
+ + 0x5c0 -> s3eAudioResume (201)
+ + 0x5c4 -> s3eAudioSetInt (202)
+ + 0x5c8 -> s3eAudioStop (203)
+ + 0x5d0 -> s3eCompressionDecomp (204)
+ + 0x5d8 -> s3eCompressionDecompFinal (205)
+ + 0x5e0 -> s3eCompressionDecompInit (206)
+ + 0x5e8 -> s3eCompressionDecompRead (207)
+ + 0x5f0 -> s3eConfigGetInt (208)
+ + 0x5f8 -> s3eConfigGetString (209)
+ + 0x600 -> s3eDebugAssertShow (210)
+ + 0x608 -> s3eDebugErrorShow (211)
+ + 0x610 -> s3eDebugGetInt (212)
+ + 0x618 -> s3eDebugIsDebuggerPresent (213)
+ + 0x620 -> s3eDebugOutputString (214)
+ + 0x628 -> s3eDebugPrint (215)
+ + 0x62c -> s3eDeviceCheckQuitRequest (216)
+ + 0x634 -> s3eDeviceExit (217)
+ + 0x63c -> s3eDeviceGetInt (218)
+ + 0x644 -> s3eDeviceGetString (219)
+ + 0x64c -> s3eDeviceRegister (220)
+ + 0x650 -> s3eDeviceRequestQuit (221)
+ + 0x658 -> s3eDeviceUnRegister (222)
+ + 0x660 -> s3eDeviceYield (223)
+ + 0x668 -> s3eDeviceYieldUntilEvent (224)
+ + 0x670 -> s3eExtGetHash (225)
+ + 0x678 -> s3eFileAddUserFileSys (226)
+ + 0x680 -> s3eFileCheckExists (227)
+ + 0x688 -> s3eFileClose (228)
+ + 0x690 -> s3eFileEOF (229)
+ + 0x698 -> s3eFileGetChar (230)
+ + 0x6a0 -> s3eFileGetError (231)
+ + 0x6a8 -> s3eFileGetFileInt (232)
+ + 0x6ac -> s3eFileGetSize (233)
+ + 0x6b4 -> s3eFileMakeDirectory (234)
+ + 0x6bc -> s3eFileOpen (235)
+ + 0x6c4 -> s3eFileOpenFromMemory (236)
+ + 0x6cc -> s3eFileRead (237)
+ + 0x6d4 -> s3eFileSeek (238)
+ + 0x6dc -> s3eFileTell (239)
+ + 0x6e4 -> s3eFileWrite (240)
+ + 0x6ec -> s3eFreeBase (168)
+ + 0x6f4 -> s3eGLGetInt (241)
+ + 0x6fc -> s3eGLGetNativeWindow (242)
+ + 0x704 -> s3eGLRegister (243)
+ + 0x70c -> s3eGLUnRegister (244)
+ + 0x714 -> s3eKeyboardRegister (245)
+ + 0x71c -> s3eKeyboardSetInt (246)
+ + 0x724 -> s3eMallocBase (169)
+ + 0x72c -> s3eMemoryGetInt (247)
+ + 0x734 -> s3eMemoryHeapCreate (248)
+ + 0x73c -> s3eMemorySetInt (249)
+ + 0x744 -> s3ePointerGetX (250)
+ + 0x74c -> s3ePointerGetY (251)
+ + 0x750 -> s3ePointerRegister (252)
+ + 0x754 -> s3ePointerUpdate (253)
+ + 0x75c -> s3eReallocBase (171)
+ + 0x764 -> s3eSocketClose (254)
+ + 0x768 -> s3eSoundChannelPlay (255)
+ + 0x76c -> s3eSoundChannelSetInt (256)
+ + 0x770 -> s3eSoundChannelStop (257)
+ + 0x774 -> s3eSoundChannelUnRegister (258)
+ + 0x778 -> s3eSoundGetFreeChannel (259)
+ + 0x77c -> s3eSoundGetInt (260)
+ + 0x784 -> s3eSurfaceGetInt (261)
+ + 0x78c -> s3eSurfacePtr (262)
+ + 0x794 -> s3eSurfaceRegister (263)
+ + 0x79c -> s3eSurfaceSetup (264)
+ + 0x7a4 -> s3eSurfaceShow (265)
+ + 0x7ac -> s3eSurfaceUnRegister (266)
+ + 0x7b4 -> s3eTimerGetLocaltimeOffset (267)
+ + 0x7bc -> s3eTimerGetMs (268)
+ + 0x7c4 -> s3eTimerSetTimer (269)
+Note: still had 0x2 unread bytes at end of section parsing...
+
+ *** CONFIG FILE *** 
+

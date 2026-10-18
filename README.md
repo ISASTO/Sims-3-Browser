@@ -48,8 +48,9 @@ features. Saves are intended to stay in this browser's IndexedDB.
 - `recovered/game.s3e`: decompressed, unmodified XE3U game executable.
 - `recovered/game-arm-for-ghidra.elf`: an analysis wrapper around the ARM code,
   with entry point and imported host symbols. It is not a native runnable port.
-- `recovered/arm-disassembly.txt`: a raw ARM decoding for reference. This includes
-  data and Thumb regions, so it is not a reliable function-by-function listing.
+- `recovered/arm-disassembly.txt.gz`: a gzip-compressed raw ARM decoding for
+  reference. Decompress it to read the listing. It includes data and Thumb
+  regions, so it is not a reliable function-by-function listing.
 - `recovered/*inventory.json`: extracted-file sizes, hashes, and original APK
   member inventory.
 - `tools/`: reproducible extraction, Java decompilation, serving, and smoke tests.

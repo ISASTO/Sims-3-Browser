@@ -1,0 +1,37 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1005018" android:versionName="1.5.21" android:installLocation="0" package="com.ea.thesims3">
+  <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="18"/>
+  <application android:theme="@android:01030007" android:label="@7F030000" android:icon="@7F020001">
+    <provider android:name="com.ideaworks3d.marmalade.VFSProvider" android:exported="false" android:multiprocess="true" android:authorities="zzzz70ff35b2d6db27eba2d4091a18824984.VFSProvider"/>
+    <activity android:label="@7F030000" android:name=".Main" android:finishOnTaskLaunch="false" android:clearTaskOnLaunch="true" android:screenOrientation="0" android:configChanges="0x000004A4">
+      <intent-filter android:name="Main">
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+  </application>
+  <uses-permission android:name="android.permission.WAKE_LOCK"/>
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <uses-permission android:name="android.permission.VIBRATE"/>
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.READ_CONTACTS"/>
+  <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+  <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+  <uses-permission android:name="android.permission.CAMERA"/>
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+  <uses-permission android:name="com.android.vending.CHECK_LICENSE"/>
+  <uses-permission android:name="com.android.vending.BILLING"/>
+  <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+  <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
+  <supports-screens android:anyDensity="true" android:smallScreens="false" android:normalScreens="true" android:largeScreens="false"/>
+  <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+  <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+  <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+  <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+  <uses-permission android:name="android.permission.MODIFY_PHONE_STATE"/>
+  <uses-permission android:name="android.permission.INSTALL_PACKAGES"/>
+  <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
+  <uses-permission android:name="android.permission.GET_TASKS"/>
+</manifest>

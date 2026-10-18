@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <string name="lang">it</string>
+    <string name="options">OPZIONI</string>
+    <string name="start_game">AVVIA GIOCO</string>
+    <string name="exit">ESCI</string>
+    <string name="recommend">CONSIGLIATO</string>
+    <string name="about">Info </string>
+    <string name="about_text1"> EA Game Box (c) 2013 Electronic Arts Inc. EA e il logo EA sono marchi di Electronic Arts Inc.</string>
+    <string name="about_text2"> Versione: </string>
+    <string name="about_text3"> Servizio clienti: </string>
+    <string name="lic_agreement">Accordo di licenza con l'utente finale</string>
+    <string name="terms">Termini di servizio</string>
+    <string name="privacy_policy">Politica sulla privacy</string>
+    <string name="all_rights_reserved">© 2013 Electronic Arts Inc. Tutti i diritti riservati.</string>
+    <string name="locale">it</string>    
+    <string name="lic_act_failed">Attivazione licenza non riuscita. Riprova più tardi.</string>
+    <string name="no_network_1">Nessuna connettività di rete per l'attivazione della licenza.</string>
+    <string name="no_network_2">Nessuna connettività di rete</string>
+    <string name="do_exit">Vuoi uscire?</string>
+    <string name="ok">Sì</string>
+    <string name="cancel">Annulla</string>
+    <string name="payment_in_process">Pagamento in corso. Riprova tra un po'</string>
+    <string name="payment_failed">Pagamento non riuscito. Riprova più tardi</string>
+    <string name="loading">Caricamento…</string>
+    <string name="your">I tuoi </string>
+    <string name="minutes_trial"> minuti di prova sono scaduti. Fai clic su OK per continuare.</string>
+    <string name="quit_app">Vuoi interrompere l’applicazione?</string>
+    <string name="trials_completed">%1$d versioni di prova completate. Per continuare a giocare, premi Sblocca per acquistare.</string>
+</resources>
