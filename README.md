@@ -36,9 +36,18 @@ interface includes pause, fullscreen, sound, and save import/export controls;
 these are scaffolding for continued compatibility work, not verified gameplay
 features. Saves are intended to stay in this browser's IndexedDB.
 
+If an older build stopped with an `importScripts` error, update the entire
+project, stop the previous Python server with Ctrl+C, and run the launcher again.
+Use Ctrl+F5 to reload the page. The worker now includes its JavaScript
+dependencies in `web/worker.bundle.js`, which is already included in the download.
+The launcher checks for missing startup files and game data before opening the
+browser. You can run those checks separately with `python tools/serve.py --check`.
+
 ## Contents
 
 - `web/`: browser runtime, original game executable, manifest, and game data.
+- `web/worker.bundle.js`: generated worker containing the emulator, compression
+  library, graphics bridge, and runtime. No runtime script imports are needed.
 - `web/data/`: original assets plus the 678 recovered DTRZ members, split into
   small resources for fetching as needed. `manifest.json` maps each original
   filename to its bytes and SHA-256 checksum.
@@ -71,12 +80,20 @@ smoke test. The browser uses individual resources and does not need that file.
 
 ```sh
 node tools/verify.cjs
+node tools/verify-worker.cjs
+python tools/test_startup.py
 LAZY=1 node tools/smoke.cjs 60
 ```
 
-On Windows, use `set LAZY=1` before the second command. The smoke test executes the
+On Windows, use `set LAZY=1` before the smoke test. The smoke test executes the
 original code with instrumented graphics responses; it does not prove rendering
 or gameplay compatibility.
+
+After editing worker code, graphics, runtime, or bundled vendor JavaScript, run
+`python tools/build_worker.py` and commit the regenerated `web/worker.bundle.js`.
+Use `python tools/build_worker.py --check` to check that it matches its sources.
+The worker loader test uses a browser-style JavaScript scope and the real Wasm
+engine; it does not replace testing in an actual browser.
 
 ## Third-party software
 

@@ -1,7 +1,8 @@
-importScripts('vendor/unicorn.js','vendor/fflate.js','graphics.js','runtime.js');
+// Source entry point. The browser loads worker.bundle.js, built with
+// python tools/build_worker.py, which includes the emulator and its dependencies.
 let runtime,paused=false,manifest,loadedBytes=0,lastReport=0,lastSave=0,savePending=null;
 const log=text=>postMessage({type:'log',text});
-async function bytes(url){const response=await fetch(url);if(!response.ok)throw Error('Could not load game file ('+response.status+')');return new Uint8Array(await response.arrayBuffer());}
+async function bytes(url){const response=await fetch(url);if(!response.ok)throw Error('Could not load '+url+' (HTTP '+response.status+'). Check that the entire project was extracted.');return new Uint8Array(await response.arrayBuffer());}
 async function resource(name){
   const entry=manifest.webAssets[name];if(!entry)throw Error('Missing asset entry: '+name);
   const chunks=await Promise.all(entry.parts.map(bytes));
@@ -15,7 +16,7 @@ async function resource(name){
 async function start(message){
   try{
     postMessage({type:'status',text:'Preparing the original game…'});
-    manifest=await (await fetch('manifest.json')).json();
+    manifest=JSON.parse(new TextDecoder().decode(await bytes('manifest.json')));
     const [uc,executable,globalConfig,appConfig]=await Promise.all([
       MUnicorn({locateFile:path=>new URL('vendor/'+path,self.location.href).href,print:log,printErr:log}),
       bytes('game.s3e'),resource('s3e.icf'),resource('app.icf')]);

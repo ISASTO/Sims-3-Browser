@@ -29,7 +29,7 @@ byId('start').onclick=async()=>{
   try{
     if(!byId('game').transferControlToOffscreen)throw Error('This build needs OffscreenCanvas with WebGL. Use a current desktop Chrome or Firefox browser.');
     try{audioContext=new (window.AudioContext||window.webkitAudioContext)();gain=audioContext.createGain();gain.gain.value=muted?0:0.55;gain.connect(audioContext.destination);await audioContext.resume();}catch(error){addLog('Audio unavailable: '+error.message);}
-    saves=await loadSaves().catch(()=>[]);worker=new Worker('worker.js');
+    saves=await loadSaves().catch(()=>[]);worker=new Worker('worker.bundle.js');
     worker.onmessage=event=>{
       const m=event.data;
       if(m.type==='log')addLog(m.text);
