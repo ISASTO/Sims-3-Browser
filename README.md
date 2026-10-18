@@ -1,4 +1,4 @@
-# The Sims 3 mobile: reverse engineering and browser prototype
+# The Sims 3 mobile: native recovery and browser prototype
 
 **Status: unfinished. This is not yet a fully playable browser port.**
 
@@ -6,6 +6,14 @@ This project recovers the uploaded Android game's files and runs its original AR
 game executable under WebAssembly. It does not replace the gameplay with a new
 Sims-like simulation. The Android launcher is decompiled separately. The native
 game's original C++ source has not been reconstructed.
+
+Native ARM decompilation is now available under `recovered/native/`, together
+with a portable Ghidra database and reproducible scripts. An initial set of 22
+scalar functions compiles directly to WebAssembly and matches the original ARM
+results on a finite test corpus. This is a small recovery checkpoint; the whole
+game does not compile natively yet. See [NATIVE_PORT.md](NATIVE_PORT.md) for the
+measured results, commands, and remaining work. The GitHub Pages build still
+uses the emulator prototype and retains its performance/rendering problems.
 
 The original executable boots and reaches the language/menu loop. Its splash
 screen, menu panels, and font atlases can be rendered through the graphics

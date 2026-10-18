@@ -1,0 +1,25 @@
+{
+  "platform": "Linux x86_64 (the recorded verification environment)",
+  "tools": {
+    "ghidra": {
+      "version": "12.1.4",
+      "url": "https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_12.1.4_build/ghidra_12.1.4_PUBLIC_20260921.zip",
+      "sha256": "ddac49f903da9d5bac833e5cc79395098b9c33cfd3279be5f31bd00387d2d4db"
+    },
+    "jdk": {
+      "version": "Temurin 25.0.4.1+1",
+      "url": "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.4.1%2B1/OpenJDK25U-jdk_x64_linux_hotspot_25.0.4.1_1.tar.gz",
+      "sha256": "dbb698396d478e7fa2b1e50f4103324b2a99b90569ee27c33f2261f9215cf41e"
+    },
+    "wasiSdk": {
+      "version": "34.0",
+      "url": "https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-34/wasi-sdk-34.0-x86_64-linux.deb",
+      "sha256": "09f37a478107bf30381e0d8922ac678ebe998de59e574f96830f08e520908d4a"
+    }
+  },
+  "notes": [
+    "Downloaded archives were SHA-256 verified before use. Tools are not bundled in the repository.",
+    "Ghidra requires the compatible JDK selected with --jdk.",
+    "WASI SDK provides clang and wasm-ld. On Linux, extract the deb with ar/tar --no-same-owner or install using the platform package manager."
+  ]
+}

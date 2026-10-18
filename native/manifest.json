@@ -1,0 +1,299 @@
+{
+  "status": "A tested scalar subset only. No game, renderer, or browser runtime is implemented here.",
+  "originalExecutableSha256": "9b75f5584a9e817e51132b6ddfbb38ffef5e9e0d674c76976e1a124c7ee63d5d",
+  "sourceSha256": "df899966906364173918799cd72a170f2ca22dab1f93ab2b9f9aeb103bb520d2",
+  "wasmSha256": "01271abaed12fc144fe8f0bc1e18380cac6b16a403d2acee95eef7a607abe271",
+  "compiler": "clang version 23.1.0-wasi-sdk (https://github.com/llvm/llvm-project 895aa2c896ada719451be2e3673c83da8ddf1141)",
+  "compilerOptions": [
+    "--target=wasm32-unknown-unknown",
+    "-O2",
+    "-ffreestanding",
+    "-nostdlib",
+    "-fwrapv",
+    "-fno-strict-aliasing",
+    "-Werror=implicit-function-declaration",
+    "-Wl,--no-entry",
+    "-Wl,--strip-all",
+    "-Wl,--initial-memory=131072",
+    "-Wl,--max-memory=131072"
+  ],
+  "functions": [
+    {
+      "name": "FUN_4a005250",
+      "address": "4a005250",
+      "thumb": true,
+      "signature": "uint FUN_4a005250(uint param_1,uint param_2)",
+      "argumentTypes": [
+        "uint",
+        "uint"
+      ],
+      "returnType": "uint",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "sourceSha256": "2fe7ca6b31dfbb649e990d3f21d1c01b645ad0786f1e9e25ed54bedfdd5eed38"
+    },
+    {
+      "name": "FUN_4a005c34",
+      "address": "4a005c34",
+      "thumb": false,
+      "signature": "undefined4 FUN_4a005c34(undefined4 param_1)",
+      "argumentTypes": [
+        "undefined4"
+      ],
+      "returnType": "undefined4",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "sourceSha256": "a85b3b169c6d3aa9d7fbb44abca593e0075140f53970ebd20809e43aac75eff4"
+    },
+    {
+      "name": "FUN_4a02afd8",
+      "address": "4a02afd8",
+      "thumb": true,
+      "signature": "int FUN_4a02afd8(uint param_1)",
+      "argumentTypes": [
+        "uint"
+      ],
+      "returnType": "int",
+      "sourceFile": "recovered/native/decompiled/part-002.c",
+      "sourceSha256": "531a8b34e869be43953db94e3c780ba1e0c0f62ba3b5adc333b179c69259b745"
+    },
+    {
+      "name": "FUN_4a030118",
+      "address": "4a030118",
+      "thumb": true,
+      "signature": "int FUN_4a030118(uint param_1)",
+      "argumentTypes": [
+        "uint"
+      ],
+      "returnType": "int",
+      "sourceFile": "recovered/native/decompiled/part-003.c",
+      "sourceSha256": "fa3b678ff7e06e127cefae1b3fb89c2bb8b713c7b181e84ad217cb6bd6a8cadf"
+    },
+    {
+      "name": "FUN_4a033804",
+      "address": "4a033804",
+      "thumb": true,
+      "signature": "int FUN_4a033804(int param_1)",
+      "argumentTypes": [
+        "int"
+      ],
+      "returnType": "int",
+      "sourceFile": "recovered/native/decompiled/part-003.c",
+      "sourceSha256": "513d4516615774123f3279ec50131c07109551224531eb8ce6f9197ed27423d5"
+    },
+    {
+      "name": "FUN_4a038ee4",
+      "address": "4a038ee4",
+      "thumb": false,
+      "signature": "uint FUN_4a038ee4(uint param_1)",
+      "argumentTypes": [
+        "uint"
+      ],
+      "returnType": "uint",
+      "sourceFile": "recovered/native/decompiled/part-003.c",
+      "sourceSha256": "eed3ceaac844cb88a453b7537a5e9803bb6294aac7193a3b7873a398e09d261d"
+    },
+    {
+      "name": "FUN_4a03d39c",
+      "address": "4a03d39c",
+      "thumb": true,
+      "signature": "undefined4 FUN_4a03d39c(int param_1,int param_2)",
+      "argumentTypes": [
+        "int",
+        "int"
+      ],
+      "returnType": "undefined4",
+      "sourceFile": "recovered/native/decompiled/part-004.c",
+      "sourceSha256": "f25f7c46bcb362f4a64e097400ed227aea7350d9bccae38af9226aaaa3a24425"
+    },
+    {
+      "name": "FUN_4a05a600",
+      "address": "4a05a600",
+      "thumb": true,
+      "signature": "undefined4 FUN_4a05a600(uint param_1)",
+      "argumentTypes": [
+        "uint"
+      ],
+      "returnType": "undefined4",
+      "sourceFile": "recovered/native/decompiled/part-006.c",
+      "sourceSha256": "b51c989d68b7fc103273682ba00ea6eea5f6bdeb4f319ceafdf5d3ff8780d818"
+    },
+    {
+      "name": "FUN_4a08d5b4",
+      "address": "4a08d5b4",
+      "thumb": true,
+      "signature": "undefined4 FUN_4a08d5b4(undefined4 param_1,int param_2)",
+      "argumentTypes": [
+        "undefined4",
+        "int"
+      ],
+      "returnType": "undefined4",
+      "sourceFile": "recovered/native/decompiled/part-010.c",
+      "sourceSha256": "a1c9616cfb76ab0ae6e0341423461e79698d34296be5a63aaef0a6dc61d70f25"
+    },
+    {
+      "name": "FUN_4a08d5ce",
+      "address": "4a08d5ce",
+      "thumb": true,
+      "signature": "undefined4 FUN_4a08d5ce(undefined4 param_1,int param_2)",
+      "argumentTypes": [
+        "undefined4",
+        "int"
+      ],
+      "returnType": "undefined4",
+      "sourceFile": "recovered/native/decompiled/part-010.c",
+      "sourceSha256": "bc2db015641f86dc2c531d72845080c81a9f0e8478c65f013b05aa39f413b254"
+    },
+    {
+      "name": "FUN_4a099bc0",
+      "address": "4a099bc0",
+      "thumb": false,
+      "signature": "undefined4 FUN_4a099bc0(undefined4 param_1)",
+      "argumentTypes": [
+        "undefined4"
+      ],
+      "returnType": "undefined4",
+      "sourceFile": "recovered/native/decompiled/part-011.c",
+      "sourceSha256": "98ff931356ef2baf14a57cf665cc5876e9fde7be9e9a920352df8689ba289d3c"
+    },
+    {
+      "name": "FUN_4a0d4b74",
+      "address": "4a0d4b74",
+      "thumb": false,
+      "signature": "int FUN_4a0d4b74(int param_1,int param_2,int param_3)",
+      "argumentTypes": [
+        "int",
+        "int",
+        "int"
+      ],
+      "returnType": "int",
+      "sourceFile": "recovered/native/decompiled/part-014.c",
+      "sourceSha256": "254dcb1d4e336383b5f921d0765a721c0423ae2d644ace4a2777e5c9d0f96b66"
+    },
+    {
+      "name": "FUN_4a0d4bb8",
+      "address": "4a0d4bb8",
+      "thumb": false,
+      "signature": "int FUN_4a0d4bb8(int param_1)",
+      "argumentTypes": [
+        "int"
+      ],
+      "returnType": "int",
+      "sourceFile": "recovered/native/decompiled/part-014.c",
+      "sourceSha256": "d7dbdd6dcc5026c663e3b8c8a1e90876c59b56954db6ddaece4c10fc7429eeac"
+    },
+    {
+      "name": "FUN_4a0de09c",
+      "address": "4a0de09c",
+      "thumb": false,
+      "signature": "undefined4 FUN_4a0de09c(undefined4 param_1)",
+      "argumentTypes": [
+        "undefined4"
+      ],
+      "returnType": "undefined4",
+      "sourceFile": "recovered/native/decompiled/part-015.c",
+      "sourceSha256": "49175916a3c52bc40622ec14648740f80766c47adf678c0ca181889200e39ead"
+    },
+    {
+      "name": "FUN_4a0de104",
+      "address": "4a0de104",
+      "thumb": false,
+      "signature": "undefined4 FUN_4a0de104(int param_1)",
+      "argumentTypes": [
+        "int"
+      ],
+      "returnType": "undefined4",
+      "sourceFile": "recovered/native/decompiled/part-015.c",
+      "sourceSha256": "e1e089ef8631e8ed26826cacf98bea1e7f6fb8ded15ba8d259f7a1aaeadde38d"
+    },
+    {
+      "name": "FUN_4a0e7234",
+      "address": "4a0e7234",
+      "thumb": true,
+      "signature": "undefined4 FUN_4a0e7234(int param_1)",
+      "argumentTypes": [
+        "int"
+      ],
+      "returnType": "undefined4",
+      "sourceFile": "recovered/native/decompiled/part-016.c",
+      "sourceSha256": "c8bfb91ae7a465cc90808bb913aec40be65ef7a1c2483c16200296389e6cbab1"
+    },
+    {
+      "name": "FUN_4a105ec0",
+      "address": "4a105ec0",
+      "thumb": false,
+      "signature": "int FUN_4a105ec0(uint param_1,int param_2)",
+      "argumentTypes": [
+        "uint",
+        "int"
+      ],
+      "returnType": "int",
+      "sourceFile": "recovered/native/decompiled/part-018.c",
+      "sourceSha256": "2a630f47d079cfbc59a6b9a638a713d010ad3d5a140bf121aab73d3c2c171096"
+    },
+    {
+      "name": "FUN_4a106fe0",
+      "address": "4a106fe0",
+      "thumb": false,
+      "signature": "undefined4 FUN_4a106fe0(undefined4 param_1)",
+      "argumentTypes": [
+        "undefined4"
+      ],
+      "returnType": "undefined4",
+      "sourceFile": "recovered/native/decompiled/part-018.c",
+      "sourceSha256": "c003ee522e2c6e4d6d8ce9b63d68749f60e283555c248bd7ef62515800029ef3"
+    },
+    {
+      "name": "FUN_4a107de8",
+      "address": "4a107de8",
+      "thumb": false,
+      "signature": "int FUN_4a107de8(int param_1,int param_2,int param_3)",
+      "argumentTypes": [
+        "int",
+        "int",
+        "int"
+      ],
+      "returnType": "int",
+      "sourceFile": "recovered/native/decompiled/part-018.c",
+      "sourceSha256": "d985ca9401a8345182af0fe74b4ee49a579f0d6ec3034b75c1baece3a0dcf419"
+    },
+    {
+      "name": "FUN_4a107e20",
+      "address": "4a107e20",
+      "thumb": false,
+      "signature": "int FUN_4a107e20(int param_1,int param_2,int param_3)",
+      "argumentTypes": [
+        "int",
+        "int",
+        "int"
+      ],
+      "returnType": "int",
+      "sourceFile": "recovered/native/decompiled/part-018.c",
+      "sourceSha256": "823e8e2d095810045bf4c5c30e37ad844f63f44faf29ad1dbee333398f9c69eb"
+    },
+    {
+      "name": "FUN_4a1415a0",
+      "address": "4a1415a0",
+      "thumb": false,
+      "signature": "undefined4 FUN_4a1415a0(undefined4 param_1,int param_2,undefined4 param_3)",
+      "argumentTypes": [
+        "undefined4",
+        "int",
+        "undefined4"
+      ],
+      "returnType": "undefined4",
+      "sourceFile": "recovered/native/decompiled/part-023.c",
+      "sourceSha256": "c7650053b487666a1eb7ed6559a3431d055e4ef7e8843a968da05ad43b32e07d"
+    },
+    {
+      "name": "FUN_4a171fac",
+      "address": "4a171fac",
+      "thumb": false,
+      "signature": "uint FUN_4a171fac(uint param_1)",
+      "argumentTypes": [
+        "uint"
+      ],
+      "returnType": "uint",
+      "sourceFile": "recovered/native/decompiled/part-027.c",
+      "sourceSha256": "41d6ef7021542824be6bb02ef8ddbff504678de1f19588ec5e4973a73c6b312b"
+    }
+  ]
+}

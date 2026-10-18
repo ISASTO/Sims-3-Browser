@@ -1,0 +1,39 @@
+{
+  "status": "Fresh-database native recovery pipeline completed successfully.",
+  "seed": {
+    "namedImports": 270,
+    "importEntryPoints": 498,
+    "functionPointerSeeds": 1200
+  },
+  "abi": {
+    "khronosSignaturesApplied": 187,
+    "externalFunctionsUpdated": 187,
+    "unverifiedS3eSignaturesNotApplied": 83
+  },
+  "freshExport": {
+    "status": "Automated native decompilation only. No native browser game has been built.",
+    "ghidraVersion": "12.1.4",
+    "language": "ARM:LE:32:v4t",
+    "compiler": "default",
+    "functionsDiscovered": 5969,
+    "importThunks": 845,
+    "functionsDecompiled": 5124,
+    "failedFunctions": 0,
+    "warningComments": 4337,
+    "indirectCallSites": 6352,
+    "functionBodyBytes": 1409798,
+    "instructionCount": 398807,
+    "strings": 3468,
+    "elapsedSeconds": 175.463315522,
+    "analysisArchiveExported": true,
+    "failures": []
+  },
+  "pinnedExport": {
+    "functionsDiscovered": 5974,
+    "functionBodies": 5129
+  },
+  "nativeSubsetBodiesCompared": 22,
+  "nativeSubsetBodyHashMismatches": [],
+  "analysisMapExported": true,
+  "note": "The checked-in export includes a subsequent analysis pass. A fresh first pass found five fewer functions; the selected native function bodies were compared by SHA-256. Function discovery/inference may change on continued analysis."
+}

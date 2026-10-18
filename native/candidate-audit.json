@@ -1,0 +1,6 @@
+{
+  "candidateFunctions": 22,
+  "verifiedFunctions": 22,
+  "rejectedFunctions": [],
+  "note": "Only strict scalar candidates were considered. Passing this corpus is not proof for all inputs."
+}

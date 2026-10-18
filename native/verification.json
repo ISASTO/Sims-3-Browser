@@ -1,0 +1,167 @@
+{
+  "status": "Scalar subset only; passing these tests does not establish whole-game compatibility or exhaustive equivalence.",
+  "reference": "Unmodified recovered/game.s3e executed by Unicorn.js 1.0.3",
+  "wasmSha256": "01271abaed12fc144fe8f0bc1e18380cac6b16a403d2acee95eef7a607abe271",
+  "sourceSha256": "df899966906364173918799cd72a170f2ca22dab1f93ab2b9f9aeb103bb520d2",
+  "corpus": "Boundary values, enums/bytes, pairwise boundaries, 512 seeded random vectors per function; randomized incoming non-argument registers and flags.",
+  "seed": "0x53a31e21 XOR function address",
+  "passedFunctions": 22,
+  "failedFunctions": 0,
+  "comparisons": 28410,
+  "results": [
+    {
+      "name": "FUN_4a005250",
+      "address": "4a005250",
+      "thumb": true,
+      "passed": true,
+      "cases": 1896
+    },
+    {
+      "name": "FUN_4a005c34",
+      "address": "4a005c34",
+      "thumb": false,
+      "passed": true,
+      "cases": 774
+    },
+    {
+      "name": "FUN_4a02afd8",
+      "address": "4a02afd8",
+      "thumb": true,
+      "passed": true,
+      "cases": 774
+    },
+    {
+      "name": "FUN_4a030118",
+      "address": "4a030118",
+      "thumb": true,
+      "passed": true,
+      "cases": 774
+    },
+    {
+      "name": "FUN_4a033804",
+      "address": "4a033804",
+      "thumb": true,
+      "passed": true,
+      "cases": 774
+    },
+    {
+      "name": "FUN_4a038ee4",
+      "address": "4a038ee4",
+      "thumb": false,
+      "passed": true,
+      "cases": 774
+    },
+    {
+      "name": "FUN_4a03d39c",
+      "address": "4a03d39c",
+      "thumb": true,
+      "passed": true,
+      "cases": 1896
+    },
+    {
+      "name": "FUN_4a05a600",
+      "address": "4a05a600",
+      "thumb": true,
+      "passed": true,
+      "cases": 774
+    },
+    {
+      "name": "FUN_4a08d5b4",
+      "address": "4a08d5b4",
+      "thumb": true,
+      "passed": true,
+      "cases": 1896
+    },
+    {
+      "name": "FUN_4a08d5ce",
+      "address": "4a08d5ce",
+      "thumb": true,
+      "passed": true,
+      "cases": 1896
+    },
+    {
+      "name": "FUN_4a099bc0",
+      "address": "4a099bc0",
+      "thumb": false,
+      "passed": true,
+      "cases": 774
+    },
+    {
+      "name": "FUN_4a0d4b74",
+      "address": "4a0d4b74",
+      "thumb": false,
+      "passed": true,
+      "cases": 2217
+    },
+    {
+      "name": "FUN_4a0d4bb8",
+      "address": "4a0d4bb8",
+      "thumb": false,
+      "passed": true,
+      "cases": 774
+    },
+    {
+      "name": "FUN_4a0de09c",
+      "address": "4a0de09c",
+      "thumb": false,
+      "passed": true,
+      "cases": 774
+    },
+    {
+      "name": "FUN_4a0de104",
+      "address": "4a0de104",
+      "thumb": false,
+      "passed": true,
+      "cases": 774
+    },
+    {
+      "name": "FUN_4a0e7234",
+      "address": "4a0e7234",
+      "thumb": true,
+      "passed": true,
+      "cases": 774
+    },
+    {
+      "name": "FUN_4a105ec0",
+      "address": "4a105ec0",
+      "thumb": false,
+      "passed": true,
+      "cases": 1896
+    },
+    {
+      "name": "FUN_4a106fe0",
+      "address": "4a106fe0",
+      "thumb": false,
+      "passed": true,
+      "cases": 774
+    },
+    {
+      "name": "FUN_4a107de8",
+      "address": "4a107de8",
+      "thumb": false,
+      "passed": true,
+      "cases": 2217
+    },
+    {
+      "name": "FUN_4a107e20",
+      "address": "4a107e20",
+      "thumb": false,
+      "passed": true,
+      "cases": 2217
+    },
+    {
+      "name": "FUN_4a1415a0",
+      "address": "4a1415a0",
+      "thumb": false,
+      "passed": true,
+      "cases": 2217
+    },
+    {
+      "name": "FUN_4a171fac",
+      "address": "4a171fac",
+      "thumb": false,
+      "passed": true,
+      "cases": 774
+    }
+  ]
+}

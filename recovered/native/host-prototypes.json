@@ -1,0 +1,3159 @@
+{
+  "s3eConfigGetInt": {
+    "return": "int32_t",
+    "args": "const char *section, const char *key, int32_t *out",
+    "source": "s3e_config.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_config.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eConfigGetString": {
+    "return": "int32_t",
+    "args": "const char *section, const char *key, char *out",
+    "source": "s3e_config.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_config.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eAudioSetInt": {
+    "return": "int32_t",
+    "args": "uint32_t key, int32_t value",
+    "source": "s3e_audio.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_audio.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eAudioGetInt": {
+    "return": "int32_t",
+    "args": "uint32_t key",
+    "source": "s3e_audio.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_audio.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eAudioPlay": {
+    "return": "int32_t",
+    "args": "const char *filename, uint32_t repeat",
+    "source": "s3e_audio.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_audio.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eAudioStop": {
+    "return": "int32_t",
+    "args": "void",
+    "source": "s3e_audio.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_audio.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eAudioPause": {
+    "return": "int32_t",
+    "args": "void",
+    "source": "s3e_audio.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_audio.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eAudioResume": {
+    "return": "int32_t",
+    "args": "void",
+    "source": "s3e_audio.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_audio.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eSoundGetFreeChannel": {
+    "return": "int32_t",
+    "args": "void",
+    "source": "s3e_audio.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_audio.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eSoundGetInt": {
+    "return": "int32_t",
+    "args": "uint32_t key",
+    "source": "s3e_audio.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_audio.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eSoundChannelUnRegister": {
+    "return": "int32_t",
+    "args": "int32_t channel, uint32_t callback_id",
+    "source": "s3e_audio.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_audio.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eSoundChannelPlay": {
+    "return": "int32_t",
+    "args": "int32_t channel, const void *data, uint32_t size, uint32_t repeat",
+    "source": "s3e_audio.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_audio.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eSoundChannelStop": {
+    "return": "int32_t",
+    "args": "int32_t channel",
+    "source": "s3e_audio.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_audio.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eAudioIsCodecSupported": {
+    "return": "int32_t",
+    "args": "uint32_t codec",
+    "source": "s3e_audio.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_audio.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eSoundChannelSetInt": {
+    "return": "int32_t",
+    "args": "int32_t channel, uint32_t key, int32_t value",
+    "source": "s3e_audio.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_audio.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eKeyboardRegister": {
+    "return": "int32_t",
+    "args": "uint32_t id, void *callback, void *user_data",
+    "source": "s3e_input.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_input.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eKeyboardSetInt": {
+    "return": "int32_t",
+    "args": "uint32_t key, int32_t value",
+    "source": "s3e_input.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_input.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3ePointerRegister": {
+    "return": "int32_t",
+    "args": "uint32_t id, void *callback, void *user_data",
+    "source": "s3e_input.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_input.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3ePointerUpdate": {
+    "return": "int32_t",
+    "args": "void",
+    "source": "s3e_input.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_input.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3ePointerGetX": {
+    "return": "int32_t",
+    "args": "void",
+    "source": "s3e_input.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_input.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3ePointerGetY": {
+    "return": "int32_t",
+    "args": "void",
+    "source": "s3e_input.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_input.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eMallocBase": {
+    "return": "void *",
+    "args": "uint32_t size, const char *file, int line",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eReallocBase": {
+    "return": "void *",
+    "args": "void *ptr, uint32_t size, const char *file, int line",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eFreeBase": {
+    "return": "void",
+    "args": "void *ptr",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eTimerGetMs": {
+    "return": "uint64_t",
+    "args": "void",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eTimerSetTimer": {
+    "return": "uint32_t",
+    "args": "uint32_t period_ms, void *callback, void *user_data",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eTimerGetLocaltimeOffset": {
+    "return": "int64_t",
+    "args": "const uint64_t *utc_ms",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eDeviceYield": {
+    "return": "uint64_t",
+    "args": "int32_t ms",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eDeviceYieldUntilEvent": {
+    "return": "uint64_t",
+    "args": "int32_t ms",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eDeviceCheckQuitRequest": {
+    "return": "int32_t",
+    "args": "void",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eDeviceGetInt": {
+    "return": "int32_t",
+    "args": "uint32_t key",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eDeviceGetString": {
+    "return": "const char *",
+    "args": "uint32_t key",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eDeviceRequestQuit": {
+    "return": "int32_t",
+    "args": "void",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eDeviceExit": {
+    "return": "int32_t",
+    "args": "void",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eDebugOutputString": {
+    "return": "void",
+    "args": "const char *text",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eDebugPrint": {
+    "return": "void",
+    "args": "int32_t channel, const char *text, int32_t color",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eDebugGetInt": {
+    "return": "int32_t",
+    "args": "uint32_t key",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eDebugIsDebuggerPresent": {
+    "return": "int32_t",
+    "args": "void",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eDebugAssertShow": {
+    "return": "int32_t",
+    "args": "uintptr_t a0, uintptr_t a1, uintptr_t a2, uintptr_t a3",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eDebugErrorShow": {
+    "return": "int32_t",
+    "args": "uint32_t flags, const char *text",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eAccelerometerStart": {
+    "return": "int32_t",
+    "args": "void",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eAccelerometerStop": {
+    "return": "int32_t",
+    "args": "void",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eAccelerometerGetX": {
+    "return": "int32_t",
+    "args": "void",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eAccelerometerGetY": {
+    "return": "int32_t",
+    "args": "void",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eAccelerometerGetZ": {
+    "return": "int32_t",
+    "args": "void",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eAccelerometerGetInt": {
+    "return": "int32_t",
+    "args": "uint32_t key",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eCompressionDecompInit": {
+    "return": "void *",
+    "args": "uint32_t type",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eCompressionDecompRead": {
+    "return": "int32_t",
+    "args": "void *context, const void *source, uint32_t source_len,\n                                 void *target, uint32_t *target_len",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eCompressionDecompFinal": {
+    "return": "int32_t",
+    "args": "void *context",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eCompressionDecomp": {
+    "return": "int32_t",
+    "args": "const void *source, uint32_t source_len, void **pp_dest,\n                             uint32_t *p_dest_len, uint32_t alg",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eSocketClose": {
+    "return": "int32_t",
+    "args": "void *socket",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eMemoryGetInt": {
+    "return": "int32_t",
+    "args": "uint32_t key",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eMemorySetInt": {
+    "return": "int32_t",
+    "args": "uint32_t key, int32_t value",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eMemorySetUserMemMgr": {
+    "return": "int32_t",
+    "args": "void *mgr",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eMemoryHeapCreate": {
+    "return": "int32_t",
+    "args": "uint32_t heap_index",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eSurfaceRegister": {
+    "return": "int32_t",
+    "args": "uint32_t id, void *callback, void *user_data",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eSurfaceUnRegister": {
+    "return": "int32_t",
+    "args": "uint32_t id, void *callback",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eSurfaceGetInt": {
+    "return": "int32_t",
+    "args": "uint32_t key",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eSurfacePtr": {
+    "return": "void *",
+    "args": "void",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eSurfaceSetup": {
+    "return": "int32_t",
+    "args": "void",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eSurfaceShow": {
+    "return": "int32_t",
+    "args": "void",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eGLRegister": {
+    "return": "int32_t",
+    "args": "uint32_t id, void *callback, void *user_data",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eGLUnRegister": {
+    "return": "int32_t",
+    "args": "uint32_t id, void *callback",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eGLGetInt": {
+    "return": "int32_t",
+    "args": "uint32_t key",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eGLGetNativeWindow": {
+    "return": "void *",
+    "args": "void",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eExtGetHash": {
+    "return": "int32_t",
+    "args": "uint32_t hash, void *iface, uint32_t size",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eDeviceRegister": {
+    "return": "int32_t",
+    "args": "uint32_t id, void *callback, void *user_data",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eDeviceUnRegister": {
+    "return": "int32_t",
+    "args": "uint32_t id, void *callback",
+    "source": "s3e_runtime.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_runtime.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eFileOpen": {
+    "return": "void *",
+    "args": "const char *name, const char *mode",
+    "source": "s3e_file.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_file.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eFileClose": {
+    "return": "int32_t",
+    "args": "void *file",
+    "source": "s3e_file.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_file.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eFileRead": {
+    "return": "uint32_t",
+    "args": "void *buffer, uint32_t elem_size, uint32_t count, void *file",
+    "source": "s3e_file.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_file.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eFileWrite": {
+    "return": "uint32_t",
+    "args": "const void *buffer, uint32_t elem_size, uint32_t count, void *file",
+    "source": "s3e_file.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_file.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eFileGetChar": {
+    "return": "int32_t",
+    "args": "void *file",
+    "source": "s3e_file.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_file.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eFileSeek": {
+    "return": "int32_t",
+    "args": "void *file, int32_t offset, int32_t origin",
+    "source": "s3e_file.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_file.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eFileTell": {
+    "return": "int32_t",
+    "args": "void *file",
+    "source": "s3e_file.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_file.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eFileGetSize": {
+    "return": "int32_t",
+    "args": "void *file",
+    "source": "s3e_file.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_file.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eFileEOF": {
+    "return": "int32_t",
+    "args": "void *file",
+    "source": "s3e_file.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_file.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eFileCheckExists": {
+    "return": "int32_t",
+    "args": "const char *name",
+    "source": "s3e_file.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_file.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eFileGetError": {
+    "return": "int32_t",
+    "args": "void",
+    "source": "s3e_file.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_file.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eFileOpenFromMemory": {
+    "return": "void *",
+    "args": "void *buffer, uint32_t size",
+    "source": "s3e_file.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_file.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eFileGetFileInt": {
+    "return": "int64_t",
+    "args": "const char *filename, uint32_t key",
+    "source": "s3e_file.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_file.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eFileMakeDirectory": {
+    "return": "int32_t",
+    "args": "const char *name",
+    "source": "s3e_file.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_file.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "s3eFileAddUserFileSys": {
+    "return": "int32_t",
+    "args": "void *fs, const char *base_uri, int32_t prepend",
+    "source": "s3e_file.c",
+    "verifiedHeader": false,
+    "provenance": {
+      "url": "https://github.com/OlhaGatito/The-Sims-3-Android-port/tree/3bda6300b1facb294c45f3c80c4becf949010c27/loader/src/s3e_file.c",
+      "authority": "Experimental replacement implementation; not original SDK",
+      "applyToAnalysis": false
+    }
+  },
+  "glAlphaFunc": {
+    "return": "void",
+    "args": "GLenum func, GLfloat ref",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glClearColor": {
+    "return": "void",
+    "args": "GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glClearDepthf": {
+    "return": "void",
+    "args": "GLfloat d",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glClipPlanef": {
+    "return": "void",
+    "args": "GLenum p, const GLfloat *eqn",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glColor4f": {
+    "return": "void",
+    "args": "GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glDepthRangef": {
+    "return": "void",
+    "args": "GLfloat n, GLfloat f",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glFogf": {
+    "return": "void",
+    "args": "GLenum pname, GLfloat param",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glFogfv": {
+    "return": "void",
+    "args": "GLenum pname, const GLfloat *params",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glFrustumf": {
+    "return": "void",
+    "args": "GLfloat l, GLfloat r, GLfloat b, GLfloat t, GLfloat n, GLfloat f",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glGetFloatv": {
+    "return": "void",
+    "args": "GLenum pname, GLfloat *data",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glLightModelf": {
+    "return": "void",
+    "args": "GLenum pname, GLfloat param",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glLightModelfv": {
+    "return": "void",
+    "args": "GLenum pname, const GLfloat *params",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glLightf": {
+    "return": "void",
+    "args": "GLenum light, GLenum pname, GLfloat param",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glLightfv": {
+    "return": "void",
+    "args": "GLenum light, GLenum pname, const GLfloat *params",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glLineWidth": {
+    "return": "void",
+    "args": "GLfloat width",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glLoadMatrixf": {
+    "return": "void",
+    "args": "const GLfloat *m",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glMaterialf": {
+    "return": "void",
+    "args": "GLenum face, GLenum pname, GLfloat param",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glMaterialfv": {
+    "return": "void",
+    "args": "GLenum face, GLenum pname, const GLfloat *params",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glMultMatrixf": {
+    "return": "void",
+    "args": "const GLfloat *m",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glMultiTexCoord4f": {
+    "return": "void",
+    "args": "GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glNormal3f": {
+    "return": "void",
+    "args": "GLfloat nx, GLfloat ny, GLfloat nz",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glOrthof": {
+    "return": "void",
+    "args": "GLfloat l, GLfloat r, GLfloat b, GLfloat t, GLfloat n, GLfloat f",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glPolygonOffset": {
+    "return": "void",
+    "args": "GLfloat factor, GLfloat units",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glRotatef": {
+    "return": "void",
+    "args": "GLfloat angle, GLfloat x, GLfloat y, GLfloat z",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glScalef": {
+    "return": "void",
+    "args": "GLfloat x, GLfloat y, GLfloat z",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glTexEnvf": {
+    "return": "void",
+    "args": "GLenum target, GLenum pname, GLfloat param",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glTexEnvfv": {
+    "return": "void",
+    "args": "GLenum target, GLenum pname, const GLfloat *params",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glTranslatef": {
+    "return": "void",
+    "args": "GLfloat x, GLfloat y, GLfloat z",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glActiveTexture": {
+    "return": "void",
+    "args": "GLenum texture",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glAlphaFuncx": {
+    "return": "void",
+    "args": "GLenum func, GLfixed ref",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glBindBuffer": {
+    "return": "void",
+    "args": "GLenum target, GLuint buffer",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glBindTexture": {
+    "return": "void",
+    "args": "GLenum target, GLuint texture",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glBlendFunc": {
+    "return": "void",
+    "args": "GLenum sfactor, GLenum dfactor",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glBufferData": {
+    "return": "void",
+    "args": "GLenum target, GLsizeiptr size, const void *data, GLenum usage",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glBufferSubData": {
+    "return": "void",
+    "args": "GLenum target, GLintptr offset, GLsizeiptr size, const void *data",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glClear": {
+    "return": "void",
+    "args": "GLbitfield mask",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glClearColorx": {
+    "return": "void",
+    "args": "GLfixed red, GLfixed green, GLfixed blue, GLfixed alpha",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glClearDepthx": {
+    "return": "void",
+    "args": "GLfixed depth",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glClearStencil": {
+    "return": "void",
+    "args": "GLint s",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glClientActiveTexture": {
+    "return": "void",
+    "args": "GLenum texture",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glClipPlanex": {
+    "return": "void",
+    "args": "GLenum plane, const GLfixed *equation",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glColor4x": {
+    "return": "void",
+    "args": "GLfixed red, GLfixed green, GLfixed blue, GLfixed alpha",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glColorMask": {
+    "return": "void",
+    "args": "GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glColorPointer": {
+    "return": "void",
+    "args": "GLint size, GLenum type, GLsizei stride, const void *pointer",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glCompressedTexImage2D": {
+    "return": "void",
+    "args": "GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const void *data",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glCompressedTexSubImage2D": {
+    "return": "void",
+    "args": "GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const void *data",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glCullFace": {
+    "return": "void",
+    "args": "GLenum mode",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glDeleteBuffers": {
+    "return": "void",
+    "args": "GLsizei n, const GLuint *buffers",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glDeleteTextures": {
+    "return": "void",
+    "args": "GLsizei n, const GLuint *textures",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glDepthFunc": {
+    "return": "void",
+    "args": "GLenum func",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glDepthMask": {
+    "return": "void",
+    "args": "GLboolean flag",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glDepthRangex": {
+    "return": "void",
+    "args": "GLfixed n, GLfixed f",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glDisable": {
+    "return": "void",
+    "args": "GLenum cap",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glDisableClientState": {
+    "return": "void",
+    "args": "GLenum array",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glDrawArrays": {
+    "return": "void",
+    "args": "GLenum mode, GLint first, GLsizei count",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glDrawElements": {
+    "return": "void",
+    "args": "GLenum mode, GLsizei count, GLenum type, const void *indices",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glEnable": {
+    "return": "void",
+    "args": "GLenum cap",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glEnableClientState": {
+    "return": "void",
+    "args": "GLenum array",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glFinish": {
+    "return": "void",
+    "args": "void",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glFogx": {
+    "return": "void",
+    "args": "GLenum pname, GLfixed param",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glFogxv": {
+    "return": "void",
+    "args": "GLenum pname, const GLfixed *param",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glFrontFace": {
+    "return": "void",
+    "args": "GLenum mode",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glGetBooleanv": {
+    "return": "void",
+    "args": "GLenum pname, GLboolean *data",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glGenBuffers": {
+    "return": "void",
+    "args": "GLsizei n, GLuint *buffers",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glGenTextures": {
+    "return": "void",
+    "args": "GLsizei n, GLuint *textures",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glGetError": {
+    "return": "GLenum",
+    "args": "void",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glGetIntegerv": {
+    "return": "void",
+    "args": "GLenum pname, GLint *data",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glGetTexParameteriv": {
+    "return": "void",
+    "args": "GLenum target, GLenum pname, GLint *params",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glHint": {
+    "return": "void",
+    "args": "GLenum target, GLenum mode",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glIsEnabled": {
+    "return": "GLboolean",
+    "args": "GLenum cap",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glLightModelx": {
+    "return": "void",
+    "args": "GLenum pname, GLfixed param",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glLightModelxv": {
+    "return": "void",
+    "args": "GLenum pname, const GLfixed *param",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glLightx": {
+    "return": "void",
+    "args": "GLenum light, GLenum pname, GLfixed param",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glLightxv": {
+    "return": "void",
+    "args": "GLenum light, GLenum pname, const GLfixed *params",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glLineWidthx": {
+    "return": "void",
+    "args": "GLfixed width",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glLoadIdentity": {
+    "return": "void",
+    "args": "void",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glLoadMatrixx": {
+    "return": "void",
+    "args": "const GLfixed *m",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glLogicOp": {
+    "return": "void",
+    "args": "GLenum opcode",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glMaterialx": {
+    "return": "void",
+    "args": "GLenum face, GLenum pname, GLfixed param",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glMaterialxv": {
+    "return": "void",
+    "args": "GLenum face, GLenum pname, const GLfixed *param",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glMatrixMode": {
+    "return": "void",
+    "args": "GLenum mode",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glMultMatrixx": {
+    "return": "void",
+    "args": "const GLfixed *m",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glMultiTexCoord4x": {
+    "return": "void",
+    "args": "GLenum texture, GLfixed s, GLfixed t, GLfixed r, GLfixed q",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glNormal3x": {
+    "return": "void",
+    "args": "GLfixed nx, GLfixed ny, GLfixed nz",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glNormalPointer": {
+    "return": "void",
+    "args": "GLenum type, GLsizei stride, const void *pointer",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glOrthox": {
+    "return": "void",
+    "args": "GLfixed l, GLfixed r, GLfixed b, GLfixed t, GLfixed n, GLfixed f",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glPixelStorei": {
+    "return": "void",
+    "args": "GLenum pname, GLint param",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glPolygonOffsetx": {
+    "return": "void",
+    "args": "GLfixed factor, GLfixed units",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glPopMatrix": {
+    "return": "void",
+    "args": "void",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glPushMatrix": {
+    "return": "void",
+    "args": "void",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glReadPixels": {
+    "return": "void",
+    "args": "GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, void *pixels",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glRotatex": {
+    "return": "void",
+    "args": "GLfixed angle, GLfixed x, GLfixed y, GLfixed z",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glScalex": {
+    "return": "void",
+    "args": "GLfixed x, GLfixed y, GLfixed z",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glScissor": {
+    "return": "void",
+    "args": "GLint x, GLint y, GLsizei width, GLsizei height",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glShadeModel": {
+    "return": "void",
+    "args": "GLenum mode",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glStencilFunc": {
+    "return": "void",
+    "args": "GLenum func, GLint ref, GLuint mask",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glStencilMask": {
+    "return": "void",
+    "args": "GLuint mask",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glStencilOp": {
+    "return": "void",
+    "args": "GLenum fail, GLenum zfail, GLenum zpass",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glTexCoordPointer": {
+    "return": "void",
+    "args": "GLint size, GLenum type, GLsizei stride, const void *pointer",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glTexEnvi": {
+    "return": "void",
+    "args": "GLenum target, GLenum pname, GLint param",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glTexEnvx": {
+    "return": "void",
+    "args": "GLenum target, GLenum pname, GLfixed param",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glTexEnvxv": {
+    "return": "void",
+    "args": "GLenum target, GLenum pname, const GLfixed *params",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glTexImage2D": {
+    "return": "void",
+    "args": "GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const void *pixels",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glTexParameteri": {
+    "return": "void",
+    "args": "GLenum target, GLenum pname, GLint param",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glTexParameterx": {
+    "return": "void",
+    "args": "GLenum target, GLenum pname, GLfixed param",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glTexSubImage2D": {
+    "return": "void",
+    "args": "GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, const void *pixels",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glTranslatex": {
+    "return": "void",
+    "args": "GLfixed x, GLfixed y, GLfixed z",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glVertexPointer": {
+    "return": "void",
+    "args": "GLint size, GLenum type, GLsizei stride, const void *pointer",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  },
+  "glViewport": {
+    "return": "void",
+    "args": "GLint x, GLint y, GLsizei width, GLsizei height",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glAttachShader": {
+    "return": "void",
+    "args": "GLuint program, GLuint shader",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glBindAttribLocation": {
+    "return": "void",
+    "args": "GLuint program, GLuint index, const GLchar *name",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glBindFramebuffer": {
+    "return": "void",
+    "args": "GLenum target, GLuint framebuffer",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glBindRenderbuffer": {
+    "return": "void",
+    "args": "GLenum target, GLuint renderbuffer",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glBlendColor": {
+    "return": "void",
+    "args": "GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glBlendEquationSeparate": {
+    "return": "void",
+    "args": "GLenum modeRGB, GLenum modeAlpha",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glBlendFuncSeparate": {
+    "return": "void",
+    "args": "GLenum sfactorRGB, GLenum dfactorRGB, GLenum sfactorAlpha, GLenum dfactorAlpha",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glCheckFramebufferStatus": {
+    "return": "GLenum",
+    "args": "GLenum target",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glCompileShader": {
+    "return": "void",
+    "args": "GLuint shader",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glCreateProgram": {
+    "return": "GLuint",
+    "args": "void",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glCreateShader": {
+    "return": "GLuint",
+    "args": "GLenum type",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glDeleteFramebuffers": {
+    "return": "void",
+    "args": "GLsizei n, const GLuint *framebuffers",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glDeleteProgram": {
+    "return": "void",
+    "args": "GLuint program",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glDeleteRenderbuffers": {
+    "return": "void",
+    "args": "GLsizei n, const GLuint *renderbuffers",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glDeleteShader": {
+    "return": "void",
+    "args": "GLuint shader",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glDetachShader": {
+    "return": "void",
+    "args": "GLuint program, GLuint shader",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glDisableVertexAttribArray": {
+    "return": "void",
+    "args": "GLuint index",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glEnableVertexAttribArray": {
+    "return": "void",
+    "args": "GLuint index",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glFramebufferRenderbuffer": {
+    "return": "void",
+    "args": "GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glFramebufferTexture2D": {
+    "return": "void",
+    "args": "GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glGenerateMipmap": {
+    "return": "void",
+    "args": "GLenum target",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glGenFramebuffers": {
+    "return": "void",
+    "args": "GLsizei n, GLuint *framebuffers",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glGenRenderbuffers": {
+    "return": "void",
+    "args": "GLsizei n, GLuint *renderbuffers",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glGetActiveUniform": {
+    "return": "void",
+    "args": "GLuint program, GLuint index, GLsizei bufSize, GLsizei *length, GLint *size, GLenum *type, GLchar *name",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glGetAttribLocation": {
+    "return": "GLint",
+    "args": "GLuint program, const GLchar *name",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glGetFramebufferAttachmentParameteriv": {
+    "return": "void",
+    "args": "GLenum target, GLenum attachment, GLenum pname, GLint *params",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glGetProgramiv": {
+    "return": "void",
+    "args": "GLuint program, GLenum pname, GLint *params",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glGetProgramInfoLog": {
+    "return": "void",
+    "args": "GLuint program, GLsizei bufSize, GLsizei *length, GLchar *infoLog",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glGetRenderbufferParameteriv": {
+    "return": "void",
+    "args": "GLenum target, GLenum pname, GLint *params",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glGetShaderiv": {
+    "return": "void",
+    "args": "GLuint shader, GLenum pname, GLint *params",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glGetShaderInfoLog": {
+    "return": "void",
+    "args": "GLuint shader, GLsizei bufSize, GLsizei *length, GLchar *infoLog",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glGetUniformLocation": {
+    "return": "GLint",
+    "args": "GLuint program, const GLchar *name",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glIsFramebuffer": {
+    "return": "GLboolean",
+    "args": "GLuint framebuffer",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glIsRenderbuffer": {
+    "return": "GLboolean",
+    "args": "GLuint renderbuffer",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glLinkProgram": {
+    "return": "void",
+    "args": "GLuint program",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glRenderbufferStorage": {
+    "return": "void",
+    "args": "GLenum target, GLenum internalformat, GLsizei width, GLsizei height",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glShaderBinary": {
+    "return": "void",
+    "args": "GLsizei count, const GLuint *shaders, GLenum binaryFormat, const void *binary, GLsizei length",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glShaderSource": {
+    "return": "void",
+    "args": "GLuint shader, GLsizei count, const GLchar *const*string, const GLint *length",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glStencilFuncSeparate": {
+    "return": "void",
+    "args": "GLenum face, GLenum func, GLint ref, GLuint mask",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glStencilMaskSeparate": {
+    "return": "void",
+    "args": "GLenum face, GLuint mask",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glStencilOpSeparate": {
+    "return": "void",
+    "args": "GLenum face, GLenum sfail, GLenum dpfail, GLenum dppass",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glUniform1f": {
+    "return": "void",
+    "args": "GLint location, GLfloat v0",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glUniform1fv": {
+    "return": "void",
+    "args": "GLint location, GLsizei count, const GLfloat *value",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glUniform1i": {
+    "return": "void",
+    "args": "GLint location, GLint v0",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glUniform1iv": {
+    "return": "void",
+    "args": "GLint location, GLsizei count, const GLint *value",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glUniform2f": {
+    "return": "void",
+    "args": "GLint location, GLfloat v0, GLfloat v1",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glUniform2fv": {
+    "return": "void",
+    "args": "GLint location, GLsizei count, const GLfloat *value",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glUniform2iv": {
+    "return": "void",
+    "args": "GLint location, GLsizei count, const GLint *value",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glUniform3f": {
+    "return": "void",
+    "args": "GLint location, GLfloat v0, GLfloat v1, GLfloat v2",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glUniform3fv": {
+    "return": "void",
+    "args": "GLint location, GLsizei count, const GLfloat *value",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glUniform3iv": {
+    "return": "void",
+    "args": "GLint location, GLsizei count, const GLint *value",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glUniform4f": {
+    "return": "void",
+    "args": "GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glUniform4fv": {
+    "return": "void",
+    "args": "GLint location, GLsizei count, const GLfloat *value",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glUniform4iv": {
+    "return": "void",
+    "args": "GLint location, GLsizei count, const GLint *value",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glUniformMatrix2fv": {
+    "return": "void",
+    "args": "GLint location, GLsizei count, GLboolean transpose, const GLfloat *value",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glUniformMatrix3fv": {
+    "return": "void",
+    "args": "GLint location, GLsizei count, GLboolean transpose, const GLfloat *value",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glUniformMatrix4fv": {
+    "return": "void",
+    "args": "GLint location, GLsizei count, GLboolean transpose, const GLfloat *value",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glUseProgram": {
+    "return": "void",
+    "args": "GLuint program",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "glVertexAttribPointer": {
+    "return": "void",
+    "args": "GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void *pointer",
+    "source": "gles2.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES2/gl2.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "ba5e8e1755642efeb2d0f34b4cfe261cdbf6471e7763a40c7de10dff4c3c4921"
+    }
+  },
+  "eglCreateContext": {
+    "return": "EGLContext",
+    "args": "EGLDisplay dpy, EGLConfig config, EGLContext share_context, const EGLint *attrib_list",
+    "source": "egl.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/main/api/EGL/egl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "a7c24c828bf2e1a4dfe6511b4f4812b948a285eb54787074015896976d4da076"
+    }
+  },
+  "eglCreateWindowSurface": {
+    "return": "EGLSurface",
+    "args": "EGLDisplay dpy, EGLConfig config, EGLNativeWindowType win, const EGLint *attrib_list",
+    "source": "egl.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/main/api/EGL/egl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "a7c24c828bf2e1a4dfe6511b4f4812b948a285eb54787074015896976d4da076"
+    }
+  },
+  "eglDestroyContext": {
+    "return": "EGLBoolean",
+    "args": "EGLDisplay dpy, EGLContext ctx",
+    "source": "egl.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/main/api/EGL/egl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "a7c24c828bf2e1a4dfe6511b4f4812b948a285eb54787074015896976d4da076"
+    }
+  },
+  "eglDestroySurface": {
+    "return": "EGLBoolean",
+    "args": "EGLDisplay dpy, EGLSurface surface",
+    "source": "egl.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/main/api/EGL/egl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "a7c24c828bf2e1a4dfe6511b4f4812b948a285eb54787074015896976d4da076"
+    }
+  },
+  "eglGetConfigAttrib": {
+    "return": "EGLBoolean",
+    "args": "EGLDisplay dpy, EGLConfig config, EGLint attribute, EGLint *value",
+    "source": "egl.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/main/api/EGL/egl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "a7c24c828bf2e1a4dfe6511b4f4812b948a285eb54787074015896976d4da076"
+    }
+  },
+  "eglGetConfigs": {
+    "return": "EGLBoolean",
+    "args": "EGLDisplay dpy, EGLConfig *configs, EGLint config_size, EGLint *num_config",
+    "source": "egl.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/main/api/EGL/egl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "a7c24c828bf2e1a4dfe6511b4f4812b948a285eb54787074015896976d4da076"
+    }
+  },
+  "eglGetCurrentDisplay": {
+    "return": "EGLDisplay",
+    "args": "void",
+    "source": "egl.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/main/api/EGL/egl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "a7c24c828bf2e1a4dfe6511b4f4812b948a285eb54787074015896976d4da076"
+    }
+  },
+  "eglGetCurrentSurface": {
+    "return": "EGLSurface",
+    "args": "EGLint readdraw",
+    "source": "egl.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/main/api/EGL/egl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "a7c24c828bf2e1a4dfe6511b4f4812b948a285eb54787074015896976d4da076"
+    }
+  },
+  "eglGetDisplay": {
+    "return": "EGLDisplay",
+    "args": "EGLNativeDisplayType display_id",
+    "source": "egl.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/main/api/EGL/egl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "a7c24c828bf2e1a4dfe6511b4f4812b948a285eb54787074015896976d4da076"
+    }
+  },
+  "eglGetError": {
+    "return": "EGLint",
+    "args": "void",
+    "source": "egl.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/main/api/EGL/egl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "a7c24c828bf2e1a4dfe6511b4f4812b948a285eb54787074015896976d4da076"
+    }
+  },
+  "eglGetProcAddress": {
+    "return": "__eglMustCastToProperFunctionPointerType",
+    "args": "const char *procname",
+    "source": "egl.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/main/api/EGL/egl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "a7c24c828bf2e1a4dfe6511b4f4812b948a285eb54787074015896976d4da076"
+    }
+  },
+  "eglInitialize": {
+    "return": "EGLBoolean",
+    "args": "EGLDisplay dpy, EGLint *major, EGLint *minor",
+    "source": "egl.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/main/api/EGL/egl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "a7c24c828bf2e1a4dfe6511b4f4812b948a285eb54787074015896976d4da076"
+    }
+  },
+  "eglMakeCurrent": {
+    "return": "EGLBoolean",
+    "args": "EGLDisplay dpy, EGLSurface draw, EGLSurface read, EGLContext ctx",
+    "source": "egl.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/main/api/EGL/egl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "a7c24c828bf2e1a4dfe6511b4f4812b948a285eb54787074015896976d4da076"
+    }
+  },
+  "eglQueryContext": {
+    "return": "EGLBoolean",
+    "args": "EGLDisplay dpy, EGLContext ctx, EGLint attribute, EGLint *value",
+    "source": "egl.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/main/api/EGL/egl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "a7c24c828bf2e1a4dfe6511b4f4812b948a285eb54787074015896976d4da076"
+    }
+  },
+  "eglSwapBuffers": {
+    "return": "EGLBoolean",
+    "args": "EGLDisplay dpy, EGLSurface surface",
+    "source": "egl.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/main/api/EGL/egl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "a7c24c828bf2e1a4dfe6511b4f4812b948a285eb54787074015896976d4da076"
+    }
+  },
+  "eglTerminate": {
+    "return": "EGLBoolean",
+    "args": "EGLDisplay dpy",
+    "source": "egl.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/main/api/EGL/egl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "a7c24c828bf2e1a4dfe6511b4f4812b948a285eb54787074015896976d4da076"
+    }
+  },
+  "eglBindAPI": {
+    "return": "EGLBoolean",
+    "args": "EGLenum api",
+    "source": "egl.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/main/api/EGL/egl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "a7c24c828bf2e1a4dfe6511b4f4812b948a285eb54787074015896976d4da076"
+    }
+  },
+  "eglGetCurrentContext": {
+    "return": "EGLContext",
+    "args": "void",
+    "source": "egl.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/EGL-Registry/main/api/EGL/egl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "a7c24c828bf2e1a4dfe6511b4f4812b948a285eb54787074015896976d4da076"
+    }
+  },
+  "glGetString": {
+    "return": "const GLubyte *",
+    "args": "GLenum name",
+    "source": "gles1.h",
+    "verifiedHeader": true,
+    "provenance": {
+      "url": "https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/main/api/GLES/gl.h",
+      "authority": "Khronos header",
+      "applyToAnalysis": true,
+      "sha256": "6dea5ae69d619c8181a2c5aa5f55f69fd19427fd6efb78a9a5c7453491bc0598"
+    }
+  }
+}

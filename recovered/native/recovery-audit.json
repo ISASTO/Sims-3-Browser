@@ -1,0 +1,1462 @@
+{
+  "status": "Native recovery checkpoint. Full game decompilation and a native browser game are NOT complete.",
+  "wholeGameNativeBuildAvailable": false,
+  "discoveredFunctions": 5974,
+  "thunkFunctions": 845,
+  "decompiledFunctionBodies": 5129,
+  "decompilerWarningComments": 4334,
+  "indirectCallSites": 6351,
+  "warningCategories": {
+    "Removing unreachable block": 2222,
+    "Could not recover jumptable": 690,
+    "Treating indirect jump as call": 690,
+    "Restarted to delay deadcode elimination for space: stack": 662,
+    "Globals starting with '_' overlap smaller symbols at the same address": 27,
+    "Heritage AFTER dead removal": 17,
+    "Type propagation algorithm not settling": 14,
+    "Control flow encountered bad instruction data": 8,
+    "Bad instruction - Truncating control flow here": 2,
+    "Ignoring partial resolution of indirect": 1,
+    "Recovered jumptable eliminated as dead code": 1
+  },
+  "reviewMarkers": {
+    "badInstruction": [
+      {
+        "name": "FUN_4a003e8e",
+        "address": "4a003e8e",
+        "occurrences": 1
+      },
+      {
+        "name": "FUN_4a003eb0",
+        "address": "4a003eb0",
+        "occurrences": 1
+      }
+    ],
+    "implicitRegisterInput": [
+      {
+        "name": "FUN_4a000f84",
+        "address": "4a000f84",
+        "occurrences": 15
+      },
+      {
+        "name": "FUN_4a00105c",
+        "address": "4a00105c",
+        "occurrences": 26
+      },
+      {
+        "name": "FUN_4a001cc0",
+        "address": "4a001cc0",
+        "occurrences": 8
+      },
+      {
+        "name": "FUN_4a002ae4",
+        "address": "4a002ae4",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a002bb8",
+        "address": "4a002bb8",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a002c64",
+        "address": "4a002c64",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a00463c",
+        "address": "4a00463c",
+        "occurrences": 13
+      },
+      {
+        "name": "FUN_4a0067f8",
+        "address": "4a0067f8",
+        "occurrences": 8
+      },
+      {
+        "name": "FUN_4a006ba8",
+        "address": "4a006ba8",
+        "occurrences": 19
+      },
+      {
+        "name": "FUN_4a006d64",
+        "address": "4a006d64",
+        "occurrences": 22
+      },
+      {
+        "name": "FUN_4a00729c",
+        "address": "4a00729c",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a0078f0",
+        "address": "4a0078f0",
+        "occurrences": 17
+      },
+      {
+        "name": "FUN_4a00ac74",
+        "address": "4a00ac74",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a01dab0",
+        "address": "4a01dab0",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a0237fc",
+        "address": "4a0237fc",
+        "occurrences": 10
+      },
+      {
+        "name": "FUN_4a029e0c",
+        "address": "4a029e0c",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a02b064",
+        "address": "4a02b064",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a02f4da",
+        "address": "4a02f4da",
+        "occurrences": 35
+      },
+      {
+        "name": "FUN_4a035900",
+        "address": "4a035900",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a0371d0",
+        "address": "4a0371d0",
+        "occurrences": 21
+      },
+      {
+        "name": "FUN_4a03a31c",
+        "address": "4a03a31c",
+        "occurrences": 16
+      },
+      {
+        "name": "FUN_4a03a9e0",
+        "address": "4a03a9e0",
+        "occurrences": 16
+      },
+      {
+        "name": "FUN_4a03c044",
+        "address": "4a03c044",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a03ca04",
+        "address": "4a03ca04",
+        "occurrences": 16
+      },
+      {
+        "name": "FUN_4a040ec4",
+        "address": "4a040ec4",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a0464bc",
+        "address": "4a0464bc",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a04da10",
+        "address": "4a04da10",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a04e214",
+        "address": "4a04e214",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a04ee14",
+        "address": "4a04ee14",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a04f9d8",
+        "address": "4a04f9d8",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a051698",
+        "address": "4a051698",
+        "occurrences": 11
+      },
+      {
+        "name": "FUN_4a053a60",
+        "address": "4a053a60",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a056a0c",
+        "address": "4a056a0c",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a056a74",
+        "address": "4a056a74",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a0574d0",
+        "address": "4a0574d0",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a05a2c8",
+        "address": "4a05a2c8",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a05be98",
+        "address": "4a05be98",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a05c29c",
+        "address": "4a05c29c",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a060754",
+        "address": "4a060754",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a064fac",
+        "address": "4a064fac",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a06950e",
+        "address": "4a06950e",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a06cfb0",
+        "address": "4a06cfb0",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a06f95c",
+        "address": "4a06f95c",
+        "occurrences": 7
+      },
+      {
+        "name": "FUN_4a075388",
+        "address": "4a075388",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a0776dc",
+        "address": "4a0776dc",
+        "occurrences": 7
+      },
+      {
+        "name": "FUN_4a0855d8",
+        "address": "4a0855d8",
+        "occurrences": 5
+      },
+      {
+        "name": "FUN_4a0855f4",
+        "address": "4a0855f4",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a085684",
+        "address": "4a085684",
+        "occurrences": 5
+      },
+      {
+        "name": "FUN_4a086e68",
+        "address": "4a086e68",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a086f34",
+        "address": "4a086f34",
+        "occurrences": 3
+      },
+      {
+        "name": "FUN_4a08aec8",
+        "address": "4a08aec8",
+        "occurrences": 7
+      },
+      {
+        "name": "FUN_4a08d5e4",
+        "address": "4a08d5e4",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a092a24",
+        "address": "4a092a24",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a0a42d4",
+        "address": "4a0a42d4",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a0a56f4",
+        "address": "4a0a56f4",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a0aafec",
+        "address": "4a0aafec",
+        "occurrences": 8
+      },
+      {
+        "name": "FUN_4a0ab178",
+        "address": "4a0ab178",
+        "occurrences": 8
+      },
+      {
+        "name": "FUN_4a0b3bc8",
+        "address": "4a0b3bc8",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a0b3c60",
+        "address": "4a0b3c60",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a0b6838",
+        "address": "4a0b6838",
+        "occurrences": 8
+      },
+      {
+        "name": "FUN_4a0b8640",
+        "address": "4a0b8640",
+        "occurrences": 10
+      },
+      {
+        "name": "FUN_4a0b9124",
+        "address": "4a0b9124",
+        "occurrences": 14
+      },
+      {
+        "name": "FUN_4a0baaa0",
+        "address": "4a0baaa0",
+        "occurrences": 16
+      },
+      {
+        "name": "FUN_4a0baf80",
+        "address": "4a0baf80",
+        "occurrences": 18
+      },
+      {
+        "name": "FUN_4a0be5a8",
+        "address": "4a0be5a8",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a0bf4b4",
+        "address": "4a0bf4b4",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a0c191c",
+        "address": "4a0c191c",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a0c2240",
+        "address": "4a0c2240",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a0c3450",
+        "address": "4a0c3450",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a0cb8a0",
+        "address": "4a0cb8a0",
+        "occurrences": 39
+      },
+      {
+        "name": "FUN_4a0d1fb4",
+        "address": "4a0d1fb4",
+        "occurrences": 7
+      },
+      {
+        "name": "FUN_4a0d53dc",
+        "address": "4a0d53dc",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a0d71e4",
+        "address": "4a0d71e4",
+        "occurrences": 3
+      },
+      {
+        "name": "FUN_4a0d8e58",
+        "address": "4a0d8e58",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a0e4d40",
+        "address": "4a0e4d40",
+        "occurrences": 15
+      },
+      {
+        "name": "FUN_4a0e53a8",
+        "address": "4a0e53a8",
+        "occurrences": 15
+      },
+      {
+        "name": "FUN_4a0e62a4",
+        "address": "4a0e62a4",
+        "occurrences": 17
+      },
+      {
+        "name": "FUN_4a0e7fe4",
+        "address": "4a0e7fe4",
+        "occurrences": 15
+      },
+      {
+        "name": "FUN_4a0e9164",
+        "address": "4a0e9164",
+        "occurrences": 17
+      },
+      {
+        "name": "FUN_4a0eba04",
+        "address": "4a0eba04",
+        "occurrences": 19
+      },
+      {
+        "name": "FUN_4a0ec2d0",
+        "address": "4a0ec2d0",
+        "occurrences": 3
+      },
+      {
+        "name": "FUN_4a0ecc0c",
+        "address": "4a0ecc0c",
+        "occurrences": 15
+      },
+      {
+        "name": "FUN_4a0f35f0",
+        "address": "4a0f35f0",
+        "occurrences": 7
+      },
+      {
+        "name": "FUN_4a0f5774",
+        "address": "4a0f5774",
+        "occurrences": 14
+      },
+      {
+        "name": "FUN_4a0fb45c",
+        "address": "4a0fb45c",
+        "occurrences": 8
+      },
+      {
+        "name": "FUN_4a0fc5d4",
+        "address": "4a0fc5d4",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a0fe1e0",
+        "address": "4a0fe1e0",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a102c10",
+        "address": "4a102c10",
+        "occurrences": 30
+      },
+      {
+        "name": "FUN_4a1043dc",
+        "address": "4a1043dc",
+        "occurrences": 11
+      },
+      {
+        "name": "FUN_4a1044c4",
+        "address": "4a1044c4",
+        "occurrences": 8
+      },
+      {
+        "name": "FUN_4a104a04",
+        "address": "4a104a04",
+        "occurrences": 10
+      },
+      {
+        "name": "FUN_4a105c00",
+        "address": "4a105c00",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a106a48",
+        "address": "4a106a48",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a1073fc",
+        "address": "4a1073fc",
+        "occurrences": 7
+      },
+      {
+        "name": "FUN_4a107e58",
+        "address": "4a107e58",
+        "occurrences": 7
+      },
+      {
+        "name": "FUN_4a108118",
+        "address": "4a108118",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a108858",
+        "address": "4a108858",
+        "occurrences": 3
+      },
+      {
+        "name": "FUN_4a109d38",
+        "address": "4a109d38",
+        "occurrences": 7
+      },
+      {
+        "name": "FUN_4a10eb68",
+        "address": "4a10eb68",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a111238",
+        "address": "4a111238",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a1113f4",
+        "address": "4a1113f4",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a1138d0",
+        "address": "4a1138d0",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a116b10",
+        "address": "4a116b10",
+        "occurrences": 7
+      },
+      {
+        "name": "FUN_4a11bc14",
+        "address": "4a11bc14",
+        "occurrences": 18
+      },
+      {
+        "name": "FUN_4a11e574",
+        "address": "4a11e574",
+        "occurrences": 5
+      },
+      {
+        "name": "FUN_4a120320",
+        "address": "4a120320",
+        "occurrences": 5
+      },
+      {
+        "name": "FUN_4a1239d8",
+        "address": "4a1239d8",
+        "occurrences": 30
+      },
+      {
+        "name": "FUN_4a127604",
+        "address": "4a127604",
+        "occurrences": 27
+      },
+      {
+        "name": "FUN_4a12837c",
+        "address": "4a12837c",
+        "occurrences": 3
+      },
+      {
+        "name": "FUN_4a129764",
+        "address": "4a129764",
+        "occurrences": 38
+      },
+      {
+        "name": "FUN_4a12be24",
+        "address": "4a12be24",
+        "occurrences": 22
+      },
+      {
+        "name": "FUN_4a1305d0",
+        "address": "4a1305d0",
+        "occurrences": 7
+      },
+      {
+        "name": "FUN_4a131e38",
+        "address": "4a131e38",
+        "occurrences": 7
+      },
+      {
+        "name": "FUN_4a132858",
+        "address": "4a132858",
+        "occurrences": 22
+      },
+      {
+        "name": "FUN_4a134ef0",
+        "address": "4a134ef0",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13523c",
+        "address": "4a13523c",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a135ca4",
+        "address": "4a135ca4",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13616c",
+        "address": "4a13616c",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a136200",
+        "address": "4a136200",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a1362f4",
+        "address": "4a1362f4",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13754c",
+        "address": "4a13754c",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13776c",
+        "address": "4a13776c",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a1386ac",
+        "address": "4a1386ac",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a138794",
+        "address": "4a138794",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a138c44",
+        "address": "4a138c44",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a138d30",
+        "address": "4a138d30",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a138e28",
+        "address": "4a138e28",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a138e3c",
+        "address": "4a138e3c",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a138f34",
+        "address": "4a138f34",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a1390c4",
+        "address": "4a1390c4",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a1392d8",
+        "address": "4a1392d8",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a139318",
+        "address": "4a139318",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a139528",
+        "address": "4a139528",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a139728",
+        "address": "4a139728",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a1397b4",
+        "address": "4a1397b4",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a139804",
+        "address": "4a139804",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a1398c8",
+        "address": "4a1398c8",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a139958",
+        "address": "4a139958",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a1399a8",
+        "address": "4a1399a8",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a1399f0",
+        "address": "4a1399f0",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13b00c",
+        "address": "4a13b00c",
+        "occurrences": 5
+      },
+      {
+        "name": "FUN_4a13b430",
+        "address": "4a13b430",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13c2cc",
+        "address": "4a13c2cc",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13c964",
+        "address": "4a13c964",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13c988",
+        "address": "4a13c988",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13c9f8",
+        "address": "4a13c9f8",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13ce24",
+        "address": "4a13ce24",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13ce68",
+        "address": "4a13ce68",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13cf4c",
+        "address": "4a13cf4c",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13cfc0",
+        "address": "4a13cfc0",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13cff4",
+        "address": "4a13cff4",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a13d03c",
+        "address": "4a13d03c",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13d150",
+        "address": "4a13d150",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13d4d0",
+        "address": "4a13d4d0",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13d50c",
+        "address": "4a13d50c",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13d544",
+        "address": "4a13d544",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13d5cc",
+        "address": "4a13d5cc",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13d980",
+        "address": "4a13d980",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13d9ec",
+        "address": "4a13d9ec",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13da2c",
+        "address": "4a13da2c",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13e7c8",
+        "address": "4a13e7c8",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13e7f8",
+        "address": "4a13e7f8",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13e890",
+        "address": "4a13e890",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13e914",
+        "address": "4a13e914",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13fbb4",
+        "address": "4a13fbb4",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a14053c",
+        "address": "4a14053c",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a140a6c",
+        "address": "4a140a6c",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a141458",
+        "address": "4a141458",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a142958",
+        "address": "4a142958",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a142b8c",
+        "address": "4a142b8c",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a1431cc",
+        "address": "4a1431cc",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a143428",
+        "address": "4a143428",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a143604",
+        "address": "4a143604",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a14440c",
+        "address": "4a14440c",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a1446c0",
+        "address": "4a1446c0",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a14637c",
+        "address": "4a14637c",
+        "occurrences": 5
+      },
+      {
+        "name": "FUN_4a146d20",
+        "address": "4a146d20",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a1491e4",
+        "address": "4a1491e4",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a149350",
+        "address": "4a149350",
+        "occurrences": 8
+      },
+      {
+        "name": "FUN_4a15152c",
+        "address": "4a15152c",
+        "occurrences": 249
+      },
+      {
+        "name": "FUN_4a152c7c",
+        "address": "4a152c7c",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a15404c",
+        "address": "4a15404c",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a15857c",
+        "address": "4a15857c",
+        "occurrences": 15
+      },
+      {
+        "name": "FUN_4a15b8e0",
+        "address": "4a15b8e0",
+        "occurrences": 15
+      },
+      {
+        "name": "FUN_4a15bca8",
+        "address": "4a15bca8",
+        "occurrences": 15
+      },
+      {
+        "name": "FUN_4a161eb0",
+        "address": "4a161eb0",
+        "occurrences": 9
+      },
+      {
+        "name": "FUN_4a1647d4",
+        "address": "4a1647d4",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a164954",
+        "address": "4a164954",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a1652fc",
+        "address": "4a1652fc",
+        "occurrences": 3
+      },
+      {
+        "name": "FUN_4a165c70",
+        "address": "4a165c70",
+        "occurrences": 12
+      },
+      {
+        "name": "FUN_4a170040",
+        "address": "4a170040",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a170238",
+        "address": "4a170238",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a17029c",
+        "address": "4a17029c",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a170300",
+        "address": "4a170300",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a170360",
+        "address": "4a170360",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a1703c4",
+        "address": "4a1703c4",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a170428",
+        "address": "4a170428",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a17048c",
+        "address": "4a17048c",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a1704f0",
+        "address": "4a1704f0",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a170554",
+        "address": "4a170554",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a1705b8",
+        "address": "4a1705b8",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a17061c",
+        "address": "4a17061c",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a170680",
+        "address": "4a170680",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a1706e4",
+        "address": "4a1706e4",
+        "occurrences": 4
+      }
+    ],
+    "untypedAdditionalReturn": [
+      {
+        "name": "FUN_4a001cc0",
+        "address": "4a001cc0",
+        "occurrences": 18
+      },
+      {
+        "name": "FUN_4a003494",
+        "address": "4a003494",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a004dce",
+        "address": "4a004dce",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a00665c",
+        "address": "4a00665c",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a02cb80",
+        "address": "4a02cb80",
+        "occurrences": 5
+      },
+      {
+        "name": "FUN_4a03d088",
+        "address": "4a03d088",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a0515e4",
+        "address": "4a0515e4",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a060ddc",
+        "address": "4a060ddc",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a0625c0",
+        "address": "4a0625c0",
+        "occurrences": 7
+      },
+      {
+        "name": "FUN_4a067b80",
+        "address": "4a067b80",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a069608",
+        "address": "4a069608",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a072f58",
+        "address": "4a072f58",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a0816c8",
+        "address": "4a0816c8",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a084dd8",
+        "address": "4a084dd8",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a086e68",
+        "address": "4a086e68",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a086f34",
+        "address": "4a086f34",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a088524",
+        "address": "4a088524",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a089b50",
+        "address": "4a089b50",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a090580",
+        "address": "4a090580",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a090720",
+        "address": "4a090720",
+        "occurrences": 30
+      },
+      {
+        "name": "FUN_4a093ac2",
+        "address": "4a093ac2",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a093bbc",
+        "address": "4a093bbc",
+        "occurrences": 12
+      },
+      {
+        "name": "FUN_4a093e04",
+        "address": "4a093e04",
+        "occurrences": 8
+      },
+      {
+        "name": "FUN_4a09cd68",
+        "address": "4a09cd68",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a0a3b94",
+        "address": "4a0a3b94",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a0a4776",
+        "address": "4a0a4776",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a0a83b4",
+        "address": "4a0a83b4",
+        "occurrences": 12
+      },
+      {
+        "name": "FUN_4a0ab440",
+        "address": "4a0ab440",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a0abd90",
+        "address": "4a0abd90",
+        "occurrences": 12
+      },
+      {
+        "name": "FUN_4a0ac580",
+        "address": "4a0ac580",
+        "occurrences": 8
+      },
+      {
+        "name": "FUN_4a0bff24",
+        "address": "4a0bff24",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a0c9920",
+        "address": "4a0c9920",
+        "occurrences": 3
+      },
+      {
+        "name": "FUN_4a0ce690",
+        "address": "4a0ce690",
+        "occurrences": 8
+      },
+      {
+        "name": "FUN_4a0d23c4",
+        "address": "4a0d23c4",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a0d71e4",
+        "address": "4a0d71e4",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a0d8e58",
+        "address": "4a0d8e58",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a0e62a4",
+        "address": "4a0e62a4",
+        "occurrences": 8
+      },
+      {
+        "name": "FUN_4a0f2c28",
+        "address": "4a0f2c28",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a0faf18",
+        "address": "4a0faf18",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a0fb0c0",
+        "address": "4a0fb0c0",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a0fb748",
+        "address": "4a0fb748",
+        "occurrences": 3
+      },
+      {
+        "name": "FUN_4a0fb7a0",
+        "address": "4a0fb7a0",
+        "occurrences": 8
+      },
+      {
+        "name": "FUN_4a0fd564",
+        "address": "4a0fd564",
+        "occurrences": 8
+      },
+      {
+        "name": "FUN_4a0fdf10",
+        "address": "4a0fdf10",
+        "occurrences": 8
+      },
+      {
+        "name": "FUN_4a0fe2fc",
+        "address": "4a0fe2fc",
+        "occurrences": 8
+      },
+      {
+        "name": "FUN_4a0fe5e8",
+        "address": "4a0fe5e8",
+        "occurrences": 8
+      },
+      {
+        "name": "FUN_4a10eb68",
+        "address": "4a10eb68",
+        "occurrences": 8
+      },
+      {
+        "name": "FUN_4a110878",
+        "address": "4a110878",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a114098",
+        "address": "4a114098",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a1171b8",
+        "address": "4a1171b8",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a118480",
+        "address": "4a118480",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a11939c",
+        "address": "4a11939c",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a11b1d8",
+        "address": "4a11b1d8",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a11c2b4",
+        "address": "4a11c2b4",
+        "occurrences": 10
+      },
+      {
+        "name": "FUN_4a11f758",
+        "address": "4a11f758",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a124860",
+        "address": "4a124860",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a127604",
+        "address": "4a127604",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a129764",
+        "address": "4a129764",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a133b10",
+        "address": "4a133b10",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a136768",
+        "address": "4a136768",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a137f60",
+        "address": "4a137f60",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a13a400",
+        "address": "4a13a400",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a14d2d0",
+        "address": "4a14d2d0",
+        "occurrences": 3
+      },
+      {
+        "name": "FUN_4a14d7c0",
+        "address": "4a14d7c0",
+        "occurrences": 3
+      },
+      {
+        "name": "FUN_4a15152c",
+        "address": "4a15152c",
+        "occurrences": 6
+      },
+      {
+        "name": "FUN_4a159e84",
+        "address": "4a159e84",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a15cca0",
+        "address": "4a15cca0",
+        "occurrences": 2
+      },
+      {
+        "name": "FUN_4a15ccc4",
+        "address": "4a15ccc4",
+        "occurrences": 8
+      },
+      {
+        "name": "FUN_4a15ede8",
+        "address": "4a15ede8",
+        "occurrences": 3
+      },
+      {
+        "name": "FUN_4a161bb4",
+        "address": "4a161bb4",
+        "occurrences": 9
+      },
+      {
+        "name": "FUN_4a163158",
+        "address": "4a163158",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a163a64",
+        "address": "4a163a64",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a16c6c8",
+        "address": "4a16c6c8",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a16ca98",
+        "address": "4a16ca98",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a16ce68",
+        "address": "4a16ce68",
+        "occurrences": 4
+      },
+      {
+        "name": "FUN_4a17006c",
+        "address": "4a17006c",
+        "occurrences": 4
+      }
+    ]
+  },
+  "hostAbi": {
+    "khronosSignaturesApplied": 187,
+    "externalFunctionsUpdated": 187,
+    "unverifiedS3eSignaturesNotApplied": 83
+  },
+  "nativeSubset": {
+    "functions": 22,
+    "comparisons": 28410,
+    "failures": 0,
+    "wasmSha256": "01271abaed12fc144fe8f0bc1e18380cac6b16a403d2acee95eef7a607abe271"
+  },
+  "outputFiles": 28,
+  "outputLines": 357560,
+  "analysisArchiveSha256": "c7edd44881bcf5238c0bc3d43bd6ac2f4c4bb02056c94f8bedfe4033304f1db0",
+  "limitations": [
+    "Function discovery is not exhaustive; code and data share the executable image.",
+    "A successful decompiler result may still contain invalid flow, types, or implicit register dependencies.",
+    "Some warnings describe normal optimizations; warning totals are not a count of distinct bugs.",
+    "Function counts and body bytes do not measure a percentage of completed gameplay.",
+    "The scalar test corpus is finite and does not establish exhaustive equivalence.",
+    "No native character creation, town simulation, rendering, audio, or saving has been validated."
+  ]
+}

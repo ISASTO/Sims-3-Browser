@@ -1,0 +1,18 @@
+{
+  "status": "Automated native decompilation only. No native browser game has been built.",
+  "ghidraVersion": "12.1.4",
+  "language": "ARM:LE:32:v4t",
+  "compiler": "default",
+  "functionsDiscovered": 5974,
+  "importThunks": 845,
+  "functionsDecompiled": 5129,
+  "failedFunctions": 0,
+  "warningComments": 4334,
+  "indirectCallSites": 6351,
+  "functionBodyBytes": 1409918,
+  "instructionCount": 398863,
+  "strings": 3468,
+  "elapsedSeconds": 176.479354858,
+  "analysisArchiveExported": true,
+  "failures": []
+}

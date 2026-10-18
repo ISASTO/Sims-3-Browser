@@ -1,5 +1,11 @@
 # Technical findings
 
+Native ARM decompilation and an initial compiled Wasm subset are now recorded
+in [NATIVE_PORT.md](NATIVE_PORT.md). This remains an incomplete port: the hosted
+prototype uses CPU emulation, and no complete source-reconstructed game build
+exists. The original performance/rendering limitations have not been resolved
+by the recovery checkpoint.
+
 ## Input
 
 - Uploaded file: `The-Sims-3_1.5.21.apk`
