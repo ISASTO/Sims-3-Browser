@@ -75,8 +75,11 @@ reloaded; requested bytes still advance progress on failed/short transfers.
 Original boolean-write progress and field-width/stride quirks are preserved.
 All fifteen routines passed 25,811 controlled-host ARM/Wasm comparisons and
 159,404 matching file/callback events. The shared browser loader passed 105
-ARM-derived fixtures in Node; live-browser status is recorded separately.
-Exact input domains and test scope are in the component's reports.
+ARM-derived fixtures in Node. Live Chrome validation is pending because the
+implementation Pages build remained queued and the new component URL returned
+404. `native/serialization/browser-verification.json` records the exact
+observation; it does not claim browser fixtures passed. Exact input domains and
+test scope are in the component's reports.
 
 The browser adapter uses the earlier native path resolver, verifies original
 asset hashes, and loads resource bytes into synchronous memory files. The actual

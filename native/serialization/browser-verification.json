@@ -1,8 +1,8 @@
 {
-  "status": "Pending live browser validation for this module. Node loader/integration checks pass separately.",
+  "status": "Pending live browser validation: the implementation Pages build remains queued and the component URL returns the GitHub Pages 404 page.",
   "wasmSha256": "8a966642e9284d6dc2435bb1abecdacdfc0b3f99e64d171e9ca6a5220c44cc72",
-  "fixtureChecks": 105,
-  "functionsCovered": 15,
+  "fixtureChecks": 0,
+  "functionsCovered": 0,
   "roundtrip": {
     "name": "fonts/fonts.group.bin",
     "bytes": 63953,
@@ -10,7 +10,23 @@
     "version": "3.6.6",
     "headerExtra": 0,
     "headerBytes": 6,
-    "note": "Complete resource-byte transfer through recovered stream code; full font parsing/rendering remains unported."
+    "note": "Complete resource-byte transfer through recovered stream code; full font parsing/rendering remains unported.",
+    "observedIn": "Node loader/integration check only; not yet observed in a live browser for this component."
   },
-  "limitations": "Read/write ABI is recovered from original call sites. Differential tests bind a controlled memory-file host to ARM and Wasm; they do not independently prove all Marmalade SDK host behavior. The bridge import dispatches an original callback token; callback bodies are not recovered here. Full resource parsing, gameplay, rendering, audio and persistent saves remain unverified."
+  "limitations": "Read/write ABI is recovered from original call sites. Differential tests bind a controlled memory-file host to ARM and Wasm; they do not independently prove all Marmalade SDK host behavior. The bridge import dispatches an original callback token; callback bodies are not recovered here. Full resource parsing, gameplay, rendering, audio and persistent saves remain unverified. The core and serializer currently have separate linear memories; full-game heap, pointer and runtime integration is unfinished.",
+  "sourceCommit": "448ad89f51c8b1301f108f1b44b19144eaa2e86d",
+  "checkedAt": "2026-10-19T16:09:29.312310Z",
+  "environment": "Chrome cloud browser; component was not loaded because deployment is pending.",
+  "url": "https://isasto.github.io/Sims-3-Browser/native/serialization/check.html",
+  "expectedFixtureChecks": 105,
+  "expectedFunctionsCovered": 15,
+  "deploymentObservation": {
+    "runId": 39280868125,
+    "url": "https://github.com/ISASTO/Sims-3-Browser/actions/runs/39280868125",
+    "status": "queued",
+    "conclusion": null,
+    "updatedAt": "2026-10-19T15:49:35Z",
+    "jobs": "build, deploy, and report-build-status queued; no steps or logs available",
+    "note": "Observation of this implementation run only. Later documentation commits can trigger another Pages run; inspect the current head and latest run before retrying."
+  }
 }

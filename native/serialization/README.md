@@ -84,6 +84,11 @@ before native execution; the serializer's subsequent file calls are synchronous.
 This is not a complete native file-open/seek/close layer or asynchronous stream
 continuation implementation. Writes remain in memory, without save persistence.
 
+Core and serializer currently run as separate Wasm instances with separate
+linear memories. Resolved names and file bytes cross through the browser host;
+raw pointers do not cross between the two memories. A whole-game build still
+needs a consistent heap, global layout, pointer/function tables, and runtime.
+
 The integration check uses the actual committed `fonts/fonts.group.bin`:
 
 - 63,953 bytes; SHA-256
@@ -111,9 +116,13 @@ and context byte, ordered host/callback events, file contents, and cursors.
 The actual font file is also an original-ARM input in the corpus.
 
 `browser-fixtures.json` records selected original outputs. The shared fixture
-runner verifies them in Node and a real browser, including native resource-path
-resolution and integrity checks. `loader-verification.json` records Node;
-`browser-verification.json` records the live browser separately.
+runner can replay them in Node and a real browser, including native resource-path
+resolution and integrity checks. All 105 passed in Node. Live Chrome validation
+is pending: the implementation Pages build remained queued, and the new URL
+returned the GitHub Pages 404 page. `loader-verification.json` records Node;
+`browser-verification.json` records that deployment observation separately.
+After Pages publishes the current revision, open `native/serialization/check.html`
+and require all 105 fixtures and the complete font resource roundtrip to pass.
 
 ```sh
 python tools/build_native_serialization.py --clang /path/to/wasi-sdk/bin/clang
