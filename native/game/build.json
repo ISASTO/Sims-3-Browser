@@ -1,0 +1,31 @@
+{
+ "wasm": "sims3-game.wasm",
+ "bytes": 23802110,
+ "sha256": "bee980d63740c356f03680888056d4e976e57266b4d0a55e9ba0e1962c3240ac",
+ "executableSha256": "9b75f5584a9e817e51132b6ddfbb38ffef5e9e0d674c76976e1a124c7ee63d5d",
+ "functions": 6854,
+ "instructions": 412424,
+ "clang": "Ubuntu clang version 18.1.3 (1ubuntu1)",
+ "cflags": [
+  "--target=wasm32",
+  "-mcpu=mvp",
+  "-O2",
+  "-ffreestanding",
+  "-fno-builtin",
+  "-nostdlib",
+  "-fno-strict-aliasing",
+  "-fwrapv",
+  "-w"
+ ],
+ "ldflags": [
+  "-Wl,--no-entry",
+  "-Wl,--stack-first",
+  "-Wl,-z,stack-size=8388608",
+  "-Wl,--initial-memory=67108864",
+  "-Wl,--max-memory=1073741824",
+  "-Wl,--strip-debug"
+ ],
+ "guestLinear": 16777216,
+ "guestBase": 1241513984,
+ "seconds": 20.6
+}

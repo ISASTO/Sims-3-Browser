@@ -1,0 +1,30 @@
+{
+ "description": "Function entries that are only reached through computed addresses and were absent from the Ghidra seed set. Each entry records its provenance.",
+ "entries": [
+  {"key": "4a149860", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a149a20", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a149a40", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a1492d8", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a149350", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a149a74", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a14944c", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a149578", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a149888", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a1499b4", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a149600", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a1492c1", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a1498cd", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a1499d1", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a149991", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a1497b5", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a149911", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a1497f1", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a14983d", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a14994d", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a1492ad", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a149628", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a1497a1", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a1495ed", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"},
+  {"key": "4a149615", "source": "RVCT C++ init_array (PREL31-style relative offsets) at 4a191b24..4a191b88, iterated by 4a0018e8 through the bx r0 veneer 4a1652c4"}
+ ]
+}

@@ -1,0 +1,119 @@
+{
+ "generator": "tools/recomp (static ARMv4T/Thumb to C)",
+ "executableSha256": "9b75f5584a9e817e51132b6ddfbb38ffef5e9e0d674c76976e1a124c7ee63d5d",
+ "roots": 5983,
+ "relocationRoots": 1259,
+ "relocationRejected": 0,
+ "picThumbRoots": 106,
+ "stats": {
+  "functions": 6854,
+  "instructions": 412424,
+  "literals": 7211,
+  "errors": 21,
+  "files": 47
+ },
+ "flagConsumers": [
+  "4a003eb1",
+  "4a004be3",
+  "4a0064ad",
+  "4a0064b0",
+  "4a047001",
+  "4a04d7f5",
+  "4a086e68",
+  "4a08c570",
+  "4a08c744",
+  "4a0a07ac",
+  "4a0af110",
+  "4a0b0188",
+  "4a0b01c8",
+  "4a0b45d8",
+  "4a13bf90",
+  "4a13bfa0",
+  "4a141444",
+  "4a1429c1",
+  "4a1429c4",
+  "4a14abc1",
+  "4a1728e9",
+  "4a1728ec",
+  "4a172959",
+  "4a17295c",
+  "4a172a0c"
+ ],
+ "flagProducers": {
+  "4a00d458": "c",
+  "4a02af99": "c",
+  "4a056f7d": "c",
+  "4a0c0628": "c",
+  "4a0c0660": "c",
+  "4a0c6bc0": "c",
+  "4a0c6bf4": "c",
+  "4a0ecab0": "c",
+  "4a13bfb0": "c",
+  "4a13e2e8": "c",
+  "4a148fe9": "c",
+  "4a148fec": "c",
+  "4a149a9d": "c",
+  "4a149aa0": "c",
+  "4a149ab1": "c",
+  "4a161528": "c",
+  "4a161531": "c",
+  "4a161571": "c",
+  "4a1652c7": "c",
+  "4a16b6c0": "c",
+  "4a170fe4": "z",
+  "4a171219": "c",
+  "4a17121c": "c",
+  "4a171485": "cz",
+  "4a171488": "cz",
+  "4a171d9d": "z",
+  "4a171da0": "z",
+  "4a1720a0": "c",
+  "4a172458": "cz"
+ },
+ "switch8Sites": 20,
+ "jumpTables": 165,
+ "indirectCallSites": 5149,
+ "hostCallSites": 1073,
+ "warnings": [],
+ "functionsWithUnreachableDecodeFailures": 8,
+ "decodeFailures": {
+  "4a003e8f": {
+   "4a003eb2": "blx suffix (v5)"
+  },
+  "4a003eb1": {
+   "4a003eb2": "blx suffix (v5)"
+  },
+  "4a03a31c": {
+   "4a03a9cc": "branch outside image 4a6ba2c4",
+   "4a03a9d0": "branch outside image 4a68b098",
+   "4a03a9d4": "branch outside image 4a19ed8c",
+   "4a03a9dc": "branch outside image 4a687a04",
+   "4a03b030": "branch outside image 4a6ba928",
+   "4a03b034": "branch outside image 4a68b6fc",
+   "4a03b038": "branch outside image 4a1a0210",
+   "4a03b040": "branch outside image 4a688068"
+  },
+  "4a03a9e0": {
+   "4a03b030": "branch outside image 4a6ba928",
+   "4a03b034": "branch outside image 4a68b6fc",
+   "4a03b038": "branch outside image 4a1a0210",
+   "4a03b040": "branch outside image 4a688068"
+  },
+  "4a03ca04": {
+   "4a03d054": "branch outside image 4a6bc94c",
+   "4a03d058": "branch outside image 4a68d720",
+   "4a03d05c": "branch outside image 4a1a4574",
+   "4a03d064": "branch outside image 4a68a08c"
+  },
+  "4a14fd70": {
+   "4a14fd94": "branch outside image 4a796bcc"
+  },
+  "4a15006c": {
+   "4a150090": "branch outside image 4a796ec8"
+  },
+  "4a1502c4": {
+   "4a1502e8": "branch outside image 4a797120"
+  }
+ },
+ "seconds": 14.6
+}
