@@ -6,6 +6,13 @@ prototype uses CPU emulation, and no complete source-reconstructed game build
 exists. The original performance/rendering limitations have not been resolved
 by the recovery checkpoint.
 
+The next native checkpoint compiles 52 connected core functions to WebAssembly
+MVP and passed 358,097 comparisons against the original ARM executable.
+Recovered ABI annotations cover 30 functions and 220 affected callers; 128
+callers were re-exported. See `native/core/verification.json` and
+`recovered/native/core-analysis/report.json`. This component build does not yet
+replace the hosted game's emulator.
+
 ## Input
 
 - Uploaded file: `The-Sims-3_1.5.21.apk`

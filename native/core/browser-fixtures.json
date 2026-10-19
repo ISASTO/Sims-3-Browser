@@ -1,0 +1,5391 @@
+{
+  "status": "Original ARM oracle outputs for browser component validation; not whole-game validation.",
+  "originalExecutableSha256": "9b75f5584a9e817e51132b6ddfbb38ffef5e9e0d674c76976e1a124c7ee63d5d",
+  "wasmSha256": "9c600c15053f9a3e4da1076596a2899312bd7148096fe6d1c7d55a2e94516c1b",
+  "fixtures": [
+    {
+      "id": 1,
+      "address": "4a000860",
+      "label": "arm_lsl64",
+      "case": "ARM register shift count",
+      "args": [
+        0,
+        0,
+        0
+      ],
+      "mask": 3,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 1,
+      "address": "4a000860",
+      "label": "arm_lsl64",
+      "case": "ARM register shift count",
+      "args": [
+        0,
+        2147483648,
+        2
+      ],
+      "mask": 3,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 1,
+      "address": "4a000860",
+      "label": "arm_lsl64",
+      "case": "ARM register shift count",
+      "args": [
+        1,
+        0,
+        16
+      ],
+      "mask": 3,
+      "expected": [
+        65536,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 1,
+      "address": "4a000860",
+      "label": "arm_lsl64",
+      "case": "random register shift",
+      "args": [
+        3271499038,
+        180714416,
+        332792905
+      ],
+      "mask": 3,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 2,
+      "address": "4a000888",
+      "label": "arm_lsr64",
+      "case": "ARM register shift count",
+      "args": [
+        0,
+        0,
+        0
+      ],
+      "mask": 3,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 2,
+      "address": "4a000888",
+      "label": "arm_lsr64",
+      "case": "ARM register shift count",
+      "args": [
+        0,
+        2147483648,
+        2
+      ],
+      "mask": 3,
+      "expected": [
+        0,
+        536870912,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 2,
+      "address": "4a000888",
+      "label": "arm_lsr64",
+      "case": "ARM register shift count",
+      "args": [
+        1,
+        0,
+        16
+      ],
+      "mask": 3,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 2,
+      "address": "4a000888",
+      "label": "arm_lsr64",
+      "case": "random register shift",
+      "args": [
+        1640624873,
+        2903202115,
+        38277138
+      ],
+      "mask": 3,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 3,
+      "address": "4a0008b0",
+      "label": "arm_asr64",
+      "case": "ARM register shift count",
+      "args": [
+        0,
+        0,
+        0
+      ],
+      "mask": 3,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 3,
+      "address": "4a0008b0",
+      "label": "arm_asr64",
+      "case": "ARM register shift count",
+      "args": [
+        0,
+        2147483648,
+        2
+      ],
+      "mask": 3,
+      "expected": [
+        0,
+        3758096384,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 3,
+      "address": "4a0008b0",
+      "label": "arm_asr64",
+      "case": "ARM register shift count",
+      "args": [
+        1,
+        0,
+        16
+      ],
+      "mask": 3,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 3,
+      "address": "4a0008b0",
+      "label": "arm_asr64",
+      "case": "random register shift",
+      "args": [
+        728998511,
+        3102987248,
+        2470175862
+      ],
+      "mask": 3,
+      "expected": [
+        0,
+        4294967295,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 4,
+      "address": "4a0008dc",
+      "label": "multiply64",
+      "case": "64-bit pair boundaries",
+      "args": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "mask": 3,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 4,
+      "address": "4a0008dc",
+      "label": "multiply64",
+      "case": "64-bit pair boundaries",
+      "args": [
+        1,
+        0,
+        1,
+        1
+      ],
+      "mask": 3,
+      "expected": [
+        1,
+        1,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 4,
+      "address": "4a0008dc",
+      "label": "multiply64",
+      "case": "64-bit pair boundaries",
+      "args": [
+        1,
+        2147483648,
+        1,
+        0
+      ],
+      "mask": 3,
+      "expected": [
+        1,
+        2147483648,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 4,
+      "address": "4a0008dc",
+      "label": "multiply64",
+      "case": "random 64-bit pair",
+      "args": [
+        4204688229,
+        2863393436,
+        687353184,
+        2278769290
+      ],
+      "mask": 3,
+      "expected": [
+        1737230048,
+        1515871461,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 5,
+      "address": "4a0008f8",
+      "label": "divide_unsigned64",
+      "case": "64-bit pair boundaries",
+      "args": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "mask": 15,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 5,
+      "address": "4a0008f8",
+      "label": "divide_unsigned64",
+      "case": "64-bit pair boundaries",
+      "args": [
+        1,
+        0,
+        0,
+        2147483648
+      ],
+      "mask": 15,
+      "expected": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 5,
+      "address": "4a0008f8",
+      "label": "divide_unsigned64",
+      "case": "64-bit pair boundaries",
+      "args": [
+        1,
+        2147483648,
+        4294967294,
+        4294967295
+      ],
+      "mask": 15,
+      "expected": [
+        0,
+        0,
+        1,
+        2147483648
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 5,
+      "address": "4a0008f8",
+      "label": "divide_unsigned64",
+      "case": "random 64-bit pair",
+      "args": [
+        599215390,
+        2290739860,
+        247283545,
+        2208249266
+      ],
+      "mask": 15,
+      "expected": [
+        1,
+        0,
+        351931845,
+        82490594
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 6,
+      "address": "4a00080c",
+      "label": "divide_signed64",
+      "case": "64-bit pair boundaries",
+      "args": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "mask": 15,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 6,
+      "address": "4a00080c",
+      "label": "divide_signed64",
+      "case": "64-bit pair boundaries",
+      "args": [
+        1,
+        0,
+        0,
+        2147483648
+      ],
+      "mask": 15,
+      "expected": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 6,
+      "address": "4a00080c",
+      "label": "divide_signed64",
+      "case": "64-bit pair boundaries",
+      "args": [
+        1,
+        2147483648,
+        4294967294,
+        4294967295
+      ],
+      "mask": 15,
+      "expected": [
+        4294967295,
+        1073741823,
+        4294967295,
+        4294967295
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 6,
+      "address": "4a00080c",
+      "label": "divide_signed64",
+      "case": "random 64-bit pair",
+      "args": [
+        2385936987,
+        2445566405,
+        2724538459,
+        3936826988
+      ],
+      "mask": 15,
+      "expected": [
+        5,
+        0,
+        1648146580,
+        4236267942
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 7,
+      "address": "4a0015f0",
+      "label": "divide_signed32",
+      "case": "signed divide boundary",
+      "args": [
+        0,
+        1
+      ],
+      "mask": 3,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 7,
+      "address": "4a0015f0",
+      "label": "divide_signed32",
+      "case": "signed divide boundary",
+      "args": [
+        0,
+        2147483648
+      ],
+      "mask": 3,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 7,
+      "address": "4a0015f0",
+      "label": "divide_signed32",
+      "case": "signed divide boundary",
+      "args": [
+        7,
+        2147483648
+      ],
+      "mask": 3,
+      "expected": [
+        0,
+        7,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 7,
+      "address": "4a0015f0",
+      "label": "divide_signed32",
+      "case": "random signed divide",
+      "args": [
+        2415957503,
+        3579420832
+      ],
+      "mask": 3,
+      "expected": [
+        2,
+        3847050431,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 8,
+      "address": "4a000f84",
+      "label": "copy_forward_endpoints",
+      "case": "disjoint, all byte alignments",
+      "args": [
+        133120,
+        149504,
+        0
+      ],
+      "mask": 3,
+      "expected": [
+        133120,
+        149504,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": []
+      },
+      "expectedMemorySha256": "d5259e1f925e9f3a7feca726b5d9938b59d55e48ce44f48161604c8b010e9af1"
+    },
+    {
+      "id": 8,
+      "address": "4a000f84",
+      "label": "copy_forward_endpoints",
+      "case": "disjoint, all byte alignments",
+      "args": [
+        133120,
+        149505,
+        1
+      ],
+      "mask": 3,
+      "expected": [
+        133121,
+        149506,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 2,
+        "patches": []
+      },
+      "expectedMemorySha256": "22b0f9532323c4c78deb6d1050976af9541610d968a0b31e21693b055fb88740"
+    },
+    {
+      "id": 8,
+      "address": "4a000f84",
+      "label": "copy_forward_endpoints",
+      "case": "disjoint, all byte alignments",
+      "args": [
+        133120,
+        149505,
+        7
+      ],
+      "mask": 3,
+      "expected": [
+        133127,
+        149512,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 8,
+        "patches": []
+      },
+      "expectedMemorySha256": "f27bbaa7b1af093131051e29e0922373ef8cf3e11e9e82872c6b2d88d98f014e"
+    },
+    {
+      "id": 8,
+      "address": "4a000f84",
+      "label": "copy_forward_endpoints",
+      "case": "disjoint, all byte alignments",
+      "args": [
+        133123,
+        149507,
+        8193
+      ],
+      "mask": 3,
+      "expected": [
+        141316,
+        157700,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 13,
+        "patches": []
+      },
+      "expectedMemorySha256": "5996f6c5be77918ae26a2ad4774dfd65b0cc6628ecf76defb4864148bb3acf41"
+    },
+    {
+      "id": 9,
+      "address": "4a00105c",
+      "label": "move_endpoints",
+      "case": "disjoint, all byte alignments",
+      "args": [
+        133120,
+        149504,
+        0
+      ],
+      "mask": 3,
+      "expected": [
+        133120,
+        149504,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": []
+      },
+      "expectedMemorySha256": "d5259e1f925e9f3a7feca726b5d9938b59d55e48ce44f48161604c8b010e9af1"
+    },
+    {
+      "id": 9,
+      "address": "4a00105c",
+      "label": "move_endpoints",
+      "case": "disjoint, all byte alignments",
+      "args": [
+        133120,
+        149505,
+        1
+      ],
+      "mask": 3,
+      "expected": [
+        133121,
+        149506,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 2,
+        "patches": []
+      },
+      "expectedMemorySha256": "22b0f9532323c4c78deb6d1050976af9541610d968a0b31e21693b055fb88740"
+    },
+    {
+      "id": 9,
+      "address": "4a00105c",
+      "label": "move_endpoints",
+      "case": "disjoint, all byte alignments",
+      "args": [
+        133120,
+        149505,
+        7
+      ],
+      "mask": 3,
+      "expected": [
+        133127,
+        149512,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 8,
+        "patches": []
+      },
+      "expectedMemorySha256": "f27bbaa7b1af093131051e29e0922373ef8cf3e11e9e82872c6b2d88d98f014e"
+    },
+    {
+      "id": 9,
+      "address": "4a00105c",
+      "label": "move_endpoints",
+      "case": "overlap/equal move",
+      "args": [
+        133248,
+        133248,
+        1
+      ],
+      "mask": 3,
+      "expected": [
+        133249,
+        133249,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 1,
+        "patches": []
+      },
+      "expectedMemorySha256": "f39ade3ab14b78b73c1bcf471dee5e44cf977c07e2b313d135f5ea8cd79781b5"
+    },
+    {
+      "id": 9,
+      "address": "4a00105c",
+      "label": "move_endpoints",
+      "case": "overlap/equal move",
+      "args": [
+        133249,
+        133249,
+        1
+      ],
+      "mask": 3,
+      "expected": [
+        133250,
+        133250,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 1,
+        "patches": []
+      },
+      "expectedMemorySha256": "f39ade3ab14b78b73c1bcf471dee5e44cf977c07e2b313d135f5ea8cd79781b5"
+    },
+    {
+      "id": 9,
+      "address": "4a00105c",
+      "label": "move_endpoints",
+      "case": "overlap/equal move",
+      "args": [
+        133250,
+        133250,
+        1
+      ],
+      "mask": 3,
+      "expected": [
+        133251,
+        133251,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 1,
+        "patches": []
+      },
+      "expectedMemorySha256": "f39ade3ab14b78b73c1bcf471dee5e44cf977c07e2b313d135f5ea8cd79781b5"
+    },
+    {
+      "id": 9,
+      "address": "4a00105c",
+      "label": "move_endpoints",
+      "case": "overlap/equal move",
+      "args": [
+        133251,
+        133251,
+        1
+      ],
+      "mask": 3,
+      "expected": [
+        133252,
+        133252,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 1,
+        "patches": []
+      },
+      "expectedMemorySha256": "f39ade3ab14b78b73c1bcf471dee5e44cf977c07e2b313d135f5ea8cd79781b5"
+    },
+    {
+      "id": 9,
+      "address": "4a00105c",
+      "label": "move_endpoints",
+      "case": "overlap/equal move",
+      "args": [
+        133316,
+        133251,
+        257
+      ],
+      "mask": 3,
+      "expected": [
+        133316,
+        133251,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 66,
+        "patches": []
+      },
+      "expectedMemorySha256": "d6291a89774e2f1da5e1307c7f107529613e63bba6a2d29ec7be1e19108a1a40"
+    },
+    {
+      "id": 10,
+      "address": "4a000eb8",
+      "label": "copy_preserving_destination",
+      "case": "disjoint, all byte alignments",
+      "args": [
+        133120,
+        149504,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": []
+      },
+      "expectedMemorySha256": "d5259e1f925e9f3a7feca726b5d9938b59d55e48ce44f48161604c8b010e9af1"
+    },
+    {
+      "id": 10,
+      "address": "4a000eb8",
+      "label": "copy_preserving_destination",
+      "case": "disjoint, all byte alignments",
+      "args": [
+        133120,
+        149505,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 2,
+        "patches": []
+      },
+      "expectedMemorySha256": "22b0f9532323c4c78deb6d1050976af9541610d968a0b31e21693b055fb88740"
+    },
+    {
+      "id": 10,
+      "address": "4a000eb8",
+      "label": "copy_preserving_destination",
+      "case": "disjoint, all byte alignments",
+      "args": [
+        133120,
+        149505,
+        7
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 8,
+        "patches": []
+      },
+      "expectedMemorySha256": "f27bbaa7b1af093131051e29e0922373ef8cf3e11e9e82872c6b2d88d98f014e"
+    },
+    {
+      "id": 10,
+      "address": "4a000eb8",
+      "label": "copy_preserving_destination",
+      "case": "disjoint, all byte alignments",
+      "args": [
+        133123,
+        149507,
+        8193
+      ],
+      "mask": 1,
+      "expected": [
+        133123,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 13,
+        "patches": []
+      },
+      "expectedMemorySha256": "5996f6c5be77918ae26a2ad4774dfd65b0cc6628ecf76defb4864148bb3acf41"
+    },
+    {
+      "id": 11,
+      "address": "4a000ec8",
+      "label": "move_preserving_destination",
+      "case": "disjoint, all byte alignments",
+      "args": [
+        133120,
+        149504,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": []
+      },
+      "expectedMemorySha256": "d5259e1f925e9f3a7feca726b5d9938b59d55e48ce44f48161604c8b010e9af1"
+    },
+    {
+      "id": 11,
+      "address": "4a000ec8",
+      "label": "move_preserving_destination",
+      "case": "disjoint, all byte alignments",
+      "args": [
+        133120,
+        149505,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 2,
+        "patches": []
+      },
+      "expectedMemorySha256": "22b0f9532323c4c78deb6d1050976af9541610d968a0b31e21693b055fb88740"
+    },
+    {
+      "id": 11,
+      "address": "4a000ec8",
+      "label": "move_preserving_destination",
+      "case": "disjoint, all byte alignments",
+      "args": [
+        133120,
+        149505,
+        7
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 8,
+        "patches": []
+      },
+      "expectedMemorySha256": "f27bbaa7b1af093131051e29e0922373ef8cf3e11e9e82872c6b2d88d98f014e"
+    },
+    {
+      "id": 11,
+      "address": "4a000ec8",
+      "label": "move_preserving_destination",
+      "case": "overlap/equal move",
+      "args": [
+        133248,
+        133248,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        133248,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 1,
+        "patches": []
+      },
+      "expectedMemorySha256": "f39ade3ab14b78b73c1bcf471dee5e44cf977c07e2b313d135f5ea8cd79781b5"
+    },
+    {
+      "id": 11,
+      "address": "4a000ec8",
+      "label": "move_preserving_destination",
+      "case": "overlap/equal move",
+      "args": [
+        133249,
+        133249,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        133249,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 1,
+        "patches": []
+      },
+      "expectedMemorySha256": "f39ade3ab14b78b73c1bcf471dee5e44cf977c07e2b313d135f5ea8cd79781b5"
+    },
+    {
+      "id": 11,
+      "address": "4a000ec8",
+      "label": "move_preserving_destination",
+      "case": "overlap/equal move",
+      "args": [
+        133250,
+        133250,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        133250,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 1,
+        "patches": []
+      },
+      "expectedMemorySha256": "f39ade3ab14b78b73c1bcf471dee5e44cf977c07e2b313d135f5ea8cd79781b5"
+    },
+    {
+      "id": 11,
+      "address": "4a000ec8",
+      "label": "move_preserving_destination",
+      "case": "overlap/equal move",
+      "args": [
+        133251,
+        133251,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        133251,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 1,
+        "patches": []
+      },
+      "expectedMemorySha256": "f39ade3ab14b78b73c1bcf471dee5e44cf977c07e2b313d135f5ea8cd79781b5"
+    },
+    {
+      "id": 11,
+      "address": "4a000ec8",
+      "label": "move_preserving_destination",
+      "case": "overlap/equal move",
+      "args": [
+        133316,
+        133251,
+        257
+      ],
+      "mask": 1,
+      "expected": [
+        133316,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 66,
+        "patches": []
+      },
+      "expectedMemorySha256": "d6291a89774e2f1da5e1307c7f107529613e63bba6a2d29ec7be1e19108a1a40"
+    },
+    {
+      "id": 12,
+      "address": "4a000f70",
+      "label": "fill_end",
+      "case": "fill tails and alignment",
+      "args": [
+        133120,
+        0,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": []
+      },
+      "expectedMemorySha256": "d5259e1f925e9f3a7feca726b5d9938b59d55e48ce44f48161604c8b010e9af1"
+    },
+    {
+      "id": 12,
+      "address": "4a000f70",
+      "label": "fill_end",
+      "case": "fill tails and alignment",
+      "args": [
+        133121,
+        0,
+        4294967295
+      ],
+      "mask": 1,
+      "expected": [
+        133121,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 255,
+        "patches": []
+      },
+      "expectedMemorySha256": "c1b7a2c9544147b109318adf6178d792235375a1dda21d88a2a9e1775702c531"
+    },
+    {
+      "id": 12,
+      "address": "4a000f70",
+      "label": "fill_end",
+      "case": "fill tails and alignment",
+      "args": [
+        133122,
+        2,
+        4294967168
+      ],
+      "mask": 1,
+      "expected": [
+        133124,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 130,
+        "patches": []
+      },
+      "expectedMemorySha256": "33daaac2f78431fcf1fc01858931d112924667208f1480ff1c1c146c58241504"
+    },
+    {
+      "id": 12,
+      "address": "4a000f70",
+      "label": "fill_end",
+      "case": "fill tails and alignment",
+      "args": [
+        133123,
+        8193,
+        4294967295
+      ],
+      "mask": 1,
+      "expected": [
+        141316,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": []
+      },
+      "expectedMemorySha256": "6709af05630aa1d502e05a48ad8eb883c547fb88792abc3acd886769a520cb06"
+    },
+    {
+      "id": 13,
+      "address": "4a00121c",
+      "label": "zero_aligned_end",
+      "case": "fill tails and alignment",
+      "args": [
+        133120,
+        0,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": []
+      },
+      "expectedMemorySha256": "d5259e1f925e9f3a7feca726b5d9938b59d55e48ce44f48161604c8b010e9af1"
+    },
+    {
+      "id": 13,
+      "address": "4a00121c",
+      "label": "zero_aligned_end",
+      "case": "fill tails and alignment",
+      "args": [
+        133120,
+        127,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        133247,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 127,
+        "patches": []
+      },
+      "expectedMemorySha256": "586914f573045b79eee22ec8b86eb469aa7090b4c7ecde17656c7e0f3abc4efe"
+    },
+    {
+      "id": 13,
+      "address": "4a00121c",
+      "label": "zero_aligned_end",
+      "case": "fill tails and alignment",
+      "args": [
+        133120,
+        8193,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        141313,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 1,
+        "patches": []
+      },
+      "expectedMemorySha256": "6d3b0abb4705f1c6a4c1b4ac831a0171b421131865203c10a5189b55dd180a66"
+    },
+    {
+      "id": 14,
+      "address": "4a001274",
+      "label": "zero_end",
+      "case": "fill tails and alignment",
+      "args": [
+        133120,
+        0,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": []
+      },
+      "expectedMemorySha256": "d5259e1f925e9f3a7feca726b5d9938b59d55e48ce44f48161604c8b010e9af1"
+    },
+    {
+      "id": 14,
+      "address": "4a001274",
+      "label": "zero_end",
+      "case": "fill tails and alignment",
+      "args": [
+        133121,
+        4,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        133125,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 4,
+        "patches": []
+      },
+      "expectedMemorySha256": "ff0801e8e95bbc06ef452cfb759840a6167718f27ef7050fbde7e99ce897b3b8"
+    },
+    {
+      "id": 14,
+      "address": "4a001274",
+      "label": "zero_end",
+      "case": "fill tails and alignment",
+      "args": [
+        133121,
+        512,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        133633,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": []
+      },
+      "expectedMemorySha256": "1f2f2d3e966a0f4c45a3a34679668ac6c36e446dccd14045491c7a6bd588629a"
+    },
+    {
+      "id": 14,
+      "address": "4a001274",
+      "label": "zero_end",
+      "case": "fill tails and alignment",
+      "args": [
+        133123,
+        8193,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        141316,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 1,
+        "patches": []
+      },
+      "expectedMemorySha256": "ed4ba5004b0d5e2a3ab1bdb887aa637b5fefb53cc5a674571d8443efc0052c6b"
+    },
+    {
+      "id": 15,
+      "address": "4a000ed8",
+      "label": "utf16_copy",
+      "case": "copy including terminator",
+      "args": [
+        133120,
+        149504
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": [
+          [
+            2048,
+            "AAA="
+          ],
+          [
+            18432,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "1b2cf0f7ece3b5a1fcb2950aefe0610750ef055b80f146fcbf9a4f30bb96aea3"
+    },
+    {
+      "id": 15,
+      "address": "4a000ed8",
+      "label": "utf16_copy",
+      "case": "copy including terminator",
+      "args": [
+        133122,
+        149506
+      ],
+      "mask": 1,
+      "expected": [
+        133122,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 17,
+        "patches": [
+          [
+            2050,
+            "5wSwCUWpx+5PcrVbCRfg3jigmYamDeMJtYfRb3MKAAA="
+          ],
+          [
+            18434,
+            "5wSwCUWpx+5PcrVbCRfg3jigmYamDeMJtYfRb3MKAAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "8eeb2df5f677d0db7d2278deaf049bd49517e52636a092f70c1f9dc034abad0d"
+    },
+    {
+      "id": 15,
+      "address": "4a000ed8",
+      "label": "utf16_copy",
+      "case": "random terminated strings",
+      "args": [
+        133122,
+        149506,
+        133
+      ],
+      "mask": 1,
+      "expected": [
+        133122,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 170,
+        "patches": [
+          [
+            2050,
+            "x2vcE99ZnnTn+l01tk8dNaFeHDlGpzEf0yi5+DoLxrqxwu+ae9s07uYOTElOKjkv0Mnu2nVSqILYQK+nWF42Lg=="
+          ],
+          [
+            2115,
+            "o+6qFhKYrh552IH2Y9ckckliTuRZDPG8J+6Iig0s3EGWlfIihBFyQJ/0C9FzpktLySbNc6mMH+n7hYlzDf1SOtebmA71MZpmWQ8l/pVutgEKo97tXMKYsMVd99fdl/7s3JfASRWVcw=="
+          ],
+          [
+            2219,
+            "N1Lm2kH0KtHPEntxBt264+KPtuiulS/QydYHrYY9T29kBl6FuHyjxIgg9NzLjqXwH4oijnZpGu1rZTsb+qECr6mbNaEiuDD7WxGF6ayuRAC1UCQtvuYi0PzTR3azlfqf+JuHhmxj3bBqrbT2gwUSLqmtvq8BY/LJVIVclMaByLDZKpgWPKcpT3SD9sbPVRRIf7/sYAWFsGE5PmLy6I74SGbSrTjM2uxQR/S6KAEVPfMWrlMcudyHPScjR/h1jwfOChoz5SB75xcQjGJWsUCl34Rwb7wx2Okvu+PBh6ZSqhYEAhHAFgG531cBXKaVZnehrzHAxdzLGHGxniQeWafqKR4nS7QNrXFW6MRRgzx3tlVlK8nRUCwv7U1tJM+vUisjJWFFU8Vm2GtP6Tn6HtyiNlhIeTd7xmkipY3zd6YAAA=="
+          ],
+          [
+            18434,
+            "31medOf6XTW2Tx01oV4cOUanMR/TKLn4OgvGurHC75p72zTu5g5MSU4qOS/Qye7adVKogthAr6dYXjYuMKPuqhYSmK4eediB9mPXJHJJYk7kWQzxvCfuiIoNLNxBlpXyIoQRckCf9AvRc6ZLS8kmzXOpjB/p+4WJcw39UjrXm5gO9TGaZlkPJf6VbrYBCqPe7VzCmLDFXffX3Zf+7NyXwEkVlXPIN1Lm2kH0KtHPEntxBt264+IAAA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "8e9056b7bfcb1c7f32be48b4b640dc0ac87ea49ec84c605e367af1743a571a77"
+    },
+    {
+      "id": 15,
+      "address": "4a000ed8",
+      "label": "utf16_copy",
+      "case": "random terminated strings",
+      "args": [
+        133122,
+        149506,
+        250
+      ],
+      "mask": 1,
+      "expected": [
+        133122,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 230,
+        "patches": [
+          [
+            2050,
+            "O+iYhz1D8nC7gJzYoWL17JfpFyIigwkbssVjAWE4C+f3FpbGZXoOPVgK7VqCqCQUE2x8FsPxNFtL2JNtEFJPCLPkjcItto4aENGoC2RIpALqpMfITJYidL4WeSxhKJYzfcHUymio/0PzeaoCF2uc++BsRfMMtgXdoCigicLDFJDWigiqjW1xXmhbxrIvsEI1JIH89ykMK5+9kAAA"
+          ],
+          [
+            18434,
+            "PUPycLuAnNihYvXsl+kXIiKDCRuyxWMBYTgL5/cWlsZleg49WArtWoKoJBQTbHwWw/E0W0vYk20QUk8Is+SNwi22jhoQ0agLZEikAuqkx8hMliJ0vhZ5LGEoljN9wdTKaKj/Q/N5qgIXa5z74GxF8wy2Bd2gKKCJwsMUkNaKCKqNbXFeaFvGsi+wQjUkgfz3KQwrn72QpH/GgBj+5ymIr1Pevbs6lQAA"
+          ]
+        ]
+      },
+      "expectedMemorySha256": "d039469887d68e517988b71de1840ad40059c7449aa93443b94999fe3eb57f93"
+    },
+    {
+      "id": 16,
+      "address": "4a000ef4",
+      "label": "utf16_compare",
+      "case": "equal, prefix, byte mismatch",
+      "args": [
+        133120,
+        149504,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": [
+          [
+            2048,
+            "AAA="
+          ],
+          [
+            18432,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "1b2cf0f7ece3b5a1fcb2950aefe0610750ef055b80f146fcbf9a4f30bb96aea3"
+    },
+    {
+      "id": 16,
+      "address": "4a000ef4",
+      "label": "utf16_compare",
+      "case": "equal, prefix, byte mismatch",
+      "args": [
+        133120,
+        149504,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        25249,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 2,
+        "patches": [
+          [
+            2048,
+            "oWLeGgAA"
+          ],
+          [
+            18432,
+            "AADeGgAA"
+          ]
+        ]
+      },
+      "expectedMemorySha256": "aeb3f77c58211328a6732f2704e9b8c4add6968f831a6a95f338a1f255af555a"
+    },
+    {
+      "id": 16,
+      "address": "4a000ef4",
+      "label": "utf16_compare",
+      "case": "equal, prefix, byte mismatch",
+      "args": [
+        133120,
+        149504,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        10037,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 32,
+        "patches": [
+          [
+            2048,
+            "NSd6kFG/hO/R8R7JBUAJYwTiD8BJFkq2FjjLnikQ9s1krOWFNoDgFDgOZP5Haocw98UUWZgo19Kc/cDYXBS4FwAA"
+          ],
+          [
+            18432,
+            "AAB6kFG/hO/R8Q=="
+          ],
+          [
+            18443,
+            "yQVACWME4g/ASRZKthY4y54pEPbNZKzlhTaA4BQ4DmT+R2qHMPfFFFmYKNfSnP3A2FwUuBcAAA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "87642dad8fc42db980113d9465576c34473ede28a8eb3a8c57ca52672f6d6bd2"
+    },
+    {
+      "id": 16,
+      "address": "4a000ef4",
+      "label": "utf16_compare",
+      "case": "random terminated strings",
+      "args": [
+        133120,
+        149504,
+        99
+      ],
+      "mask": 1,
+      "expected": [
+        25603,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 92,
+        "patches": [
+          [
+            2048,
+            "trPrm7NPfabX64Z7D337"
+          ],
+          [
+            2064,
+            "dRT1y5DKZCPXASj/oNOhKXq92PpBWX1jhM78EV7OrxyUbLaDcRzz/+Bf4ouDXgeRX2USBP6eWStZfftnNNfMRAdpP1OLBrDRR2baGg98A62fM97U33Qz3RrmlJoGFmUHazjgkDRq/jiLfEMaIMvqBC7xCVSIQlkcjY6sryRMCULhUCr6crsFcBwSWN5DNyThEMgG4lN00aQblMQ6G+2/Ht6iXkcj9nuLNQL01ZBM2Sp5oi3NOT9G5kv+vDsp6Kftt/i3"
+          ],
+          [
+            2260,
+            "XG6HdYiTLtzPOdBjlCprNXZL98l1Uwn8+P4zymQ7hyrxZ+IItnSM9pdzfnB9eHDjuGOXwwEhsAwRudxSLEbtomUUnYJOMJNYXIbWqWw8yvMfv1iqHfL7/wkAJF05w8YLj7i/9QInQ0jFMXHuk8j89nsgn7Cvdnv3EYLcOtz/k5QttRWPHPD6Nb6rk2BHWJkCEBYsgFzPG5XeP8gnGof5Hg7sKv/c0LmMnFchkT2aAAA="
+          ],
+          [
+            18432,
+            "s099pgAA"
+          ]
+        ]
+      },
+      "expectedMemorySha256": "04302d9dbb7334d5b390a91403b794b418dd9bc373aeccf54f4db46daeb6a394"
+    },
+    {
+      "id": 17,
+      "address": "4a000f18",
+      "label": "utf16_find",
+      "case": "empty substring",
+      "args": [
+        133120,
+        149504
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": [
+          [
+            2048,
+            "AAA="
+          ],
+          [
+            18432,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "1b2cf0f7ece3b5a1fcb2950aefe0610750ef055b80f146fcbf9a4f30bb96aea3"
+    },
+    {
+      "id": 17,
+      "address": "4a000f18",
+      "label": "utf16_find",
+      "case": "prefix substring",
+      "args": [
+        133120,
+        149504
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 2,
+        "patches": [
+          [
+            2048,
+            "oWLeGgAA"
+          ],
+          [
+            18432,
+            "oWLeGgAA"
+          ]
+        ]
+      },
+      "expectedMemorySha256": "97b2035350dde70a89beaca0f308ca5d366d4e785be54dd486162860d32eb678"
+    },
+    {
+      "id": 17,
+      "address": "4a000f18",
+      "label": "utf16_find",
+      "case": "prefix substring",
+      "args": [
+        133120,
+        149504
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 32,
+        "patches": [
+          [
+            2048,
+            "NSd6kFG/hO/R8R7JBUAJYwTiD8BJFkq2FjjLnikQ9s1krOWFNoDgFDgOZP5Haocw98UUWZgo19Kc/cDYXBS4FwAA"
+          ],
+          [
+            18432,
+            "NSd6kFG/hO/R8Q=="
+          ],
+          [
+            18443,
+            "yQVAAAAE4g/ASRZKthY4y54pEPbNZKzlhTaA4BQ4DmT+R2qHMPfFFFmYKNfSnP3A2FwUuBcAAA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "48385a169da0124a50ab6201e012770d048e8f89cddf1becc682fb4989a08440"
+    },
+    {
+      "id": 17,
+      "address": "4a000f18",
+      "label": "utf16_find",
+      "case": "random terminated strings",
+      "args": [
+        133120,
+        149504,
+        47
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 38,
+        "patches": [
+          [
+            2048,
+            "O+BxO8ycfDCSrQhMuQiTkSichQZpsgawNVTwMW/Hf3Q95Gr+ohonSLo9"
+          ],
+          [
+            2091,
+            "2kTHnxXVwIjfvsN1n5L7F8M8m0cRsm341ZK0zRbqhB/FKZ3MecR5J/8AAA=="
+          ],
+          [
+            18432,
+            "zJx8MJKtCEy5CJORKJyFBmmyBrA1VPAxb8d/dD3kav6iGidIuj3E2kTHnxXVwIjf"
+          ],
+          [
+            18481,
+            "w3WfkvsXwzybRxGybfjVkrTNFuqEH8Upncx5xHkn/zzfupoCsNvD2BNIZY5NVcL+PNdps6dr7ymPKczSZG2KvX9sj0yM95wpCyYpEXIJUDD21fsAkQbe93w="
+          ],
+          [
+            18571,
+            "eT7H82Pz1kBXpgPRR+V35Dfvljw9X+e+qoJ0DAKuDnVcnI5bjbaXzu25zwAA"
+          ]
+        ]
+      },
+      "expectedMemorySha256": "b578ed30884b9b6edcfcfed8a29d63d71e13ba960ccee44c04aa73602d98085e"
+    },
+    {
+      "id": 18,
+      "address": "4a000f50",
+      "label": "utf16_length",
+      "case": "terminated length",
+      "args": [
+        133120
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": [
+          [
+            2048,
+            "AAA="
+          ],
+          [
+            18432,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "1b2cf0f7ece3b5a1fcb2950aefe0610750ef055b80f146fcbf9a4f30bb96aea3"
+    },
+    {
+      "id": 18,
+      "address": "4a000f50",
+      "label": "utf16_length",
+      "case": "terminated length",
+      "args": [
+        133122
+      ],
+      "mask": 1,
+      "expected": [
+        15,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 17,
+        "patches": [
+          [
+            2050,
+            "5wSwCUWpx+5PcrVbCRfg3jigmYamDeMJtYfRb3MKAAA="
+          ],
+          [
+            18434,
+            "5wSwCUWpx+5PcrVbCRfg3jigmYamDeMJtYfRb3MKAAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "8eeb2df5f677d0db7d2278deaf049bd49517e52636a092f70c1f9dc034abad0d"
+    },
+    {
+      "id": 18,
+      "address": "4a000f50",
+      "label": "utf16_length",
+      "case": "random terminated length",
+      "args": [
+        133122
+      ],
+      "mask": 1,
+      "expected": [
+        213,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 117,
+        "patches": [
+          [
+            2050,
+            "AcAsB95LlQb5tfLaIYhY9a+h5s2zao9xEMCoklQ4O+wFxbLsyAYtVuiWSJh27odboatkMOt+HpVVkpA46f3nYDkSB0sn6oleTD+44+YdRvNjMjKMta3SCPtlohRmXeKMAPaMDEAgmMSABGWI"
+          ],
+          [
+            2159,
+            "i+aEF3TVYDlJnLkELrBM6L+H5lXLWHmmRM3D7A7lcnU6PGsIatQ1diSllfykX7uo9QG4ScN05Ho="
+          ],
+          [
+            2216,
+            "paPdv5eUBd5LpAJ9pEDJcJt4I3zEqGxTHvLkbFk7nr86fx2YYIvEOukB3r5GBNW7b4ZQRZ1BPaaGFawu178OnMenGW/e1OmXOhz0obXl3B424Lyug55+dR+wz0Ksc/IQKmrp3cFZboHyERf0i0KbkuEBFRaL1NAeYKR8s/GkueyedHP2r3ocF2eJZdFOdGeFaQUoUfzyc6hyqGYhdDbnWIgBzuZ2dI76HgkSBy78073SOQS+KxKH9N7kawPayjikkWS3Ext6+29Bw/+DjY0xS6s7QcGbmyD7tNMnr8+fIrN7P/NHE6fewsqnpUL8mqe8sVaK2cWAWwFPMcGfYDok/RPLOwUAAA=="
+          ],
+          [
+            18434,
+            "3kuVBvm18tohiFj1r6HmzbNqj3EQwKiSVDg77AXFsuzIBi1W6JZImHbuh1uhq2Qw634elVWSkDjp/edgORIHSyfqiV5MP7jj5h1G82MyMoy1rdII+2WiFGZd4owA9owMQCCYxIAEZYhPi+aEF3TVYDlJnLkELrBM6L+H5lXLWHmmRAAA"
+          ]
+        ]
+      },
+      "expectedMemorySha256": "6f0b76dd241169a4cbbb07ab521a1f47776ddf314653b47c1f805981e98930c7"
+    },
+    {
+      "id": 18,
+      "address": "4a000f50",
+      "label": "utf16_length",
+      "case": "random terminated length",
+      "args": [
+        133122
+      ],
+      "mask": 1,
+      "expected": [
+        169,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 246,
+        "patches": [
+          [
+            2050,
+            "pUQBOFfIckEUAmbZ3lnvr6UZrNl+oqmy+3f5entvRgUMZKGw55fM+XSBHX0pGsbrq0J5+MAjBy6UdfrPdAuxq+cQQMohZEkFLjUN6IDn3NvJRDJOEzWdUj4imKW5m+0HGdUzXqO5ivkaY7QHGtEbEsZLN4XbI9GRKDhF427OiYMiCFqgedXDKYWvSdrogMSWHqQQUz37sZuXnbY6rCjoN02WmnO/1YmWgXz+OSO+ojMBd+9vKtcoyhaLxAjNk3jIwFydanbFAbgVk0YYZNBMEzz9YsOGt6jSo5Pc6Ua3gl8I8QiO1GfeSNJGh65dDrjRRZ7etdaR3g7w7VlNLXvzmIQflXu1i6HJzlpGgiBUnNe6DJkFiMlHPk71VQGsFF1eslbwvOJWVlBfovJgKhirMO2WT8uThARts6clsmqhMzhb/96GS9sZxl88cislloQGyqYAAA=="
+          ],
+          [
+            18432,
+            "V8hyQRQCZtneWe+vpRms2X6iqbL7d/l6e29GBQxkobDnl8z5dIEdfSkaxuurQnn4wCMHLpR1+s90C7Gr5xA="
+          ],
+          [
+            18495,
+            "yiFkSQUuNQ3ogOfc28lEMk4TNZ1SPiKYpbmb7QcZ1TNeo7mK+RpjtAca0RsSxks3hdsj0ZEoOEXjbs6JgyIIWqB51cMpha9J2uiAxJYepBBTPfuxm5edtjqsKOg3TZaac7/ViZaBfP45I76iMwF3728q1yjKFovECM2TeMjAXJ1qAAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "d1020a796c536b7bd9f00ccdf0c804946c7563a411042c0f506a2c911f0c0b25"
+    },
+    {
+      "id": 19,
+      "address": "4a0012bc",
+      "label": "string_copy",
+      "case": "copy including terminator",
+      "args": [
+        133120,
+        149504
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": [
+          [
+            2048,
+            "AA=="
+          ],
+          [
+            18432,
+            "AA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "45615c314cdc81ff7aed590888ff83d557fb929bd8586f58f4b0535eca781c9a"
+    },
+    {
+      "id": 19,
+      "address": "4a0012bc",
+      "label": "string_copy",
+      "case": "copy including terminator",
+      "args": [
+        133121,
+        149505
+      ],
+      "mask": 1,
+      "expected": [
+        133121,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 5,
+        "patches": [
+          [
+            2049,
+            "jpOrNQA="
+          ],
+          [
+            18433,
+            "jpOrNQA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "0443d1e4122a08d93f197f991be9e3d207356ccf9b0607d514c539318c9817da"
+    },
+    {
+      "id": 19,
+      "address": "4a0012bc",
+      "label": "string_copy",
+      "case": "copy including terminator",
+      "args": [
+        133121,
+        149505
+      ],
+      "mask": 1,
+      "expected": [
+        133121,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 1,
+        "patches": [
+          [
+            2049,
+            "ow/gI1NQkCskTaHNnmaQq+cNaQdbCwdOWkZtK584XFwKhYquXz6sA80CJdAVcxUkm3fsa4qv98SXpng+ke3qxIlvxrT9xbaZhnVUU/Ks+e6Z0KbYokHyja1f8NMam0784v4FRDykkYFcZMqrUbBAQ10YuyHPTRiygrtpwa1xWcGLop+N0E6cFtJmvPSRECEqOpUNaBy59X1/Yw1j2ER5dvlSMwd5XpO4JBDD0TtDlqjkcGSnYkoxb66Aq5rkGDxhsNG5Mr3P9xQngWjfNtq0QClWKG+F/AFMSsXqWnUdiK6nsXCCcswhxHlXcWy53IIXzx30Dtc7zxxPT6bdhnmFY27iCIquUri1MthFTx+Eqoue3bI4Dj6TT+RIhVvl29AOmPqA/tp6ffvy7GtRsQ8WGs0ss7NEO96CWp1vr9GnTxIjC71XSJlg"
+          ],
+          [
+            2377,
+            "jOMSReU+M3xh5u/RW3KWEN9hQQjVgHn5w4UUHlzzZ0c147cCBdg6ZOHAOagFpliIy6cD7cJJ2NNanUY8zRCmSZetF7XRSapIP8hHyZOxfWnMsUmflhDpuDc="
+          ],
+          [
+            2467,
+            "navJsYD+T6/8jFdJ407hG6S3FtcHctWIOlpoKomHXT+Uc3i2WwJy1OcpGp4Crx0MB7HIoFwEk7GMI1q7jJDQa6qZnTcHwQ=="
+          ],
+          [
+            2538,
+            "EWIIiCpPZydtcRTJOx8="
+          ],
+          [
+            2553,
+            "LWTAz2iF73EA"
+          ],
+          [
+            18433,
+            "ow/gI1NQkCskTaHNnmaQq+cNaQdbCwdOWkZtK584XFwKhYquXz6sA80CJdAVcxUkm3fsa4qv98SXpng+ke3qxIlvxrT9xbaZhnVUU/Ks+e6Z0KbYokHyja1f8NMam0784v4FRDykkYFcZMqrUbBAQ10YuyHPTRiygrtpwa1xWcGLop+N0E6cFtJmvPSRECEqOpUNaBy59X1/Yw1j2ER5dvlSMwd5XpO4JBDD0TtDlqjkcGSnYkoxb66Aq5rkGDxhsNG5Mr3P9xQngWjfNtq0QClWKG+F/AFMSsXqWnUdiK6nsXCCcswhxHlXcWy53IIXzx30Dtc7zxxPT6bdhnmFY27iCIquUri1MthFTx+Eqoue3bI4Dj6TT+RIhVvl29AOmPqA/tp6ffvy7GtRsQ8WGs0ss7NEO96CWp1vr9GnTxIjC71XSJlgUozjEkXlPjN8Yebv0VtylhDfYUEI1YB5+cOFFB5c82dHNeO3AgXYOmThwDmo"
+          ],
+          [
+            18806,
+            "pliIy6cD7cJJ2NNanUY8zRCmSZetF7XRSapIP8hHyZOxfWnMsUmflhDpuDc4navJsYD+T6/8jFdJ407hG6S3FtcHctWIOlpoKomHXT+Uc3i2WwJy1OcpGp4Crx0MB7HIoFwEk7GMI1q7jJDQa6qZnTcHwdERYgiIKk9nJ21xFMk7H6ItZMDPaIXvcQA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "5f3fe71495ee9283ac8d87bf53da7373e36edf7d173260945938c6a0d6f45425"
+    },
+    {
+      "id": 19,
+      "address": "4a0012bc",
+      "label": "string_copy",
+      "case": "random terminated strings",
+      "args": [
+        133121,
+        149507,
+        111
+      ],
+      "mask": 1,
+      "expected": [
+        133121,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 222,
+        "patches": [
+          [
+            2049,
+            "lhK/aIbLKa9dzRhW7c4Jt+9xifg+SOsViTz05qeHAA=="
+          ],
+          [
+            18435,
+            "v2iGyymvXc0YVu3OCbfvcYn4PkjrFYk89Oanh4IBNVUBOj/J0uGojziBOGIuy6GJPyP2aJ1lMF5kpwXu4PQ20vC7DNdpzqi+zgIrFZfQLo1nk4QuBySmhL7T/OXOko9ZDzwPWaZUIWD3GXJ57IwxzBp5CPv1xSqT5LrsV4MQbqZBDMNxtmhEkRaHJrDQU9bFng=="
+          ],
+          [
+            18581,
+            "HxW+WTdvIewyiLOzdLXnlK5O6IA01/26Cl18l1bbpJgv8hTwM9KxEJM8"
+          ],
+          [
+            18624,
+            "q0Xqw5WqZ6CnE7CL6Op5qWXclbg/2W9iWhkljtSSZCpFMYUA"
+          ]
+        ]
+      },
+      "expectedMemorySha256": "dc3bf7c84cf1a55461a06eba61b6391caf5c7cfd491bf723cbca98f8df995299"
+    },
+    {
+      "id": 20,
+      "address": "4a001314",
+      "label": "string_compare_count",
+      "case": "equal, prefix, byte mismatch",
+      "args": [
+        133120,
+        149504,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": [
+          [
+            2048,
+            "AA=="
+          ],
+          [
+            18432,
+            "AA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "45615c314cdc81ff7aed590888ff83d557fb929bd8586f58f4b0535eca781c9a"
+    },
+    {
+      "id": 20,
+      "address": "4a001314",
+      "label": "string_compare_count",
+      "case": "equal, prefix, byte mismatch",
+      "args": [
+        133120,
+        149504,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": [
+          [
+            2048,
+            "AA=="
+          ],
+          [
+            18432,
+            "gA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "b6de4541881a572abb70938bd360bef26b0bf09f84d455eb90c4a400e88e62d2"
+    },
+    {
+      "id": 20,
+      "address": "4a001314",
+      "label": "string_compare_count",
+      "case": "equal, prefix, byte mismatch",
+      "args": [
+        133120,
+        149505,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        4294967169,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 1,
+        "patches": [
+          [
+            2048,
+            "AQA="
+          ],
+          [
+            18433,
+            "gAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "e54b1f7a4ad2531713a73abbb4523c12c5255b76caca5aa8fde28180fac975ff"
+    },
+    {
+      "id": 20,
+      "address": "4a001314",
+      "label": "string_compare_count",
+      "case": "random terminated strings",
+      "args": [
+        133121,
+        149505,
+        256
+      ],
+      "mask": 1,
+      "expected": [
+        167,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 41,
+        "patches": [
+          [
+            2049,
+            "9wRQx5GkF+Kqe/GjY3xN1UzkRSLdJHzVFsUE645JqcbHxIHscp3ckQ3O8LNRMI7rR/6TCgYHafOIKHFY0UtDpI0mYDeP3zhvlogisfmuin0hu2j3pwOdLQdNijyjjlSchypmNKcc5b49eHv5AA=="
+          ],
+          [
+            18433,
+            "UMeRpBfiqnvxo2N8TdVM5EUi3SQ="
+          ],
+          [
+            18454,
+            "1RbFBOuOSanGx8SB7HKd3JENzvCzUTCO60f+kwoGB2nziCgA"
+          ]
+        ]
+      },
+      "expectedMemorySha256": "1b7b125587b0640db6bdba82e94214d8def1f9b8b70a7e0ace1a834085945dda"
+    },
+    {
+      "id": 21,
+      "address": "4a001368",
+      "label": "string_copy_pad",
+      "case": "copy count and zero padding",
+      "args": [
+        133120,
+        149504,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": [
+          [
+            2048,
+            "AA=="
+          ],
+          [
+            18432,
+            "AA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "45615c314cdc81ff7aed590888ff83d557fb929bd8586f58f4b0535eca781c9a"
+    },
+    {
+      "id": 21,
+      "address": "4a001368",
+      "label": "string_copy_pad",
+      "case": "copy count and zero padding",
+      "args": [
+        133122,
+        149506,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        133122,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 2,
+        "patches": [
+          [
+            2050,
+            "AA=="
+          ],
+          [
+            18434,
+            "AA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "a84e0513bbad125796886889e6fa5822b3a55ec8ec84fd7ccc0c7ddbdc7dfc41"
+    },
+    {
+      "id": 21,
+      "address": "4a001368",
+      "label": "string_copy_pad",
+      "case": "copy count and zero padding",
+      "args": [
+        133120,
+        149507,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 3,
+        "patches": [
+          [
+            2049,
+            "imAA"
+          ],
+          [
+            18435,
+            "i4pgAA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "33f0ecf376d394198d2d9d897fe644d924efecd1efb642b5a990655a4d85ea7c"
+    },
+    {
+      "id": 21,
+      "address": "4a001368",
+      "label": "string_copy_pad",
+      "case": "random copy/pad",
+      "args": [
+        133120,
+        149506,
+        430
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 74,
+        "patches": [
+          [
+            2048,
+            "mrkLlU3rFoRVVvqDTcFqgAHc07R7k0VqlnvKBfBQTETu1K6xSWMYtNWmNdTPG+Iq7xUX1plFl59KAA=="
+          ],
+          [
+            18434,
+            "C5VN6xaEVVb6g03BaoAB3NO0e5NFapZ7ygXwUExE7tSusUljGLTVpjXUzxviKu8VF9aZRZefSistmWhQe9vWLw79lCZt2nSeriGiXFvZOuwfHX+09PkhtRVRvHP52WuB+TPWGsCyQLK4e2ckogQYVdJRXg6gtXc4d6raLFr1ofuL9v8BAg9OgMnh7Ib8z9wQS66nnmaOAiKFHSLGGf2s4Q7Ocv3gJzUzznonlMnK4xhDV4PS8uQ95MoQsDanAA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "5f22190e73e41c13a7ecdcef683ed0463c2145ec4ca3f4601825a2f10ced2b71"
+    },
+    {
+      "id": 22,
+      "address": "4a0013e0",
+      "label": "string_length",
+      "case": "terminated length",
+      "args": [
+        133120
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": [
+          [
+            2048,
+            "AA=="
+          ],
+          [
+            18432,
+            "AA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "45615c314cdc81ff7aed590888ff83d557fb929bd8586f58f4b0535eca781c9a"
+    },
+    {
+      "id": 22,
+      "address": "4a0013e0",
+      "label": "string_length",
+      "case": "terminated length",
+      "args": [
+        133121
+      ],
+      "mask": 1,
+      "expected": [
+        4,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 5,
+        "patches": [
+          [
+            2049,
+            "jpOrNQA="
+          ],
+          [
+            18433,
+            "jpOrNQA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "0443d1e4122a08d93f197f991be9e3d207356ccf9b0607d514c539318c9817da"
+    },
+    {
+      "id": 22,
+      "address": "4a0013e0",
+      "label": "string_length",
+      "case": "terminated length",
+      "args": [
+        133121
+      ],
+      "mask": 1,
+      "expected": [
+        512,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 1,
+        "patches": [
+          [
+            2049,
+            "ow/gI1NQkCskTaHNnmaQq+cNaQdbCwdOWkZtK584XFwKhYquXz6sA80CJdAVcxUkm3fsa4qv98SXpng+ke3qxIlvxrT9xbaZhnVUU/Ks+e6Z0KbYokHyja1f8NMam0784v4FRDykkYFcZMqrUbBAQ10YuyHPTRiygrtpwa1xWcGLop+N0E6cFtJmvPSRECEqOpUNaBy59X1/Yw1j2ER5dvlSMwd5XpO4JBDD0TtDlqjkcGSnYkoxb66Aq5rkGDxhsNG5Mr3P9xQngWjfNtq0QClWKG+F/AFMSsXqWnUdiK6nsXCCcswhxHlXcWy53IIXzx30Dtc7zxxPT6bdhnmFY27iCIquUri1MthFTx+Eqoue3bI4Dj6TT+RIhVvl29AOmPqA/tp6ffvy7GtRsQ8WGs0ss7NEO96CWp1vr9GnTxIjC71XSJlg"
+          ],
+          [
+            2377,
+            "jOMSReU+M3xh5u/RW3KWEN9hQQjVgHn5w4UUHlzzZ0c147cCBdg6ZOHAOagFpliIy6cD7cJJ2NNanUY8zRCmSZetF7XRSapIP8hHyZOxfWnMsUmflhDpuDc="
+          ],
+          [
+            2467,
+            "navJsYD+T6/8jFdJ407hG6S3FtcHctWIOlpoKomHXT+Uc3i2WwJy1OcpGp4Crx0MB7HIoFwEk7GMI1q7jJDQa6qZnTcHwQ=="
+          ],
+          [
+            2538,
+            "EWIIiCpPZydtcRTJOx8="
+          ],
+          [
+            2553,
+            "LWTAz2iF73EA"
+          ],
+          [
+            18433,
+            "ow/gI1NQkCskTaHNnmaQq+cNaQdbCwdOWkZtK584XFwKhYquXz6sA80CJdAVcxUkm3fsa4qv98SXpng+ke3qxIlvxrT9xbaZhnVUU/Ks+e6Z0KbYokHyja1f8NMam0784v4FRDykkYFcZMqrUbBAQ10YuyHPTRiygrtpwa1xWcGLop+N0E6cFtJmvPSRECEqOpUNaBy59X1/Yw1j2ER5dvlSMwd5XpO4JBDD0TtDlqjkcGSnYkoxb66Aq5rkGDxhsNG5Mr3P9xQngWjfNtq0QClWKG+F/AFMSsXqWnUdiK6nsXCCcswhxHlXcWy53IIXzx30Dtc7zxxPT6bdhnmFY27iCIquUri1MthFTx+Eqoue3bI4Dj6TT+RIhVvl29AOmPqA/tp6ffvy7GtRsQ8WGs0ss7NEO96CWp1vr9GnTxIjC71XSJlgUozjEkXlPjN8Yebv0VtylhDfYUEI1YB5+cOFFB5c82dHNeO3AgXYOmThwDmo"
+          ],
+          [
+            18806,
+            "pliIy6cD7cJJ2NNanUY8zRCmSZetF7XRSapIP8hHyZOxfWnMsUmflhDpuDc4navJsYD+T6/8jFdJ407hG6S3FtcHctWIOlpoKomHXT+Uc3i2WwJy1OcpGp4Crx0MB7HIoFwEk7GMI1q7jJDQa6qZnTcHwdERYgiIKk9nJ21xFMk7H6ItZMDPaIXvcQA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "5f3fe71495ee9283ac8d87bf53da7373e36edf7d173260945938c6a0d6f45425"
+    },
+    {
+      "id": 22,
+      "address": "4a0013e0",
+      "label": "string_length",
+      "case": "random terminated length",
+      "args": [
+        133122
+      ],
+      "mask": 1,
+      "expected": [
+        176,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 9,
+        "patches": [
+          [
+            2050,
+            "Nn6U6UCkax5iNt85j33C5xw5W99Y69prctQjMA4NMYSwnA9bMiW1/fp9QKp586SPlst+9cPqf6SkQAyY1XlVLhQEoOk6UJAGkQrpeDeRvqRwgF/O/XkcIeRvqe1ojr0HNFUdUpWOP+pVFG0b17PH05DK7N8="
+          ],
+          [
+            2167,
+            "OXyq7A9dDBd2xWNwovhHfA6zYpNM9paG71vG5N1WV4zOIMHydA5xJi162VvWa4aF2uQ0s94+iavsjOMA"
+          ],
+          [
+            18432,
+            "lOlApGseYjbfOY99wuccOVvfWOvaa3LUIzAODTGEsJwPWzIltf36fUCqefOkj5bLfvXD6n+kpEAMmNV5VS4UBKDpOlCQBpEK6Xg3kb6kcIBfzv15HCHkb6ntaI69BzRVHVKVjj/qVRRtG9ezx9OQyuzf2zl8quwPXQwXdsVjcKL4R3wOs2KTTPaWhgA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "0c38cb4e46f8d7b5bbd79063926937fc6a00ab98c79a134af2bec8e7fc39888a"
+    },
+    {
+      "id": 23,
+      "address": "4a00142c",
+      "label": "string_compare",
+      "case": "equal, prefix, byte mismatch",
+      "args": [
+        133120,
+        149504,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": [
+          [
+            2048,
+            "AA=="
+          ],
+          [
+            18432,
+            "AA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "45615c314cdc81ff7aed590888ff83d557fb929bd8586f58f4b0535eca781c9a"
+    },
+    {
+      "id": 23,
+      "address": "4a00142c",
+      "label": "string_compare",
+      "case": "equal, prefix, byte mismatch",
+      "args": [
+        133120,
+        149505,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 1,
+        "patches": [
+          [
+            2048,
+            "AQA="
+          ],
+          [
+            18433,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "0fa4fe4dd5f448d25da3555d5ebf2ec3543f0434395e82d3e7fba86205035e46"
+    },
+    {
+      "id": 23,
+      "address": "4a00142c",
+      "label": "string_compare",
+      "case": "equal, prefix, byte mismatch",
+      "args": [
+        133120,
+        149507,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        160,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 7,
+        "patches": [
+          [
+            2048,
+            "oLc8gJLBDgA="
+          ],
+          [
+            18435,
+            "ALc8gJLBDgA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "bb1f34ffcca1be98ea338f3f4f20ce7dd9daf95b0bd42eae5b78018d6a1f27bc"
+    },
+    {
+      "id": 23,
+      "address": "4a00142c",
+      "label": "string_compare",
+      "case": "random terminated strings",
+      "args": [
+        133123,
+        149507,
+        121
+      ],
+      "mask": 1,
+      "expected": [
+        4294967237,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 160,
+        "patches": [
+          [
+            2051,
+            "AR48p3/kLsAdcJFODMcTaEB1kJd+j/+C3BiPRpNqIu/ae+SgFEkpjq0Qk/4XAlgn11NXRLDD8tUqW0y4zw9LcHBmy1/JmdkTx1Voc+H6ZoNV6ZJFJMnCTEtUHBBxBGUztej7MKoA"
+          ],
+          [
+            18435,
+            "PKd/5C7AHXCRTgzHE2hAdZCXfo//gtwYj0aTaiLv2nvkoBRJKY6tAA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "e983b3e45ced837da572f4a515f2a2e98592d524024da5ad11d26774dc179078"
+    },
+    {
+      "id": 24,
+      "address": "4a00150c",
+      "label": "memory_find",
+      "case": "first/last byte search",
+      "args": [
+        133120,
+        0,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": [
+          [
+            2048,
+            "AA=="
+          ],
+          [
+            18432,
+            "AA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "45615c314cdc81ff7aed590888ff83d557fb929bd8586f58f4b0535eca781c9a"
+    },
+    {
+      "id": 24,
+      "address": "4a00150c",
+      "label": "memory_find",
+      "case": "first/last byte search",
+      "args": [
+        133120,
+        255,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": [
+          [
+            2048,
+            "AA=="
+          ],
+          [
+            18432,
+            "AA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "45615c314cdc81ff7aed590888ff83d557fb929bd8586f58f4b0535eca781c9a"
+    },
+    {
+      "id": 24,
+      "address": "4a00150c",
+      "label": "memory_find",
+      "case": "first/last byte search",
+      "args": [
+        133123,
+        0,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        133123,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 3,
+        "patches": [
+          [
+            2051,
+            "AA=="
+          ],
+          [
+            18435,
+            "AA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "12e5111c03bcfeedc628833483e5fa4312a79be8717d9d19d51af32716422bc3"
+    },
+    {
+      "id": 24,
+      "address": "4a00150c",
+      "label": "memory_find",
+      "case": "random byte search",
+      "args": [
+        133120,
+        217,
+        9
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 164,
+        "patches": [
+          [
+            2048,
+            "mat9oxdMtCKKrobc1qJW6wA="
+          ],
+          [
+            18435,
+            "faMXTLQiiq6G3NaiVusG28geTeCPDRNlxes0Bd6nL7Qy+uGeLJm0zmwZJX1Hyg=="
+          ],
+          [
+            18482,
+            "hP4tgcPn"
+          ],
+          [
+            18489,
+            "vGX0SyiMTryUZNd5z5InOp12j8dXsQ31W5HW4phe0mV776vlXwhr7XbZNhRyWD8hko3CLKrYffcXNklTE7te45v0Z6zsIpEmKaUM55bUJJjW0QGPdOFYr2FmvDg5gI1gn+LQvdXYAnJLZEdHmT4ehhZIseFyCBU2Fci+yr9TaPVFUDDydWG/nEQiNXzzTiHxeNMGgjkSAA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "b6f87504677db38cb5286ad588538696057958e2261bd36e15ef755baee75053"
+    },
+    {
+      "id": 25,
+      "address": "4a001538",
+      "label": "string_append",
+      "case": "append and capacity tail",
+      "args": [
+        133120,
+        149504,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": [
+          [
+            2048,
+            "AA=="
+          ],
+          [
+            18432,
+            "QwA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "a6c0ce7fcdb49be0dc5c7f9945136d781a52a6bff22df8fd3f149d5b3dd9bdd7"
+    },
+    {
+      "id": 25,
+      "address": "4a001538",
+      "label": "string_append",
+      "case": "append and capacity tail",
+      "args": [
+        133121,
+        149505,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        133121,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 5,
+        "patches": [
+          [
+            2049,
+            "jpOrNQA="
+          ],
+          [
+            18433,
+            "7jZGngxnRkFver9unQA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "8bbfe1c83fb82d04657feacc01642b27e065a2efdf17be310d9d66026678bd8f"
+    },
+    {
+      "id": 25,
+      "address": "4a001538",
+      "label": "string_append",
+      "case": "append and capacity tail",
+      "args": [
+        133121,
+        149505,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        133121,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 1,
+        "patches": [
+          [
+            2049,
+            "ow/gI1NQkCskTaHNnmaQq+cNaQdbCwdOWkZtK584XFwKhYquXz6sA80CJdAVcxUkm3fsa4qv98SXpng+ke3qxIlvxrT9xbaZhnVUU/Ks+e6Z0KbYokHyja1f8NMam0784v4FRDykkYFcZMqrUbBAQ10YuyHPTRiygrtpwa1xWcGLop+N0E6cFtJmvPSRECEqOpUNaBy59X1/Yw1j2ER5dvlSMwd5XpO4JBDD0TtDlqjkcGSnYkoxb66Aq5rkGDxhsNG5Mr3P9xQngWjfNtq0QClWKG+F/AFMSsXqWnUdiK6nsXCCcswhxHlXcWy53IIXzx30Dtc7zxxPT6bdhnmFY27iCIquUri1MthFTx+Eqoue3bI4Dj6TT+RIhVvl29AOmPqA/tp6ffvy7GtRsQ8WGs0ss7NEO96CWp1vr9GnTxIjC71XSJlg"
+          ],
+          [
+            2377,
+            "jOMSReU+M3xh5u/RW3KWEN9hQQjVgHn5w4UUHlzzZ0c147cCBdg6ZOHAOagFpliIy6cD7cJJ2NNanUY8zRCmSZetF7XRSapIP8hHyZOxfWnMsUmflhDpuDc="
+          ],
+          [
+            2467,
+            "navJsYD+T6/8jFdJ407hG6S3FtcHctWIOlpoKomHXT+Uc3i2WwJy1OcpGp4Crx0MB7HIoFwEk7GMI1q7jJDQa6qZnTcHwQ=="
+          ],
+          [
+            2538,
+            "EWIIiCpPZydtcRTJOx8="
+          ],
+          [
+            2553,
+            "LWTAz2iF73EA"
+          ],
+          [
+            18433,
+            "7NvmCQ+6b5gVRbTb6qCm9YkEgzkFAak="
+          ],
+          [
+            18457,
+            "sx7ufRl3FME5uJfhbUfRLS3gOaqEKsl4VDGd63RjpjXGtdPwttu/Pvih70/9YtKSfdfwd2Y85CW99gSYbK8JDQX1eaNW5zNoUz7bnGyObvail36gjcvCIixThnLFpBlyM3ZsA2d0SgjmgYAUDpMshTlXCaSKbzJe+SN+DTe/JObAvKFKm1tO2ztf+5Hp/ILi+BIWAbEolUB1s3itj+bOriW6Fj/0KTmlsHpyYL5oxGQtekCzX+NuK6AHgy67pCOx2FPOUT1LkgIFlXJMcRVsA6EnDvdQ6oczK30CUZSgJH2DOyClAHmFY27iCIquUri1MthFTx+Eqoue3bI4Dj6TT+RIhVvl29AOmPqA/tp6ffvy7GtRsQ8WGs0ss7NEO96CWp1vr9GnTxIjC71XSJlgUozjEkXlPjN8Yebv0VtylhDfYUEI1YB5+cOFFB5c82dHNeO3AgXYOmThwDmo"
+          ],
+          [
+            18806,
+            "pliIy6cD7cJJ2NNanUY8zRCmSZetF7XRSapIP8hHyZOxfWnMsUmflhDpuDc4navJsYD+T6/8jFdJ407hG6S3FtcHctWIOlpoKomHXT+Uc3i2WwJy1OcpGp4Crx0MB7HIoFwEk7GMI1q7jJDQa6qZnTcHwdERYgiIKk9nJ21xFMk7H6ItZMDPaIXvcQA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "e8b650872cdba7ff6c3508f474c15871e1383e638611dd165aceaa978810e452"
+    },
+    {
+      "id": 25,
+      "address": "4a001538",
+      "label": "string_append",
+      "case": "random terminated strings",
+      "args": [
+        133123,
+        149507,
+        158
+      ],
+      "mask": 1,
+      "expected": [
+        133123,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 231,
+        "patches": [
+          [
+            2051,
+            "9j32elyMyM/1Q306Jqk0J9WNm2DY0c823ioaKT0Qh4Qt+AkBS/F5Vweaiz1lz5wPOarlBFUhh1hY9VO5oyGG+Q/15vboV0H/SGlrNpEjEebXsnZZREBiqBfHS3DN/OIvvMoIwvbR4p0vW2111V6OsHM4VaRO0yXvA32YqXZzVzMz8A3f"
+          ],
+          [
+            2184,
+            "R4QoX61Bc+H1vqN1vJCCAi1jnAewq2SlvMd4UruznmRvPoHEb56L640+I0q3rftx7i0="
+          ],
+          [
+            2235,
+            "Xhmdlc430giE5bq6wlcSx5wt5lARmUnruTFnfolh1VGsZ61Ss15/T9muX6PTVAA="
+          ],
+          [
+            18435,
+            "9npcjMjP9UN9OiapNCfVjZtg2NHPNt4qGik9EIeELfgJAUvxeVcHmos9Zc+cDzmq5QRVIYdYWPVTuaMhhvkP9eb26FdB/0hpazaRIxHm17J2WURAYqgXx0twzfziL7zKCML20eKdL1ttddVejrBzOFWkTtMl7wN9mKl2c1czM/AN38hHhChfrUFz4fW+o3W8kIICLWOcB7CrZKW8x3hSu7OeZG8+gcRvnovrjT4jSret+3HuLfVeGZ2VzjfSCITlurrCVxLHnC3mUBGZSeu5MWd+iWHVUaxnrVKzXn9P2a5fo9NUS5IxEHxdEhWKka2pfHhLLtHhAA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "1d7d780f56c17780d81ccf2e1d4457c73e7b7577e0eece6f638168b166e4e8e9"
+    },
+    {
+      "id": 26,
+      "address": "4a001552",
+      "label": "string_find_byte",
+      "case": "first/last byte search",
+      "args": [
+        133120,
+        0,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": [
+          [
+            2048,
+            "AA=="
+          ],
+          [
+            18432,
+            "AA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "45615c314cdc81ff7aed590888ff83d557fb929bd8586f58f4b0535eca781c9a"
+    },
+    {
+      "id": 26,
+      "address": "4a001552",
+      "label": "string_find_byte",
+      "case": "first/last byte search",
+      "args": [
+        133122,
+        1,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 2,
+        "patches": [
+          [
+            2050,
+            "AA=="
+          ],
+          [
+            18434,
+            "AA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "a84e0513bbad125796886889e6fa5822b3a55ec8ec84fd7ccc0c7ddbdc7dfc41"
+    },
+    {
+      "id": 26,
+      "address": "4a001552",
+      "label": "string_find_byte",
+      "case": "first/last byte search",
+      "args": [
+        133120,
+        1,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 3,
+        "patches": [
+          [
+            2049,
+            "imAA"
+          ],
+          [
+            18435,
+            "i4pgAA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "33f0ecf376d394198d2d9d897fe644d924efecd1efb642b5a990655a4d85ea7c"
+    },
+    {
+      "id": 26,
+      "address": "4a001552",
+      "label": "string_find_byte",
+      "case": "random byte search",
+      "args": [
+        133122,
+        74,
+        63
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 154,
+        "patches": [
+          [
+            2050,
+            "ca66ptPx0e3q/G3Qov55T14yRCXOJF0xVrd3flLmkWLZCxQeRMVOT8kXJPcQT+uiyoxn/+ptIqetmlpbGO8SLValHT25GOnLlHOFY7HmQ0sA"
+          ],
+          [
+            18432,
+            "uqbT8dHt6vxt0KL+eU9eMkQlziRdMVYA"
+          ]
+        ]
+      },
+      "expectedMemorySha256": "2c0a594f28069924bf5d4ec30447f2b2f14a51a41554351b3fcca50aabe28b14"
+    },
+    {
+      "id": 27,
+      "address": "4a00156c",
+      "label": "string_append_count",
+      "case": "append and capacity tail",
+      "args": [
+        133120,
+        149504,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": [
+          [
+            2048,
+            "AA=="
+          ],
+          [
+            18432,
+            "QwA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "c570e579deccd3bcdb3e8986cb8f5f1319faedf2b613f45196767613ffbf4785"
+    },
+    {
+      "id": 27,
+      "address": "4a00156c",
+      "label": "string_append_count",
+      "case": "append and capacity tail",
+      "args": [
+        133123,
+        149507,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        133123,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 3,
+        "patches": [
+          [
+            2051,
+            "AA=="
+          ],
+          [
+            18435,
+            "QwA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "efc5511f4ba31a48edf396f1c5cd1de2363b6c6f8678a4d8fc1082c705550b0c"
+    },
+    {
+      "id": 27,
+      "address": "4a00156c",
+      "label": "string_append_count",
+      "case": "append and capacity tail",
+      "args": [
+        133123,
+        149507,
+        4
+      ],
+      "mask": 1,
+      "expected": [
+        133123,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 7,
+        "patches": [
+          [
+            2051,
+            "jpOrNQA="
+          ],
+          [
+            18435,
+            "7jZGngxnRkFver9unQA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "a77b4ebbf47106b1abd964109b2df1450f0db56ce10baec4ac01a366b5f19ef4"
+    },
+    {
+      "id": 27,
+      "address": "4a00156c",
+      "label": "string_append_count",
+      "case": "random bounded append",
+      "args": [
+        133120,
+        149506,
+        194
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 144,
+        "patches": [
+          [
+            2048,
+            "CBOFssXE5PB58ykPfcEunDoPXL5GHi/BGT0kfC8yeVW2Mc/q8WfJOeHCrqkpZUYuMXqh8GWMAmEIF0fi2DsgOgoUccBBtYMzKKxE"
+          ],
+          [
+            2124,
+            "Vx61cjiqTacMqZCRiPPtx9HNvOGaLjFWLolGCWKdDkamMlA9ATdvePFS3FolqoMD+vSX8Cb7EDt7DT444h2uGwHuOKAsJBS5Cv4FbrlghjGM/RdfuaUdzd8KU1w65pS6lgWGPCiBtUaX7vMqYre6tMdtDX5009thMPEc3loJlI1vjm702b9ix+CPXnIYLtsN6av2Qv+HAgT0AA=="
+          ],
+          [
+            18434,
+            "hbLFxOTwefMpD33BLpw6D1y+Rh4vwRk9JHwA"
+          ]
+        ]
+      },
+      "expectedMemorySha256": "54df53ba4ebb49383a4340e67d161f3cd1bf7792f96683d8ca7714b504f1496f"
+    },
+    {
+      "id": 28,
+      "address": "4a0015a0",
+      "label": "string_find_last_byte",
+      "case": "first/last byte search",
+      "args": [
+        133120,
+        0,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": [
+          [
+            2048,
+            "AA=="
+          ],
+          [
+            18432,
+            "AA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "45615c314cdc81ff7aed590888ff83d557fb929bd8586f58f4b0535eca781c9a"
+    },
+    {
+      "id": 28,
+      "address": "4a0015a0",
+      "label": "string_find_last_byte",
+      "case": "first/last byte search",
+      "args": [
+        133122,
+        1,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 2,
+        "patches": [
+          [
+            2050,
+            "AA=="
+          ],
+          [
+            18434,
+            "AA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "a84e0513bbad125796886889e6fa5822b3a55ec8ec84fd7ccc0c7ddbdc7dfc41"
+    },
+    {
+      "id": 28,
+      "address": "4a0015a0",
+      "label": "string_find_last_byte",
+      "case": "first/last byte search",
+      "args": [
+        133120,
+        1,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 3,
+        "patches": [
+          [
+            2049,
+            "imAA"
+          ],
+          [
+            18435,
+            "i4pgAA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "33f0ecf376d394198d2d9d897fe644d924efecd1efb642b5a990655a4d85ea7c"
+    },
+    {
+      "id": 28,
+      "address": "4a0015a0",
+      "label": "string_find_last_byte",
+      "case": "random byte search",
+      "args": [
+        133123,
+        27,
+        39
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 158,
+        "patches": [
+          [
+            2051,
+            "iEtrpW1Uzqk/Ya2ovGKE14rrygaiSwbWYFZiNJjrwpQHjcUBEtbG2MdcoCghmah/rp8e4dqMqwA="
+          ],
+          [
+            18432,
+            "a6VtVM6pP2GtqLxihNeK68oGoksG1mBWYjSY68KUB43FARLWxtjHXKAoIZmof66fHuHajKtjfXfBnHKWNmhV3nevRocMbHNPCv28Vso9WUCTSC4v7gdi4iHozG/vlPl3wsxHg74kKkX3ij8KOB0tAA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "4955e748b28f4ffc3d982857def24dce809d9729bd88779aa7cfb665fde327bd"
+    },
+    {
+      "id": 29,
+      "address": "4a0015c0",
+      "label": "string_find",
+      "case": "empty substring",
+      "args": [
+        133120,
+        149504
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": [
+          [
+            2048,
+            "AA=="
+          ],
+          [
+            18432,
+            "AA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "45615c314cdc81ff7aed590888ff83d557fb929bd8586f58f4b0535eca781c9a"
+    },
+    {
+      "id": 29,
+      "address": "4a0015c0",
+      "label": "string_find",
+      "case": "prefix substring",
+      "args": [
+        133120,
+        149505
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 1,
+        "patches": [
+          [
+            2048,
+            "AQA="
+          ],
+          [
+            18433,
+            "AQA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "b78f041f07a62919d5ef305282f24c04dbeea1d12fe860a9da5f085d4a6dd819"
+    },
+    {
+      "id": 29,
+      "address": "4a0015c0",
+      "label": "string_find",
+      "case": "prefix substring",
+      "args": [
+        133120,
+        149507
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 7,
+        "patches": [
+          [
+            2048,
+            "oLc8gJLBDgA="
+          ],
+          [
+            18435,
+            "oLc8gJLBDgA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "d2aa6e9255c1559a980e10d4c186d8d0bf469f76a22e303fb834bc1527dcc90a"
+    },
+    {
+      "id": 29,
+      "address": "4a0015c0",
+      "label": "string_find",
+      "case": "random terminated strings",
+      "args": [
+        133123,
+        149507,
+        219
+      ],
+      "mask": 1,
+      "expected": [
+        133125,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 218,
+        "patches": [
+          [
+            2051,
+            "IDl3yo4Coiz2vm4jTus93NHnaHre1PWVcAGa4n16XHtTdkaDbbulg5z4baMMbR06PpHzE8e7/hihN4FIzO7bAY06eIX1Hf1WrwPPrFBSGdh3Pr5iS/sYaJeJl+iAwlBtJ5p3b8nqUGZOE440eMIEH5OYos4nGPFJhiqTUO7xOWtL"
+          ],
+          [
+            2181,
+            "tCmFzyDL1Ol0qEwXjgbbyTGhCAgj1zrnV1j4DC25YebwI3BHPu4fVBartUMzQF/OtL1hfV3Vw2LZDuaM1+uRtxwBXq+NlrreKXiEsP51Mzhgf5Ob5um78KZS9+TvlZL0gYAA"
+          ],
+          [
+            18435,
+            "d8qOAqIs9r5uI07rPdzR52h63tT1lXABmuJ9elx7U3ZGg227pYOc+G2jDG0dOj6R8xPHu/4YoTeBSMzu2wGNOniF9R39Vq8Dz6xQUhnYdz6+Ykv7GGiXiZfogMJQbSead2/J6lBmThOONHjCBB+TmKLOJxjxSYYqk1Du8TlrS160KYXPIMvU6XSoTBeOBtvJMaEICCPXOudXWPgMLblh5vAjcEc+7h9UFqu1QzNAX860vWF9XdXDYtkO5ozX65G3HAFer42Wut4peISw/nUzOGB/k5vm6bvwplL35O+Vkg=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "cf28543d29329dd44d52d491c1b1db37e54e09ee0e35e29de8061a133e56a01c"
+    },
+    {
+      "id": 30,
+      "address": "4a000e60",
+      "label": "memory_compare",
+      "case": "equal, prefix, byte mismatch",
+      "args": [
+        133120,
+        149504,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": [
+          [
+            2048,
+            "AA=="
+          ],
+          [
+            18432,
+            "AA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "45615c314cdc81ff7aed590888ff83d557fb929bd8586f58f4b0535eca781c9a"
+    },
+    {
+      "id": 30,
+      "address": "4a000e60",
+      "label": "memory_compare",
+      "case": "equal, prefix, byte mismatch",
+      "args": [
+        133120,
+        149504,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 0,
+        "patches": [
+          [
+            2048,
+            "AA=="
+          ],
+          [
+            18432,
+            "gA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "b6de4541881a572abb70938bd360bef26b0bf09f84d455eb90c4a400e88e62d2"
+    },
+    {
+      "id": 30,
+      "address": "4a000e60",
+      "label": "memory_compare",
+      "case": "equal, prefix, byte mismatch",
+      "args": [
+        133120,
+        149505,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        4294967169,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 1,
+        "patches": [
+          [
+            2048,
+            "AQA="
+          ],
+          [
+            18433,
+            "gAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "e54b1f7a4ad2531713a73abbb4523c12c5255b76caca5aa8fde28180fac975ff"
+    },
+    {
+      "id": 30,
+      "address": "4a000e60",
+      "label": "memory_compare",
+      "case": "random terminated strings",
+      "args": [
+        133122,
+        149504,
+        83
+      ],
+      "mask": 1,
+      "expected": [
+        19,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 248,
+        "patches": [
+          [
+            2050,
+            "+iLnKu+kBLCDE7zgWI9kKmB1RZgsZ5Iv2nloayjCdLwwTIGPdx69hfn6sWIYMhaEj0otb5JMt3p0LwyQ18TWzE9yOUudKUL1EJhOtdaI+0v8XGHChuiHwmtnuuLX2jYsVAsfwZsZkpYb6ZzqWKyv4UkwJoopDAA="
+          ],
+          [
+            18432,
+            "5yrvpASwgxO84FiPZCpgdUWYLGeSL9p5aGsownS8MEyBj3cevYX5+rFiGDIWhI9KLW+STLd6dC8MkNfE1sxPcjlLnSlC9RCYTrXWiPtL/Fxhwoboh8JrZ7ri19o2LFQLH8GbGZKWG+mc6lisr+FJMCaKKQwbPe4M8LRrEN4/E3vkNdx6aJZNFd46gP0QqdC9/TV5hEZMgMYrhKwVIxVeEGBX6oqTOjhiesYrIbsP0YEgrK9rRG4glCeM1bw3j504pkFG3Uo/K68dvw=="
+          ],
+          [
+            18635,
+            "O0QP9YtgB8L8J4Pfpp9K4X/Hm8RXprzpPIKjbyUA"
+          ]
+        ]
+      },
+      "expectedMemorySha256": "9546da8a6bd981d7d3c32c9e0228e3cb7fe0261224a1d485f3493126c7b478c4"
+    },
+    {
+      "id": 101,
+      "address": "4a005250",
+      "label": "FUN_4a005250",
+      "case": "equal-word boundary",
+      "args": [
+        0,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        4294967295,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 101,
+      "address": "4a005250",
+      "label": "FUN_4a005250",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647,
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        2147483560,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 101,
+      "address": "4a005250",
+      "label": "FUN_4a005250",
+      "case": "one-word boundary",
+      "args": [
+        1,
+        7
+      ],
+      "mask": 1,
+      "expected": [
+        4294967295,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 101,
+      "address": "4a005250",
+      "label": "FUN_4a005250",
+      "case": "seeded random words",
+      "args": [
+        1017082479,
+        2290981830
+      ],
+      "mask": 1,
+      "expected": [
+        1017082392,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 102,
+      "address": "4a005c34",
+      "label": "FUN_4a005c34",
+      "case": "equal-word boundary",
+      "args": [
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 102,
+      "address": "4a005c34",
+      "label": "FUN_4a005c34",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        2147483647,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 102,
+      "address": "4a005c34",
+      "label": "FUN_4a005c34",
+      "case": "byte/enum domain",
+      "args": [
+        13
+      ],
+      "mask": 1,
+      "expected": [
+        13,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 102,
+      "address": "4a005c34",
+      "label": "FUN_4a005c34",
+      "case": "seeded random words",
+      "args": [
+        1391014288
+      ],
+      "mask": 1,
+      "expected": [
+        1391014288,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 103,
+      "address": "4a02afd8",
+      "label": "FUN_4a02afd8",
+      "case": "equal-word boundary",
+      "args": [
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 103,
+      "address": "4a02afd8",
+      "label": "FUN_4a02afd8",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        2965820,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 103,
+      "address": "4a02afd8",
+      "label": "FUN_4a02afd8",
+      "case": "byte/enum domain",
+      "args": [
+        13
+      ],
+      "mask": 1,
+      "expected": [
+        240,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 103,
+      "address": "4a02afd8",
+      "label": "FUN_4a02afd8",
+      "case": "seeded random words",
+      "args": [
+        3209196622
+      ],
+      "mask": 1,
+      "expected": [
+        3625585,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 104,
+      "address": "4a030118",
+      "label": "FUN_4a030118",
+      "case": "equal-word boundary",
+      "args": [
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 104,
+      "address": "4a030118",
+      "label": "FUN_4a030118",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        189812531,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 104,
+      "address": "4a030118",
+      "label": "FUN_4a030118",
+      "case": "byte/enum domain",
+      "args": [
+        13
+      ],
+      "mask": 1,
+      "expected": [
+        15360,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 104,
+      "address": "4a030118",
+      "label": "FUN_4a030118",
+      "case": "seeded random words",
+      "args": [
+        3690526510
+      ],
+      "mask": 1,
+      "expected": [
+        248830786,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 105,
+      "address": "4a033804",
+      "label": "FUN_4a033804",
+      "case": "equal-word boundary",
+      "args": [
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 105,
+      "address": "4a033804",
+      "label": "FUN_4a033804",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 105,
+      "address": "4a033804",
+      "label": "FUN_4a033804",
+      "case": "byte/enum domain",
+      "args": [
+        13
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 105,
+      "address": "4a033804",
+      "label": "FUN_4a033804",
+      "case": "seeded random words",
+      "args": [
+        442046097
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 106,
+      "address": "4a038ee4",
+      "label": "FUN_4a038ee4",
+      "case": "equal-word boundary",
+      "args": [
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 106,
+      "address": "4a038ee4",
+      "label": "FUN_4a038ee4",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 106,
+      "address": "4a038ee4",
+      "label": "FUN_4a038ee4",
+      "case": "byte/enum domain",
+      "args": [
+        13
+      ],
+      "mask": 1,
+      "expected": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 106,
+      "address": "4a038ee4",
+      "label": "FUN_4a038ee4",
+      "case": "seeded random words",
+      "args": [
+        244980201
+      ],
+      "mask": 1,
+      "expected": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 107,
+      "address": "4a03d39c",
+      "label": "FUN_4a03d39c",
+      "case": "equal-word boundary",
+      "args": [
+        0,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 107,
+      "address": "4a03d39c",
+      "label": "FUN_4a03d39c",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647,
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 107,
+      "address": "4a03d39c",
+      "label": "FUN_4a03d39c",
+      "case": "one-word boundary",
+      "args": [
+        1,
+        7
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 107,
+      "address": "4a03d39c",
+      "label": "FUN_4a03d39c",
+      "case": "seeded random words",
+      "args": [
+        2708987607,
+        252666785
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 108,
+      "address": "4a05a600",
+      "label": "FUN_4a05a600",
+      "case": "equal-word boundary",
+      "args": [
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 108,
+      "address": "4a05a600",
+      "label": "FUN_4a05a600",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 108,
+      "address": "4a05a600",
+      "label": "FUN_4a05a600",
+      "case": "byte/enum domain",
+      "args": [
+        13
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 108,
+      "address": "4a05a600",
+      "label": "FUN_4a05a600",
+      "case": "seeded random words",
+      "args": [
+        3654798815
+      ],
+      "mask": 1,
+      "expected": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 109,
+      "address": "4a08d5b4",
+      "label": "FUN_4a08d5b4",
+      "case": "equal-word boundary",
+      "args": [
+        0,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 109,
+      "address": "4a08d5b4",
+      "label": "FUN_4a08d5b4",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647,
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 109,
+      "address": "4a08d5b4",
+      "label": "FUN_4a08d5b4",
+      "case": "one-word boundary",
+      "args": [
+        1,
+        7
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 109,
+      "address": "4a08d5b4",
+      "label": "FUN_4a08d5b4",
+      "case": "seeded random words",
+      "args": [
+        3797996574,
+        3834537359
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 110,
+      "address": "4a08d5ce",
+      "label": "FUN_4a08d5ce",
+      "case": "equal-word boundary",
+      "args": [
+        0,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 110,
+      "address": "4a08d5ce",
+      "label": "FUN_4a08d5ce",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647,
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 110,
+      "address": "4a08d5ce",
+      "label": "FUN_4a08d5ce",
+      "case": "one-word boundary",
+      "args": [
+        1,
+        7
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 110,
+      "address": "4a08d5ce",
+      "label": "FUN_4a08d5ce",
+      "case": "seeded random words",
+      "args": [
+        2560848358,
+        627482505
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 111,
+      "address": "4a099bc0",
+      "label": "FUN_4a099bc0",
+      "case": "equal-word boundary",
+      "args": [
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        4,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 111,
+      "address": "4a099bc0",
+      "label": "FUN_4a099bc0",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 111,
+      "address": "4a099bc0",
+      "label": "FUN_4a099bc0",
+      "case": "byte/enum domain",
+      "args": [
+        13
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 111,
+      "address": "4a099bc0",
+      "label": "FUN_4a099bc0",
+      "case": "seeded random words",
+      "args": [
+        1848127769
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 112,
+      "address": "4a0d4b74",
+      "label": "FUN_4a0d4b74",
+      "case": "equal-word boundary",
+      "args": [
+        0,
+        0,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 112,
+      "address": "4a0d4b74",
+      "label": "FUN_4a0d4b74",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647,
+        2147483647,
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        2147483647,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 112,
+      "address": "4a0d4b74",
+      "label": "FUN_4a0d4b74",
+      "case": "one-word boundary",
+      "args": [
+        1,
+        7,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        7,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 112,
+      "address": "4a0d4b74",
+      "label": "FUN_4a0d4b74",
+      "case": "seeded random words",
+      "args": [
+        238536408,
+        729483374,
+        78333941
+      ],
+      "mask": 1,
+      "expected": [
+        729483374,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 113,
+      "address": "4a0d4bb8",
+      "label": "FUN_4a0d4bb8",
+      "case": "equal-word boundary",
+      "args": [
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 113,
+      "address": "4a0d4bb8",
+      "label": "FUN_4a0d4bb8",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 113,
+      "address": "4a0d4bb8",
+      "label": "FUN_4a0d4bb8",
+      "case": "byte/enum domain",
+      "args": [
+        13
+      ],
+      "mask": 1,
+      "expected": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 113,
+      "address": "4a0d4bb8",
+      "label": "FUN_4a0d4bb8",
+      "case": "seeded random words",
+      "args": [
+        258428160
+      ],
+      "mask": 1,
+      "expected": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 114,
+      "address": "4a0de09c",
+      "label": "FUN_4a0de09c",
+      "case": "equal-word boundary",
+      "args": [
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        4294967295,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 114,
+      "address": "4a0de09c",
+      "label": "FUN_4a0de09c",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        4294967295,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 114,
+      "address": "4a0de09c",
+      "label": "FUN_4a0de09c",
+      "case": "byte/enum domain",
+      "args": [
+        13
+      ],
+      "mask": 1,
+      "expected": [
+        4294967295,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 114,
+      "address": "4a0de09c",
+      "label": "FUN_4a0de09c",
+      "case": "seeded random words",
+      "args": [
+        1003431020
+      ],
+      "mask": 1,
+      "expected": [
+        4294967295,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 115,
+      "address": "4a0de104",
+      "label": "FUN_4a0de104",
+      "case": "equal-word boundary",
+      "args": [
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        4294967295,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 115,
+      "address": "4a0de104",
+      "label": "FUN_4a0de104",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        4294967295,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 115,
+      "address": "4a0de104",
+      "label": "FUN_4a0de104",
+      "case": "byte/enum domain",
+      "args": [
+        13
+      ],
+      "mask": 1,
+      "expected": [
+        4294967295,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 115,
+      "address": "4a0de104",
+      "label": "FUN_4a0de104",
+      "case": "seeded random words",
+      "args": [
+        2023476426
+      ],
+      "mask": 1,
+      "expected": [
+        4294967295,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 116,
+      "address": "4a0e7234",
+      "label": "FUN_4a0e7234",
+      "case": "equal-word boundary",
+      "args": [
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 116,
+      "address": "4a0e7234",
+      "label": "FUN_4a0e7234",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 116,
+      "address": "4a0e7234",
+      "label": "FUN_4a0e7234",
+      "case": "byte/enum domain",
+      "args": [
+        13
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 116,
+      "address": "4a0e7234",
+      "label": "FUN_4a0e7234",
+      "case": "seeded random words",
+      "args": [
+        1213486260
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 117,
+      "address": "4a105ec0",
+      "label": "FUN_4a105ec0",
+      "case": "equal-word boundary",
+      "args": [
+        0,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 117,
+      "address": "4a105ec0",
+      "label": "FUN_4a105ec0",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647,
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 117,
+      "address": "4a105ec0",
+      "label": "FUN_4a105ec0",
+      "case": "one-word boundary",
+      "args": [
+        1,
+        7
+      ],
+      "mask": 1,
+      "expected": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 117,
+      "address": "4a105ec0",
+      "label": "FUN_4a105ec0",
+      "case": "seeded random words",
+      "args": [
+        228013634,
+        2160033357
+      ],
+      "mask": 1,
+      "expected": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 118,
+      "address": "4a106fe0",
+      "label": "FUN_4a106fe0",
+      "case": "equal-word boundary",
+      "args": [
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        5898240,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 118,
+      "address": "4a106fe0",
+      "label": "FUN_4a106fe0",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 118,
+      "address": "4a106fe0",
+      "label": "FUN_4a106fe0",
+      "case": "byte/enum domain",
+      "args": [
+        13
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 118,
+      "address": "4a106fe0",
+      "label": "FUN_4a106fe0",
+      "case": "seeded random words",
+      "args": [
+        3009645774
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 119,
+      "address": "4a107de8",
+      "label": "FUN_4a107de8",
+      "case": "equal-word boundary",
+      "args": [
+        0,
+        0,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 119,
+      "address": "4a107de8",
+      "label": "FUN_4a107de8",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647,
+        2147483647,
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 119,
+      "address": "4a107de8",
+      "label": "FUN_4a107de8",
+      "case": "one-word boundary",
+      "args": [
+        1,
+        7,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        4294967289,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 119,
+      "address": "4a107de8",
+      "label": "FUN_4a107de8",
+      "case": "seeded random words",
+      "args": [
+        3041902377,
+        402485756,
+        2174160573
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 120,
+      "address": "4a107e20",
+      "label": "FUN_4a107e20",
+      "case": "equal-word boundary",
+      "args": [
+        0,
+        0,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 120,
+      "address": "4a107e20",
+      "label": "FUN_4a107e20",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647,
+        2147483647,
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 120,
+      "address": "4a107e20",
+      "label": "FUN_4a107e20",
+      "case": "one-word boundary",
+      "args": [
+        1,
+        7,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 120,
+      "address": "4a107e20",
+      "label": "FUN_4a107e20",
+      "case": "seeded random words",
+      "args": [
+        3461592899,
+        2949310686,
+        2835048310
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 121,
+      "address": "4a1415a0",
+      "label": "FUN_4a1415a0",
+      "case": "equal-word boundary",
+      "args": [
+        0,
+        0,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        4294967295,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 121,
+      "address": "4a1415a0",
+      "label": "FUN_4a1415a0",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647,
+        2147483647,
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        4294967295,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 121,
+      "address": "4a1415a0",
+      "label": "FUN_4a1415a0",
+      "case": "one-word boundary",
+      "args": [
+        1,
+        7,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 121,
+      "address": "4a1415a0",
+      "label": "FUN_4a1415a0",
+      "case": "seeded random words",
+      "args": [
+        3580238779,
+        3560924883,
+        608587393
+      ],
+      "mask": 1,
+      "expected": [
+        4294967295,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 122,
+      "address": "4a171fac",
+      "label": "FUN_4a171fac",
+      "case": "equal-word boundary",
+      "args": [
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 122,
+      "address": "4a171fac",
+      "label": "FUN_4a171fac",
+      "case": "equal-word boundary",
+      "args": [
+        2147483647
+      ],
+      "mask": 1,
+      "expected": [
+        1325400064,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 122,
+      "address": "4a171fac",
+      "label": "FUN_4a171fac",
+      "case": "byte/enum domain",
+      "args": [
+        13
+      ],
+      "mask": 1,
+      "expected": [
+        1095761920,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 122,
+      "address": "4a171fac",
+      "label": "FUN_4a171fac",
+      "case": "seeded random words",
+      "args": [
+        413925608
+      ],
+      "mask": 1,
+      "expected": [
+        1304780807,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    }
+  ]
+}

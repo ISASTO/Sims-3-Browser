@@ -1,0 +1,13 @@
+{
+  "status": "Recovered ABI annotations and targeted decompiler output. Diagnostic C remains approximate.",
+  "runToken": "4e3cc62e34634550a2274869d48a0008",
+  "contractsSha256": "973c701c4f348333fc83d1d5ccc46b23d71641ef3fff20e12b5b8552a8cfd445",
+  "contractsApplied": 30,
+  "fourRegisterReturns": 2,
+  "callingConvention": "__stdcall",
+  "fourRegisterReturnStorage": "r3:4,r2:4,r1:4,r0:4",
+  "analysisImageUnchanged": true,
+  "affectedCallingFunctions": 220,
+  "callingFunctionsReexported": 128,
+  "functionsReexported": 158
+}

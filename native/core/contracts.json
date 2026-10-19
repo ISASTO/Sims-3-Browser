@@ -1,0 +1,800 @@
+{
+  "status": "Recovered core components; not the complete game.",
+  "wordSize": 32,
+  "endianness": "little",
+  "functions": [
+    {
+      "id": 1,
+      "address": "4a000860",
+      "symbol": "FUN_4a000860",
+      "label": "arm_lsl64",
+      "returnType": "u64",
+      "parameters": [
+        {
+          "type": "u32",
+          "name": "low"
+        },
+        {
+          "type": "u32",
+          "name": "high"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "suite": "shift64",
+      "sourceKind": "reviewed-arithmetic",
+      "recoveryNotes": "Preserve full SUBS/BPL decision and low-byte ARM shift counts; ordinary C shifts by >=32 are invalid."
+    },
+    {
+      "id": 2,
+      "address": "4a000888",
+      "symbol": "FUN_4a000888",
+      "label": "arm_lsr64",
+      "returnType": "u64",
+      "parameters": [
+        {
+          "type": "u32",
+          "name": "low"
+        },
+        {
+          "type": "u32",
+          "name": "high"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "suite": "shift64",
+      "sourceKind": "reviewed-arithmetic",
+      "recoveryNotes": "Preserve full SUBS/BPL decision and low-byte ARM shift counts; ordinary C shifts by >=32 are invalid."
+    },
+    {
+      "id": 3,
+      "address": "4a0008b0",
+      "symbol": "FUN_4a0008b0",
+      "label": "arm_asr64",
+      "returnType": "u64",
+      "parameters": [
+        {
+          "type": "u32",
+          "name": "low"
+        },
+        {
+          "type": "u32",
+          "name": "high"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "suite": "shift64",
+      "sourceKind": "reviewed-arithmetic",
+      "recoveryNotes": "Preserve full SUBS/BPL decision and low-byte ARM shift counts; ordinary C shifts by >=32 are invalid."
+    },
+    {
+      "id": 4,
+      "address": "4a0008dc",
+      "symbol": "FUN_4a0008dc",
+      "label": "multiply64",
+      "returnType": "u64",
+      "parameters": [
+        {
+          "type": "u32",
+          "name": "numeratorLow"
+        },
+        {
+          "type": "u32",
+          "name": "numeratorHigh"
+        },
+        {
+          "type": "u32",
+          "name": "denominatorLow"
+        },
+        {
+          "type": "u32",
+          "name": "denominatorHigh"
+        }
+      ],
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "suite": "multiply64",
+      "sourceKind": "reviewed-arithmetic",
+      "recoveryNotes": "Unsigned multiplication modulo 2^64; two input register pairs."
+    },
+    {
+      "id": 5,
+      "address": "4a0008f8",
+      "symbol": "FUN_4a0008f8",
+      "label": "divide_unsigned64",
+      "returnType": "div64",
+      "parameters": [
+        {
+          "type": "u32",
+          "name": "numeratorLow"
+        },
+        {
+          "type": "u32",
+          "name": "numeratorHigh"
+        },
+        {
+          "type": "u32",
+          "name": "denominatorLow"
+        },
+        {
+          "type": "u32",
+          "name": "denominatorHigh"
+        }
+      ],
+      "resultRegisters": [
+        "r0",
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "suite": "udiv64",
+      "sourceKind": "reviewed-arithmetic",
+      "recoveryNotes": "Quotient in r0:r1, remainder in r2:r3. Denominator must be nonzero; original exception path is not ported."
+    },
+    {
+      "id": 6,
+      "address": "4a00080c",
+      "symbol": "FUN_4a00080c",
+      "label": "divide_signed64",
+      "returnType": "div64",
+      "parameters": [
+        {
+          "type": "u32",
+          "name": "numeratorLow"
+        },
+        {
+          "type": "u32",
+          "name": "numeratorHigh"
+        },
+        {
+          "type": "u32",
+          "name": "denominatorLow"
+        },
+        {
+          "type": "u32",
+          "name": "denominatorHigh"
+        }
+      ],
+      "resultRegisters": [
+        "r0",
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "suite": "sdiv64",
+      "sourceKind": "reviewed-arithmetic",
+      "recoveryNotes": "Signed magnitudes use the recovered unsigned helper. Preserve wrapped MIN/-1 result. Nonzero denominator required."
+    },
+    {
+      "id": 7,
+      "address": "4a0015f0",
+      "symbol": "FUN_4a0015f0",
+      "label": "divide_signed32",
+      "returnType": "u64",
+      "parameters": [
+        {
+          "type": "u32",
+          "name": "dividend"
+        },
+        {
+          "type": "u32",
+          "name": "divisor"
+        }
+      ],
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "suite": "sdiv32",
+      "sourceKind": "reviewed-arithmetic",
+      "recoveryNotes": "Signed quotient r0, remainder r1. Avoid C signed overflow. Nonzero denominator required."
+    },
+    {
+      "id": 8,
+      "address": "4a000f84",
+      "symbol": "FUN_4a000f84",
+      "label": "copy_forward_endpoints",
+      "returnType": "u64",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "destination"
+        },
+        {
+          "type": "p_u32",
+          "name": "source"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "suite": "copy_forward",
+      "sourceKind": "reviewed-memory",
+      "recoveryNotes": "Forward copy requires non-overlap. Move permits overlap, including identical pointers. Return endpoint pairs follow the original direction-dependent path."
+    },
+    {
+      "id": 9,
+      "address": "4a00105c",
+      "symbol": "FUN_4a00105c",
+      "label": "move_endpoints",
+      "returnType": "u64",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "destination"
+        },
+        {
+          "type": "p_u32",
+          "name": "source"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "suite": "move",
+      "sourceKind": "reviewed-memory",
+      "recoveryNotes": "Move permits overlap, including identical pointers. Forward path returns end pointers. Backward path returns each original pointer plus (count&1) for count<=3 or (destination&1) otherwise: its final byte has no writeback."
+    },
+    {
+      "id": 10,
+      "address": "4a000eb8",
+      "symbol": "FUN_4a000eb8",
+      "label": "copy_preserving_destination",
+      "returnType": "p_u32",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "destination"
+        },
+        {
+          "type": "p_u32",
+          "name": "source"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "copy",
+      "sourceKind": "reviewed-memory",
+      "recoveryNotes": "Preserves original destination in r0; delegates to the recovered copy/move helper."
+    },
+    {
+      "id": 11,
+      "address": "4a000ec8",
+      "symbol": "FUN_4a000ec8",
+      "label": "move_preserving_destination",
+      "returnType": "p_u32",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "destination"
+        },
+        {
+          "type": "p_u32",
+          "name": "source"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "move",
+      "sourceKind": "reviewed-memory",
+      "recoveryNotes": "Preserves original destination in r0; delegates to the recovered copy/move helper."
+    },
+    {
+      "id": 12,
+      "address": "4a000f70",
+      "symbol": "FUN_4a000f70",
+      "label": "fill_end",
+      "returnType": "p_u32",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "destination"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "u8",
+          "name": "value"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "fill",
+      "sourceKind": "reviewed-memory",
+      "recoveryNotes": "Argument order is destination, count, fill byte. Returns destination + count, not the original destination."
+    },
+    {
+      "id": 13,
+      "address": "4a00121c",
+      "symbol": "FUN_4a00121c",
+      "label": "zero_aligned_end",
+      "returnType": "p_u32",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "destination"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "zero_aligned",
+      "sourceKind": "reviewed-memory",
+      "recoveryNotes": "Shared fill tail, zero value. Destination must be four-byte aligned."
+    },
+    {
+      "id": 14,
+      "address": "4a001274",
+      "symbol": "FUN_4a001274",
+      "label": "zero_end",
+      "returnType": "p_u32",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "destination"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "zero",
+      "sourceKind": "reviewed-memory",
+      "recoveryNotes": "Shared fill tail, zero value. Accepts byte-aligned destinations."
+    },
+    {
+      "id": 15,
+      "address": "4a000ed8",
+      "symbol": "FUN_4a000ed8",
+      "label": "utf16_copy",
+      "returnType": "p_i16",
+      "parameters": [
+        {
+          "type": "p_i16",
+          "name": "destination"
+        },
+        {
+          "type": "p_i16",
+          "name": "source"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "utf16_copy",
+      "sourceKind": "decompiler",
+      "recoveryNotes": "ARM entry switches to Thumb internally. Copy includes the zero terminator; return original destination."
+    },
+    {
+      "id": 16,
+      "address": "4a000ef4",
+      "symbol": "FUN_4a000ef4",
+      "label": "utf16_compare",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "type": "p_u16",
+          "name": "first"
+        },
+        {
+          "type": "p_u16",
+          "name": "second"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "utf16_compare",
+      "sourceKind": "decompiler",
+      "recoveryNotes": ""
+    },
+    {
+      "id": 17,
+      "address": "4a000f18",
+      "symbol": "FUN_4a000f18",
+      "label": "utf16_find",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "type": "i32",
+          "name": "haystack"
+        },
+        {
+          "type": "i32",
+          "name": "needle"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "utf16_find",
+      "sourceKind": "decompiler",
+      "recoveryNotes": "Pointer values appear as 32-bit integers in the recovered declaration."
+    },
+    {
+      "id": 18,
+      "address": "4a000f50",
+      "symbol": "FUN_4a000f50",
+      "label": "utf16_length",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "type": "p_i16",
+          "name": "text"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "utf16_length",
+      "sourceKind": "decompiler",
+      "recoveryNotes": ""
+    },
+    {
+      "id": 19,
+      "address": "4a0012bc",
+      "symbol": "FUN_4a0012bc",
+      "label": "string_copy",
+      "returnType": "p_u32",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "destination"
+        },
+        {
+          "type": "p_u32",
+          "name": "source"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "string_copy",
+      "sourceKind": "decompiler-return-fix",
+      "recoveryNotes": "Assembly preserves r0. Correct void inference by retaining and returning original destination."
+    },
+    {
+      "id": 20,
+      "address": "4a001314",
+      "symbol": "FUN_4a001314",
+      "label": "string_compare_count",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "first"
+        },
+        {
+          "type": "p_u32",
+          "name": "second"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "string_compare_count",
+      "sourceKind": "decompiler",
+      "recoveryNotes": "Zero-byte detection mask is loaded from the original literal pool."
+    },
+    {
+      "id": 21,
+      "address": "4a001368",
+      "symbol": "FUN_4a001368",
+      "label": "string_copy_pad",
+      "returnType": "p_u32",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "destination"
+        },
+        {
+          "type": "p_u32",
+          "name": "source"
+        },
+        {
+          "type": "i32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "string_copy_pad",
+      "sourceKind": "decompiler",
+      "recoveryNotes": "Calls the recovered zero-fill helper for padding. Negative counts return without copying."
+    },
+    {
+      "id": 22,
+      "address": "4a0013e0",
+      "symbol": "FUN_4a0013e0",
+      "label": "string_length",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "text"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "string_length",
+      "sourceKind": "decompiler",
+      "recoveryNotes": ""
+    },
+    {
+      "id": 23,
+      "address": "4a00142c",
+      "symbol": "FUN_4a00142c",
+      "label": "string_compare",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "first"
+        },
+        {
+          "type": "p_u32",
+          "name": "second"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "string_compare",
+      "sourceKind": "decompiler",
+      "recoveryNotes": "Preserve exact machine return bits, including aligned RRX/carry path, rather than substituting a generic strcmp."
+    },
+    {
+      "id": 24,
+      "address": "4a00150c",
+      "symbol": "FUN_4a00150c",
+      "label": "memory_find",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "buffer"
+        },
+        {
+          "type": "u8",
+          "name": "value"
+        },
+        {
+          "type": "i32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "memory_find",
+      "sourceKind": "decompiler",
+      "recoveryNotes": "Test contract uses nonnegative counts within the mapped buffer."
+    },
+    {
+      "id": 25,
+      "address": "4a001538",
+      "symbol": "FUN_4a001538",
+      "label": "string_append",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "destination"
+        },
+        {
+          "type": "p_u8",
+          "name": "source"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "string_append",
+      "sourceKind": "decompiler-return-fix",
+      "recoveryNotes": "Assembly preserves r0. Retain original destination across the inferred pointer increments."
+    },
+    {
+      "id": 26,
+      "address": "4a001552",
+      "symbol": "FUN_4a001552",
+      "label": "string_find_byte",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "i32",
+          "name": "text"
+        },
+        {
+          "type": "u8",
+          "name": "value"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "string_find_byte",
+      "sourceKind": "decompiler",
+      "recoveryNotes": ""
+    },
+    {
+      "id": 27,
+      "address": "4a00156c",
+      "symbol": "FUN_4a00156c",
+      "label": "string_append_count",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "destination"
+        },
+        {
+          "type": "p_u8",
+          "name": "source"
+        },
+        {
+          "type": "i32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "string_append_count",
+      "sourceKind": "decompiler-return-fix",
+      "recoveryNotes": "Assembly preserves r0. Test contract uses nonnegative counts."
+    },
+    {
+      "id": 28,
+      "address": "4a0015a0",
+      "symbol": "FUN_4a0015a0",
+      "label": "string_find_last_byte",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "text"
+        },
+        {
+          "type": "u8",
+          "name": "value"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "string_find_last_byte",
+      "sourceKind": "decompiler",
+      "recoveryNotes": ""
+    },
+    {
+      "id": 29,
+      "address": "4a0015c0",
+      "symbol": "FUN_4a0015c0",
+      "label": "string_find",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "haystack"
+        },
+        {
+          "type": "p_u8",
+          "name": "needle"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "string_find",
+      "sourceKind": "decompiler",
+      "recoveryNotes": ""
+    },
+    {
+      "id": 30,
+      "address": "4a000e60",
+      "symbol": "FUN_4a000e60",
+      "label": "memory_compare",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "type": "p_byte",
+          "name": "first"
+        },
+        {
+          "type": "p_byte",
+          "name": "second"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "memory_compare",
+      "sourceKind": "decompiler",
+      "recoveryNotes": "Compare exact unsigned-byte difference, including aligned word fast path."
+    }
+  ],
+  "literalPool": {
+    "4a001308": {
+      "value": 16843009,
+      "reason": "Read-only zero-byte detection mask loaded from an ARM/Thumb literal pool."
+    },
+    "4a001360": {
+      "value": 16843009,
+      "reason": "Read-only zero-byte detection mask loaded from an ARM/Thumb literal pool."
+    },
+    "4a0013d4": {
+      "value": 16843009,
+      "reason": "Read-only zero-byte detection mask loaded from an ARM/Thumb literal pool."
+    },
+    "4a001424": {
+      "value": 16843009,
+      "reason": "Read-only zero-byte detection mask loaded from an ARM/Thumb literal pool."
+    },
+    "4a0014e4": {
+      "value": 16843009,
+      "reason": "Read-only zero-byte detection mask loaded from an ARM/Thumb literal pool."
+    }
+  }
+}

@@ -1,0 +1,1533 @@
+{
+  "status": "Native core components only; a complete game has not been rebuilt.",
+  "target": "wasm32-unknown-unknown",
+  "baseline": "WebAssembly MVP; no OS, threads, SIMD, or imported functions.",
+  "memory": {
+    "initialBytes": 1048576,
+    "maximumBytes": 67108864,
+    "shared": false
+  },
+  "originalExecutableSha256": "9b75f5584a9e817e51132b6ddfbb38ffef5e9e0d674c76976e1a124c7ee63d5d",
+  "wasmSha256": "9c600c15053f9a3e4da1076596a2899312bd7148096fe6d1c7d55a2e94516c1b",
+  "compiler": "clang version 23.1.0-wasi-sdk (https://github.com/llvm/llvm-project 895aa2c896ada719451be2e3673c83da8ddf1141)",
+  "compilerOptions": [
+    "--target=wasm32-unknown-unknown",
+    "-mcpu=mvp",
+    "-O2",
+    "-ffreestanding",
+    "-fno-builtin",
+    "-nostdlib",
+    "-fwrapv",
+    "-funsigned-char",
+    "-fno-strict-aliasing",
+    "-fno-vectorize",
+    "-fno-slp-vectorize",
+    "-Werror=implicit-function-declaration",
+    "-Wl,--no-entry",
+    "-Wl,--strip-all",
+    "-Wl,--initial-memory=1048576",
+    "-Wl,--max-memory=67108864",
+    "-Wl,--export-memory",
+    "-Wl,--export=core_invoke",
+    "-Wl,--export=core_result_ptr",
+    "-Wl,--export=core_heap_base"
+  ],
+  "sourceFiles": {
+    "native/core/src/arithmetic.c": "bc5844d373457dbc59c95525c3251eb69684a4f3060718f03aecf778a1549a9e",
+    "native/core/src/memory.c": "bc59b36f3b421db68df12596b8b3db6b3f9c4cfd207cfb1d2f38112ac05fbc10",
+    "native/core/src/recovered.c": "96993be82e09594b2144c752666a216f117e0582259835370d450506774fb462",
+    "native/core/src/dispatch.c": "015f4ee91c6160078280493f6470c7fdcf49f1960d3e8ee961fab206b085f0cb",
+    "native/verified-functions.c": "df899966906364173918799cd72a170f2ca22dab1f93ab2b9f9aeb103bb520d2",
+    "native/core/src/core.h": "87d3a96a32a2ab03ec2a437b6a4e7070fccbb001f63b69c762327b0373cad904"
+  },
+  "contractsSha256": "973c701c4f348333fc83d1d5ccc46b23d71641ef3fff20e12b5b8552a8cfd445",
+  "literalPool": {
+    "4a001308": {
+      "value": 16843009,
+      "reason": "Read-only zero-byte detection mask loaded from an ARM/Thumb literal pool."
+    },
+    "4a001360": {
+      "value": 16843009,
+      "reason": "Read-only zero-byte detection mask loaded from an ARM/Thumb literal pool."
+    },
+    "4a0013d4": {
+      "value": 16843009,
+      "reason": "Read-only zero-byte detection mask loaded from an ARM/Thumb literal pool."
+    },
+    "4a001424": {
+      "value": 16843009,
+      "reason": "Read-only zero-byte detection mask loaded from an ARM/Thumb literal pool."
+    },
+    "4a0014e4": {
+      "value": 16843009,
+      "reason": "Read-only zero-byte detection mask loaded from an ARM/Thumb literal pool."
+    }
+  },
+  "functions": [
+    {
+      "id": 1,
+      "address": "4a000860",
+      "symbol": "FUN_4a000860",
+      "label": "arm_lsl64",
+      "returnType": "u64",
+      "parameters": [
+        {
+          "type": "u32",
+          "name": "low"
+        },
+        {
+          "type": "u32",
+          "name": "high"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "suite": "shift64",
+      "sourceKind": "reviewed-arithmetic",
+      "recoveryNotes": "Preserve full SUBS/BPL decision and low-byte ARM shift counts; ordinary C shifts by >=32 are invalid.",
+      "thumb": false,
+      "recoveredBodySha256": "6507bc10f431f94c26c8c0a56b74151d4d810dd1271f42513503d8e4120a97f9",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/arithmetic.c"
+    },
+    {
+      "id": 2,
+      "address": "4a000888",
+      "symbol": "FUN_4a000888",
+      "label": "arm_lsr64",
+      "returnType": "u64",
+      "parameters": [
+        {
+          "type": "u32",
+          "name": "low"
+        },
+        {
+          "type": "u32",
+          "name": "high"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "suite": "shift64",
+      "sourceKind": "reviewed-arithmetic",
+      "recoveryNotes": "Preserve full SUBS/BPL decision and low-byte ARM shift counts; ordinary C shifts by >=32 are invalid.",
+      "thumb": false,
+      "recoveredBodySha256": "f148b315f67d01f9d9efb85ab0a3169dec4fb0faac78519861f53775fe7b38af",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/arithmetic.c"
+    },
+    {
+      "id": 3,
+      "address": "4a0008b0",
+      "symbol": "FUN_4a0008b0",
+      "label": "arm_asr64",
+      "returnType": "u64",
+      "parameters": [
+        {
+          "type": "u32",
+          "name": "low"
+        },
+        {
+          "type": "u32",
+          "name": "high"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "suite": "shift64",
+      "sourceKind": "reviewed-arithmetic",
+      "recoveryNotes": "Preserve full SUBS/BPL decision and low-byte ARM shift counts; ordinary C shifts by >=32 are invalid.",
+      "thumb": false,
+      "recoveredBodySha256": "17d3bcf69fdcc3037b05f6c56c390911853ebfe1f57aa24a96a0034d8190ef93",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/arithmetic.c"
+    },
+    {
+      "id": 4,
+      "address": "4a0008dc",
+      "symbol": "FUN_4a0008dc",
+      "label": "multiply64",
+      "returnType": "u64",
+      "parameters": [
+        {
+          "type": "u32",
+          "name": "numeratorLow"
+        },
+        {
+          "type": "u32",
+          "name": "numeratorHigh"
+        },
+        {
+          "type": "u32",
+          "name": "denominatorLow"
+        },
+        {
+          "type": "u32",
+          "name": "denominatorHigh"
+        }
+      ],
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "suite": "multiply64",
+      "sourceKind": "reviewed-arithmetic",
+      "recoveryNotes": "Unsigned multiplication modulo 2^64; two input register pairs.",
+      "thumb": false,
+      "recoveredBodySha256": "3bf3836b46671fac815a7cd63868c99d1930496869065bd5c0484bca6593c48f",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/arithmetic.c"
+    },
+    {
+      "id": 5,
+      "address": "4a0008f8",
+      "symbol": "FUN_4a0008f8",
+      "label": "divide_unsigned64",
+      "returnType": "div64",
+      "parameters": [
+        {
+          "type": "u32",
+          "name": "numeratorLow"
+        },
+        {
+          "type": "u32",
+          "name": "numeratorHigh"
+        },
+        {
+          "type": "u32",
+          "name": "denominatorLow"
+        },
+        {
+          "type": "u32",
+          "name": "denominatorHigh"
+        }
+      ],
+      "resultRegisters": [
+        "r0",
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "suite": "udiv64",
+      "sourceKind": "reviewed-arithmetic",
+      "recoveryNotes": "Quotient in r0:r1, remainder in r2:r3. Denominator must be nonzero; original exception path is not ported.",
+      "thumb": false,
+      "recoveredBodySha256": "8f2a7d4b9bc59543ba12572f1f5173e96b38cc9e95bbe8e1bd96ba41fd3926ae",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/arithmetic.c"
+    },
+    {
+      "id": 6,
+      "address": "4a00080c",
+      "symbol": "FUN_4a00080c",
+      "label": "divide_signed64",
+      "returnType": "div64",
+      "parameters": [
+        {
+          "type": "u32",
+          "name": "numeratorLow"
+        },
+        {
+          "type": "u32",
+          "name": "numeratorHigh"
+        },
+        {
+          "type": "u32",
+          "name": "denominatorLow"
+        },
+        {
+          "type": "u32",
+          "name": "denominatorHigh"
+        }
+      ],
+      "resultRegisters": [
+        "r0",
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "suite": "sdiv64",
+      "sourceKind": "reviewed-arithmetic",
+      "recoveryNotes": "Signed magnitudes use the recovered unsigned helper. Preserve wrapped MIN/-1 result. Nonzero denominator required.",
+      "thumb": false,
+      "recoveredBodySha256": "58ee10ed5816f9c7467e653e6db3d3e19d078e28babb4fb6025ae8794f2b9397",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/arithmetic.c"
+    },
+    {
+      "id": 7,
+      "address": "4a0015f0",
+      "symbol": "FUN_4a0015f0",
+      "label": "divide_signed32",
+      "returnType": "u64",
+      "parameters": [
+        {
+          "type": "u32",
+          "name": "dividend"
+        },
+        {
+          "type": "u32",
+          "name": "divisor"
+        }
+      ],
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "suite": "sdiv32",
+      "sourceKind": "reviewed-arithmetic",
+      "recoveryNotes": "Signed quotient r0, remainder r1. Avoid C signed overflow. Nonzero denominator required.",
+      "thumb": false,
+      "recoveredBodySha256": "034e735f07b1fcfc44644f325f4cc3a5df139c02e0fdb1e4e4da395c7d8109a2",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/arithmetic.c"
+    },
+    {
+      "id": 8,
+      "address": "4a000f84",
+      "symbol": "FUN_4a000f84",
+      "label": "copy_forward_endpoints",
+      "returnType": "u64",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "destination"
+        },
+        {
+          "type": "p_u32",
+          "name": "source"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "suite": "copy_forward",
+      "sourceKind": "reviewed-memory",
+      "recoveryNotes": "Forward copy requires non-overlap. Move permits overlap, including identical pointers. Return endpoint pairs follow the original direction-dependent path.",
+      "thumb": false,
+      "recoveredBodySha256": "0f21e9a569bf838180ddc2738106cb77178d5404d61896c0fc83a919049f3291",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/memory.c"
+    },
+    {
+      "id": 9,
+      "address": "4a00105c",
+      "symbol": "FUN_4a00105c",
+      "label": "move_endpoints",
+      "returnType": "u64",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "destination"
+        },
+        {
+          "type": "p_u32",
+          "name": "source"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "suite": "move",
+      "sourceKind": "reviewed-memory",
+      "recoveryNotes": "Move permits overlap, including identical pointers. Forward path returns end pointers. Backward path returns each original pointer plus (count&1) for count<=3 or (destination&1) otherwise: its final byte has no writeback.",
+      "thumb": false,
+      "recoveredBodySha256": "6c5be853b81f7b862192e51eebf2d97b4f201f861f6064edea3a1203f5e57994",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/memory.c"
+    },
+    {
+      "id": 10,
+      "address": "4a000eb8",
+      "symbol": "FUN_4a000eb8",
+      "label": "copy_preserving_destination",
+      "returnType": "p_u32",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "destination"
+        },
+        {
+          "type": "p_u32",
+          "name": "source"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "copy",
+      "sourceKind": "reviewed-memory",
+      "recoveryNotes": "Preserves original destination in r0; delegates to the recovered copy/move helper.",
+      "thumb": false,
+      "recoveredBodySha256": "c4d8626fc7f65df870993800f254fec64a0c66f77d2c2cc96b8aad02a740d37e",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/memory.c"
+    },
+    {
+      "id": 11,
+      "address": "4a000ec8",
+      "symbol": "FUN_4a000ec8",
+      "label": "move_preserving_destination",
+      "returnType": "p_u32",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "destination"
+        },
+        {
+          "type": "p_u32",
+          "name": "source"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "move",
+      "sourceKind": "reviewed-memory",
+      "recoveryNotes": "Preserves original destination in r0; delegates to the recovered copy/move helper.",
+      "thumb": false,
+      "recoveredBodySha256": "d85f54b1c012eb7a0444760869c4042ac81ffa86bd76dd9bea7e3c03f40a6eb1",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/memory.c"
+    },
+    {
+      "id": 12,
+      "address": "4a000f70",
+      "symbol": "FUN_4a000f70",
+      "label": "fill_end",
+      "returnType": "p_u32",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "destination"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "u8",
+          "name": "value"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "fill",
+      "sourceKind": "reviewed-memory",
+      "recoveryNotes": "Argument order is destination, count, fill byte. Returns destination + count, not the original destination.",
+      "thumb": false,
+      "recoveredBodySha256": "cf37fde5129e003aa932ec354dfccc80724f6c6bc9c639ea83732aaf73439e83",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/memory.c"
+    },
+    {
+      "id": 13,
+      "address": "4a00121c",
+      "symbol": "FUN_4a00121c",
+      "label": "zero_aligned_end",
+      "returnType": "p_u32",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "destination"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "zero_aligned",
+      "sourceKind": "reviewed-memory",
+      "recoveryNotes": "Shared fill tail, zero value. Destination must be four-byte aligned.",
+      "thumb": false,
+      "recoveredBodySha256": "4ba49e9f3e9092df9697b959b7677fe267521be844252ff60d7ddc7567dbde45",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/memory.c"
+    },
+    {
+      "id": 14,
+      "address": "4a001274",
+      "symbol": "FUN_4a001274",
+      "label": "zero_end",
+      "returnType": "p_u32",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "destination"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "zero",
+      "sourceKind": "reviewed-memory",
+      "recoveryNotes": "Shared fill tail, zero value. Accepts byte-aligned destinations.",
+      "thumb": false,
+      "recoveredBodySha256": "072b89913bf0fa8dbf80c5b6633bcaac25695a203aa281e499eae38f39aa41d9",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/memory.c"
+    },
+    {
+      "id": 15,
+      "address": "4a000ed8",
+      "symbol": "FUN_4a000ed8",
+      "label": "utf16_copy",
+      "returnType": "p_i16",
+      "parameters": [
+        {
+          "type": "p_i16",
+          "name": "destination"
+        },
+        {
+          "type": "p_i16",
+          "name": "source"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "utf16_copy",
+      "sourceKind": "decompiler",
+      "recoveryNotes": "ARM entry switches to Thumb internally. Copy includes the zero terminator; return original destination.",
+      "thumb": false,
+      "recoveredBodySha256": "c8bfa893de9f0f75dc6e6df80846ab10081c1dae2c43b1e2ac2a70e1d1704bd3",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/recovered.c",
+      "compiledBodySha256": "c8bfa893de9f0f75dc6e6df80846ab10081c1dae2c43b1e2ac2a70e1d1704bd3"
+    },
+    {
+      "id": 16,
+      "address": "4a000ef4",
+      "symbol": "FUN_4a000ef4",
+      "label": "utf16_compare",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "type": "p_u16",
+          "name": "first"
+        },
+        {
+          "type": "p_u16",
+          "name": "second"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "utf16_compare",
+      "sourceKind": "decompiler",
+      "recoveryNotes": "",
+      "thumb": false,
+      "recoveredBodySha256": "579311945410c617d1442b5185cc7aa3ff668ff71fce0aa4802e1f2e81671770",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/recovered.c",
+      "compiledBodySha256": "579311945410c617d1442b5185cc7aa3ff668ff71fce0aa4802e1f2e81671770"
+    },
+    {
+      "id": 17,
+      "address": "4a000f18",
+      "symbol": "FUN_4a000f18",
+      "label": "utf16_find",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "type": "i32",
+          "name": "haystack"
+        },
+        {
+          "type": "i32",
+          "name": "needle"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "utf16_find",
+      "sourceKind": "decompiler",
+      "recoveryNotes": "Pointer values appear as 32-bit integers in the recovered declaration.",
+      "thumb": false,
+      "recoveredBodySha256": "9f44f0c67b2ae79053b5463d6daf565d980451460154e92906bd56c7268994e5",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/recovered.c",
+      "compiledBodySha256": "9f44f0c67b2ae79053b5463d6daf565d980451460154e92906bd56c7268994e5"
+    },
+    {
+      "id": 18,
+      "address": "4a000f50",
+      "symbol": "FUN_4a000f50",
+      "label": "utf16_length",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "type": "p_i16",
+          "name": "text"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "utf16_length",
+      "sourceKind": "decompiler",
+      "recoveryNotes": "",
+      "thumb": false,
+      "recoveredBodySha256": "c1ea83cda772e612066f80c289f2cd8339ae38a9d2b72f04842ae2f6d1049e84",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/recovered.c",
+      "compiledBodySha256": "c1ea83cda772e612066f80c289f2cd8339ae38a9d2b72f04842ae2f6d1049e84"
+    },
+    {
+      "id": 19,
+      "address": "4a0012bc",
+      "symbol": "FUN_4a0012bc",
+      "label": "string_copy",
+      "returnType": "p_u32",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "destination"
+        },
+        {
+          "type": "p_u32",
+          "name": "source"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "string_copy",
+      "sourceKind": "decompiler-return-fix",
+      "recoveryNotes": "Assembly preserves r0. Correct void inference by retaining and returning original destination.",
+      "thumb": true,
+      "recoveredBodySha256": "bca0e89bbab1dae19aef5c1970e6fde46ca91d5af8593ceedcee8597d1975576",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/recovered.c",
+      "compiledBodySha256": "ea63028304e37c7d705ea4d8dfa33cb3c623df2bd0cc364b64195fd5fa7fdcd0"
+    },
+    {
+      "id": 20,
+      "address": "4a001314",
+      "symbol": "FUN_4a001314",
+      "label": "string_compare_count",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "first"
+        },
+        {
+          "type": "p_u32",
+          "name": "second"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "string_compare_count",
+      "sourceKind": "decompiler",
+      "recoveryNotes": "Zero-byte detection mask is loaded from the original literal pool.",
+      "thumb": true,
+      "recoveredBodySha256": "44bdc0ae7291430f706627a77124368104e31764422b86a6f07706bc1cd51028",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/recovered.c",
+      "compiledBodySha256": "44bdc0ae7291430f706627a77124368104e31764422b86a6f07706bc1cd51028"
+    },
+    {
+      "id": 21,
+      "address": "4a001368",
+      "symbol": "FUN_4a001368",
+      "label": "string_copy_pad",
+      "returnType": "p_u32",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "destination"
+        },
+        {
+          "type": "p_u32",
+          "name": "source"
+        },
+        {
+          "type": "i32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "string_copy_pad",
+      "sourceKind": "decompiler",
+      "recoveryNotes": "Calls the recovered zero-fill helper for padding. Negative counts return without copying.",
+      "thumb": false,
+      "recoveredBodySha256": "a688a32acd52c36e26d448dd7c0f96c814cbdf5a88acd3104471a262dc1dd1f5",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/recovered.c",
+      "compiledBodySha256": "a688a32acd52c36e26d448dd7c0f96c814cbdf5a88acd3104471a262dc1dd1f5"
+    },
+    {
+      "id": 22,
+      "address": "4a0013e0",
+      "symbol": "FUN_4a0013e0",
+      "label": "string_length",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "text"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "string_length",
+      "sourceKind": "decompiler",
+      "recoveryNotes": "",
+      "thumb": true,
+      "recoveredBodySha256": "359111de8819379b8aafa2d17c195c8db26b46a0b6a7a07efa2d389a35815a4a",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/recovered.c",
+      "compiledBodySha256": "359111de8819379b8aafa2d17c195c8db26b46a0b6a7a07efa2d389a35815a4a"
+    },
+    {
+      "id": 23,
+      "address": "4a00142c",
+      "symbol": "FUN_4a00142c",
+      "label": "string_compare",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "type": "p_u32",
+          "name": "first"
+        },
+        {
+          "type": "p_u32",
+          "name": "second"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "string_compare",
+      "sourceKind": "decompiler",
+      "recoveryNotes": "Preserve exact machine return bits, including aligned RRX/carry path, rather than substituting a generic strcmp.",
+      "thumb": false,
+      "recoveredBodySha256": "6fc131a2bc4aa765d5ba962b3d92d5c70987eff17c0e714d51a3d89dd42c9089",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/recovered.c",
+      "compiledBodySha256": "6fc131a2bc4aa765d5ba962b3d92d5c70987eff17c0e714d51a3d89dd42c9089"
+    },
+    {
+      "id": 24,
+      "address": "4a00150c",
+      "symbol": "FUN_4a00150c",
+      "label": "memory_find",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "buffer"
+        },
+        {
+          "type": "u8",
+          "name": "value"
+        },
+        {
+          "type": "i32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "memory_find",
+      "sourceKind": "decompiler",
+      "recoveryNotes": "Test contract uses nonnegative counts within the mapped buffer.",
+      "thumb": true,
+      "recoveredBodySha256": "3b90941fe2ae6f925bf89aad2f3c2229692a212d93d3c0676c127b592c34169b",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/recovered.c",
+      "compiledBodySha256": "3b90941fe2ae6f925bf89aad2f3c2229692a212d93d3c0676c127b592c34169b"
+    },
+    {
+      "id": 25,
+      "address": "4a001538",
+      "symbol": "FUN_4a001538",
+      "label": "string_append",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "destination"
+        },
+        {
+          "type": "p_u8",
+          "name": "source"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "string_append",
+      "sourceKind": "decompiler-return-fix",
+      "recoveryNotes": "Assembly preserves r0. Retain original destination across the inferred pointer increments.",
+      "thumb": true,
+      "recoveredBodySha256": "dd6986b38287dfe3ea79524ad1004b7e8c68ce1ff78a049ffa99ac358798b810",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/recovered.c",
+      "compiledBodySha256": "266a573441f2d829d3b3b6c60f4b27230b9687e0239df3fb6daa3dd6ffe385f7"
+    },
+    {
+      "id": 26,
+      "address": "4a001552",
+      "symbol": "FUN_4a001552",
+      "label": "string_find_byte",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "i32",
+          "name": "text"
+        },
+        {
+          "type": "u8",
+          "name": "value"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "string_find_byte",
+      "sourceKind": "decompiler",
+      "recoveryNotes": "",
+      "thumb": true,
+      "recoveredBodySha256": "7b84d956f54e9eb936542857d54512268bcb30b05d2b7b32551959494998b39c",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/recovered.c",
+      "compiledBodySha256": "7b84d956f54e9eb936542857d54512268bcb30b05d2b7b32551959494998b39c"
+    },
+    {
+      "id": 27,
+      "address": "4a00156c",
+      "symbol": "FUN_4a00156c",
+      "label": "string_append_count",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "destination"
+        },
+        {
+          "type": "p_u8",
+          "name": "source"
+        },
+        {
+          "type": "i32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "string_append_count",
+      "sourceKind": "decompiler-return-fix",
+      "recoveryNotes": "Assembly preserves r0. Test contract uses nonnegative counts.",
+      "thumb": true,
+      "recoveredBodySha256": "ec9f6aab034be028171a2326d3eb5b8e9fda29d1e7f574a14ca490e6e1f83428",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/recovered.c",
+      "compiledBodySha256": "dd82704eba9a01169d2b08966ff840229522baede22350aecda7a03f2ca236ba"
+    },
+    {
+      "id": 28,
+      "address": "4a0015a0",
+      "symbol": "FUN_4a0015a0",
+      "label": "string_find_last_byte",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "text"
+        },
+        {
+          "type": "u8",
+          "name": "value"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "string_find_last_byte",
+      "sourceKind": "decompiler",
+      "recoveryNotes": "",
+      "thumb": true,
+      "recoveredBodySha256": "8e93a29022e0bc0e055fb961d4ff0b24360b0ebb7fc84dbd49a045a75db7cd21",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/recovered.c",
+      "compiledBodySha256": "8e93a29022e0bc0e055fb961d4ff0b24360b0ebb7fc84dbd49a045a75db7cd21"
+    },
+    {
+      "id": 29,
+      "address": "4a0015c0",
+      "symbol": "FUN_4a0015c0",
+      "label": "string_find",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "haystack"
+        },
+        {
+          "type": "p_u8",
+          "name": "needle"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "string_find",
+      "sourceKind": "decompiler",
+      "recoveryNotes": "",
+      "thumb": true,
+      "recoveredBodySha256": "7eb2bddc71bf8d1c1ce2860c079589490cb34a2dcbfc49f68d847277f358edbb",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/recovered.c",
+      "compiledBodySha256": "7eb2bddc71bf8d1c1ce2860c079589490cb34a2dcbfc49f68d847277f358edbb"
+    },
+    {
+      "id": 30,
+      "address": "4a000e60",
+      "symbol": "FUN_4a000e60",
+      "label": "memory_compare",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "type": "p_byte",
+          "name": "first"
+        },
+        {
+          "type": "p_byte",
+          "name": "second"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "memory_compare",
+      "sourceKind": "decompiler",
+      "recoveryNotes": "Compare exact unsigned-byte difference, including aligned word fast path.",
+      "thumb": true,
+      "recoveredBodySha256": "8fda7b5c3a50e0c5d927b9bd3fd0b5cb507366212ad7de57b1c71463b1414470",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "implementationFile": "native/core/src/recovered.c",
+      "compiledBodySha256": "8fda7b5c3a50e0c5d927b9bd3fd0b5cb507366212ad7de57b1c71463b1414470"
+    },
+    {
+      "id": 101,
+      "address": "4a005250",
+      "symbol": "FUN_4a005250",
+      "label": "FUN_4a005250",
+      "thumb": true,
+      "signature": "uint FUN_4a005250(uint param_1,uint param_2)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "u32"
+        },
+        {
+          "name": "argument1",
+          "type": "u32"
+        }
+      ],
+      "returnType": "u32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "recoveredBodySha256": "2fe7ca6b31dfbb649e990d3f21d1c01b645ad0786f1e9e25ed54bedfdd5eed38"
+    },
+    {
+      "id": 102,
+      "address": "4a005c34",
+      "symbol": "FUN_4a005c34",
+      "label": "FUN_4a005c34",
+      "thumb": false,
+      "signature": "undefined4 FUN_4a005c34(undefined4 param_1)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "u32"
+        }
+      ],
+      "returnType": "u32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-000.c",
+      "recoveredBodySha256": "a85b3b169c6d3aa9d7fbb44abca593e0075140f53970ebd20809e43aac75eff4"
+    },
+    {
+      "id": 103,
+      "address": "4a02afd8",
+      "symbol": "FUN_4a02afd8",
+      "label": "FUN_4a02afd8",
+      "thumb": true,
+      "signature": "int FUN_4a02afd8(uint param_1)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "u32"
+        }
+      ],
+      "returnType": "i32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-002.c",
+      "recoveredBodySha256": "531a8b34e869be43953db94e3c780ba1e0c0f62ba3b5adc333b179c69259b745"
+    },
+    {
+      "id": 104,
+      "address": "4a030118",
+      "symbol": "FUN_4a030118",
+      "label": "FUN_4a030118",
+      "thumb": true,
+      "signature": "int FUN_4a030118(uint param_1)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "u32"
+        }
+      ],
+      "returnType": "i32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-003.c",
+      "recoveredBodySha256": "fa3b678ff7e06e127cefae1b3fb89c2bb8b713c7b181e84ad217cb6bd6a8cadf"
+    },
+    {
+      "id": 105,
+      "address": "4a033804",
+      "symbol": "FUN_4a033804",
+      "label": "FUN_4a033804",
+      "thumb": true,
+      "signature": "int FUN_4a033804(int param_1)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "i32"
+        }
+      ],
+      "returnType": "i32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-003.c",
+      "recoveredBodySha256": "513d4516615774123f3279ec50131c07109551224531eb8ce6f9197ed27423d5"
+    },
+    {
+      "id": 106,
+      "address": "4a038ee4",
+      "symbol": "FUN_4a038ee4",
+      "label": "FUN_4a038ee4",
+      "thumb": false,
+      "signature": "uint FUN_4a038ee4(uint param_1)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "u32"
+        }
+      ],
+      "returnType": "u32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-003.c",
+      "recoveredBodySha256": "eed3ceaac844cb88a453b7537a5e9803bb6294aac7193a3b7873a398e09d261d"
+    },
+    {
+      "id": 107,
+      "address": "4a03d39c",
+      "symbol": "FUN_4a03d39c",
+      "label": "FUN_4a03d39c",
+      "thumb": true,
+      "signature": "undefined4 FUN_4a03d39c(int param_1,int param_2)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "i32"
+        },
+        {
+          "name": "argument1",
+          "type": "i32"
+        }
+      ],
+      "returnType": "u32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-004.c",
+      "recoveredBodySha256": "f25f7c46bcb362f4a64e097400ed227aea7350d9bccae38af9226aaaa3a24425"
+    },
+    {
+      "id": 108,
+      "address": "4a05a600",
+      "symbol": "FUN_4a05a600",
+      "label": "FUN_4a05a600",
+      "thumb": true,
+      "signature": "undefined4 FUN_4a05a600(uint param_1)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "u32"
+        }
+      ],
+      "returnType": "u32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-006.c",
+      "recoveredBodySha256": "b51c989d68b7fc103273682ba00ea6eea5f6bdeb4f319ceafdf5d3ff8780d818"
+    },
+    {
+      "id": 109,
+      "address": "4a08d5b4",
+      "symbol": "FUN_4a08d5b4",
+      "label": "FUN_4a08d5b4",
+      "thumb": true,
+      "signature": "undefined4 FUN_4a08d5b4(undefined4 param_1,int param_2)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "u32"
+        },
+        {
+          "name": "argument1",
+          "type": "i32"
+        }
+      ],
+      "returnType": "u32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-010.c",
+      "recoveredBodySha256": "a1c9616cfb76ab0ae6e0341423461e79698d34296be5a63aaef0a6dc61d70f25"
+    },
+    {
+      "id": 110,
+      "address": "4a08d5ce",
+      "symbol": "FUN_4a08d5ce",
+      "label": "FUN_4a08d5ce",
+      "thumb": true,
+      "signature": "undefined4 FUN_4a08d5ce(undefined4 param_1,int param_2)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "u32"
+        },
+        {
+          "name": "argument1",
+          "type": "i32"
+        }
+      ],
+      "returnType": "u32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-010.c",
+      "recoveredBodySha256": "bc2db015641f86dc2c531d72845080c81a9f0e8478c65f013b05aa39f413b254"
+    },
+    {
+      "id": 111,
+      "address": "4a099bc0",
+      "symbol": "FUN_4a099bc0",
+      "label": "FUN_4a099bc0",
+      "thumb": false,
+      "signature": "undefined4 FUN_4a099bc0(undefined4 param_1)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "u32"
+        }
+      ],
+      "returnType": "u32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-011.c",
+      "recoveredBodySha256": "98ff931356ef2baf14a57cf665cc5876e9fde7be9e9a920352df8689ba289d3c"
+    },
+    {
+      "id": 112,
+      "address": "4a0d4b74",
+      "symbol": "FUN_4a0d4b74",
+      "label": "FUN_4a0d4b74",
+      "thumb": false,
+      "signature": "int FUN_4a0d4b74(int param_1,int param_2,int param_3)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "i32"
+        },
+        {
+          "name": "argument1",
+          "type": "i32"
+        },
+        {
+          "name": "argument2",
+          "type": "i32"
+        }
+      ],
+      "returnType": "i32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-014.c",
+      "recoveredBodySha256": "254dcb1d4e336383b5f921d0765a721c0423ae2d644ace4a2777e5c9d0f96b66"
+    },
+    {
+      "id": 113,
+      "address": "4a0d4bb8",
+      "symbol": "FUN_4a0d4bb8",
+      "label": "FUN_4a0d4bb8",
+      "thumb": false,
+      "signature": "int FUN_4a0d4bb8(int param_1)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "i32"
+        }
+      ],
+      "returnType": "i32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-014.c",
+      "recoveredBodySha256": "d7dbdd6dcc5026c663e3b8c8a1e90876c59b56954db6ddaece4c10fc7429eeac"
+    },
+    {
+      "id": 114,
+      "address": "4a0de09c",
+      "symbol": "FUN_4a0de09c",
+      "label": "FUN_4a0de09c",
+      "thumb": false,
+      "signature": "undefined4 FUN_4a0de09c(undefined4 param_1)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "u32"
+        }
+      ],
+      "returnType": "u32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-015.c",
+      "recoveredBodySha256": "49175916a3c52bc40622ec14648740f80766c47adf678c0ca181889200e39ead"
+    },
+    {
+      "id": 115,
+      "address": "4a0de104",
+      "symbol": "FUN_4a0de104",
+      "label": "FUN_4a0de104",
+      "thumb": false,
+      "signature": "undefined4 FUN_4a0de104(int param_1)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "i32"
+        }
+      ],
+      "returnType": "u32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-015.c",
+      "recoveredBodySha256": "e1e089ef8631e8ed26826cacf98bea1e7f6fb8ded15ba8d259f7a1aaeadde38d"
+    },
+    {
+      "id": 116,
+      "address": "4a0e7234",
+      "symbol": "FUN_4a0e7234",
+      "label": "FUN_4a0e7234",
+      "thumb": true,
+      "signature": "undefined4 FUN_4a0e7234(int param_1)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "i32"
+        }
+      ],
+      "returnType": "u32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-016.c",
+      "recoveredBodySha256": "c8bfb91ae7a465cc90808bb913aec40be65ef7a1c2483c16200296389e6cbab1"
+    },
+    {
+      "id": 117,
+      "address": "4a105ec0",
+      "symbol": "FUN_4a105ec0",
+      "label": "FUN_4a105ec0",
+      "thumb": false,
+      "signature": "int FUN_4a105ec0(uint param_1,int param_2)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "u32"
+        },
+        {
+          "name": "argument1",
+          "type": "i32"
+        }
+      ],
+      "returnType": "i32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-018.c",
+      "recoveredBodySha256": "2a630f47d079cfbc59a6b9a638a713d010ad3d5a140bf121aab73d3c2c171096"
+    },
+    {
+      "id": 118,
+      "address": "4a106fe0",
+      "symbol": "FUN_4a106fe0",
+      "label": "FUN_4a106fe0",
+      "thumb": false,
+      "signature": "undefined4 FUN_4a106fe0(undefined4 param_1)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "u32"
+        }
+      ],
+      "returnType": "u32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-018.c",
+      "recoveredBodySha256": "c003ee522e2c6e4d6d8ce9b63d68749f60e283555c248bd7ef62515800029ef3"
+    },
+    {
+      "id": 119,
+      "address": "4a107de8",
+      "symbol": "FUN_4a107de8",
+      "label": "FUN_4a107de8",
+      "thumb": false,
+      "signature": "int FUN_4a107de8(int param_1,int param_2,int param_3)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "i32"
+        },
+        {
+          "name": "argument1",
+          "type": "i32"
+        },
+        {
+          "name": "argument2",
+          "type": "i32"
+        }
+      ],
+      "returnType": "i32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-018.c",
+      "recoveredBodySha256": "d985ca9401a8345182af0fe74b4ee49a579f0d6ec3034b75c1baece3a0dcf419"
+    },
+    {
+      "id": 120,
+      "address": "4a107e20",
+      "symbol": "FUN_4a107e20",
+      "label": "FUN_4a107e20",
+      "thumb": false,
+      "signature": "int FUN_4a107e20(int param_1,int param_2,int param_3)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "i32"
+        },
+        {
+          "name": "argument1",
+          "type": "i32"
+        },
+        {
+          "name": "argument2",
+          "type": "i32"
+        }
+      ],
+      "returnType": "i32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-018.c",
+      "recoveredBodySha256": "823e8e2d095810045bf4c5c30e37ad844f63f44faf29ad1dbee333398f9c69eb"
+    },
+    {
+      "id": 121,
+      "address": "4a1415a0",
+      "symbol": "FUN_4a1415a0",
+      "label": "FUN_4a1415a0",
+      "thumb": false,
+      "signature": "undefined4 FUN_4a1415a0(undefined4 param_1,int param_2,undefined4 param_3)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "u32"
+        },
+        {
+          "name": "argument1",
+          "type": "i32"
+        },
+        {
+          "name": "argument2",
+          "type": "u32"
+        }
+      ],
+      "returnType": "u32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-023.c",
+      "recoveredBodySha256": "c7650053b487666a1eb7ed6559a3431d055e4ef7e8843a968da05ad43b32e07d"
+    },
+    {
+      "id": 122,
+      "address": "4a171fac",
+      "symbol": "FUN_4a171fac",
+      "label": "FUN_4a171fac",
+      "thumb": false,
+      "signature": "uint FUN_4a171fac(uint param_1)",
+      "parameters": [
+        {
+          "name": "argument0",
+          "type": "u32"
+        }
+      ],
+      "returnType": "u32",
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "scalar",
+      "sourceKind": "pinned-scalar",
+      "implementationFile": "native/verified-functions.c",
+      "sourceFile": "recovered/native/decompiled/part-027.c",
+      "recoveredBodySha256": "41d6ef7021542824be6bb02ef8ddbff504678de1f19588ec5e4973a73c6b312b"
+    }
+  ]
+}

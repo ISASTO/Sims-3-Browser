@@ -1,0 +1,89 @@
+{
+  "baseline": "WebAssembly MVP",
+  "imports": 0,
+  "functionTypes": 9,
+  "compiledFunctions": 55,
+  "instructionCount": 3663,
+  "opcodes": {
+    "0x00": 3,
+    "0x02": 172,
+    "0x03": 47,
+    "0x0b": 274,
+    "0x0c": 76,
+    "0x0d": 163,
+    "0x0e": 5,
+    "0x0f": 30,
+    "0x10": 53,
+    "0x1a": 1,
+    "0x1b": 63,
+    "0x20": 912,
+    "0x21": 232,
+    "0x22": 154,
+    "0x23": 1,
+    "0x24": 2,
+    "0x28": 16,
+    "0x29": 4,
+    "0x2d": 59,
+    "0x2f": 10,
+    "0x36": 45,
+    "0x37": 21,
+    "0x3a": 49,
+    "0x3b": 1,
+    "0x41": 574,
+    "0x42": 23,
+    "0x45": 43,
+    "0x46": 25,
+    "0x47": 24,
+    "0x48": 13,
+    "0x49": 31,
+    "0x4a": 9,
+    "0x4b": 14,
+    "0x4d": 5,
+    "0x4f": 2,
+    "0x51": 1,
+    "0x52": 1,
+    "0x6a": 232,
+    "0x6b": 35,
+    "0x6c": 1,
+    "0x6e": 1,
+    "0x71": 77,
+    "0x72": 28,
+    "0x73": 11,
+    "0x74": 26,
+    "0x75": 7,
+    "0x76": 25,
+    "0x7d": 6,
+    "0x7e": 3,
+    "0x80": 2,
+    "0x84": 12,
+    "0x86": 13,
+    "0xad": 26
+  },
+  "memories": [
+    {
+      "initialPages": 16,
+      "maximumPages": 1024,
+      "shared": false
+    }
+  ],
+  "exports": [
+    {
+      "name": "memory",
+      "kind": 2
+    },
+    {
+      "name": "core_result_ptr",
+      "kind": 0
+    },
+    {
+      "name": "core_heap_base",
+      "kind": 0
+    },
+    {
+      "name": "core_invoke",
+      "kind": 0
+    }
+  ],
+  "wasmSha256": "9c600c15053f9a3e4da1076596a2899312bd7148096fe6d1c7d55a2e94516c1b",
+  "note": "Feature audit of the binary encoding. Engine validation and ARM differential results are recorded separately."
+}

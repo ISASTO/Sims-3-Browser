@@ -1,0 +1,548 @@
+{
+  "status": "Native core components only; whole-game behavior and exhaustive equivalence remain unverified.",
+  "originalExecutableSha256": "9b75f5584a9e817e51132b6ddfbb38ffef5e9e0d674c76976e1a124c7ee63d5d",
+  "wasmSha256": "9c600c15053f9a3e4da1076596a2899312bd7148096fe6d1c7d55a2e94516c1b",
+  "reference": "Unmodified ARM executable executed with Unicorn.js 1.0.3; randomized incoming flags and non-argument registers.",
+  "checked": "All declared result registers, original callee-saved registers/stack, and every byte of each allocated test arena, including canaries.",
+  "corpus": "ARM shift counts 0..512 and signed boundaries; 64-bit quotient/remainder, overflow boundaries and random inputs; alignment, overlap, zero lengths, copy/zero-padding, UTF-16 and exhaustive single-byte compare pairs.",
+  "exceptionLimit": "Division by zero follows an unported original exception path and is excluded from equivalence tests. The native component traps; the JS wrapper rejects it.",
+  "passedFunctions": 52,
+  "failedFunctions": 0,
+  "comparisons": 358097,
+  "memoryBytesCompared": 1527185408,
+  "results": [
+    {
+      "address": "4a000860",
+      "label": "arm_lsl64",
+      "passed": true,
+      "cases": 7222,
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a000888",
+      "label": "arm_lsr64",
+      "passed": true,
+      "cases": 7222,
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a0008b0",
+      "label": "arm_asr64",
+      "passed": true,
+      "cases": 7222,
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a0008dc",
+      "label": "multiply64",
+      "passed": true,
+      "cases": 4240,
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a0008f8",
+      "label": "divide_unsigned64",
+      "passed": true,
+      "cases": 4228,
+      "resultRegisters": [
+        "r0",
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a00080c",
+      "label": "divide_signed64",
+      "passed": true,
+      "cases": 4228,
+      "resultRegisters": [
+        "r0",
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a0015f0",
+      "label": "divide_signed32",
+      "passed": true,
+      "cases": 4516,
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a000f84",
+      "label": "copy_forward_endpoints",
+      "passed": true,
+      "cases": 496,
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "memoryBytesCompared": 32505856
+    },
+    {
+      "address": "4a00105c",
+      "label": "move_endpoints",
+      "passed": true,
+      "cases": 1876,
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "memoryBytesCompared": 122945536
+    },
+    {
+      "address": "4a000eb8",
+      "label": "copy_preserving_destination",
+      "passed": true,
+      "cases": 496,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 32505856
+    },
+    {
+      "address": "4a000ec8",
+      "label": "move_preserving_destination",
+      "passed": true,
+      "cases": 1876,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 122945536
+    },
+    {
+      "address": "4a000f70",
+      "label": "fill_end",
+      "passed": true,
+      "cases": 1116,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 73138176
+    },
+    {
+      "address": "4a00121c",
+      "label": "zero_aligned_end",
+      "passed": true,
+      "cases": 31,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 2031616
+    },
+    {
+      "address": "4a001274",
+      "label": "zero_end",
+      "passed": true,
+      "cases": 124,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 8126464
+    },
+    {
+      "address": "4a000ed8",
+      "label": "utf16_copy",
+      "passed": true,
+      "cases": 308,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 20185088
+    },
+    {
+      "address": "4a000ef4",
+      "label": "utf16_compare",
+      "passed": true,
+      "cases": 464,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 30408704
+    },
+    {
+      "address": "4a000f18",
+      "label": "utf16_find",
+      "passed": true,
+      "cases": 464,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 30408704
+    },
+    {
+      "address": "4a000f50",
+      "label": "utf16_length",
+      "passed": true,
+      "cases": 308,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 20185088
+    },
+    {
+      "address": "4a0012bc",
+      "label": "string_copy",
+      "passed": true,
+      "cases": 360,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 23592960
+    },
+    {
+      "address": "4a001314",
+      "label": "string_compare_count",
+      "passed": true,
+      "cases": 2336,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 153092096
+    },
+    {
+      "address": "4a001368",
+      "label": "string_copy_pad",
+      "passed": true,
+      "cases": 1088,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 71303168
+    },
+    {
+      "address": "4a0013e0",
+      "label": "string_length",
+      "passed": true,
+      "cases": 360,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 23592960
+    },
+    {
+      "address": "4a00142c",
+      "label": "string_compare",
+      "passed": true,
+      "cases": 131744,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 77594624
+    },
+    {
+      "address": "4a00150c",
+      "label": "memory_find",
+      "passed": true,
+      "cases": 3584,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 234881024
+    },
+    {
+      "address": "4a001538",
+      "label": "string_append",
+      "passed": true,
+      "cases": 360,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 23592960
+    },
+    {
+      "address": "4a001552",
+      "label": "string_find_byte",
+      "passed": true,
+      "cases": 1088,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 71303168
+    },
+    {
+      "address": "4a00156c",
+      "label": "string_append_count",
+      "passed": true,
+      "cases": 776,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 50855936
+    },
+    {
+      "address": "4a0015a0",
+      "label": "string_find_last_byte",
+      "passed": true,
+      "cases": 1088,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 71303168
+    },
+    {
+      "address": "4a0015c0",
+      "label": "string_find",
+      "passed": true,
+      "cases": 672,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 44040192
+    },
+    {
+      "address": "4a000e60",
+      "label": "memory_compare",
+      "passed": true,
+      "cases": 133408,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 186646528
+    },
+    {
+      "address": "4a005250",
+      "label": "FUN_4a005250",
+      "passed": true,
+      "cases": 1868,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a005c34",
+      "label": "FUN_4a005c34",
+      "passed": true,
+      "cases": 1364,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a02afd8",
+      "label": "FUN_4a02afd8",
+      "passed": true,
+      "cases": 1364,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a030118",
+      "label": "FUN_4a030118",
+      "passed": true,
+      "cases": 1364,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a033804",
+      "label": "FUN_4a033804",
+      "passed": true,
+      "cases": 1364,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a038ee4",
+      "label": "FUN_4a038ee4",
+      "passed": true,
+      "cases": 1364,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a03d39c",
+      "label": "FUN_4a03d39c",
+      "passed": true,
+      "cases": 1868,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a05a600",
+      "label": "FUN_4a05a600",
+      "passed": true,
+      "cases": 1364,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a08d5b4",
+      "label": "FUN_4a08d5b4",
+      "passed": true,
+      "cases": 1868,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a08d5ce",
+      "label": "FUN_4a08d5ce",
+      "passed": true,
+      "cases": 1868,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a099bc0",
+      "label": "FUN_4a099bc0",
+      "passed": true,
+      "cases": 1364,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a0d4b74",
+      "label": "FUN_4a0d4b74",
+      "passed": true,
+      "cases": 1931,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a0d4bb8",
+      "label": "FUN_4a0d4bb8",
+      "passed": true,
+      "cases": 1364,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a0de09c",
+      "label": "FUN_4a0de09c",
+      "passed": true,
+      "cases": 1364,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a0de104",
+      "label": "FUN_4a0de104",
+      "passed": true,
+      "cases": 1364,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a0e7234",
+      "label": "FUN_4a0e7234",
+      "passed": true,
+      "cases": 1364,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a105ec0",
+      "label": "FUN_4a105ec0",
+      "passed": true,
+      "cases": 1868,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a106fe0",
+      "label": "FUN_4a106fe0",
+      "passed": true,
+      "cases": 1364,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a107de8",
+      "label": "FUN_4a107de8",
+      "passed": true,
+      "cases": 1931,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a107e20",
+      "label": "FUN_4a107e20",
+      "passed": true,
+      "cases": 1931,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a1415a0",
+      "label": "FUN_4a1415a0",
+      "passed": true,
+      "cases": 1931,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a171fac",
+      "label": "FUN_4a171fac",
+      "passed": true,
+      "cases": 1364,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    }
+  ]
+}

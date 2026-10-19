@@ -36,7 +36,9 @@ counts represent a percentage of completed gameplay.
 | `recovered/native/analysis-input.json` | Input hashes, modeled imports, relocation locations, heuristic seeds |
 | `recovered/native/host-prototypes.json` | 187 Khronos signatures and 83 clearly marked unverified reference declarations |
 | `recovered/native/recovery-audit.json` | Counts, concrete review markers, and current build status |
-| `native/` | The limited compiled scalar subset and its differential test report |
+| `recovered/native/core-analysis/` | Recovered ABI storage, 30 annotated functions, and 128 re-exported callers |
+| `native/core/` | Connected native components, browser loader, ARM-derived fixtures, and validation reports |
+| `native/verified-functions.*` | The original 22-function scalar subset, retained as an independent baseline |
 
 `prepare_native.py` changes only the 273 external branch placeholders in a
 separate analysis image. The original `recovered/game.s3e` and `web/game.s3e`
@@ -48,6 +50,60 @@ replacement, not the original Marmalade SDK. They are retained as reference
 and deliberately excluded from automatic ABI annotation.
 
 ## Actually compiled code
+
+`native/core/sims3-core.wasm` now contains **52 recovered functions**: 30
+arithmetic, copy/move/fill, byte-string and UTF-16 routines, plus the original
+22 scalar functions. The functions call one another natively. For example,
+signed 64-bit division uses unsigned division, the copy/move wrappers call
+their underlying helpers, and bounded string copy uses zero-fill for padding.
+The build does not execute ARM instructions or import a CPU emulator.
+
+The target is `wasm32-unknown-unknown`, using the **WebAssembly MVP** instruction
+set. WASI SDK supplies the compiler; this output has no WASI or other host
+imports. The binary feature audit checks the actual instructions and sections.
+It uses ordinary unshared memory and needs no threads, SIMD, multi-value
+results, or custom response headers. Its JavaScript boundary uses 32-bit words,
+including quotient/remainder pairs, so it does not require JavaScript BigInt
+integration. The loader fetches an ArrayBuffer, avoiding reliance on the
+server's Wasm streaming MIME configuration.
+
+358,097 ARM/Wasm comparisons passed for these functions. Checks include every
+declared result register and all bytes of each test arena, including canaries.
+The corpus covers alignment, overlapping moves, identical pointers, short
+tails, zero padding, UTF-16 code units, all single-byte comparison pairs, ARM
+register-shift counts, signed overflow boundaries, and random arguments.
+The compared memory total includes repeated test buffers; it is not a measure
+of game coverage. The original machine code remains the development oracle.
+
+Three ABI corrections were particularly important:
+
+- 64-bit division returns its quotient in `r0:r1` and remainder in `r2:r3`.
+  Ghidra now models a 16-byte result in the corresponding register join.
+- Copy-preserving wrappers and several string functions return the original
+  destination even when the first decompilation inferred `void`.
+- The backwards move helper's final byte has no pointer writeback. Its return
+  pointers can retain a one-byte residual; the recovered C preserves this
+  behavior. The browser fixtures include the identical-pointer regression.
+
+The Ghidra annotation pass corrected 30 contracts and identified 220 calling
+functions, including references through thunks. It re-exported 128 callers
+plus the 30 core functions. These 158 diagnostic exports overlap the original
+function inventory; they are not additional discovered functions. Ghidra's
+diagnostic C remains approximate, while the compiled core uses the reviewed
+implementations and explicit return corrections recorded in `contracts.json`.
+
+The [browser component check](https://isasto.github.io/Sims-3-Browser/native/core/check.html)
+replays 215 fixtures recorded from original ARM execution across all 52
+functions. It compares exact result words and memory hashes. This page has no
+dependency on the emulator or WebGL and does not run the complete game.
+
+The original division-by-zero exception path has **not** been ported. Core
+equivalence tests require nonzero divisors; the JS wrapper rejects zero and
+the underlying native helper traps. Forward-copy and aligned-zero helpers
+also retain their documented input-domain requirements. These contracts must
+be respected before integrating more game code.
+
+### Original scalar baseline
 
 `native/verified-functions.c` contains 22 recovered scalar leaf functions.
 The function bodies are copied directly from the pinned decompiler output;
@@ -65,7 +121,8 @@ This selection excludes memory accesses, globals, host calls, indirect calls,
 implicit registers, and decompiler warnings. It is a small and unusually simple
 part of the executable. Passing this finite corpus does not establish complete
 equivalence or validate a native game, graphics, audio, simulation, or saves.
-The full generated C files are not a buildable game project.
+The full generated C files are not a buildable game project. The connected core
+above extends this baseline without establishing whole-game compatibility.
 
 ## Reproduce
 
@@ -75,6 +132,25 @@ recorded in `tools/native-toolchain.json`. These large tools are not bundled.
 No additional Python packages are required for the native recovery scripts.
 
 From the repository root, with the tools already downloaded and extracted:
+
+```sh
+python tools/recover_native_core.py --ghidra /path/to/ghidra_12.1.4_PUBLIC --jdk /path/to/jdk-25
+python tools/build_native_core.py --clang /path/to/wasi-sdk/bin/clang
+python tools/check_wasm_mvp.py
+node tools/verify-native-core.cjs
+node tools/verify-core-loader.mjs
+```
+
+The recovery command imports the preserved Ghidra archive, checks that the
+analysis bytes match, applies the core ABI contracts, and exports the affected
+code. It checks a per-run completion token because headless Ghidra can exit
+successfully after a script error. Use `--name` for a new project or `--resume`
+for an existing one. No new whole-image analysis is required for this pass.
+The native build uses the pinned original decompiler bodies where suitable,
+plus reviewed arithmetic and memory recovery. Source hashes and correction
+notes distinguish these cases in the manifest.
+
+The original full recovery/scalar baseline commands remain available:
 
 ```sh
 python tools/decompile_native.py --ghidra /path/to/ghidra_12.1.4_PUBLIC --jdk /path/to/jdk-25
@@ -97,6 +173,8 @@ only Node.js is needed:
 ```sh
 node tools/verify-native.cjs
 node tools/verify-native-subset.cjs
+node tools/verify-native-core.cjs
+node tools/verify-core-loader.mjs
 ```
 
 ## Work required before a native game build

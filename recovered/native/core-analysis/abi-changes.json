@@ -1,0 +1,319 @@
+[
+  {
+    "address": "4a000860",
+    "previousPrototype": "undefined FUN_4a000860(void)",
+    "prototype": "ulonglong s3c_arm_lsl64(uint low, uint high, uint count)",
+    "returnStorage": "r1:4,r0:4",
+    "parameterStorage": [
+      "low: r0:4",
+      "high: r1:4",
+      "count: r2:4"
+    ]
+  },
+  {
+    "address": "4a000888",
+    "previousPrototype": "undefined FUN_4a000888(void)",
+    "prototype": "ulonglong s3c_arm_lsr64(uint low, uint high, uint count)",
+    "returnStorage": "r1:4,r0:4",
+    "parameterStorage": [
+      "low: r0:4",
+      "high: r1:4",
+      "count: r2:4"
+    ]
+  },
+  {
+    "address": "4a0008b0",
+    "previousPrototype": "undefined FUN_4a0008b0(void)",
+    "prototype": "ulonglong s3c_arm_asr64(uint low, uint high, uint count)",
+    "returnStorage": "r1:4,r0:4",
+    "parameterStorage": [
+      "low: r0:4",
+      "high: r1:4",
+      "count: r2:4"
+    ]
+  },
+  {
+    "address": "4a0008dc",
+    "previousPrototype": "undefined FUN_4a0008dc(void)",
+    "prototype": "ulonglong s3c_multiply64(uint numeratorLow, uint numeratorHigh, uint denominatorLow, uint denominatorHigh)",
+    "returnStorage": "r1:4,r0:4",
+    "parameterStorage": [
+      "numeratorLow: r0:4",
+      "numeratorHigh: r1:4",
+      "denominatorLow: r2:4",
+      "denominatorHigh: r3:4"
+    ]
+  },
+  {
+    "address": "4a0008f8",
+    "previousPrototype": "undefined FUN_4a0008f8(void)",
+    "prototype": "CoreDiv64 s3c_divide_unsigned64(uint numeratorLow, uint numeratorHigh, uint denominatorLow, uint denominatorHigh)",
+    "returnStorage": "r3:4,r2:4,r1:4,r0:4",
+    "parameterStorage": [
+      "numeratorLow: r0:4",
+      "numeratorHigh: r1:4",
+      "denominatorLow: r2:4",
+      "denominatorHigh: r3:4"
+    ]
+  },
+  {
+    "address": "4a00080c",
+    "previousPrototype": "undefined FUN_4a00080c(void)",
+    "prototype": "CoreDiv64 s3c_divide_signed64(uint numeratorLow, uint numeratorHigh, uint denominatorLow, uint denominatorHigh)",
+    "returnStorage": "r3:4,r2:4,r1:4,r0:4",
+    "parameterStorage": [
+      "numeratorLow: r0:4",
+      "numeratorHigh: r1:4",
+      "denominatorLow: r2:4",
+      "denominatorHigh: r3:4"
+    ]
+  },
+  {
+    "address": "4a0015f0",
+    "previousPrototype": "undefined FUN_4a0015f0(void)",
+    "prototype": "ulonglong s3c_divide_signed32(uint dividend, uint divisor)",
+    "returnStorage": "r1:4,r0:4",
+    "parameterStorage": [
+      "dividend: r0:4",
+      "divisor: r1:4"
+    ]
+  },
+  {
+    "address": "4a000f84",
+    "previousPrototype": "undefined FUN_4a000f84(void)",
+    "prototype": "ulonglong s3c_copy_forward_endpoints(uint * destination, uint * source, uint count)",
+    "returnStorage": "r1:4,r0:4",
+    "parameterStorage": [
+      "destination: r0:4",
+      "source: r1:4",
+      "count: r2:4"
+    ]
+  },
+  {
+    "address": "4a00105c",
+    "previousPrototype": "undefined FUN_4a00105c(void)",
+    "prototype": "ulonglong s3c_move_endpoints(uint * destination, uint * source, uint count)",
+    "returnStorage": "r1:4,r0:4",
+    "parameterStorage": [
+      "destination: r0:4",
+      "source: r1:4",
+      "count: r2:4"
+    ]
+  },
+  {
+    "address": "4a000eb8",
+    "previousPrototype": "undefined FUN_4a000eb8(void)",
+    "prototype": "uint * s3c_copy_preserving_destination(uint * destination, uint * source, uint count)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "destination: r0:4",
+      "source: r1:4",
+      "count: r2:4"
+    ]
+  },
+  {
+    "address": "4a000ec8",
+    "previousPrototype": "undefined FUN_4a000ec8(void)",
+    "prototype": "uint * s3c_move_preserving_destination(uint * destination, uint * source, uint count)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "destination: r0:4",
+      "source: r1:4",
+      "count: r2:4"
+    ]
+  },
+  {
+    "address": "4a000f70",
+    "previousPrototype": "undefined FUN_4a000f70(void)",
+    "prototype": "uint * s3c_fill_end(uint * destination, uint count, uchar value)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "destination: r0:4",
+      "count: r1:4",
+      "value: r2:1"
+    ]
+  },
+  {
+    "address": "4a00121c",
+    "previousPrototype": "undefined FUN_4a00121c(void)",
+    "prototype": "uint * s3c_zero_aligned_end(uint * destination, uint count)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "destination: r0:4",
+      "count: r1:4"
+    ]
+  },
+  {
+    "address": "4a001274",
+    "previousPrototype": "undefined FUN_4a001274(void)",
+    "prototype": "uint * s3c_zero_end(uint * destination, uint count)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "destination: r0:4",
+      "count: r1:4"
+    ]
+  },
+  {
+    "address": "4a000ed8",
+    "previousPrototype": "undefined FUN_4a000ed8(void)",
+    "prototype": "short * s3c_utf16_copy(short * destination, short * source)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "destination: r0:4",
+      "source: r1:4"
+    ]
+  },
+  {
+    "address": "4a000ef4",
+    "previousPrototype": "undefined FUN_4a000ef4(void)",
+    "prototype": "int s3c_utf16_compare(ushort * first, ushort * second)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "first: r0:4",
+      "second: r1:4"
+    ]
+  },
+  {
+    "address": "4a000f18",
+    "previousPrototype": "undefined FUN_4a000f18(void)",
+    "prototype": "int s3c_utf16_find(int haystack, int needle)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "haystack: r0:4",
+      "needle: r1:4"
+    ]
+  },
+  {
+    "address": "4a000f50",
+    "previousPrototype": "undefined FUN_4a000f50(void)",
+    "prototype": "int s3c_utf16_length(short * text)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "text: r0:4"
+    ]
+  },
+  {
+    "address": "4a0012bc",
+    "previousPrototype": "undefined FUN_4a0012bc(void)",
+    "prototype": "uint * s3c_string_copy(uint * destination, uint * source)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "destination: r0:4",
+      "source: r1:4"
+    ]
+  },
+  {
+    "address": "4a001314",
+    "previousPrototype": "undefined FUN_4a001314(void)",
+    "prototype": "int s3c_string_compare_count(uint * first, uint * second, uint count)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "first: r0:4",
+      "second: r1:4",
+      "count: r2:4"
+    ]
+  },
+  {
+    "address": "4a001368",
+    "previousPrototype": "undefined FUN_4a001368(void)",
+    "prototype": "uint * s3c_string_copy_pad(uint * destination, uint * source, int count)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "destination: r0:4",
+      "source: r1:4",
+      "count: r2:4"
+    ]
+  },
+  {
+    "address": "4a0013e0",
+    "previousPrototype": "undefined FUN_4a0013e0(void)",
+    "prototype": "int s3c_string_length(uint * text)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "text: r0:4"
+    ]
+  },
+  {
+    "address": "4a00142c",
+    "previousPrototype": "undefined FUN_4a00142c(void)",
+    "prototype": "uint s3c_string_compare(uint * first, uint * second)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "first: r0:4",
+      "second: r1:4"
+    ]
+  },
+  {
+    "address": "4a00150c",
+    "previousPrototype": "undefined FUN_4a00150c(void)",
+    "prototype": "uchar * s3c_memory_find(uchar * buffer, uchar value, int count)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "buffer: r0:4",
+      "value: r1:1",
+      "count: r2:4"
+    ]
+  },
+  {
+    "address": "4a001538",
+    "previousPrototype": "undefined FUN_4a001538(void)",
+    "prototype": "uchar * s3c_string_append(uchar * destination, uchar * source)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "destination: r0:4",
+      "source: r1:4"
+    ]
+  },
+  {
+    "address": "4a001552",
+    "previousPrototype": "undefined FUN_4a001552(void)",
+    "prototype": "uchar * s3c_string_find_byte(int text, uchar value)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "text: r0:4",
+      "value: r1:1"
+    ]
+  },
+  {
+    "address": "4a00156c",
+    "previousPrototype": "undefined FUN_4a00156c(void)",
+    "prototype": "uchar * s3c_string_append_count(uchar * destination, uchar * source, int count)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "destination: r0:4",
+      "source: r1:4",
+      "count: r2:4"
+    ]
+  },
+  {
+    "address": "4a0015a0",
+    "previousPrototype": "undefined FUN_4a0015a0(void)",
+    "prototype": "uchar * s3c_string_find_last_byte(uchar * text, uchar value)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "text: r0:4",
+      "value: r1:1"
+    ]
+  },
+  {
+    "address": "4a0015c0",
+    "previousPrototype": "undefined FUN_4a0015c0(void)",
+    "prototype": "uchar * s3c_string_find(uchar * haystack, uchar * needle)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "haystack: r0:4",
+      "needle: r1:4"
+    ]
+  },
+  {
+    "address": "4a000e60",
+    "previousPrototype": "undefined FUN_4a000e60(void)",
+    "prototype": "int s3c_memory_compare(uchar * first, uchar * second, uint count)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "first: r0:4",
+      "second: r1:4",
+      "count: r2:4"
+    ]
+  }
+]

@@ -8,12 +8,19 @@ Sims-like simulation. The Android launcher is decompiled separately. The native
 game's original C++ source has not been reconstructed.
 
 Native ARM decompilation is now available under `recovered/native/`, together
-with a portable Ghidra database and reproducible scripts. An initial set of 22
-scalar functions compiles directly to WebAssembly and matches the original ARM
-results on a finite test corpus. This is a small recovery checkpoint; the whole
-game does not compile natively yet. See [NATIVE_PORT.md](NATIVE_PORT.md) for the
-measured results, commands, and remaining work. The GitHub Pages build still
-uses the emulator prototype and retains its performance/rendering problems.
+with a portable Ghidra database and reproducible scripts. The connected native
+core now compiles **52 recovered functions** to WebAssembly MVP: arithmetic,
+memory operations, strings, and the original scalar subset. It passed 358,097
+comparisons with the ARM executable, including result registers and memory.
+ABI annotations were recovered for 30 functions and 128 of their callers were
+re-exported. The whole game does not compile natively yet. See
+[NATIVE_PORT.md](NATIVE_PORT.md) for the measured results and remaining work.
+The main GitHub Pages game still uses the emulator prototype and retains its
+performance/rendering problems.
+
+The separate [native component check](https://isasto.github.io/Sims-3-Browser/native/core/check.html)
+runs the rebuilt code directly in your browser and checks ARM-derived fixtures.
+It is a component validation page, not a playable game.
 
 The original executable boots and reaches the language/menu loop. Its splash
 screen, menu panels, and font atlases can be rendered through the graphics
