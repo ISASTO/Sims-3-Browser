@@ -21,6 +21,7 @@ export async function loadNativeCore(options = {}) {
   const instance = await WebAssembly.instantiate(module);
   const native = instance.exports;
   const frame = native.core_result_ptr() >>> 0;
+  const pathRootAddress = native.core_path_root() >>> 0;
   const entries = new Map();
   for (const entry of manifest.functions) {
     entries.set(entry.address, entry);
@@ -39,6 +40,13 @@ export async function loadNativeCore(options = {}) {
       if (!Number.isInteger(value) || value < -0x80000000 || value > 0xffffffff) throw new RangeError('Native arguments must fit a 32-bit word');
       return value >>> 0;
     });
+    if (entry.suite === 'path_ctype' && !((words[0] <= 255) || words[0] === 0xffffffff)) {
+      throw new RangeError('Default C locale entries require a byte value or EOF (-1)');
+    }
+    if ((entry.suite === 'path_bounded_append' && !words[2]) ||
+        (entry.suite === 'path_join' && (words[2] === 0 || words[2] > 0x7fffffff))) {
+      throw new RangeError('This bounded pathname entry requires a positive capacity');
+    }
     if (entry.suite === 'sdiv32' && words[1] === 0 ||
         (entry.suite === 'udiv64' || entry.suite === 'sdiv64') && words[2] === 0 && words[3] === 0) {
       throw new RangeError('The original division-by-zero exception path has not been ported');
@@ -68,6 +76,15 @@ export async function loadNativeCore(options = {}) {
     cursor = end;
     return address;
   }
-  return {manifest, memory:native.memory, invoke, allocate,
+  function setPathRoot(value) {
+    const bytes = typeof value === 'string' ? new TextEncoder().encode(value) : value;
+    if (!(bytes instanceof Uint8Array) || bytes.length >= manifest.pathState.rootCapacity || bytes.includes(0)) {
+      throw new RangeError('The path prefix must contain fewer than 128 nonzero bytes');
+    }
+    const destination = new Uint8Array(native.memory.buffer,pathRootAddress,manifest.pathState.rootCapacity);
+    const copy=bytes.slice(); // Caller may supply a view of the same root buffer.
+    destination.fill(0);destination.set(copy);
+  }
+  return {manifest, memory:native.memory, invoke, allocate, pathRootAddress, setPathRoot,
     resetArena() { cursor=heapStart; }, heapStart};
 }

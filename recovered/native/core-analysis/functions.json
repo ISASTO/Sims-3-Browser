@@ -240,16 +240,112 @@
     "warningComments": 0
   },
   {
-    "address": "4a170028",
-    "name": "FUN_4a170028",
-    "core": false,
+    "address": "4a000c5c",
+    "name": "s3c_ctype_alnum",
+    "core": true,
+    "completed": true,
+    "message": "",
+    "warningComments": 0
+  },
+  {
+    "address": "4a000c72",
+    "name": "s3c_ctype_space",
+    "core": true,
+    "completed": true,
+    "message": "",
+    "warningComments": 0
+  },
+  {
+    "address": "4a000c88",
+    "name": "s3c_ctype_lower",
+    "core": true,
+    "completed": true,
+    "message": "",
+    "warningComments": 0
+  },
+  {
+    "address": "4a000ca8",
+    "name": "s3c_ctype_upper",
+    "core": true,
+    "completed": true,
+    "message": "",
+    "warningComments": 0
+  },
+  {
+    "address": "4a16303e",
+    "name": "s3c_bounded_string_copy",
+    "core": true,
+    "completed": true,
+    "message": "",
+    "warningComments": 0
+  },
+  {
+    "address": "4a163010",
+    "name": "s3c_bounded_string_append",
+    "core": true,
+    "completed": true,
+    "message": "",
+    "warningComments": 0
+  },
+  {
+    "address": "4a00b998",
+    "name": "s3c_path_parent",
+    "core": true,
+    "completed": true,
+    "message": "",
+    "warningComments": 0
+  },
+  {
+    "address": "4a00b9ea",
+    "name": "s3c_path_extension",
+    "core": true,
+    "completed": true,
+    "message": "",
+    "warningComments": 0
+  },
+  {
+    "address": "4a00ba22",
+    "name": "s3c_path_filename",
+    "core": true,
     "completed": true,
     "message": "",
     "warningComments": 0
   },
   {
     "address": "4a00ba7c",
-    "name": "FUN_4a00ba7c",
+    "name": "s3c_path_has_scheme",
+    "core": true,
+    "completed": true,
+    "message": "",
+    "warningComments": 0
+  },
+  {
+    "address": "4a00ba94",
+    "name": "s3c_path_join",
+    "core": true,
+    "completed": true,
+    "message": "",
+    "warningComments": 0
+  },
+  {
+    "address": "4a00bb00",
+    "name": "s3c_path_normalize",
+    "core": true,
+    "completed": true,
+    "message": "",
+    "warningComments": 0
+  },
+  {
+    "address": "4a00d6a8",
+    "name": "s3c_path_resolve",
+    "core": true,
+    "completed": true,
+    "message": "",
+    "warningComments": 0
+  },
+  {
+    "address": "4a170028",
+    "name": "FUN_4a170028",
     "core": false,
     "completed": true,
     "message": "",
@@ -296,22 +392,6 @@
     "warningComments": 0
   },
   {
-    "address": "4a163010",
-    "name": "FUN_4a163010",
-    "core": false,
-    "completed": true,
-    "message": "",
-    "warningComments": 0
-  },
-  {
-    "address": "4a00b9ea",
-    "name": "FUN_4a00b9ea",
-    "core": false,
-    "completed": true,
-    "message": "",
-    "warningComments": 0
-  },
-  {
     "address": "4a097d0c",
     "name": "FUN_4a097d0c",
     "core": false,
@@ -322,14 +402,6 @@
   {
     "address": "4a149218",
     "name": "FUN_4a149218",
-    "core": false,
-    "completed": true,
-    "message": "",
-    "warningComments": 0
-  },
-  {
-    "address": "4a16303e",
-    "name": "FUN_4a16303e",
     "core": false,
     "completed": true,
     "message": "",
@@ -408,14 +480,6 @@
     "warningComments": 0
   },
   {
-    "address": "4a00b998",
-    "name": "FUN_4a00b998",
-    "core": false,
-    "completed": true,
-    "message": "",
-    "warningComments": 0
-  },
-  {
     "address": "4a040850",
     "name": "FUN_4a040850",
     "core": false,
@@ -426,6 +490,14 @@
   {
     "address": "4a14f15c",
     "name": "FUN_4a14f15c",
+    "core": false,
+    "completed": true,
+    "message": "",
+    "warningComments": 0
+  },
+  {
+    "address": "4a163078",
+    "name": "FUN_4a163078",
     "core": false,
     "completed": true,
     "message": "",
@@ -456,24 +528,16 @@
     "warningComments": 0
   },
   {
-    "address": "4a00ba22",
-    "name": "FUN_4a00ba22",
-    "core": false,
-    "completed": true,
-    "message": "",
-    "warningComments": 0
-  },
-  {
-    "address": "4a00d6a8",
-    "name": "FUN_4a00d6a8",
-    "core": false,
-    "completed": true,
-    "message": "",
-    "warningComments": 0
-  },
-  {
     "address": "4a056fe0",
     "name": "FUN_4a056fe0",
+    "core": false,
+    "completed": true,
+    "message": "",
+    "warningComments": 0
+  },
+  {
+    "address": "4a00d9a0",
+    "name": "FUN_4a00d9a0",
     "core": false,
     "completed": true,
     "message": "",
@@ -522,14 +586,6 @@
   {
     "address": "4a1438c0",
     "name": "FUN_4a1438c0",
-    "core": false,
-    "completed": true,
-    "message": "",
-    "warningComments": 0
-  },
-  {
-    "address": "4a00ba94",
-    "name": "FUN_4a00ba94",
     "core": false,
     "completed": true,
     "message": "",
@@ -664,6 +720,14 @@
     "warningComments": 0
   },
   {
+    "address": "4a162f7c",
+    "name": "FUN_4a162f7c",
+    "core": false,
+    "completed": true,
+    "message": "",
+    "warningComments": 0
+  },
+  {
     "address": "4a16defa",
     "name": "FUN_4a16defa",
     "core": false,
@@ -746,6 +810,14 @@
   {
     "address": "4a11f758",
     "name": "FUN_4a11f758",
+    "core": false,
+    "completed": true,
+    "message": "",
+    "warningComments": 0
+  },
+  {
+    "address": "4a154074",
+    "name": "FUN_4a154074",
     "core": false,
     "completed": true,
     "message": "",
@@ -938,6 +1010,14 @@
   {
     "address": "4a11b1d8",
     "name": "FUN_4a11b1d8",
+    "core": false,
+    "completed": true,
+    "message": "",
+    "warningComments": 0
+  },
+  {
+    "address": "4a070370",
+    "name": "FUN_4a070370",
     "core": false,
     "completed": true,
     "message": "",
@@ -1248,16 +1328,40 @@
     "warningComments": 0
   },
   {
-    "address": "4a00bb00",
-    "name": "FUN_4a00bb00",
+    "address": "4a0ecd40",
+    "name": "FUN_4a0ecd40",
     "core": false,
     "completed": true,
     "message": "",
     "warningComments": 0
   },
   {
-    "address": "4a0ecd40",
-    "name": "FUN_4a0ecd40",
+    "address": "4a1664f0",
+    "name": "FUN_4a1664f0",
+    "core": false,
+    "completed": true,
+    "message": "",
+    "warningComments": 0
+  },
+  {
+    "address": "4a005e50",
+    "name": "FUN_4a005e50",
+    "core": false,
+    "completed": true,
+    "message": "",
+    "warningComments": 0
+  },
+  {
+    "address": "4a03b0f4",
+    "name": "FUN_4a03b0f4",
+    "core": false,
+    "completed": true,
+    "message": "",
+    "warningComments": 1
+  },
+  {
+    "address": "4a166148",
+    "name": "FUN_4a166148",
     "core": false,
     "completed": true,
     "message": "",

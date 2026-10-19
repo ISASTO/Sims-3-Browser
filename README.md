@@ -9,10 +9,13 @@ game's original C++ source has not been reconstructed.
 
 Native ARM decompilation is now available under `recovered/native/`, together
 with a portable Ghidra database and reproducible scripts. The connected native
-core now compiles **52 recovered functions** to WebAssembly MVP: arithmetic,
-memory operations, strings, and the original scalar subset. It passed 358,097
+core now compiles **65 recovered functions** to WebAssembly MVP: arithmetic,
+memory operations, strings, connected path/resource-name handling, default-locale
+character operations, and the original scalar subset. It passed 380,258
 comparisons with the ARM executable, including result registers and memory.
-ABI annotations were recovered for 30 functions and 128 of their callers were
+The path subsystem includes a relocated directory prefix and checks using all
+736 resource-manifest paths. ABI annotations were recovered for 43 functions
+and 128 of their callers were
 re-exported. The whole game does not compile natively yet. See
 [NATIVE_PORT.md](NATIVE_PORT.md) for the measured results and remaining work.
 The main GitHub Pages game still uses the emulator prototype and retains its
@@ -44,7 +47,8 @@ same unfinished gameplay and rendering limitations described above.
 Requires a current desktop Chrome or Firefox browser with WebGL and
 OffscreenCanvas, and Python 3 to serve the files. Prototype gameplay has not been
 validated in this environment; its rendering checks used a surfaceless OpenGL
-ES context. The separate native component check has passed in Chrome.
+ES context. The separate native component page's exact build/browser validation
+is recorded in `native/core/browser-verification.json`.
 
 Clone this repository or download and extract the entire project first.
 On Windows, run `Start-Windows.bat`.

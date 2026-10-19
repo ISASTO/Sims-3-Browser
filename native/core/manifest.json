@@ -8,7 +8,7 @@
     "shared": false
   },
   "originalExecutableSha256": "9b75f5584a9e817e51132b6ddfbb38ffef5e9e0d674c76976e1a124c7ee63d5d",
-  "wasmSha256": "9c600c15053f9a3e4da1076596a2899312bd7148096fe6d1c7d55a2e94516c1b",
+  "wasmSha256": "96a67db80b92d6defaef5713bf3d0ecbbacdcec5d87a339148332dbfd4824048",
   "compiler": "clang version 23.1.0-wasi-sdk (https://github.com/llvm/llvm-project 895aa2c896ada719451be2e3673c83da8ddf1141)",
   "compilerOptions": [
     "--target=wasm32-unknown-unknown",
@@ -30,17 +30,20 @@
     "-Wl,--export-memory",
     "-Wl,--export=core_invoke",
     "-Wl,--export=core_result_ptr",
-    "-Wl,--export=core_heap_base"
+    "-Wl,--export=core_heap_base",
+    "-Wl,--export=core_path_root"
   ],
   "sourceFiles": {
     "native/core/src/arithmetic.c": "bc5844d373457dbc59c95525c3251eb69684a4f3060718f03aecf778a1549a9e",
     "native/core/src/memory.c": "bc59b36f3b421db68df12596b8b3db6b3f9c4cfd207cfb1d2f38112ac05fbc10",
     "native/core/src/recovered.c": "96993be82e09594b2144c752666a216f117e0582259835370d450506774fb462",
-    "native/core/src/dispatch.c": "015f4ee91c6160078280493f6470c7fdcf49f1960d3e8ee961fab206b085f0cb",
+    "native/core/src/path.c": "19a4ed7aeeb5d279db3287f73eea627f5a46a2403c1a73ac7e8a0fae6de75d0f",
+    "native/core/src/dispatch.c": "811550ffc6f78dd000c2669f1760226f25d7d637077a6ba84750b12f8680860b",
     "native/verified-functions.c": "df899966906364173918799cd72a170f2ca22dab1f93ab2b9f9aeb103bb520d2",
-    "native/core/src/core.h": "87d3a96a32a2ab03ec2a437b6a4e7070fccbb001f63b69c762327b0373cad904"
+    "native/core/src/core.h": "5dce1936b67ff6a22b51915a22d909e56aa9a69ac2e1b145405865630e75dc78",
+    "native/core/src/path-data.h": "cc01e42ef2d4f274bb2ab57206df136f7ff44a2b5f01440b0fafeea5c47e3046"
   },
-  "contractsSha256": "973c701c4f348333fc83d1d5ccc46b23d71641ef3fff20e12b5b8552a8cfd445",
+  "contractsSha256": "f741513cd0e84af28e689bd548d42409f0eb42bb0842e651cb931e450b66f6a3",
   "literalPool": {
     "4a001308": {
       "value": 16843009,
@@ -62,6 +65,31 @@
       "value": 16843009,
       "reason": "Read-only zero-byte detection mask loaded from an ARM/Thumb literal pool."
     }
+  },
+  "dataRegions": [
+    {
+      "address": "4a183d48",
+      "length": 257,
+      "symbol": "s3c_ctype_data",
+      "mutable": false,
+      "sha256": "c5c2a475c4955231e984d41ef7ad43b019aad342a6061961a193914be2e896e4"
+    },
+    {
+      "address": "4a1921dc",
+      "length": 128,
+      "symbol": "s3c_path_root_data",
+      "mutable": true,
+      "sha256": "0a8308f4dd3d0204b7323646696a006e745088c18dc8dc0faaeddae1aad24ea2"
+    }
+  ],
+  "pathState": {
+    "rootAddress": "4a1921dc",
+    "rootCapacity": 128,
+    "nativeRootExport": "core_path_root",
+    "localePointerAddress": "4a1aa490",
+    "ctypeTableStart": "4a183d48",
+    "ctypePointerOffset": 1,
+    "scope": "Original default C locale only. The original runtime initializes this locale pointer via FUN_4a005b98(0,0)+1. Other locale initialization and whole-program global relocation are not ported."
   },
   "functions": [
     {
@@ -970,6 +998,353 @@
       "sourceFile": "recovered/native/decompiled/part-000.c",
       "implementationFile": "native/core/src/recovered.c",
       "compiledBodySha256": "8fda7b5c3a50e0c5d927b9bd3fd0b5cb507366212ad7de57b1c71463b1414470"
+    },
+    {
+      "id": 31,
+      "address": "4a000c5c",
+      "symbol": "FUN_4a000c5c",
+      "label": "ctype_alnum",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "type": "i32",
+          "name": "character"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_ctype",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Default C locale table; character domain -1..255. Preserve the 0x98 bitmask, not a boolean.",
+      "thumb": true,
+      "recoveredBodySha256": "916bf383ca9113e812a5e63fc0537ae5cad2eb0583c14a99a1a4187f77f19516",
+      "sourceFile": "recovered/native/decompiled/part-000.c"
+    },
+    {
+      "id": 32,
+      "address": "4a000c72",
+      "symbol": "FUN_4a000c72",
+      "label": "ctype_space",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "type": "i32",
+          "name": "character"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_ctype",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Default C locale table; character domain -1..255. Return bit zero.",
+      "thumb": true,
+      "recoveredBodySha256": "da5201fe5994a9f9b1e46aa446d2e597eb9d676b1e124513b00e311b12bb718c",
+      "sourceFile": "recovered/native/decompiled/part-000.c"
+    },
+    {
+      "id": 33,
+      "address": "4a000c88",
+      "symbol": "FUN_4a000c88",
+      "label": "ctype_lower",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "type": "i32",
+          "name": "character"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_ctype",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Default C locale table; character domain -1..255. Preserve byte values outside uppercase entries.",
+      "thumb": true,
+      "recoveredBodySha256": "1a08cbbf0e52d9446b993fbf475cad02bf9956bb86bcab1d4f6cb38e8f7da21f",
+      "sourceFile": "recovered/native/decompiled/part-000.c"
+    },
+    {
+      "id": 34,
+      "address": "4a000ca8",
+      "symbol": "FUN_4a000ca8",
+      "label": "ctype_upper",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "type": "i32",
+          "name": "character"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_ctype",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Default C locale table; character domain -1..255. Preserve the explicit 0xdf exception.",
+      "thumb": false,
+      "recoveredBodySha256": "fa7fe1edb22fcf3c748c0afde5e8b4fcafc468b710cd39a740051167e46ccbb9",
+      "sourceFile": "recovered/native/decompiled/part-000.c"
+    },
+    {
+      "id": 35,
+      "address": "4a16303e",
+      "symbol": "FUN_4a16303e",
+      "label": "bounded_string_copy",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "destination"
+        },
+        {
+          "type": "p_u8",
+          "name": "source"
+        },
+        {
+          "type": "u32",
+          "name": "capacity"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_bounded_copy",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Return full source length; copy at most capacity-1 bytes and terminate when capacity is nonzero. Disjoint regions.",
+      "thumb": true,
+      "recoveredBodySha256": "ae5139c000cd215d70d8bbfcee913f9bfcc2579f011c322f01264a24c73e14bf",
+      "sourceFile": "recovered/native/decompiled/part-025.c"
+    },
+    {
+      "id": 36,
+      "address": "4a163010",
+      "symbol": "FUN_4a163010",
+      "label": "bounded_string_append",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "destination"
+        },
+        {
+          "type": "p_u8",
+          "name": "source"
+        },
+        {
+          "type": "u32",
+          "name": "capacity"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_bounded_append",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Return initial destination length plus full source length. Capacity must be positive; preserve no-write behavior when already full. Disjoint source/destination.",
+      "thumb": true,
+      "recoveredBodySha256": "71b438e866846c52c86d19f428fb5fc78e9b013c43348de95c9dd939bf7f040a",
+      "sourceFile": "recovered/native/decompiled/part-025.c"
+    },
+    {
+      "id": 37,
+      "address": "4a00b998",
+      "symbol": "FUN_4a00b998",
+      "label": "path_parent",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "source"
+        },
+        {
+          "type": "p_u8",
+          "name": "destination"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_parent",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Original slash/backslash scanning and repeated-separator behavior. Source and destination may be identical; otherwise disjoint.",
+      "thumb": true,
+      "recoveredBodySha256": "e12568f975a5b4fee7f4dfae8bea9df5d2db07f6cc86e918f890f8cc7e3b2f71",
+      "sourceFile": "recovered/native/decompiled/part-001.c"
+    },
+    {
+      "id": 38,
+      "address": "4a00b9ea",
+      "symbol": "FUN_4a00b9ea",
+      "label": "path_extension",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "source"
+        },
+        {
+          "type": "p_u8",
+          "name": "destination"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_extension",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Nonempty source and disjoint destination; preserve the original scan and the final-dot special case. One readable byte before source is required by the original scan.",
+      "thumb": true,
+      "recoveredBodySha256": "9bb6c12ae410f62894c418e2725d071b77c8895a9249f66091aeffd0ed15cf46",
+      "sourceFile": "recovered/native/decompiled/part-001.c"
+    },
+    {
+      "id": 39,
+      "address": "4a00ba22",
+      "symbol": "FUN_4a00ba22",
+      "label": "path_filename",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "source"
+        },
+        {
+          "type": "p_u8",
+          "name": "destination"
+        },
+        {
+          "type": "i32",
+          "name": "keepExtension"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_filename",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Filename component must be at most 126 bytes so the original 127-byte temporary copy is terminated. Destination holds 128 bytes. Source and destination may be identical. Stripping uses the leftmost dot in the filename, as in the original.",
+      "thumb": true,
+      "recoveredBodySha256": "a9757e976b8a094cc19cdd37c875b599f494a0adc86361b1edb5188157141bee",
+      "sourceFile": "recovered/native/decompiled/part-001.c"
+    },
+    {
+      "id": 40,
+      "address": "4a00ba7c",
+      "symbol": "FUN_4a00ba7c",
+      "label": "path_has_scheme",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "source"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_scheme",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Recognizes :// anywhere, matching the original substring search rather than a standard URL parser.",
+      "thumb": true,
+      "recoveredBodySha256": "0d4bd321fbc75438099f4e0252b05ee63bb8ac7e4a65e64945f4f0992ff66822",
+      "sourceFile": "recovered/native/decompiled/part-001.c"
+    },
+    {
+      "id": 41,
+      "address": "4a00ba94",
+      "symbol": "FUN_4a00ba94",
+      "label": "path_join",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "destination"
+        },
+        {
+          "type": "p_u8",
+          "name": "source"
+        },
+        {
+          "type": "i32",
+          "name": "capacity"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_join",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Capacity must be positive; disjoint source/destination. Preserve separator selection and forced termination when destination is already too long.",
+      "thumb": true,
+      "recoveredBodySha256": "bcc19ba5bcc9e7638d72dcb732e25668efa611ac0422af6685c07711b80ed9c3",
+      "sourceFile": "recovered/native/decompiled/part-001.c"
+    },
+    {
+      "id": 42,
+      "address": "4a00bb00",
+      "symbol": "FUN_4a00bb00",
+      "label": "path_normalize",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "path"
+        },
+        {
+          "type": "i32",
+          "name": "preserveCase"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_normalize",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Default C locale; writable terminated input with accessible lookahead and sufficient original buffer space. Preserve URI prefix handling, drive/leading parent rules, trailing whitespace and slash removal, case option, and the original body-relative 127-byte truncation.",
+      "thumb": true,
+      "recoveredBodySha256": "3520c5acb759432034905745380034d1ac1be9c6f7452d1b4f06eaf1bb360438",
+      "sourceFile": "recovered/native/decompiled/part-001.c"
+    },
+    {
+      "id": 43,
+      "address": "4a00d6a8",
+      "symbol": "FUN_4a00d6a8",
+      "label": "path_resolve",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "source"
+        },
+        {
+          "type": "p_u8",
+          "name": "destination"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_resolve",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Uses relocated 128-byte global directory prefix initially /. Disjoint input/output; output capacity 128; prefix must terminate within 128 bytes. Absolute or scheme-bearing paths are copied directly; relative joined paths are normalized.",
+      "thumb": true,
+      "recoveredBodySha256": "d6c8084b2f1fc297ecf9beac7eaf7bf52d28c25f7c626d2d94c1292d7a9ff886",
+      "sourceFile": "recovered/native/decompiled/part-001.c"
     },
     {
       "id": 101,

@@ -1,7 +1,7 @@
 {
   "status": "Original ARM oracle outputs for browser component validation; not whole-game validation.",
   "originalExecutableSha256": "9b75f5584a9e817e51132b6ddfbb38ffef5e9e0d674c76976e1a124c7ee63d5d",
-  "wasmSha256": "9c600c15053f9a3e4da1076596a2899312bd7148096fe6d1c7d55a2e94516c1b",
+  "wasmSha256": "96a67db80b92d6defaef5713bf3d0ecbbacdcec5d87a339148332dbfd4824048",
   "fixtures": [
     {
       "id": 1,
@@ -3750,6 +3750,2022 @@
         ]
       },
       "expectedMemorySha256": "9546da8a6bd981d7d3c32c9e0228e3cb7fe0261224a1d485f3493126c7b478c4"
+    },
+    {
+      "id": 31,
+      "address": "4a000c5c",
+      "label": "ctype_alnum",
+      "case": "all default C locale bytes and EOF",
+      "args": [
+        4294967295
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 31,
+      "address": "4a000c5c",
+      "label": "ctype_alnum",
+      "case": "all default C locale bytes and EOF",
+      "args": [
+        16
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 31,
+      "address": "4a000c5c",
+      "label": "ctype_alnum",
+      "case": "all default C locale bytes and EOF",
+      "args": [
+        96
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 31,
+      "address": "4a000c5c",
+      "label": "ctype_alnum",
+      "case": "all default C locale bytes and EOF",
+      "args": [
+        255
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 32,
+      "address": "4a000c72",
+      "label": "ctype_space",
+      "case": "all default C locale bytes and EOF",
+      "args": [
+        4294967295
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 32,
+      "address": "4a000c72",
+      "label": "ctype_space",
+      "case": "all default C locale bytes and EOF",
+      "args": [
+        16
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 32,
+      "address": "4a000c72",
+      "label": "ctype_space",
+      "case": "all default C locale bytes and EOF",
+      "args": [
+        96
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 32,
+      "address": "4a000c72",
+      "label": "ctype_space",
+      "case": "all default C locale bytes and EOF",
+      "args": [
+        255
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 33,
+      "address": "4a000c88",
+      "label": "ctype_lower",
+      "case": "all default C locale bytes and EOF",
+      "args": [
+        4294967295
+      ],
+      "mask": 1,
+      "expected": [
+        4294967295,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 33,
+      "address": "4a000c88",
+      "label": "ctype_lower",
+      "case": "all default C locale bytes and EOF",
+      "args": [
+        16
+      ],
+      "mask": 1,
+      "expected": [
+        16,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 33,
+      "address": "4a000c88",
+      "label": "ctype_lower",
+      "case": "all default C locale bytes and EOF",
+      "args": [
+        96
+      ],
+      "mask": 1,
+      "expected": [
+        96,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 33,
+      "address": "4a000c88",
+      "label": "ctype_lower",
+      "case": "all default C locale bytes and EOF",
+      "args": [
+        255
+      ],
+      "mask": 1,
+      "expected": [
+        255,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 34,
+      "address": "4a000ca8",
+      "label": "ctype_upper",
+      "case": "all default C locale bytes and EOF",
+      "args": [
+        4294967295
+      ],
+      "mask": 1,
+      "expected": [
+        4294967295,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 34,
+      "address": "4a000ca8",
+      "label": "ctype_upper",
+      "case": "all default C locale bytes and EOF",
+      "args": [
+        16
+      ],
+      "mask": 1,
+      "expected": [
+        16,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 34,
+      "address": "4a000ca8",
+      "label": "ctype_upper",
+      "case": "all default C locale bytes and EOF",
+      "args": [
+        96
+      ],
+      "mask": 1,
+      "expected": [
+        96,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 34,
+      "address": "4a000ca8",
+      "label": "ctype_upper",
+      "case": "all default C locale bytes and EOF",
+      "args": [
+        255
+      ],
+      "mask": 1,
+      "expected": [
+        255,
+        0,
+        0,
+        0
+      ],
+      "memory": null,
+      "expectedMemorySha256": null
+    },
+    {
+      "id": 35,
+      "address": "4a16303e",
+      "label": "bounded_string_copy",
+      "case": "bounded lengths, separator joins and truncation",
+      "args": [
+        133120,
+        149504,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 40,
+        "patches": [
+          [
+            2047,
+            "AAA="
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "c74eff482512cf2b9f0bb8603baabc18a1506dda0f13262c2acdbe04c9e32b7e"
+    },
+    {
+      "id": 35,
+      "address": "4a16303e",
+      "label": "bounded_string_copy",
+      "case": "bounded lengths, separator joins and truncation",
+      "args": [
+        133120,
+        149504,
+        7
+      ],
+      "mask": 1,
+      "expected": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 184,
+        "patches": [
+          [
+            2047,
+            "AAA="
+          ],
+          [
+            18431,
+            "AHgA"
+          ]
+        ]
+      },
+      "expectedMemorySha256": "c0e0c21a48067494c127ca2f85b9923c89b2faae21ed2ccbacf26344bf2f3f66"
+    },
+    {
+      "id": 35,
+      "address": "4a16303e",
+      "label": "bounded_string_copy",
+      "case": "bounded lengths, separator joins and truncation",
+      "args": [
+        133120,
+        149504,
+        31
+      ],
+      "mask": 1,
+      "expected": [
+        31,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 34,
+        "patches": [
+          [
+            2047,
+            "AAA="
+          ],
+          [
+            18431,
+            "AGFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEA"
+          ]
+        ]
+      },
+      "expectedMemorySha256": "88d07706aca33c1036a18b58e9b8a6999a9416c1a76b09d9453458d3bd1dd96f"
+    },
+    {
+      "id": 35,
+      "address": "4a16303e",
+      "label": "bounded_string_copy",
+      "case": "random disjoint aligned/unaligned bounded operation",
+      "args": [
+        133123,
+        149507,
+        155
+      ],
+      "mask": 1,
+      "expected": [
+        73,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 148,
+        "patches": [
+          [
+            2051,
+            "W2hYYXpVW2pNLCdTVzNOIjcmYSd4U1tZZVosMFshWVpwQzQ0ZTt0J1h3QCsrTTlTbSZ5ezFOPF81Oi97ImZiVnV8JDclNyZ1UXhjLVhvelpTXyMiIWFlcW5ORXIzLlN2YjRtbjRXXXRLVF9jdTR5KmZbckhRXHlQeC9edlYqNCw5cklzLCc3OWZTUSolYCZWUl9SblZaNGsA"
+          ],
+          [
+            18435,
+            "KaHSzcHjVBG++WMT4ixXg8IeC6gchOV6EVxx4nj5Zg7CV64R/Y+fxOIhDG/PzeeU/0J6AxFMYFw9CkqProWaOFPkTZMJXWmvMgA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "cbf831334bd6f098a9d199464f0ea1ec775671316aa4c1ce35bcc7856c5410bd"
+    },
+    {
+      "id": 36,
+      "address": "4a163010",
+      "label": "bounded_string_append",
+      "case": "bounded lengths, separator joins and truncation",
+      "args": [
+        133120,
+        149504,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 132,
+        "patches": [
+          [
+            2047,
+            "AAA="
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "3c61431a8426c9058d8d062e084114a9197f40df5cf22d44b6854a12ae43c78c"
+    },
+    {
+      "id": 36,
+      "address": "4a163010",
+      "label": "bounded_string_append",
+      "case": "bounded lengths, separator joins and truncation",
+      "args": [
+        133120,
+        149504,
+        31
+      ],
+      "mask": 1,
+      "expected": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 1,
+        "patches": [
+          [
+            2047,
+            "AAA="
+          ],
+          [
+            18431,
+            "AHgA"
+          ]
+        ]
+      },
+      "expectedMemorySha256": "46279fcf421e7cafd295bdc420350cc3000edd7ebc6fe51d23a0313bde0987c1"
+    },
+    {
+      "id": 36,
+      "address": "4a163010",
+      "label": "bounded_string_append",
+      "case": "bounded lengths, separator joins and truncation",
+      "args": [
+        133120,
+        149504,
+        2
+      ],
+      "mask": 1,
+      "expected": [
+        126,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 168,
+        "patches": [
+          [
+            2048,
+            "AA=="
+          ],
+          [
+            18431,
+            "AGJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYgA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "9e8233c2d7420c76f626420506e3aeb6796c4a3ead7340f1ce17e8492c4999e5"
+    },
+    {
+      "id": 36,
+      "address": "4a163010",
+      "label": "bounded_string_append",
+      "case": "random disjoint aligned/unaligned bounded operation",
+      "args": [
+        133123,
+        149507,
+        239
+      ],
+      "mask": 1,
+      "expected": [
+        239,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 141,
+        "patches": [
+          [
+            2051,
+            "U2JGfFl3bCpMdHo2djYsOVVEfXgA"
+          ],
+          [
+            18435,
+            "InwcvByEofPFtXaddsmyu+SD6vnYlWBnl/1T8lip4KmsMDadaKp6lWouUsTAeDhIUMCD5fX+FJVTywMMehDezs/Tya7RL+lIGJlmhMlIQwxFfBm6KC2oSSAUTOogT2q46b4mc0oHrY6OfNgeFuHJ0beyE4CdkxEcFGZ6iyJVH+RyDMnnz+KFvUts05WVapVuyzusuPy/UtL6nebJN5GqqhZS1iP6SqgOEB/z6aardpMtrGeswYEKIjJTTxIkcjM/FtsNFHBFkN+IVtiQeWgeovzH4c7Ln07Nhj8CAA=="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "49919de0e48b7294604278738d79de6b1cd64d4bc62675ef9622bca53e10d969"
+    },
+    {
+      "id": 37,
+      "address": "4a00b998",
+      "label": "path_parent",
+      "case": "parent separator collapse and in-place copy",
+      "args": [
+        133120,
+        149504
+      ],
+      "mask": 1,
+      "expected": [
+        149504,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 255,
+        "patches": [
+          [
+            2047,
+            "AAA="
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "822029cbfa00fb01f42f79bb052fa53f0ed799b2fd6cf1750eab1faecf1eb806"
+    },
+    {
+      "id": 37,
+      "address": "4a00b998",
+      "label": "path_parent",
+      "case": "parent separator collapse and in-place copy",
+      "args": [
+        133120,
+        133120
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 42,
+        "patches": [
+          [
+            2047,
+            "AC4uAA=="
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "6e7362f12ba4cc9613bee6391f8a83a1c7186eb1e93b29a437416ace20c466c4"
+    },
+    {
+      "id": 37,
+      "address": "4a00b998",
+      "label": "path_parent",
+      "case": "parent separator collapse and in-place copy",
+      "args": [
+        133120,
+        133120
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 164,
+        "patches": [
+          [
+            2047,
+            "AGEvLgA="
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "53398ff448a2c333a7d7c6f38861695b787c4d0148a50b6e2ef894ccdaa983e8"
+    },
+    {
+      "id": 37,
+      "address": "4a00b998",
+      "label": "path_parent",
+      "case": "seeded path scan",
+      "args": [
+        133120,
+        149504
+      ],
+      "mask": 1,
+      "expected": [
+        149504,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 34,
+        "patches": [
+          [
+            2047,
+            "AGFcQlxcwN9cwN9cQzpcd2l0aCBzcGFjZVxhAA=="
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "758ed1e5fc50d80a71084bdc1aeda0578d057895e42e4720724ca0637e113a03"
+    },
+    {
+      "id": 38,
+      "address": "4a00b9ea",
+      "label": "path_extension",
+      "case": "extension scan boundaries",
+      "args": [
+        133120,
+        149504
+      ],
+      "mask": 1,
+      "expected": [
+        149504,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 42,
+        "patches": [
+          [
+            2047,
+            "AC4A"
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "dfd4760dd1a31c0daf9b3df5f7b42774f4ab2d8a93d27f33890d7415911b5ed7"
+    },
+    {
+      "id": 38,
+      "address": "4a00b9ea",
+      "label": "path_extension",
+      "case": "extension scan boundaries",
+      "args": [
+        133120,
+        149504
+      ],
+      "mask": 1,
+      "expected": [
+        149504,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 38,
+        "patches": [
+          [
+            2047,
+            "AC8vAA=="
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "d353f4d8bafc4c94d0d03c860672166a6fba748ea1f02c5032b20bf13c402ee3"
+    },
+    {
+      "id": 38,
+      "address": "4a00b9ea",
+      "label": "path_extension",
+      "case": "extension scan boundaries",
+      "args": [
+        133120,
+        149504
+      ],
+      "mask": 1,
+      "expected": [
+        149504,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 80,
+        "patches": [
+          [
+            2047,
+            "AEM6L0EvLi4vQgA="
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "c373799432d10b4ad5c45cd3f6b67ac90ea76b6cef399d1c0796884b46dc87fe"
+    },
+    {
+      "id": 38,
+      "address": "4a00b9ea",
+      "label": "path_extension",
+      "case": "seeded path scan",
+      "args": [
+        133120,
+        149504
+      ],
+      "mask": 1,
+      "expected": [
+        149504,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 199,
+        "patches": [
+          [
+            2047,
+            "AC5cXC4uXGZpbGUudGFyLmd6XFxcXC4uXGZpbGUudGFyLmd6XGFcLi5cXC4uXHdpdGggc3BhY2VcwN8gCQ0A"
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "95c4b39f3e0e4d04e3f7b4e09059a459d0a2e79501b0ca2abf69058d8e02b1d7"
+    },
+    {
+      "id": 39,
+      "address": "4a00ba22",
+      "label": "path_filename",
+      "case": "filename dots, separators and in-place copy",
+      "args": [
+        133120,
+        149504,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        149504,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 94,
+        "patches": [
+          [
+            2047,
+            "AAA="
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "ec5528ecaf389a0ac807205a3b65741980b0ee6458f4d9fb8c4c177c4dc97762"
+    },
+    {
+      "id": 39,
+      "address": "4a00ba22",
+      "label": "path_filename",
+      "case": "filename dots, separators and in-place copy",
+      "args": [
+        133120,
+        133120,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 53,
+        "patches": [
+          [
+            2047,
+            "AC4uAA=="
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "c4315ef920c96b97c0a972021c0df7d94bdd0dc68662132799ccdf23b360b265"
+    },
+    {
+      "id": 39,
+      "address": "4a00ba22",
+      "label": "path_filename",
+      "case": "filename dots, separators and in-place copy",
+      "args": [
+        133120,
+        133120,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 75,
+        "patches": [
+          [
+            2047,
+            "AGEvLgA="
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "1f8e156b55ea5d8157482b32ad7a2b2cb233609beb84efc61a1458e93de77de8"
+    },
+    {
+      "id": 39,
+      "address": "4a00ba22",
+      "label": "path_filename",
+      "case": "seeded filename extraction",
+      "args": [
+        133120,
+        149504,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        149504,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 33,
+        "patches": [
+          [
+            2047,
+            "AGFcd2l0aCBzcGFjZVxcLlxcXEJcLi5cQzpcd2l0aCBzcGFjZVwA"
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "4284a50d4bcc00371b5a90ea93ca1cc6bfb4e31e2cc8b2e7719c18f3751fa0ce"
+    },
+    {
+      "id": 40,
+      "address": "4a00ba7c",
+      "label": "path_has_scheme",
+      "case": "URI substring boundary",
+      "args": [
+        133120
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 101,
+        "patches": [
+          [
+            2047,
+            "AAA="
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "669b250c123efe46608526aa087ef207efa4bfc02186347d28acda5ae58e7928"
+    },
+    {
+      "id": 40,
+      "address": "4a00ba7c",
+      "label": "path_has_scheme",
+      "case": "URI substring boundary",
+      "args": [
+        133120
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 127,
+        "patches": [
+          [
+            2047,
+            "AC8A"
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "ba3a326a0babbe6f178ff738f165a16b1b75e5c0f8d52a77e4ddf08a739ed9fa"
+    },
+    {
+      "id": 40,
+      "address": "4a00ba7c",
+      "label": "path_has_scheme",
+      "case": "URI substring boundary",
+      "args": [
+        133120
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 125,
+        "patches": [
+          [
+            2047,
+            "AEM6Ly4uL0EA"
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "795c79bc1053a5a39adeec6db14b9491b167263dae43b1d0ade44c0e9b626660"
+    },
+    {
+      "id": 40,
+      "address": "4a00ba7c",
+      "label": "path_has_scheme",
+      "case": "seeded URI substring",
+      "args": [
+        133120
+      ],
+      "mask": 1,
+      "expected": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 45,
+        "patches": [
+          [
+            2047,
+            "AFzA31xcLlwuLlxCXC4uXEJcd2l0aCBzcGFjZVwuLlxcAA=="
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "b97fb6f6d59d11997872b4db7eb9c03d181bd50211ae7437b186fff175682d07"
+    },
+    {
+      "id": 41,
+      "address": "4a00ba94",
+      "label": "path_join",
+      "case": "bounded lengths, separator joins and truncation",
+      "args": [
+        133120,
+        149504,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 67,
+        "patches": [
+          [
+            2047,
+            "AAA="
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "c5d2589d13e0c4e82aa80b6ae6552c239576f35b890db4c42c59af80fe61578e"
+    },
+    {
+      "id": 41,
+      "address": "4a00ba94",
+      "label": "path_join",
+      "case": "bounded lengths, separator joins and truncation",
+      "args": [
+        133120,
+        149504,
+        31
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 92,
+        "patches": [
+          [
+            2047,
+            "AAA="
+          ],
+          [
+            18431,
+            "AHgA"
+          ]
+        ]
+      },
+      "expectedMemorySha256": "195e1c4926580971777a990378594d5e05d895bd5c13e4a6588d7f81258ee12e"
+    },
+    {
+      "id": 41,
+      "address": "4a00ba94",
+      "label": "path_join",
+      "case": "bounded lengths, separator joins and truncation",
+      "args": [
+        133120,
+        149504,
+        2
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 15,
+        "patches": [
+          [
+            2047,
+            "AAA="
+          ],
+          [
+            18431,
+            "AGJiYmJiYmJiYmJiYmJiYmJiYmJiYg=="
+          ],
+          [
+            18454,
+            "YmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmIA"
+          ]
+        ]
+      },
+      "expectedMemorySha256": "bf168d55c191f31a8e80e54404fac04a14a4d5a556fd3123c06e455f50ac65aa"
+    },
+    {
+      "id": 41,
+      "address": "4a00ba94",
+      "label": "path_join",
+      "case": "random disjoint aligned/unaligned bounded operation",
+      "args": [
+        133123,
+        149507,
+        67
+      ],
+      "mask": 1,
+      "expected": [
+        133123,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 57,
+        "patches": [
+          [
+            2051,
+            "czdtQzg2W3FFYUdLJ1glQXYxRld9XWhiU1AvJVRMYC5aNihocWUhRmpkO1khOWddLygiUSFCJ24ran0rPDcpRWY3aCdrYz4vbH1jMT5cRXRbQmwmXCwlJHgieHJyRGNfaWQuTlYtX15nbVNTYEteKUxbdmwpLihuPVBbRUN1NXkpZnMjWmJBNnl7TEhlcEpwTVh0XWtvYXsoZVl3ZmQxbldiXU4sS097Q3goYEE7NXFDPVp0OCdJe3guaDNCMTRPa1RuLiMzKUUka10rM3pmQkwwVWckSCd4W0xZKFBQYllUKEZoJXUzAA=="
+          ],
+          [
+            18435,
+            "7io8kZhrPdfWbWkJ2wxBegL/Uw/tKGMZtnMdHl8eOjrHIyWK3dUir67c5zcz4CuejEQjW+ImKRPPpX9aL/KsfC0QaPUA"
+          ]
+        ]
+      },
+      "expectedMemorySha256": "ad8b8602b685dab2d6e25fe2862b586294402b459558f0e09a1abcf3c8f9a1f4"
+    },
+    {
+      "id": 42,
+      "address": "4a00bb00",
+      "label": "path_normalize",
+      "case": "normalization boundary and case option",
+      "args": [
+        133120,
+        0
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 110,
+        "patches": [
+          [
+            2047,
+            "AAA="
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "82b1212e9c8277f69e484e6907c632ed6002f176a4f2bd354b95024e2ab0a77d"
+    },
+    {
+      "id": 42,
+      "address": "4a00bb00",
+      "label": "path_normalize",
+      "case": "normalization boundary and case option",
+      "args": [
+        133120,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 47,
+        "patches": [
+          [
+            2047,
+            "AC8A"
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "298ac353611b5eae9b83c706c32ce658472ddff876dd933e42660554e21a06b1"
+    },
+    {
+      "id": 42,
+      "address": "4a00bb00",
+      "label": "path_normalize",
+      "case": "normalization boundary and case option",
+      "args": [
+        133120,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 204,
+        "patches": [
+          [
+            2047,
+            "AEM6Ly4uL0EA"
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "058bc7b3eae83c27964c3bcf5f8b5b8d977d73e821c00f876b8e88077b2999e5"
+    },
+    {
+      "id": 42,
+      "address": "4a00bb00",
+      "label": "path_normalize",
+      "case": "seeded nested path normalization",
+      "args": [
+        133120,
+        1
+      ],
+      "mask": 1,
+      "expected": [
+        133120,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 152,
+        "patches": [
+          [
+            2047,
+            "AEIvYQA="
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "2941d2e29c0e145d467197161a313cfa96d08e3e6d5613c198d56c4880996e65"
+    },
+    {
+      "id": 43,
+      "address": "4a00d6a8",
+      "label": "path_resolve",
+      "case": "resolve using changed global prefix",
+      "args": [
+        133120,
+        149504
+      ],
+      "mask": 1,
+      "expected": [
+        149504,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 92,
+        "patches": [
+          [
+            2047,
+            "AAA="
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "5731e717dd1913a8415fd7e8f8a4f914467741d0f718a036fcbd347fd8554179",
+      "pathRoot": [
+        47,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expectedPathRootSha256": "0a8308f4dd3d0204b7323646696a006e745088c18dc8dc0faaeddae1aad24ea2"
+    },
+    {
+      "id": 43,
+      "address": "4a00d6a8",
+      "label": "path_resolve",
+      "case": "resolve using changed global prefix",
+      "args": [
+        133120,
+        149504
+      ],
+      "mask": 1,
+      "expected": [
+        149504,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 142,
+        "patches": [
+          [
+            2047,
+            "AC4uL2EvLi4vYgA="
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "9378beb5bc806f26acb0f4055c7cef204616c8efa11283d6bb4b47fe644fff5b",
+      "pathRoot": [
+        47,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expectedPathRootSha256": "0a8308f4dd3d0204b7323646696a006e745088c18dc8dc0faaeddae1aad24ea2"
+    },
+    {
+      "id": 43,
+      "address": "4a00d6a8",
+      "label": "path_resolve",
+      "case": "resolve using changed global prefix",
+      "args": [
+        133120,
+        149504
+      ],
+      "mask": 1,
+      "expected": [
+        149504,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 51,
+        "patches": [
+          [
+            2047,
+            "AGEuLmIA"
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "2e43d88db079c6836f024117673a41ad0781240fcfbd9ffa21ccbcc31a8cf39f",
+      "pathRoot": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expectedPathRootSha256": "38723a2e5e8a17aa7950dc008209944e898f69a7bd10a23c839d341e935fd5ca"
+    },
+    {
+      "id": 43,
+      "address": "4a00d6a8",
+      "label": "path_resolve",
+      "case": "seeded resolve/global state",
+      "args": [
+        133120,
+        149504
+      ],
+      "mask": 1,
+      "expected": [
+        149504,
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "base": 131072,
+        "size": 65536,
+        "seed": 254,
+        "patches": [
+          [
+            2047,
+            "AHdpdGggc3BhY2VcQzpcYVwuXEM6XGFcQzoA"
+          ],
+          [
+            18431,
+            "AAA="
+          ]
+        ]
+      },
+      "expectedMemorySha256": "00e0648fe8039f3c75ef378d9e61a33a1b8a18c421596ec3a2ff5933c54bacbb",
+      "pathRoot": [
+        97,
+        92,
+        66,
+        92,
+        46,
+        46,
+        92,
+        67,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expectedPathRootSha256": "c962bdf37f71a8202dcc6b5a901053974c7925370d73c4cac8c73708f294995b"
     },
     {
       "id": 101,

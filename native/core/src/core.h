@@ -55,4 +55,18 @@ char *FUN_4a001552(int text,char ch);
 char *FUN_4a00156c(char *dst,char *src,int count);
 char *FUN_4a0015a0(char *text,char ch);
 char *FUN_4a0015c0(char *haystack,char *needle);
+uint32_t core_path_root(void);
+uint32_t FUN_4a000c5c(int32_t value);
+uint32_t FUN_4a000c72(int32_t value);
+int32_t FUN_4a000c88(int32_t value);
+int32_t FUN_4a000ca8(int32_t value);
+uint32_t FUN_4a16303e(char *destination,char *source,uint32_t capacity);
+uint32_t FUN_4a163010(char *destination,char *source,uint32_t capacity);
+char *FUN_4a00b998(char *source,char *destination);
+char *FUN_4a00b9ea(char *source,char *destination);
+char *FUN_4a00ba22(char *source,char *destination,int32_t keep_extension);
+uint32_t FUN_4a00ba7c(char *source);
+char *FUN_4a00ba94(char *destination,char *source,int32_t capacity);
+char *FUN_4a00bb00(char *path,int32_t preserve_case);
+char *FUN_4a00d6a8(char *source,char *destination);
 #endif

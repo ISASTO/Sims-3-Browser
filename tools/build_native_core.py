@@ -35,7 +35,7 @@ def recover(config, image, base):
         entry.update(thumb=info['thumb'], recoveredBodySha256=sha(original.encode()),
                      sourceFile='recovered/native/' + info['file'])
         if not entry['sourceKind'].startswith('decompiler'):
-            entry['implementationFile'] = 'native/core/src/' + ('arithmetic.c' if 'arithmetic' in entry['sourceKind'] else 'memory.c')
+            entry.setdefault('implementationFile', 'native/core/src/' + ('arithmetic.c' if 'arithmetic' in entry['sourceKind'] else 'memory.c'))
             continue
         if info['warnings'] or info['indirectCalls']:
             raise RuntimeError('Unreviewed decompiler warning in ' + entry['address'])
@@ -52,6 +52,21 @@ def recover(config, image, base):
         entry['compiledBodySha256'] = sha(body.encode())
     (CORE / 'src/recovered.c').write_text('\n\n'.join(result) + '\n')
     return functions
+
+
+def recover_data(config, image, base):
+    lines = ['/* Generated from hash-pinned original initialized data. */']
+    for region in config['dataRegions']:
+        address = int(region['address'], 16)
+        data = image[address-base:address-base+region['length']]
+        if len(data) != region['length'] or sha(data) != region['sha256']:
+            raise RuntimeError('Original data changed: ' + region['address'])
+        qualifier = '' if region['mutable'] else 'const '
+        lines.append(f'static {qualifier}uint8_t {region["symbol"]}[{len(data)}] = {{')
+        for offset in range(0, len(data), 16):
+            lines.append('  ' + ','.join(f'0x{x:02x}' for x in data[offset:offset+16]) + ',')
+        lines.append('};')
+    (CORE / 'src/path-data.h').write_text('\n'.join(lines) + '\n')
 
 
 def argument(type_name, register):
@@ -98,6 +113,7 @@ def main():
     original = (ROOT / 'recovered/game.s3e').read_bytes()
     image = original[header['codeOffset']:header['codeOffset'] + header['codeFileSize']]
     recover(config, image, header['originalBase'])
+    recover_data(config, image, header['originalBase'])
     entries = config['functions']
     scalar = json.loads((ROOT / 'native/manifest.json').read_text())
     for index, item in enumerate(scalar['functions'], 101):
@@ -114,9 +130,10 @@ def main():
                '-nostdlib', '-fwrapv', '-funsigned-char', '-fno-strict-aliasing',
                '-fno-vectorize', '-fno-slp-vectorize', '-Werror=implicit-function-declaration',
                '-Wl,--no-entry', '-Wl,--strip-all', '-Wl,--initial-memory=1048576', '-Wl,--max-memory=67108864',
-               '-Wl,--export-memory', '-Wl,--export=core_invoke', '-Wl,--export=core_result_ptr', '-Wl,--export=core_heap_base']
+               '-Wl,--export-memory', '-Wl,--export=core_invoke', '-Wl,--export=core_result_ptr', '-Wl,--export=core_heap_base',
+               '-Wl,--export=core_path_root']
     inputs = ['native/core/src/arithmetic.c', 'native/core/src/memory.c', 'native/core/src/recovered.c',
-              'native/core/src/dispatch.c', 'native/verified-functions.c']
+              'native/core/src/path.c', 'native/core/src/dispatch.c', 'native/verified-functions.c']
     output = CORE / 'sims3-core.wasm'
     command = [str(compiler), *options, *[str(ROOT / path) for path in inputs], '-o', str(output)]
     result = subprocess.run(command, capture_output=True, text=True)
@@ -131,9 +148,9 @@ def main():
         'memory': {'initialBytes': 1048576, 'maximumBytes': 67108864, 'shared': False},
         'originalExecutableSha256': sha(original), 'wasmSha256': sha(output.read_bytes()),
         'compiler': subprocess.check_output([str(compiler), '--version'], text=True).splitlines()[0],
-        'compilerOptions': options, 'sourceFiles': {p: sha((ROOT / p).read_bytes()) for p in inputs + ['native/core/src/core.h']},
+        'compilerOptions': options, 'sourceFiles': {p: sha((ROOT / p).read_bytes()) for p in inputs + ['native/core/src/core.h', 'native/core/src/path-data.h']},
         'contractsSha256': sha((CORE / 'contracts.json').read_bytes()),
-        'literalPool': config['literalPool'], 'functions': entries,
+        'literalPool': config['literalPool'], 'dataRegions': config['dataRegions'], 'pathState': config['pathState'], 'functions': entries,
     }
     (CORE / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
     print(json.dumps({'functions': len(entries), 'bytes': output.stat().st_size, 'sha256': manifest['wasmSha256']}, indent=2))

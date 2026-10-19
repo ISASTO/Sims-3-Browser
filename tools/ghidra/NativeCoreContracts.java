@@ -132,7 +132,7 @@ public class NativeCoreContracts extends GhidraScript {
                 item.addProperty("message",value.getErrorMessage());
                 if (value.decompileCompleted() && value.getDecompiledFunction()!=null) {
                     completed++;
-                    String code=value.getDecompiledFunction().getC();
+                    String code=value.getDecompiledFunction().getC().replaceAll("(?m)[\\t ]+$", "");
                     item.addProperty("warningComments",code.split("WARNING:",-1).length-1);
                     source.append("// Address: ").append(function.getEntryPoint()).append("\n").append(code).append("\n\n");
                 }

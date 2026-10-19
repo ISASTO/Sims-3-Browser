@@ -773,6 +773,314 @@
       "suite": "memory_compare",
       "sourceKind": "decompiler",
       "recoveryNotes": "Compare exact unsigned-byte difference, including aligned word fast path."
+    },
+    {
+      "id": 31,
+      "address": "4a000c5c",
+      "symbol": "FUN_4a000c5c",
+      "label": "ctype_alnum",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "type": "i32",
+          "name": "character"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_ctype",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Default C locale table; character domain -1..255. Preserve the 0x98 bitmask, not a boolean."
+    },
+    {
+      "id": 32,
+      "address": "4a000c72",
+      "symbol": "FUN_4a000c72",
+      "label": "ctype_space",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "type": "i32",
+          "name": "character"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_ctype",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Default C locale table; character domain -1..255. Return bit zero."
+    },
+    {
+      "id": 33,
+      "address": "4a000c88",
+      "symbol": "FUN_4a000c88",
+      "label": "ctype_lower",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "type": "i32",
+          "name": "character"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_ctype",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Default C locale table; character domain -1..255. Preserve byte values outside uppercase entries."
+    },
+    {
+      "id": 34,
+      "address": "4a000ca8",
+      "symbol": "FUN_4a000ca8",
+      "label": "ctype_upper",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "type": "i32",
+          "name": "character"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_ctype",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Default C locale table; character domain -1..255. Preserve the explicit 0xdf exception."
+    },
+    {
+      "id": 35,
+      "address": "4a16303e",
+      "symbol": "FUN_4a16303e",
+      "label": "bounded_string_copy",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "destination"
+        },
+        {
+          "type": "p_u8",
+          "name": "source"
+        },
+        {
+          "type": "u32",
+          "name": "capacity"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_bounded_copy",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Return full source length; copy at most capacity-1 bytes and terminate when capacity is nonzero. Disjoint regions."
+    },
+    {
+      "id": 36,
+      "address": "4a163010",
+      "symbol": "FUN_4a163010",
+      "label": "bounded_string_append",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "destination"
+        },
+        {
+          "type": "p_u8",
+          "name": "source"
+        },
+        {
+          "type": "u32",
+          "name": "capacity"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_bounded_append",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Return initial destination length plus full source length. Capacity must be positive; preserve no-write behavior when already full. Disjoint source/destination."
+    },
+    {
+      "id": 37,
+      "address": "4a00b998",
+      "symbol": "FUN_4a00b998",
+      "label": "path_parent",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "source"
+        },
+        {
+          "type": "p_u8",
+          "name": "destination"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_parent",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Original slash/backslash scanning and repeated-separator behavior. Source and destination may be identical; otherwise disjoint."
+    },
+    {
+      "id": 38,
+      "address": "4a00b9ea",
+      "symbol": "FUN_4a00b9ea",
+      "label": "path_extension",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "source"
+        },
+        {
+          "type": "p_u8",
+          "name": "destination"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_extension",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Nonempty source and disjoint destination; preserve the original scan and the final-dot special case. One readable byte before source is required by the original scan."
+    },
+    {
+      "id": 39,
+      "address": "4a00ba22",
+      "symbol": "FUN_4a00ba22",
+      "label": "path_filename",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "source"
+        },
+        {
+          "type": "p_u8",
+          "name": "destination"
+        },
+        {
+          "type": "i32",
+          "name": "keepExtension"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_filename",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Filename component must be at most 126 bytes so the original 127-byte temporary copy is terminated. Destination holds 128 bytes. Source and destination may be identical. Stripping uses the leftmost dot in the filename, as in the original."
+    },
+    {
+      "id": 40,
+      "address": "4a00ba7c",
+      "symbol": "FUN_4a00ba7c",
+      "label": "path_has_scheme",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "source"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_scheme",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Recognizes :// anywhere, matching the original substring search rather than a standard URL parser."
+    },
+    {
+      "id": 41,
+      "address": "4a00ba94",
+      "symbol": "FUN_4a00ba94",
+      "label": "path_join",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "destination"
+        },
+        {
+          "type": "p_u8",
+          "name": "source"
+        },
+        {
+          "type": "i32",
+          "name": "capacity"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_join",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Capacity must be positive; disjoint source/destination. Preserve separator selection and forced termination when destination is already too long."
+    },
+    {
+      "id": 42,
+      "address": "4a00bb00",
+      "symbol": "FUN_4a00bb00",
+      "label": "path_normalize",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "path"
+        },
+        {
+          "type": "i32",
+          "name": "preserveCase"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_normalize",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Default C locale; writable terminated input with accessible lookahead and sufficient original buffer space. Preserve URI prefix handling, drive/leading parent rules, trailing whitespace and slash removal, case option, and the original body-relative 127-byte truncation."
+    },
+    {
+      "id": 43,
+      "address": "4a00d6a8",
+      "symbol": "FUN_4a00d6a8",
+      "label": "path_resolve",
+      "returnType": "p_u8",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "source"
+        },
+        {
+          "type": "p_u8",
+          "name": "destination"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "path_resolve",
+      "sourceKind": "reviewed-path",
+      "implementationFile": "native/core/src/path.c",
+      "recoveryNotes": "Uses relocated 128-byte global directory prefix initially /. Disjoint input/output; output capacity 128; prefix must terminate within 128 bytes. Absolute or scheme-bearing paths are copied directly; relative joined paths are normalized."
     }
   ],
   "literalPool": {
@@ -796,5 +1104,30 @@
       "value": 16843009,
       "reason": "Read-only zero-byte detection mask loaded from an ARM/Thumb literal pool."
     }
+  },
+  "dataRegions": [
+    {
+      "address": "4a183d48",
+      "length": 257,
+      "symbol": "s3c_ctype_data",
+      "mutable": false,
+      "sha256": "c5c2a475c4955231e984d41ef7ad43b019aad342a6061961a193914be2e896e4"
+    },
+    {
+      "address": "4a1921dc",
+      "length": 128,
+      "symbol": "s3c_path_root_data",
+      "mutable": true,
+      "sha256": "0a8308f4dd3d0204b7323646696a006e745088c18dc8dc0faaeddae1aad24ea2"
+    }
+  ],
+  "pathState": {
+    "rootAddress": "4a1921dc",
+    "rootCapacity": 128,
+    "nativeRootExport": "core_path_root",
+    "localePointerAddress": "4a1aa490",
+    "ctypeTableStart": "4a183d48",
+    "ctypePointerOffset": 1,
+    "scope": "Original default C locale only. The original runtime initializes this locale pointer via FUN_4a005b98(0,0)+1. Other locale initialization and whole-program global relocation are not ported."
   }
 }

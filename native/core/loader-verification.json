@@ -1,15 +1,17 @@
 {
   "environment": "Node.js v24.19.0; browser loader integration, not an actual browser test.",
-  "wasmSha256": "9c600c15053f9a3e4da1076596a2899312bd7148096fe6d1c7d55a2e94516c1b",
-  "fixtureChecks": 215,
-  "functionsCovered": 52,
+  "wasmSha256": "96a67db80b92d6defaef5713bf3d0ecbbacdcec5d87a339148332dbfd4824048",
+  "fixtureChecks": 267,
+  "functionsCovered": 65,
   "checks": [
     "Original ARM-derived result words and memory hashes",
     "Version/hash matching",
     "32-bit-word JS interface",
     "Unknown-function and unsupported-domain rejection",
     "Memory growth and fresh views",
-    "Temporary arena reset"
+    "Temporary arena reset",
+    "Relocated path-prefix updates, aliasing, growth and arena-reset persistence",
+    "Connected native resource-path resolution"
   ],
   "status": "All loader integration checks passed."
 }

@@ -1,15 +1,16 @@
 {
   "status": "Native core components only; whole-game behavior and exhaustive equivalence remain unverified.",
   "originalExecutableSha256": "9b75f5584a9e817e51132b6ddfbb38ffef5e9e0d674c76976e1a124c7ee63d5d",
-  "wasmSha256": "9c600c15053f9a3e4da1076596a2899312bd7148096fe6d1c7d55a2e94516c1b",
+  "wasmSha256": "96a67db80b92d6defaef5713bf3d0ecbbacdcec5d87a339148332dbfd4824048",
   "reference": "Unmodified ARM executable executed with Unicorn.js 1.0.3; randomized incoming flags and non-argument registers.",
-  "checked": "All declared result registers, original callee-saved registers/stack, and every byte of each allocated test arena, including canaries.",
-  "corpus": "ARM shift counts 0..512 and signed boundaries; 64-bit quotient/remainder, overflow boundaries and random inputs; alignment, overlap, zero lengths, copy/zero-padding, UTF-16 and exhaustive single-byte compare pairs.",
+  "checked": "All declared result registers, original callee-saved registers/stack, every byte of each allocated test arena including canaries, and relocated directory-prefix state where used.",
+  "corpus": "ARM shifts and integer boundaries; alignment, overlap, copy/zero-padding, UTF-16, exhaustive single-byte comparisons; default C-locale bytes/EOF, bounded path operations, URI/drive/dot/parent/case/truncation rules, changed global prefixes and all 736 resource-manifest paths.",
+  "pathScope": "Original default C locale only. The original runtime initializes this locale pointer via FUN_4a005b98(0,0)+1. Other locale initialization and whole-program global relocation are not ported.",
   "exceptionLimit": "Division by zero follows an unported original exception path and is excluded from equivalence tests. The native component traps; the JS wrapper rejects it.",
-  "passedFunctions": 52,
+  "passedFunctions": 65,
   "failedFunctions": 0,
-  "comparisons": 358097,
-  "memoryBytesCompared": 1527185408,
+  "comparisons": 380258,
+  "memoryBytesCompared": 2912157696,
   "results": [
     {
       "address": "4a000860",
@@ -323,6 +324,136 @@
         "r0"
       ],
       "memoryBytesCompared": 186646528
+    },
+    {
+      "address": "4a000c5c",
+      "label": "ctype_alnum",
+      "passed": true,
+      "cases": 257,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a000c72",
+      "label": "ctype_space",
+      "passed": true,
+      "cases": 257,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a000c88",
+      "label": "ctype_lower",
+      "passed": true,
+      "cases": 257,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a000ca8",
+      "label": "ctype_upper",
+      "passed": true,
+      "cases": 257,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 0
+    },
+    {
+      "address": "4a16303e",
+      "label": "bounded_string_copy",
+      "passed": true,
+      "cases": 2085,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 136642560
+    },
+    {
+      "address": "4a163010",
+      "label": "bounded_string_append",
+      "passed": true,
+      "cases": 1964,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 128712704
+    },
+    {
+      "address": "4a00b998",
+      "label": "path_parent",
+      "passed": true,
+      "cases": 2520,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 165150720
+    },
+    {
+      "address": "4a00b9ea",
+      "label": "path_extension",
+      "passed": true,
+      "cases": 2280,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 149422080
+    },
+    {
+      "address": "4a00ba22",
+      "label": "path_filename",
+      "passed": true,
+      "cases": 2496,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 163577856
+    },
+    {
+      "address": "4a00ba7c",
+      "label": "path_has_scheme",
+      "passed": true,
+      "cases": 2284,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 149684224
+    },
+    {
+      "address": "4a00ba94",
+      "label": "path_join",
+      "passed": true,
+      "cases": 1964,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 128712704
+    },
+    {
+      "address": "4a00bb00",
+      "label": "path_normalize",
+      "passed": true,
+      "cases": 2284,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 149684224
+    },
+    {
+      "address": "4a00d6a8",
+      "label": "path_resolve",
+      "passed": true,
+      "cases": 3256,
+      "resultRegisters": [
+        "r0"
+      ],
+      "memoryBytesCompared": 213385216
     },
     {
       "address": "4a005250",

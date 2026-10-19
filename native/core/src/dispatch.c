@@ -159,6 +159,58 @@ uint32_t core_invoke(uint32_t id,uint32_t a,uint32_t b,uint32_t c,uint32_t d) {
       result_words[0]=(uint32_t)(uintptr_t)FUN_4a000e60((byte *)(uintptr_t)a,(byte *)(uintptr_t)b,(uint32_t)c);
       return 1;
     }
+    case 31: {
+      result_words[0]=(uint32_t)(uintptr_t)FUN_4a000c5c((int32_t)a);
+      return 1;
+    }
+    case 32: {
+      result_words[0]=(uint32_t)(uintptr_t)FUN_4a000c72((int32_t)a);
+      return 1;
+    }
+    case 33: {
+      result_words[0]=(uint32_t)(uintptr_t)FUN_4a000c88((int32_t)a);
+      return 1;
+    }
+    case 34: {
+      result_words[0]=(uint32_t)(uintptr_t)FUN_4a000ca8((int32_t)a);
+      return 1;
+    }
+    case 35: {
+      result_words[0]=(uint32_t)(uintptr_t)FUN_4a16303e((char *)(uintptr_t)a,(char *)(uintptr_t)b,(uint32_t)c);
+      return 1;
+    }
+    case 36: {
+      result_words[0]=(uint32_t)(uintptr_t)FUN_4a163010((char *)(uintptr_t)a,(char *)(uintptr_t)b,(uint32_t)c);
+      return 1;
+    }
+    case 37: {
+      result_words[0]=(uint32_t)(uintptr_t)FUN_4a00b998((char *)(uintptr_t)a,(char *)(uintptr_t)b);
+      return 1;
+    }
+    case 38: {
+      result_words[0]=(uint32_t)(uintptr_t)FUN_4a00b9ea((char *)(uintptr_t)a,(char *)(uintptr_t)b);
+      return 1;
+    }
+    case 39: {
+      result_words[0]=(uint32_t)(uintptr_t)FUN_4a00ba22((char *)(uintptr_t)a,(char *)(uintptr_t)b,(int32_t)c);
+      return 1;
+    }
+    case 40: {
+      result_words[0]=(uint32_t)(uintptr_t)FUN_4a00ba7c((char *)(uintptr_t)a);
+      return 1;
+    }
+    case 41: {
+      result_words[0]=(uint32_t)(uintptr_t)FUN_4a00ba94((char *)(uintptr_t)a,(char *)(uintptr_t)b,(int32_t)c);
+      return 1;
+    }
+    case 42: {
+      result_words[0]=(uint32_t)(uintptr_t)FUN_4a00bb00((char *)(uintptr_t)a,(int32_t)b);
+      return 1;
+    }
+    case 43: {
+      result_words[0]=(uint32_t)(uintptr_t)FUN_4a00d6a8((char *)(uintptr_t)a,(char *)(uintptr_t)b);
+      return 1;
+    }
     case 101: {
       result_words[0]=(uint32_t)(uintptr_t)FUN_4a005250((uint32_t)a,(uint32_t)b);
       return 1;

@@ -5,6 +5,9 @@ export async function runNativeFixtures(core, corpus, onProgress = () => {}) {
   const results = new Map();
   let passed = 0;
   for (const fixture of corpus.fixtures) {
+    if(fixture.pathRoot) {
+      new Uint8Array(core.memory.buffer,core.pathRootAddress,core.manifest.pathState.rootCapacity).set(fixture.pathRoot);
+    }
     if (fixture.memory) {
       const {base,size,seed,patches} = fixture.memory;
       const data = new Uint8Array(core.memory.buffer,base,size);
@@ -24,6 +27,11 @@ export async function runNativeFixtures(core, corpus, onProgress = () => {}) {
       const digest=new Uint8Array(await crypto.subtle.digest('SHA-256',new Uint8Array(core.memory.buffer,base,size)));
       const sha=Array.from(digest,b=>b.toString(16).padStart(2,'0')).join('');
       if (sha !== fixture.expectedMemorySha256) throw new Error(fixture.label+': memory differs from the original ARM result');
+    }
+    if(fixture.pathRoot) {
+      const digest=new Uint8Array(await crypto.subtle.digest('SHA-256',new Uint8Array(core.memory.buffer,core.pathRootAddress,core.manifest.pathState.rootCapacity)));
+      const sha=Array.from(digest,b=>b.toString(16).padStart(2,'0')).join('');
+      if(sha !== fixture.expectedPathRootSha256)throw new Error(fixture.label+': relocated directory state differs from the original');
     }
     passed++;
     results.set(fixture.address,(results.get(fixture.address)||0)+1);

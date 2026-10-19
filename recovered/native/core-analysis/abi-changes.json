@@ -1,7 +1,7 @@
 [
   {
     "address": "4a000860",
-    "previousPrototype": "undefined FUN_4a000860(void)",
+    "previousPrototype": "ulonglong s3c_arm_lsl64(uint low, uint high, uint count)",
     "prototype": "ulonglong s3c_arm_lsl64(uint low, uint high, uint count)",
     "returnStorage": "r1:4,r0:4",
     "parameterStorage": [
@@ -12,7 +12,7 @@
   },
   {
     "address": "4a000888",
-    "previousPrototype": "undefined FUN_4a000888(void)",
+    "previousPrototype": "ulonglong s3c_arm_lsr64(uint low, uint high, uint count)",
     "prototype": "ulonglong s3c_arm_lsr64(uint low, uint high, uint count)",
     "returnStorage": "r1:4,r0:4",
     "parameterStorage": [
@@ -23,7 +23,7 @@
   },
   {
     "address": "4a0008b0",
-    "previousPrototype": "undefined FUN_4a0008b0(void)",
+    "previousPrototype": "ulonglong s3c_arm_asr64(uint low, uint high, uint count)",
     "prototype": "ulonglong s3c_arm_asr64(uint low, uint high, uint count)",
     "returnStorage": "r1:4,r0:4",
     "parameterStorage": [
@@ -34,7 +34,7 @@
   },
   {
     "address": "4a0008dc",
-    "previousPrototype": "undefined FUN_4a0008dc(void)",
+    "previousPrototype": "ulonglong s3c_multiply64(uint numeratorLow, uint numeratorHigh, uint denominatorLow, uint denominatorHigh)",
     "prototype": "ulonglong s3c_multiply64(uint numeratorLow, uint numeratorHigh, uint denominatorLow, uint denominatorHigh)",
     "returnStorage": "r1:4,r0:4",
     "parameterStorage": [
@@ -46,7 +46,7 @@
   },
   {
     "address": "4a0008f8",
-    "previousPrototype": "undefined FUN_4a0008f8(void)",
+    "previousPrototype": "CoreDiv64 s3c_divide_unsigned64(uint numeratorLow, uint numeratorHigh, uint denominatorLow, uint denominatorHigh)",
     "prototype": "CoreDiv64 s3c_divide_unsigned64(uint numeratorLow, uint numeratorHigh, uint denominatorLow, uint denominatorHigh)",
     "returnStorage": "r3:4,r2:4,r1:4,r0:4",
     "parameterStorage": [
@@ -58,7 +58,7 @@
   },
   {
     "address": "4a00080c",
-    "previousPrototype": "undefined FUN_4a00080c(void)",
+    "previousPrototype": "CoreDiv64 s3c_divide_signed64(uint numeratorLow, uint numeratorHigh, uint denominatorLow, uint denominatorHigh)",
     "prototype": "CoreDiv64 s3c_divide_signed64(uint numeratorLow, uint numeratorHigh, uint denominatorLow, uint denominatorHigh)",
     "returnStorage": "r3:4,r2:4,r1:4,r0:4",
     "parameterStorage": [
@@ -70,7 +70,7 @@
   },
   {
     "address": "4a0015f0",
-    "previousPrototype": "undefined FUN_4a0015f0(void)",
+    "previousPrototype": "ulonglong s3c_divide_signed32(uint dividend, uint divisor)",
     "prototype": "ulonglong s3c_divide_signed32(uint dividend, uint divisor)",
     "returnStorage": "r1:4,r0:4",
     "parameterStorage": [
@@ -80,7 +80,7 @@
   },
   {
     "address": "4a000f84",
-    "previousPrototype": "undefined FUN_4a000f84(void)",
+    "previousPrototype": "ulonglong s3c_copy_forward_endpoints(uint * destination, uint * source, uint count)",
     "prototype": "ulonglong s3c_copy_forward_endpoints(uint * destination, uint * source, uint count)",
     "returnStorage": "r1:4,r0:4",
     "parameterStorage": [
@@ -91,7 +91,7 @@
   },
   {
     "address": "4a00105c",
-    "previousPrototype": "undefined FUN_4a00105c(void)",
+    "previousPrototype": "ulonglong s3c_move_endpoints(uint * destination, uint * source, uint count)",
     "prototype": "ulonglong s3c_move_endpoints(uint * destination, uint * source, uint count)",
     "returnStorage": "r1:4,r0:4",
     "parameterStorage": [
@@ -102,7 +102,7 @@
   },
   {
     "address": "4a000eb8",
-    "previousPrototype": "undefined FUN_4a000eb8(void)",
+    "previousPrototype": "uint * s3c_copy_preserving_destination(uint * destination, uint * source, uint count)",
     "prototype": "uint * s3c_copy_preserving_destination(uint * destination, uint * source, uint count)",
     "returnStorage": "r0:4",
     "parameterStorage": [
@@ -113,7 +113,7 @@
   },
   {
     "address": "4a000ec8",
-    "previousPrototype": "undefined FUN_4a000ec8(void)",
+    "previousPrototype": "uint * s3c_move_preserving_destination(uint * destination, uint * source, uint count)",
     "prototype": "uint * s3c_move_preserving_destination(uint * destination, uint * source, uint count)",
     "returnStorage": "r0:4",
     "parameterStorage": [
@@ -124,7 +124,7 @@
   },
   {
     "address": "4a000f70",
-    "previousPrototype": "undefined FUN_4a000f70(void)",
+    "previousPrototype": "uint * s3c_fill_end(uint * destination, uint count, uchar value)",
     "prototype": "uint * s3c_fill_end(uint * destination, uint count, uchar value)",
     "returnStorage": "r0:4",
     "parameterStorage": [
@@ -135,7 +135,7 @@
   },
   {
     "address": "4a00121c",
-    "previousPrototype": "undefined FUN_4a00121c(void)",
+    "previousPrototype": "uint * s3c_zero_aligned_end(uint * destination, uint count)",
     "prototype": "uint * s3c_zero_aligned_end(uint * destination, uint count)",
     "returnStorage": "r0:4",
     "parameterStorage": [
@@ -145,7 +145,7 @@
   },
   {
     "address": "4a001274",
-    "previousPrototype": "undefined FUN_4a001274(void)",
+    "previousPrototype": "uint * s3c_zero_end(uint * destination, uint count)",
     "prototype": "uint * s3c_zero_end(uint * destination, uint count)",
     "returnStorage": "r0:4",
     "parameterStorage": [
@@ -155,7 +155,7 @@
   },
   {
     "address": "4a000ed8",
-    "previousPrototype": "undefined FUN_4a000ed8(void)",
+    "previousPrototype": "short * s3c_utf16_copy(short * destination, short * source)",
     "prototype": "short * s3c_utf16_copy(short * destination, short * source)",
     "returnStorage": "r0:4",
     "parameterStorage": [
@@ -165,7 +165,7 @@
   },
   {
     "address": "4a000ef4",
-    "previousPrototype": "undefined FUN_4a000ef4(void)",
+    "previousPrototype": "int s3c_utf16_compare(ushort * first, ushort * second)",
     "prototype": "int s3c_utf16_compare(ushort * first, ushort * second)",
     "returnStorage": "r0:4",
     "parameterStorage": [
@@ -175,7 +175,7 @@
   },
   {
     "address": "4a000f18",
-    "previousPrototype": "undefined FUN_4a000f18(void)",
+    "previousPrototype": "int s3c_utf16_find(int haystack, int needle)",
     "prototype": "int s3c_utf16_find(int haystack, int needle)",
     "returnStorage": "r0:4",
     "parameterStorage": [
@@ -185,7 +185,7 @@
   },
   {
     "address": "4a000f50",
-    "previousPrototype": "undefined FUN_4a000f50(void)",
+    "previousPrototype": "int s3c_utf16_length(short * text)",
     "prototype": "int s3c_utf16_length(short * text)",
     "returnStorage": "r0:4",
     "parameterStorage": [
@@ -194,7 +194,7 @@
   },
   {
     "address": "4a0012bc",
-    "previousPrototype": "undefined FUN_4a0012bc(void)",
+    "previousPrototype": "uint * s3c_string_copy(uint * destination, uint * source)",
     "prototype": "uint * s3c_string_copy(uint * destination, uint * source)",
     "returnStorage": "r0:4",
     "parameterStorage": [
@@ -204,7 +204,7 @@
   },
   {
     "address": "4a001314",
-    "previousPrototype": "undefined FUN_4a001314(void)",
+    "previousPrototype": "int s3c_string_compare_count(uint * first, uint * second, uint count)",
     "prototype": "int s3c_string_compare_count(uint * first, uint * second, uint count)",
     "returnStorage": "r0:4",
     "parameterStorage": [
@@ -215,7 +215,7 @@
   },
   {
     "address": "4a001368",
-    "previousPrototype": "undefined FUN_4a001368(void)",
+    "previousPrototype": "uint * s3c_string_copy_pad(uint * destination, uint * source, int count)",
     "prototype": "uint * s3c_string_copy_pad(uint * destination, uint * source, int count)",
     "returnStorage": "r0:4",
     "parameterStorage": [
@@ -226,7 +226,7 @@
   },
   {
     "address": "4a0013e0",
-    "previousPrototype": "undefined FUN_4a0013e0(void)",
+    "previousPrototype": "int s3c_string_length(uint * text)",
     "prototype": "int s3c_string_length(uint * text)",
     "returnStorage": "r0:4",
     "parameterStorage": [
@@ -235,7 +235,7 @@
   },
   {
     "address": "4a00142c",
-    "previousPrototype": "undefined FUN_4a00142c(void)",
+    "previousPrototype": "uint s3c_string_compare(uint * first, uint * second)",
     "prototype": "uint s3c_string_compare(uint * first, uint * second)",
     "returnStorage": "r0:4",
     "parameterStorage": [
@@ -245,7 +245,7 @@
   },
   {
     "address": "4a00150c",
-    "previousPrototype": "undefined FUN_4a00150c(void)",
+    "previousPrototype": "uchar * s3c_memory_find(uchar * buffer, uchar value, int count)",
     "prototype": "uchar * s3c_memory_find(uchar * buffer, uchar value, int count)",
     "returnStorage": "r0:4",
     "parameterStorage": [
@@ -256,7 +256,7 @@
   },
   {
     "address": "4a001538",
-    "previousPrototype": "undefined FUN_4a001538(void)",
+    "previousPrototype": "uchar * s3c_string_append(uchar * destination, uchar * source)",
     "prototype": "uchar * s3c_string_append(uchar * destination, uchar * source)",
     "returnStorage": "r0:4",
     "parameterStorage": [
@@ -266,7 +266,7 @@
   },
   {
     "address": "4a001552",
-    "previousPrototype": "undefined FUN_4a001552(void)",
+    "previousPrototype": "uchar * s3c_string_find_byte(int text, uchar value)",
     "prototype": "uchar * s3c_string_find_byte(int text, uchar value)",
     "returnStorage": "r0:4",
     "parameterStorage": [
@@ -276,7 +276,7 @@
   },
   {
     "address": "4a00156c",
-    "previousPrototype": "undefined FUN_4a00156c(void)",
+    "previousPrototype": "uchar * s3c_string_append_count(uchar * destination, uchar * source, int count)",
     "prototype": "uchar * s3c_string_append_count(uchar * destination, uchar * source, int count)",
     "returnStorage": "r0:4",
     "parameterStorage": [
@@ -287,7 +287,7 @@
   },
   {
     "address": "4a0015a0",
-    "previousPrototype": "undefined FUN_4a0015a0(void)",
+    "previousPrototype": "uchar * s3c_string_find_last_byte(uchar * text, uchar value)",
     "prototype": "uchar * s3c_string_find_last_byte(uchar * text, uchar value)",
     "returnStorage": "r0:4",
     "parameterStorage": [
@@ -297,7 +297,7 @@
   },
   {
     "address": "4a0015c0",
-    "previousPrototype": "undefined FUN_4a0015c0(void)",
+    "previousPrototype": "uchar * s3c_string_find(uchar * haystack, uchar * needle)",
     "prototype": "uchar * s3c_string_find(uchar * haystack, uchar * needle)",
     "returnStorage": "r0:4",
     "parameterStorage": [
@@ -307,13 +307,142 @@
   },
   {
     "address": "4a000e60",
-    "previousPrototype": "undefined FUN_4a000e60(void)",
+    "previousPrototype": "int s3c_memory_compare(uchar * first, uchar * second, uint count)",
     "prototype": "int s3c_memory_compare(uchar * first, uchar * second, uint count)",
     "returnStorage": "r0:4",
     "parameterStorage": [
       "first: r0:4",
       "second: r1:4",
       "count: r2:4"
+    ]
+  },
+  {
+    "address": "4a000c5c",
+    "previousPrototype": "uint s3c_ctype_alnum(int character)",
+    "prototype": "uint s3c_ctype_alnum(int character)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "character: r0:4"
+    ]
+  },
+  {
+    "address": "4a000c72",
+    "previousPrototype": "uint s3c_ctype_space(int character)",
+    "prototype": "uint s3c_ctype_space(int character)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "character: r0:4"
+    ]
+  },
+  {
+    "address": "4a000c88",
+    "previousPrototype": "int s3c_ctype_lower(int character)",
+    "prototype": "int s3c_ctype_lower(int character)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "character: r0:4"
+    ]
+  },
+  {
+    "address": "4a000ca8",
+    "previousPrototype": "int s3c_ctype_upper(int character)",
+    "prototype": "int s3c_ctype_upper(int character)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "character: r0:4"
+    ]
+  },
+  {
+    "address": "4a16303e",
+    "previousPrototype": "uint s3c_bounded_string_copy(uchar * destination, uchar * source, uint capacity)",
+    "prototype": "uint s3c_bounded_string_copy(uchar * destination, uchar * source, uint capacity)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "destination: r0:4",
+      "source: r1:4",
+      "capacity: r2:4"
+    ]
+  },
+  {
+    "address": "4a163010",
+    "previousPrototype": "uint s3c_bounded_string_append(uchar * destination, uchar * source, uint capacity)",
+    "prototype": "uint s3c_bounded_string_append(uchar * destination, uchar * source, uint capacity)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "destination: r0:4",
+      "source: r1:4",
+      "capacity: r2:4"
+    ]
+  },
+  {
+    "address": "4a00b998",
+    "previousPrototype": "uchar * s3c_path_parent(uchar * source, uchar * destination)",
+    "prototype": "uchar * s3c_path_parent(uchar * source, uchar * destination)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "source: r0:4",
+      "destination: r1:4"
+    ]
+  },
+  {
+    "address": "4a00b9ea",
+    "previousPrototype": "uchar * s3c_path_extension(uchar * source, uchar * destination)",
+    "prototype": "uchar * s3c_path_extension(uchar * source, uchar * destination)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "source: r0:4",
+      "destination: r1:4"
+    ]
+  },
+  {
+    "address": "4a00ba22",
+    "previousPrototype": "uchar * s3c_path_filename(uchar * source, uchar * destination, int keepExtension)",
+    "prototype": "uchar * s3c_path_filename(uchar * source, uchar * destination, int keepExtension)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "source: r0:4",
+      "destination: r1:4",
+      "keepExtension: r2:4"
+    ]
+  },
+  {
+    "address": "4a00ba7c",
+    "previousPrototype": "uint s3c_path_has_scheme(uchar * source)",
+    "prototype": "uint s3c_path_has_scheme(uchar * source)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "source: r0:4"
+    ]
+  },
+  {
+    "address": "4a00ba94",
+    "previousPrototype": "uchar * s3c_path_join(uchar * destination, uchar * source, int capacity)",
+    "prototype": "uchar * s3c_path_join(uchar * destination, uchar * source, int capacity)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "destination: r0:4",
+      "source: r1:4",
+      "capacity: r2:4"
+    ]
+  },
+  {
+    "address": "4a00bb00",
+    "previousPrototype": "uchar * s3c_path_normalize(uchar * path, int preserveCase)",
+    "prototype": "uchar * s3c_path_normalize(uchar * path, int preserveCase)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "path: r0:4",
+      "preserveCase: r1:4"
+    ]
+  },
+  {
+    "address": "4a00d6a8",
+    "previousPrototype": "uchar * s3c_path_resolve(uchar * source, uchar * destination)",
+    "prototype": "uchar * s3c_path_resolve(uchar * source, uchar * destination)",
+    "returnStorage": "r0:4",
+    "parameterStorage": [
+      "source: r0:4",
+      "destination: r1:4"
     ]
   }
 ]

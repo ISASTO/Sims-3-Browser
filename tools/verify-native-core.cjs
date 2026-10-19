@@ -41,6 +41,21 @@ function inputPattern(data) {
   cpu.mem_map(header.originalBase,Math.ceil(header.codeMemSize/4096)*4096,uc.PROT_ALL);
   cpu.mem_write(header.originalBase,original.subarray(header.codeOffset,header.codeOffset+header.codeFileSize));
   cpu.mem_map(BASE,SIZE,uc.PROT_ALL);cpu.mem_map(stack,stackSize,uc.PROT_ALL);cpu.mem_map(sentinel,4096,uc.PROT_ALL);
+  const pathState=manifest.pathState,rootAddress=parseInt(pathState.rootAddress,16),nativeRoot=native.core_path_root()>>>0;
+  for(const region of manifest.dataRegions) {
+    const address=parseInt(region.address,16),offset=header.codeOffset+address-header.originalBase;
+    assert.equal(hash(original.subarray(offset,offset+region.length)),region.sha256,'Pinned original data region');
+  }
+  assert.deepEqual(Buffer.from(new Uint8Array(native.memory.buffer,nativeRoot,pathState.rootCapacity)),Buffer.from(cpu.mem_read(rootAddress,pathState.rootCapacity)),'Relocated initial directory prefix');
+  // Recover the original C-locale table address by executing its initializer,
+  // then perform the pointer assignment from original runtime initialization.
+  cpu.reg_write_i32(uc.ARM_REG_CPSR,0x10);cpu.reg_write_i32(uc.ARM_REG_R0,0);cpu.reg_write_i32(uc.ARM_REG_R1,0);
+  cpu.reg_write_i32(uc.ARM_REG_SP,stack+stackSize-0x100);cpu.reg_write_i32(uc.ARM_REG_LR,sentinel);
+  cpu.emu_start(0x4a005b99,sentinel,0,100000);
+  assert.equal(cpu.reg_read_i32(uc.ARM_REG_PC),sentinel,'Original C locale initializer returned');
+  assert.equal(cpu.reg_read_i32(uc.ARM_REG_R0)>>>0,parseInt(pathState.ctypeTableStart,16));
+  const localePointer=Buffer.alloc(4);localePointer.writeUInt32LE(parseInt(pathState.ctypeTableStart,16)+pathState.ctypePointerOffset);
+  cpu.mem_write(parseInt(pathState.localePointerAddress,16),localePointer);
   const registers=Array.from({length:13},(_,i)=>uc['ARM_REG_R'+i]);
   const results=[],fixtures=[];
   let comparisons=0,memoryBytesCompared=0;
@@ -59,6 +74,10 @@ function inputPattern(data) {
           if(test.data) {
             cpu.mem_write(BASE,test.data);
             new Uint8Array(native.memory.buffer,BASE,test.data.length).set(test.data);
+          }
+          if(test.pathRoot) {
+            cpu.mem_write(rootAddress,test.pathRoot);
+            new Uint8Array(native.memory.buffer,nativeRoot,pathState.rootCapacity).set(test.pathRoot);
           }
           cpu.emu_start(parseInt(entry.address,16)|(entry.thumb?1:0),sentinel,0,2500000);
           assert.equal(cpu.reg_read_i32(uc.ARM_REG_PC),sentinel,'Reference did not return');
@@ -79,26 +98,31 @@ function inputPattern(data) {
             if(changed>=0)throw new Error('Memory mismatch at arena offset 0x'+changed.toString(16)+': expected '+expectedMemory[changed]+' got '+actualMemory[changed]);
             result.memoryBytesCompared+=test.data.length;memoryBytesCompared+=test.data.length;
           }
+          const expectedRoot=test.pathRoot?cpu.mem_read(rootAddress,pathState.rootCapacity):null;
+          if(expectedRoot)assert.deepEqual(Buffer.from(new Uint8Array(native.memory.buffer,nativeRoot,pathState.rootCapacity)),Buffer.from(expectedRoot),'Relocated directory prefix memory');
           result.cases++;comparisons++;
           if(index===0||index===17||index===97||(entry.suite==='move'&&test.args[0]===test.args[1]&&test.args[2]===1)) {
             fixtures.push({id:entry.id,address:entry.address,label:entry.label,case:test.label,args:test.args,mask,
               expected:expected.map((v,i)=>(mask&(1<<i))?v:0),memory:test.data?inputPattern(test.data):null,
-              expectedMemorySha256:expectedMemory?hash(expectedMemory):null});
+              expectedMemorySha256:expectedMemory?hash(expectedMemory):null,
+              ...(test.pathRoot?{pathRoot:Array.from(test.pathRoot),expectedPathRootSha256:hash(expectedRoot)}:{})});
           }
           // Keep only one full last fixture; compact its original input on demand.
-          lastFixture={test,expected:expected.map((v,i)=>(mask&(1<<i))?v:0),memoryHash:expectedMemory?hash(expectedMemory):null};
+          lastFixture={test,expected:expected.map((v,i)=>(mask&(1<<i))?v:0),memoryHash:expectedMemory?hash(expectedMemory):null,rootHash:expectedRoot?hash(expectedRoot):null};
         } catch(error) {
           result.passed=false;result.counterexample={case:test.label,args:test.args,expected,actual,error:String(error)};
           if(test.data)result.counterexample.input=inputPattern(test.data);
+          if(test.pathRoot)result.counterexample.pathRoot=Array.from(test.pathRoot);
           console.error('REJECT '+entry.label+' '+JSON.stringify({...result.counterexample,input:undefined}));
           break;
         }
         index++;
       }
       if(result.passed&&lastFixture) {
-        const {test,expected,memoryHash}=lastFixture;
+        const {test,expected,memoryHash,rootHash}=lastFixture;
         fixtures.push({id:entry.id,address:entry.address,label:entry.label,case:test.label,args:test.args,mask,expected,
-          memory:test.data?inputPattern(test.data):null,expectedMemorySha256:memoryHash});
+          memory:test.data?inputPattern(test.data):null,expectedMemorySha256:memoryHash,
+          ...(test.pathRoot?{pathRoot:Array.from(test.pathRoot),expectedPathRootSha256:rootHash}:{})});
       }
       results.push(result);
       console.log(entry.label+': '+(result.passed?'PASS':'FAIL')+' ('+result.cases+' cases)');
@@ -107,8 +131,9 @@ function inputPattern(data) {
   const report={status:'Native core components only; whole-game behavior and exhaustive equivalence remain unverified.',
     originalExecutableSha256:manifest.originalExecutableSha256,wasmSha256:manifest.wasmSha256,
     reference:'Unmodified ARM executable executed with Unicorn.js 1.0.3; randomized incoming flags and non-argument registers.',
-    checked:'All declared result registers, original callee-saved registers/stack, and every byte of each allocated test arena, including canaries.',
-    corpus:'ARM shift counts 0..512 and signed boundaries; 64-bit quotient/remainder, overflow boundaries and random inputs; alignment, overlap, zero lengths, copy/zero-padding, UTF-16 and exhaustive single-byte compare pairs.',
+    checked:'All declared result registers, original callee-saved registers/stack, every byte of each allocated test arena including canaries, and relocated directory-prefix state where used.',
+    corpus:'ARM shifts and integer boundaries; alignment, overlap, copy/zero-padding, UTF-16, exhaustive single-byte comparisons; default C-locale bytes/EOF, bounded path operations, URI/drive/dot/parent/case/truncation rules, changed global prefixes and all 736 resource-manifest paths.',
+    pathScope:pathState.scope,
     exceptionLimit:'Division by zero follows an unported original exception path and is excluded from equivalence tests. The native component traps; the JS wrapper rejects it.',
     passedFunctions:results.filter(x=>x.passed).length,failedFunctions:results.filter(x=>!x.passed).length,
     comparisons,memoryBytesCompared,results};

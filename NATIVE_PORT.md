@@ -36,7 +36,7 @@ counts represent a percentage of completed gameplay.
 | `recovered/native/analysis-input.json` | Input hashes, modeled imports, relocation locations, heuristic seeds |
 | `recovered/native/host-prototypes.json` | 187 Khronos signatures and 83 clearly marked unverified reference declarations |
 | `recovered/native/recovery-audit.json` | Counts, concrete review markers, and current build status |
-| `recovered/native/core-analysis/` | Recovered ABI storage, 30 annotated functions, and 128 re-exported callers |
+| `recovered/native/core-analysis/` | Recovered ABI storage, 43 annotated functions, and 128 re-exported callers |
 | `native/core/` | Connected native components, browser loader, ARM-derived fixtures, and validation reports |
 | `native/verified-functions.*` | The original 22-function scalar subset, retained as an independent baseline |
 
@@ -51,9 +51,10 @@ and deliberately excluded from automatic ABI annotation.
 
 ## Actually compiled code
 
-`native/core/sims3-core.wasm` now contains **52 recovered functions**: 30
-arithmetic, copy/move/fill, byte-string and UTF-16 routines, plus the original
-22 scalar functions. The functions call one another natively. For example,
+`native/core/sims3-core.wasm` now contains **65 recovered functions**: 30
+arithmetic, copy/move/fill, byte-string and UTF-16 routines, 13 connected
+pathname/default-locale functions, and the original 22 scalar functions.
+The functions call one another natively. For example,
 signed 64-bit division uses unsigned division, the copy/move wrappers call
 their underlying helpers, and bounded string copy uses zero-fill for padding.
 The build does not execute ARM instructions or import a CPU emulator.
@@ -67,11 +68,13 @@ including quotient/remainder pairs, so it does not require JavaScript BigInt
 integration. The loader fetches an ArrayBuffer, avoiding reliance on the
 server's Wasm streaming MIME configuration.
 
-358,097 ARM/Wasm comparisons passed for these functions. Checks include every
+380,258 ARM/Wasm comparisons passed for these functions. Checks include every
 declared result register and all bytes of each test arena, including canaries.
 The corpus covers alignment, overlapping moves, identical pointers, short
 tails, zero padding, UTF-16 code units, all single-byte comparison pairs, ARM
 register-shift counts, signed overflow boundaries, and random arguments.
+The pathname addition contributes 22,161 comparisons, including all 736
+resource-manifest paths and changes to a relocated global directory prefix.
 The compared memory total includes repeated test buffers; it is not a measure
 of game coverage. The original machine code remains the development oracle.
 
@@ -85,24 +88,50 @@ Three ABI corrections were particularly important:
   pointers can retain a one-byte residual; the recovered C preserves this
   behavior. The browser fixtures include the identical-pointer regression.
 
-The Ghidra annotation pass corrected 30 contracts and identified 220 calling
-functions, including references through thunks. It re-exported 128 callers
-plus the 30 core functions. These 158 diagnostic exports overlap the original
+The Ghidra annotation pass corrected 43 contracts and identified 216 calling
+functions outside this set, including references through thunks. It re-exported
+128 callers plus the 43 core functions. These 171 diagnostic exports overlap the original
 function inventory; they are not additional discovered functions. Ghidra's
 diagnostic C remains approximate, while the compiled core uses the reviewed
 implementations and explicit return corrections recorded in `contracts.json`.
-Across these same 158 exports, untyped extra-return markers fell from 39 to 4;
-six implicit-register markers and 33 warning comments remain. These source
+The current 171 exports contain four untyped extra-return markers, six
+implicit-register markers, and 34 warning comments. These source
 diagnostics identify further recovery work and do not establish correctness.
 
 The [browser component check](https://isasto.github.io/Sims-3-Browser/native/core/check.html)
-replays 215 fixtures recorded from original ARM execution across all 52
+replays 267 fixtures recorded from original ARM execution across all 65
 functions. It compares exact result words and memory hashes. This page has no
 dependency on the emulator or WebGL and does not run the complete game.
-All 215 checks passed on the live GitHub Pages page in the Chrome cloud browser;
-`native/core/browser-verification.json` records that observation separately
-from the Node loader integration checks. Other browsers and whole-game
-rendering have not been validated by this component check.
+All 267 checks passed through the shared browser loader in Node. The current
+live-browser status and exact Wasm hash are recorded separately in
+`native/core/browser-verification.json`; do not substitute the earlier
+52-function browser observation for validation of a newer module. Other
+browsers and whole-game rendering remain unverified.
+
+### Connected pathname and initialized-data recovery
+
+The new `native/core/src/path.c` recovers bounded copy/append, parent and
+extension extraction, filename handling, scheme detection, joining,
+normalization, and resource-path resolution. It calls the compiled string and
+memory functions directly. It preserves original behaviors such as leftmost-dot
+filename stripping, body-relative URI truncation, and absolute-path copying
+versus relative-path normalization.
+
+`path-data.h` is generated from two hash-pinned original data ranges: a 257-byte
+default C-locale table and the mutable 128-byte directory prefix initially `/`.
+The prefix is explicitly relocated into Wasm memory. Loader checks cover
+changing it, updates that alias its buffer, memory growth, arena-reset
+persistence, and a connected resource-path call. The original runtime's locale
+initializer is executed to establish the reference table pointer; original
+files remain unchanged.
+
+This is a bounded recovery of two data objects and their consumers, not a
+general solution for all globals, runtime initialization, or filesystem calls.
+Other locale initialization is unported. Filename components above 126 bytes
+can expose original uninitialized stack data and are outside the validated
+contract. Other input domains and the exact function/address mapping are in
+[native/core/PATH_RECOVERY.md](native/core/PATH_RECOVERY.md) and `contracts.json`.
+The module remains unconnected to the game loop, renderer, audio, and saves.
 
 The original division-by-zero exception path has **not** been ported. Core
 equivalence tests require nonzero divisors; the JS wrapper rejects zero and

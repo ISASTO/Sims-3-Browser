@@ -130,6 +130,7 @@ function* stringCases(entry) {
   }
 }
 function cases(entry) {
+  if(entry.suite.startsWith('path_'))return require('./native-path-cases.cjs').cases(entry);
   if(entry.suite==='scalar')return scalarCases(entry);
   if(['shift64','multiply64','udiv64','sdiv64','sdiv32'].includes(entry.suite))return arithmeticCases(entry);
   if(['copy_forward','copy','move'].includes(entry.suite))return copyCases(entry);
