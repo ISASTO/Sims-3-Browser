@@ -1,8 +1,14 @@
 {
-  "status": "Pending live browser validation for this build. Node loader checks passed separately.",
+  "status": "All component checks passed in the live browser.",
+  "environment": "Chrome cloud browser (cdp), observed via rendered accessibility state and screenshot.",
+  "url": "https://isasto.github.io/Sims-3-Browser/native/core/check.html",
+  "sourceCommit": "ad89a50345034df4889627104ce225e8cf400989",
   "wasmSha256": "96a67db80b92d6defaef5713bf3d0ecbbacdcec5d87a339148332dbfd4824048",
+  "checkedAt": "2026-10-19T13:43:41.568000+00:00",
   "fixtureChecks": 267,
   "functionsCovered": 65,
+  "observedResult": "All component checks passed; 267 / 267 checks; 65 functions.",
+  "limitations": "Component verification only, including recovered pathname/default-C-locale routines and selected directory-prefix states. The full native game, renderer, audio, simulation, save compatibility and gameplay performance remain unverified.",
   "previousValidation": {
     "status": "All component checks passed in the live browser.",
     "environment": "Chrome cloud browser (cdp), observed via rendered accessibility state and screenshot.",
@@ -14,6 +20,5 @@
     "functionsCovered": 52,
     "observedResult": "All component checks passed; 215 / 215 checks; 52 functions.",
     "limitations": "Component verification only. The full native game, renderer, audio, simulation and save compatibility remain unverified."
-  },
-  "limitations": "Native components only; the full game and its rendering/performance remain unverified."
+  }
 }

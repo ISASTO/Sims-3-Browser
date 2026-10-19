@@ -56,7 +56,7 @@ arithmetic, copy/move/fill, byte-string and UTF-16 routines, 13 connected
 pathname/default-locale functions, and the original 22 scalar functions.
 The functions call one another natively. For example,
 signed 64-bit division uses unsigned division, the copy/move wrappers call
-their underlying helpers, and bounded string copy uses zero-fill for padding.
+their underlying helpers, and the string copy-and-pad function uses zero-fill for padding.
 The build does not execute ARM instructions or import a CPU emulator.
 
 The target is `wasm32-unknown-unknown`, using the **WebAssembly MVP** instruction
@@ -102,11 +102,11 @@ The [browser component check](https://isasto.github.io/Sims-3-Browser/native/cor
 replays 267 fixtures recorded from original ARM execution across all 65
 functions. It compares exact result words and memory hashes. This page has no
 dependency on the emulator or WebGL and does not run the complete game.
-All 267 checks passed through the shared browser loader in Node. The current
-live-browser status and exact Wasm hash are recorded separately in
-`native/core/browser-verification.json`; do not substitute the earlier
-52-function browser observation for validation of a newer module. Other
-browsers and whole-game rendering remain unverified.
+All 267 checks passed through the shared browser loader in Node and on the live
+GitHub Pages component page in the Chrome cloud browser. The observed result,
+source commit, and exact Wasm hash are recorded separately in
+`native/core/browser-verification.json`. Other browsers and whole-game
+rendering remain unverified.
 
 ### Connected pathname and initialized-data recovery
 
