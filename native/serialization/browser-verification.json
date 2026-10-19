@@ -1,0 +1,16 @@
+{
+  "status": "Pending live browser validation for this module. Node loader/integration checks pass separately.",
+  "wasmSha256": "8a966642e9284d6dc2435bb1abecdacdfc0b3f99e64d171e9ca6a5220c44cc72",
+  "fixtureChecks": 105,
+  "functionsCovered": 15,
+  "roundtrip": {
+    "name": "fonts/fonts.group.bin",
+    "bytes": 63953,
+    "sha256": "2f8380864dd9f0a2b51ae73129cfb2c3fb02bd5b9deb4b54037933a9ac9d4138",
+    "version": "3.6.6",
+    "headerExtra": 0,
+    "headerBytes": 6,
+    "note": "Complete resource-byte transfer through recovered stream code; full font parsing/rendering remains unported."
+  },
+  "limitations": "Read/write ABI is recovered from original call sites. Differential tests bind a controlled memory-file host to ARM and Wasm; they do not independently prove all Marmalade SDK host behavior. The bridge import dispatches an original callback token; callback bodies are not recovered here. Full resource parsing, gameplay, rendering, audio and persistent saves remain unverified."
+}

@@ -18,6 +18,8 @@ def main():
     parser.add_argument('--database', type=Path, default=ROOT / 'analysis-work/core-ghidra')
     parser.add_argument('--name', default='Sims3RecoveredCore')
     parser.add_argument('--resume', action='store_true')
+    parser.add_argument('--contracts', type=Path, default=ROOT / 'native/core/contracts.json')
+    parser.add_argument('--output', type=Path, default=ROOT / 'recovered/native/core-analysis')
     args = parser.parse_args()
     database = args.database.resolve()
     database.mkdir(parents=True, exist_ok=True)
@@ -29,19 +31,28 @@ def main():
     command = [str(launcher), str(database), args.name]
     command += ['-process', 'game-analysis'] if args.resume else ['-import', str(ROOT / 'recovered/native/game-analysis.gzf')]
     command += ['-noanalysis', '-scriptPath', str(ROOT / 'tools/ghidra'),
-                '-postScript', 'NativeCoreContracts.java', str(ROOT), token,
+                '-postScript', 'NativeCoreContracts.java', str(ROOT), token, str(args.contracts.resolve()), str(args.output.resolve()),
                 '-log', str(database / (args.name + '.log'))]
     environment = os.environ.copy()
     if args.jdk:
         environment['JAVA_HOME'] = str(args.jdk.resolve())
     subprocess.run(command, env=environment, check=True)
-    report = json.loads((ROOT / 'recovered/native/core-analysis/report.json').read_text())
+    report = json.loads((args.output / 'report.json').read_text())
     if report.get('runToken') != token:
         raise RuntimeError('Ghidra did not produce a completion report for this run.')
-    contracts = (ROOT / 'native/core/contracts.json').read_bytes()
+    contracts = args.contracts.read_bytes()
     if report['contractsSha256'] != hashlib.sha256(contracts).hexdigest():
         raise RuntimeError('Annotations reference a different contract file.')
-    if not report['analysisImageUnchanged'] or report['contractsApplied'] != len(json.loads(contracts)['functions']):
+    config = json.loads(contracts)
+    expected = len(config['functions'])
+    if config.get('analysisBaseContracts'):
+        base_contracts = (ROOT / config['analysisBaseContracts']).read_bytes()
+        expected += len(json.loads(base_contracts)['functions'])
+        if report.get('baseContractsSha256') != hashlib.sha256(base_contracts).hexdigest():
+            raise RuntimeError('Base annotation contracts changed.')
+    if config.get('hostContracts') and report.get('observedHostSignaturesApplied') != len(config['hostContracts']):
+        raise RuntimeError('Incomplete observed host annotations.')
+    if not report['analysisImageUnchanged'] or report['contractsApplied'] != expected:
         raise RuntimeError('Incomplete core annotations or modified executable bytes.')
     print(json.dumps(report, indent=2))
 

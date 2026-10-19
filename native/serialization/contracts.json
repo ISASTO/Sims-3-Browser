@@ -1,0 +1,534 @@
+{
+  "status": "Recovered serialization components only; not a complete resource parser or game.",
+  "wordSize": 32,
+  "endianness": "little",
+  "analysisBaseContracts": "native/core/contracts.json",
+  "context": {
+    "originalAddress": "4a19b6a8",
+    "length": 204,
+    "fields": {
+      "reading": 0,
+      "handle": 8,
+      "counter": 172,
+      "period": 176,
+      "slowFlag": 188,
+      "version": 192,
+      "headerExtra": 196,
+      "callback": 200
+    }
+  },
+  "functions": [
+    {
+      "id": 1,
+      "address": "4a0066d8",
+      "symbol": "FUN_4a0066d8",
+      "label": "serial_divide_unsigned32",
+      "returnType": "u64",
+      "parameters": [
+        {
+          "type": "u32",
+          "name": "numerator"
+        },
+        {
+          "type": "u32",
+          "name": "divisor"
+        }
+      ],
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "suite": "divide",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Nonzero divisor; quotient in r0 and remainder in r1."
+    },
+    {
+      "id": 2,
+      "address": "4a0515e4",
+      "symbol": "FUN_4a0515e4",
+      "label": "serial_advance",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "u32",
+          "name": "amount"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "advance",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Counter at +0xac; callback at +0xc8, period at +0xb0; callback receives observed r0/r1 payload and counter is reloaded afterward. Period must be nonzero when callback is enabled."
+    },
+    {
+      "id": 3,
+      "address": "4a056f30",
+      "symbol": "FUN_4a056f30",
+      "label": "serial_read_strided",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "width"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        },
+        {
+          "type": "p_u8",
+          "name": "context"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "strided_read",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Fifth argument is a real stack argument; its handle at +8 can differ from the global handle. Progress counts requested bytes even on short reads."
+    },
+    {
+      "id": 4,
+      "address": "4a056f94",
+      "symbol": "FUN_4a056f94",
+      "label": "serial_write_strided",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "width"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        },
+        {
+          "type": "p_u8",
+          "name": "context"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "strided_write",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Fifth stack argument supplies context/handle. Preserve batched versus per-element calls and ignored host return values."
+    },
+    {
+      "id": 5,
+      "address": "4a0365d4",
+      "symbol": "FUN_4a0365d4",
+      "label": "serial_boolean",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "u32",
+          "name": "unused"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "boolean",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Read converts to 0/1 and advances progress per byte; write converts to 0/1 but does not advance progress. Reading requires enough source bytes; original first short read exposes an uninitialized temporary."
+    },
+    {
+      "id": 6,
+      "address": "4a036638",
+      "symbol": "FUN_4a036638",
+      "label": "serial_encoded_byte",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "i32",
+          "name": "bits"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "fields",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Nonnegative bounded bit counts. Preserve the special fast path and (bits+8)/8 slow width."
+    },
+    {
+      "id": 7,
+      "address": "4a03669c",
+      "symbol": "FUN_4a03669c",
+      "label": "serial_signed_byte",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "i32",
+          "name": "bits"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "fields",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "One-byte transfer; fast case uses bits=7, stride=1 and state +0xbc=0."
+    },
+    {
+      "id": 8,
+      "address": "4a039b90",
+      "symbol": "FUN_4a039b90",
+      "label": "serial_byte",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "i32",
+          "name": "bits"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "fields",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "One-byte transfer; fast case uses bits=8, stride=1 and state +0xbc=0."
+    },
+    {
+      "id": 9,
+      "address": "4a03c0b8",
+      "symbol": "FUN_4a03c0b8",
+      "label": "serial_unsigned16",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "i32",
+          "name": "bits"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "fields",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Preserve ceil(bits/8), the two-byte cap and fast case at 16 bits."
+    },
+    {
+      "id": 10,
+      "address": "4a03c12c",
+      "symbol": "FUN_4a03c12c",
+      "label": "serial_unsigned32",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "i32",
+          "name": "bits"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "fields",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Preserve ceil(bits/8), the four-byte cap and fast case at 32 bits."
+    },
+    {
+      "id": 11,
+      "address": "4a0399e0",
+      "symbol": "FUN_4a0399e0",
+      "label": "serial_encoded32",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "i32",
+          "name": "bits"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "fields",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "The slow (bits+8)/8 path may transfer five bytes at bits=32; do not replace it with a standard four-byte load."
+    },
+    {
+      "id": 12,
+      "address": "4a039a4c",
+      "symbol": "FUN_4a039a4c",
+      "label": "serial_signed16",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "i32",
+          "name": "bits"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "fields",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Read sign-extends bits+1 in the original halfword; postprocessing steps by stride&~1, while file transfers use the original stride. Valid bits 0..15."
+    },
+    {
+      "id": 13,
+      "address": "4a039aec",
+      "symbol": "FUN_4a039aec",
+      "label": "serial_signed32",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "i32",
+          "name": "bits"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "fields",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Read sign-extends bits+1; postprocessing steps by stride&~3, while transfers use the original stride. Valid bits 0..31."
+    },
+    {
+      "id": 14,
+      "address": "4a04e90c",
+      "symbol": "FUN_4a04e90c",
+      "label": "serial_resource_header",
+      "returnType": "u32",
+      "parameters": [],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "header",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Original 0x0606033d temporary; version assembled from bytes 1..3; optional 16-bit field for version >=0x030102. Returns 1 without validating a complete asset."
+    },
+    {
+      "id": 15,
+      "address": "4a03c064",
+      "symbol": "FUN_4a03c064",
+      "label": "serial_string",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "unused1"
+        },
+        {
+          "type": "u32",
+          "name": "unused2"
+        },
+        {
+          "type": "u32",
+          "name": "initial"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "string",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Write includes NUL; read consumes one byte at a time until NUL and ignores the apparent capacity argument. Caller must provide sufficient destination space and a terminating byte in the stream."
+    }
+  ],
+  "hostImports": [
+    {
+      "module": "s3e",
+      "name": "read",
+      "parameters": [
+        127,
+        127,
+        127,
+        127
+      ],
+      "results": [
+        127
+      ]
+    },
+    {
+      "module": "s3e",
+      "name": "write",
+      "parameters": [
+        127,
+        127,
+        127,
+        127
+      ],
+      "results": [
+        127
+      ]
+    },
+    {
+      "module": "bridge",
+      "name": "progress",
+      "parameters": [
+        127,
+        127,
+        127
+      ],
+      "results": []
+    }
+  ],
+  "hostContracts": [
+    {
+      "name": "s3eFileRead",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "name": "buffer",
+          "type": "p_u8"
+        },
+        {
+          "name": "size",
+          "type": "u32"
+        },
+        {
+          "name": "count",
+          "type": "u32"
+        },
+        {
+          "name": "handle",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "s3eFileWrite",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "name": "buffer",
+          "type": "p_u8"
+        },
+        {
+          "name": "size",
+          "type": "u32"
+        },
+        {
+          "name": "count",
+          "type": "u32"
+        },
+        {
+          "name": "handle",
+          "type": "u32"
+        }
+      ]
+    }
+  ],
+  "hostScope": "Read/write ABI is recovered from original call sites. Differential tests bind a controlled memory-file host to ARM and Wasm; they do not independently prove all Marmalade SDK host behavior. The bridge import dispatches an original callback token; callback bodies are not recovered here.",
+  "limits": "Nonnegative practical counts and bit widths, valid buffers/strides/context. Nonzero division denominator and callback period. Boolean reads need complete source bytes; string reads require a reachable NUL. No complete resource parser, asynchronous streaming, native file-open layer or save persistence."
+}

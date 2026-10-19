@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Sims 3 · Native resource stream check</title>
+<style>
+:root{color-scheme:dark;font:16px/1.6 system-ui,sans-serif;background:#000;color:#e4e7ed}body{max-width:820px;margin:0 auto;padding:48px 24px}h1{font-size:1.8rem;line-height:1.25}p{color:#b2b8c5}strong{color:#fff}section{border:1px solid #30343d;border-radius:12px;padding:24px;margin:28px 0}#status{font-size:1.25rem;font-weight:650}progress{width:100%;height:14px;accent-color:#86dbb7;margin:22px 0 8px}#detail{font: .9rem/1.7 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere}button{font:inherit;background:#101216;border:1px solid #656c79;border-radius:6px;color:#fff;padding:8px 18px;cursor:pointer}button:disabled{opacity:.5;cursor:wait}.note{font-size:.9rem}a{color:#86dbb7}
+</style>
+<main>
+<h1>Native resource stream check</h1>
+<p>This runs recovered Sims 3 binary serialization code and an original game resource directly in WebAssembly. <strong>The complete game has not been rebuilt.</strong></p>
+<section aria-label="Native stream verification">
+<div id="status" role="status" aria-live="polite">Loading recovered components…</div>
+<progress id="progress" value="0" max="1" aria-label="Checks completed"></progress>
+<p id="counts">Preparing original ARM fixtures.</p><p id="detail"></p>
+<button id="rerun" disabled>Run again</button>
+</section>
+<p class="note">Fixtures compare original ARM execution with compiled code under controlled memory-file and callback services. The resource check loads the original font file, recovers its header, and transfers every byte through native read/write routines.</p>
+<p class="note">WebAssembly MVP · explicit browser file/callback services · no CPU emulator. Full resource parsing, game rendering, simulation, audio and save compatibility remain unverified.</p>
+<p class="note"><a href="../core/check.html">Earlier native core check</a></p>
+</main>
+<script type="module">
+import {loadNativeSerialization} from './runtime.js';
+import {runSerializationFixtures,runFontRoundtrip} from './fixtures.js';
+const status=document.querySelector('#status'),progress=document.querySelector('#progress'),counts=document.querySelector('#counts'),detail=document.querySelector('#detail'),button=document.querySelector('#rerun');
+async function run(){button.disabled=true;status.textContent='Checking recovered stream code…';detail.textContent='';progress.value=0;
+try{
+ const [core,response]=await Promise.all([loadNativeSerialization(),fetch('./browser-fixtures.json',{cache:'no-store'})]);
+ if(!response.ok)throw new Error('Unable to load original ARM fixtures');
+ const result=await runSerializationFixtures(core,await response.json(),value=>{progress.max=value.total;progress.value=value.passed;counts.textContent=value.passed+' / '+value.total+' checks · '+value.functions+' new functions';detail.textContent=value.label;});
+ const resource=await runFontRoundtrip(core);
+ status.textContent='All stream and resource checks passed';status.dataset.result='passed';
+ detail.textContent=result.functions+' recovered functions matched the ARM fixtures.\nOriginal font resource: '+resource.bytes.toLocaleString('en-US')+' bytes\nHeader version '+resource.version+' · '+resource.headerBytes+' header bytes consumed\nComplete native byte roundtrip: SHA-256 matched';
+}catch(error){status.textContent='Native stream check failed';status.dataset.result='failed';detail.textContent=String(error);}finally{button.disabled=false;}}
+button.addEventListener('click',run);run();
+</script></html>

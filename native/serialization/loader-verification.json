@@ -1,0 +1,24 @@
+{
+  "status": "All Node loader/integration checks passed; actual browser results are recorded separately.",
+  "environment": "Node.js v24.19.0",
+  "wasmSha256": "8a966642e9284d6dc2435bb1abecdacdfc0b3f99e64d171e9ca6a5220c44cc72",
+  "fixtureChecks": 105,
+  "functionsCovered": 15,
+  "checked": [
+    "ARM-derived words, full arena/context hashes, ordered file/callback traces and stream contents",
+    "Exact host import allowlist and version hashes",
+    "Five-word argument interface and invalid-domain rejection",
+    "Memory growth and fresh views",
+    "Native path resolution plus manifest/asset integrity verification",
+    "Actual font resource header and byte-for-byte roundtrip through recovered native I/O"
+  ],
+  "roundtrip": {
+    "name": "fonts/fonts.group.bin",
+    "bytes": 63953,
+    "sha256": "2f8380864dd9f0a2b51ae73129cfb2c3fb02bd5b9deb4b54037933a9ac9d4138",
+    "version": "3.6.6",
+    "headerExtra": 0,
+    "headerBytes": 6,
+    "note": "Complete resource-byte transfer through recovered stream code; full font parsing/rendering remains unported."
+  }
+}

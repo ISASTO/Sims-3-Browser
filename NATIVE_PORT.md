@@ -38,6 +38,8 @@ counts represent a percentage of completed gameplay.
 | `recovered/native/recovery-audit.json` | Counts, concrete review markers, and current build status |
 | `recovered/native/core-analysis/` | Recovered ABI storage, 43 annotated functions, and 128 re-exported callers |
 | `native/core/` | Connected native components, browser loader, ARM-derived fixtures, and validation reports |
+| `native/serialization/` | Fifteen more original serializer functions, browser file/callback adapter, fixtures, and original-resource roundtrip |
+| `recovered/native/serialization-analysis/` | Combined 58-contract ABI recovery, observed file host signatures, and 128 caller diagnostics |
 | `native/verified-functions.*` | The original 22-function scalar subset, retained as an independent baseline |
 
 `prepare_native.py` changes only the 273 external branch placeholders in a
@@ -50,6 +52,50 @@ replacement, not the original Marmalade SDK. They are retained as reference
 and deliberately excluded from automatic ABI annotation.
 
 ## Actually compiled code
+
+There are now **80 distinct recovered original entry points** across the core
+and serialization components. Their validation scopes differ: the core has no
+host imports, while the serializer uses three explicit browser file/callback
+imports and compares original ARM behavior under a controlled host model.
+
+### Native binary serialization and resource transfer
+
+`native/serialization/sims3-serialization.wasm` adds fifteen reviewed original
+routines for unsigned division, strided I/O, byte/integer/boolean fields,
+NUL strings, progress callbacks, and a resource header. It reuses the core's
+string-length function without counting that dependency again. The 2,952-byte
+MVP binary has nine defined functions after compiler inlining/merging and three
+exactly declared host imports. These binary counts are not gameplay coverage.
+
+A 204-byte global context is explicitly relocated. Recovery models a fifth
+stack argument for strided I/O and the unsigned division's two-register return.
+Comparisons include context/canary bytes, file contents/cursors, and ordered
+file/callback traces. Original callbacks may change the counter before it is
+reloaded; requested bytes still advance progress on failed/short transfers.
+Original boolean-write progress and field-width/stride quirks are preserved.
+All fifteen routines passed 25,811 controlled-host ARM/Wasm comparisons and
+159,404 matching file/callback events. The shared browser loader passed 105
+ARM-derived fixtures in Node; live-browser status is recorded separately.
+Exact input domains and test scope are in the component's reports.
+
+The browser adapter uses the earlier native path resolver, verifies original
+asset hashes, and loads resource bytes into synchronous memory files. The actual
+`fonts/fonts.group.bin` yields version 3.6.6 and a six-byte header. Native header
+and payload read/write routines reproduce all 63,953 bytes with the original
+SHA-256. This validates stream integration, not complete font/resource parsing
+or rendering. Native open/seek/close, callback bodies, general runtime/global
+initialization, persistent saves, and the full game remain unported.
+
+The Ghidra pass applies 43 existing plus fifteen new contracts and two observed
+file host signatures, then exports those 58 functions plus 128 callers. The
+186 diagnostics overlap existing inventory and are not additional compiled
+functions. No executable bytes changed. The call-site host signatures and
+controlled adapter do not establish complete original SDK behavior.
+
+See [native/serialization/README.md](native/serialization/README.md) for the
+function mapping, reproduction commands, source/host contracts, and limitations.
+
+### Import-free native core
 
 `native/core/sims3-core.wasm` now contains **65 recovered functions**: 30
 arithmetic, copy/move/fill, byte-string and UTF-16 routines, 13 connected

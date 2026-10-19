@@ -1,0 +1,119 @@
+{
+  "baseline": "WebAssembly MVP",
+  "imports": 3,
+  "functionTypes": 7,
+  "hostImports": [
+    {
+      "module": "bridge",
+      "name": "progress",
+      "parameters": [
+        127,
+        127,
+        127
+      ],
+      "results": []
+    },
+    {
+      "module": "s3e",
+      "name": "read",
+      "parameters": [
+        127,
+        127,
+        127,
+        127
+      ],
+      "results": [
+        127
+      ]
+    },
+    {
+      "module": "s3e",
+      "name": "write",
+      "parameters": [
+        127,
+        127,
+        127,
+        127
+      ],
+      "results": [
+        127
+      ]
+    }
+  ],
+  "compiledFunctions": 9,
+  "instructionCount": 1244,
+  "opcodes": {
+    "0x00": 5,
+    "0x02": 57,
+    "0x03": 9,
+    "0x0b": 75,
+    "0x0c": 23,
+    "0x0d": 70,
+    "0x0e": 1,
+    "0x0f": 10,
+    "0x10": 34,
+    "0x1a": 8,
+    "0x1b": 6,
+    "0x20": 314,
+    "0x21": 70,
+    "0x22": 43,
+    "0x23": 2,
+    "0x24": 4,
+    "0x28": 46,
+    "0x2d": 15,
+    "0x36": 15,
+    "0x37": 1,
+    "0x3a": 10,
+    "0x41": 217,
+    "0x42": 1,
+    "0x45": 37,
+    "0x46": 7,
+    "0x47": 16,
+    "0x48": 2,
+    "0x49": 7,
+    "0x4a": 4,
+    "0x6a": 54,
+    "0x6b": 8,
+    "0x6c": 5,
+    "0x6d": 6,
+    "0x6e": 1,
+    "0x70": 5,
+    "0x71": 16,
+    "0x72": 6,
+    "0x73": 1,
+    "0x74": 16,
+    "0x75": 11,
+    "0x76": 6
+  },
+  "memories": [
+    {
+      "initialPages": 16,
+      "maximumPages": 1024,
+      "shared": false
+    }
+  ],
+  "exports": [
+    {
+      "name": "memory",
+      "kind": 2
+    },
+    {
+      "name": "serial_state_ptr",
+      "kind": 0
+    },
+    {
+      "name": "serial_result_ptr",
+      "kind": 0
+    },
+    {
+      "name": "serial_heap_base",
+      "kind": 0
+    },
+    {
+      "name": "serial_invoke",
+      "kind": 0
+    }
+  ],
+  "wasmSha256": "8a966642e9284d6dc2435bb1abecdacdfc0b3f99e64d171e9ca6a5220c44cc72",
+  "note": "Feature audit of the binary encoding. Engine validation and ARM differential results are recorded separately."
+}

@@ -1,0 +1,626 @@
+{
+  "status": "Recovered serialization components only; not a complete resource parser or game.",
+  "wordSize": 32,
+  "endianness": "little",
+  "analysisBaseContracts": "native/core/contracts.json",
+  "context": {
+    "originalAddress": "4a19b6a8",
+    "length": 204,
+    "fields": {
+      "reading": 0,
+      "handle": 8,
+      "counter": 172,
+      "period": 176,
+      "slowFlag": 188,
+      "version": 192,
+      "headerExtra": 196,
+      "callback": 200
+    }
+  },
+  "functions": [
+    {
+      "id": 1,
+      "address": "4a0066d8",
+      "symbol": "FUN_4a0066d8",
+      "label": "serial_divide_unsigned32",
+      "returnType": "u64",
+      "parameters": [
+        {
+          "type": "u32",
+          "name": "numerator"
+        },
+        {
+          "type": "u32",
+          "name": "divisor"
+        }
+      ],
+      "resultRegisters": [
+        "r0",
+        "r1"
+      ],
+      "suite": "divide",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Nonzero divisor; quotient in r0 and remainder in r1.",
+      "thumb": false,
+      "recoveredBodySha256": "2fc34ad336bf4e2118b922c97a45a68f725c9f42d48bf889da0204e2235b8562",
+      "sourceFile": "recovered/native/decompiled/part-000.c"
+    },
+    {
+      "id": 2,
+      "address": "4a0515e4",
+      "symbol": "FUN_4a0515e4",
+      "label": "serial_advance",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "u32",
+          "name": "amount"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "advance",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Counter at +0xac; callback at +0xc8, period at +0xb0; callback receives observed r0/r1 payload and counter is reloaded afterward. Period must be nonzero when callback is enabled.",
+      "thumb": true,
+      "recoveredBodySha256": "4b3acf5b9f72f513b3001706a9ee681ac749649b832d6ba966674d7916608c59",
+      "sourceFile": "recovered/native/decompiled/part-006.c"
+    },
+    {
+      "id": 3,
+      "address": "4a056f30",
+      "symbol": "FUN_4a056f30",
+      "label": "serial_read_strided",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "width"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        },
+        {
+          "type": "p_u8",
+          "name": "context"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "strided_read",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Fifth argument is a real stack argument; its handle at +8 can differ from the global handle. Progress counts requested bytes even on short reads.",
+      "thumb": true,
+      "recoveredBodySha256": "edc333aa7bef223dc2d61f9bcb50d644547752fb4c73ca771d989dda39feb3c1",
+      "sourceFile": "recovered/native/decompiled/part-006.c"
+    },
+    {
+      "id": 4,
+      "address": "4a056f94",
+      "symbol": "FUN_4a056f94",
+      "label": "serial_write_strided",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "width"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        },
+        {
+          "type": "p_u8",
+          "name": "context"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "strided_write",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Fifth stack argument supplies context/handle. Preserve batched versus per-element calls and ignored host return values.",
+      "thumb": true,
+      "recoveredBodySha256": "0b3ca0759eaa0cb16bc392e8612a541ffe7cab6e2e67fb42474966d1e20e5269",
+      "sourceFile": "recovered/native/decompiled/part-006.c"
+    },
+    {
+      "id": 5,
+      "address": "4a0365d4",
+      "symbol": "FUN_4a0365d4",
+      "label": "serial_boolean",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "u32",
+          "name": "unused"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "boolean",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Read converts to 0/1 and advances progress per byte; write converts to 0/1 but does not advance progress. Reading requires enough source bytes; original first short read exposes an uninitialized temporary.",
+      "thumb": true,
+      "recoveredBodySha256": "59395641311ca11275cb8906548c335a8a27a544b95df8dc08a4cb5e91e32e7c",
+      "sourceFile": "recovered/native/decompiled/part-003.c"
+    },
+    {
+      "id": 6,
+      "address": "4a036638",
+      "symbol": "FUN_4a036638",
+      "label": "serial_encoded_byte",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "i32",
+          "name": "bits"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "fields",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Nonnegative bounded bit counts. Preserve the special fast path and (bits+8)/8 slow width.",
+      "thumb": true,
+      "recoveredBodySha256": "2c87642c88c682b8f79036434705d83f00f62a213f8277ed0c0cda59f80411a0",
+      "sourceFile": "recovered/native/decompiled/part-003.c"
+    },
+    {
+      "id": 7,
+      "address": "4a03669c",
+      "symbol": "FUN_4a03669c",
+      "label": "serial_signed_byte",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "i32",
+          "name": "bits"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "fields",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "One-byte transfer; fast case uses bits=7, stride=1 and state +0xbc=0.",
+      "thumb": true,
+      "recoveredBodySha256": "497435c62beb614eafee90dd7e0d66f8b78aba319a979695c8202317d7b1650c",
+      "sourceFile": "recovered/native/decompiled/part-003.c"
+    },
+    {
+      "id": 8,
+      "address": "4a039b90",
+      "symbol": "FUN_4a039b90",
+      "label": "serial_byte",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "i32",
+          "name": "bits"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "fields",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "One-byte transfer; fast case uses bits=8, stride=1 and state +0xbc=0.",
+      "thumb": true,
+      "recoveredBodySha256": "f3b9c1f3d73a3cdbca26eb58806a4f18c4be45b47a121fb4212c67edccad894a",
+      "sourceFile": "recovered/native/decompiled/part-003.c"
+    },
+    {
+      "id": 9,
+      "address": "4a03c0b8",
+      "symbol": "FUN_4a03c0b8",
+      "label": "serial_unsigned16",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "i32",
+          "name": "bits"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "fields",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Preserve ceil(bits/8), the two-byte cap and fast case at 16 bits.",
+      "thumb": true,
+      "recoveredBodySha256": "4db281021a334909dac1ab0602e2bbf7939fc18579b92b12a97bf7b697355713",
+      "sourceFile": "recovered/native/decompiled/part-004.c"
+    },
+    {
+      "id": 10,
+      "address": "4a03c12c",
+      "symbol": "FUN_4a03c12c",
+      "label": "serial_unsigned32",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "i32",
+          "name": "bits"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "fields",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Preserve ceil(bits/8), the four-byte cap and fast case at 32 bits.",
+      "thumb": true,
+      "recoveredBodySha256": "10ce0a9ef18b18ebad21d60a2c021748ec64480192b3c9ddc937f563b6eaaa35",
+      "sourceFile": "recovered/native/decompiled/part-004.c"
+    },
+    {
+      "id": 11,
+      "address": "4a0399e0",
+      "symbol": "FUN_4a0399e0",
+      "label": "serial_encoded32",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "i32",
+          "name": "bits"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "fields",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "The slow (bits+8)/8 path may transfer five bytes at bits=32; do not replace it with a standard four-byte load.",
+      "thumb": true,
+      "recoveredBodySha256": "03e287e4451dbad6a0e3619109681762be396bd0e944b43ae8032fb77ac5103b",
+      "sourceFile": "recovered/native/decompiled/part-003.c"
+    },
+    {
+      "id": 12,
+      "address": "4a039a4c",
+      "symbol": "FUN_4a039a4c",
+      "label": "serial_signed16",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "i32",
+          "name": "bits"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "fields",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Read sign-extends bits+1 in the original halfword; postprocessing steps by stride&~1, while file transfers use the original stride. Valid bits 0..15.",
+      "thumb": true,
+      "recoveredBodySha256": "57a5c8971e0de08a786f9e707cd23960d478f9a225b1f359f750a3bfcf8f27e3",
+      "sourceFile": "recovered/native/decompiled/part-003.c"
+    },
+    {
+      "id": 13,
+      "address": "4a039aec",
+      "symbol": "FUN_4a039aec",
+      "label": "serial_signed32",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "count"
+        },
+        {
+          "type": "i32",
+          "name": "bits"
+        },
+        {
+          "type": "u32",
+          "name": "stride"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "fields",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Read sign-extends bits+1; postprocessing steps by stride&~3, while transfers use the original stride. Valid bits 0..31.",
+      "thumb": true,
+      "recoveredBodySha256": "dfa1832cfc13b33a63e23a0bd23d1774d9325f2171b88be0171de5a824093089",
+      "sourceFile": "recovered/native/decompiled/part-003.c"
+    },
+    {
+      "id": 14,
+      "address": "4a04e90c",
+      "symbol": "FUN_4a04e90c",
+      "label": "serial_resource_header",
+      "returnType": "u32",
+      "parameters": [],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "header",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Original 0x0606033d temporary; version assembled from bytes 1..3; optional 16-bit field for version >=0x030102. Returns 1 without validating a complete asset.",
+      "thumb": true,
+      "recoveredBodySha256": "571aa1e5efff918d84795e90d709b46ef56426aaeb0e29db9413d36af3669b86",
+      "sourceFile": "recovered/native/decompiled/part-006.c"
+    },
+    {
+      "id": 15,
+      "address": "4a03c064",
+      "symbol": "FUN_4a03c064",
+      "label": "serial_string",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "data"
+        },
+        {
+          "type": "u32",
+          "name": "unused1"
+        },
+        {
+          "type": "u32",
+          "name": "unused2"
+        },
+        {
+          "type": "u32",
+          "name": "initial"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "string",
+      "sourceKind": "reviewed-serialization",
+      "implementationFile": "native/serialization/src/serialization.c",
+      "recoveryNotes": "Write includes NUL; read consumes one byte at a time until NUL and ignores the apparent capacity argument. Caller must provide sufficient destination space and a terminating byte in the stream.",
+      "thumb": true,
+      "recoveredBodySha256": "433dd37cd85fc2f067237a7fb8317e6d09111b96971a450c5ba11d855ce616f9",
+      "sourceFile": "recovered/native/decompiled/part-004.c"
+    }
+  ],
+  "hostImports": [
+    {
+      "module": "s3e",
+      "name": "read",
+      "parameters": [
+        127,
+        127,
+        127,
+        127
+      ],
+      "results": [
+        127
+      ]
+    },
+    {
+      "module": "s3e",
+      "name": "write",
+      "parameters": [
+        127,
+        127,
+        127,
+        127
+      ],
+      "results": [
+        127
+      ]
+    },
+    {
+      "module": "bridge",
+      "name": "progress",
+      "parameters": [
+        127,
+        127,
+        127
+      ],
+      "results": []
+    }
+  ],
+  "hostContracts": [
+    {
+      "name": "s3eFileRead",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "name": "buffer",
+          "type": "p_u8"
+        },
+        {
+          "name": "size",
+          "type": "u32"
+        },
+        {
+          "name": "count",
+          "type": "u32"
+        },
+        {
+          "name": "handle",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "s3eFileWrite",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "name": "buffer",
+          "type": "p_u8"
+        },
+        {
+          "name": "size",
+          "type": "u32"
+        },
+        {
+          "name": "count",
+          "type": "u32"
+        },
+        {
+          "name": "handle",
+          "type": "u32"
+        }
+      ]
+    }
+  ],
+  "hostScope": "Read/write ABI is recovered from original call sites. Differential tests bind a controlled memory-file host to ARM and Wasm; they do not independently prove all Marmalade SDK host behavior. The bridge import dispatches an original callback token; callback bodies are not recovered here.",
+  "limits": "Nonnegative practical counts and bit widths, valid buffers/strides/context. Nonzero division denominator and callback period. Boolean reads need complete source bytes; string reads require a reachable NUL. No complete resource parser, asynchronous streaming, native file-open layer or save persistence.",
+  "target": "wasm32-unknown-unknown",
+  "wasmSha256": "8a966642e9284d6dc2435bb1abecdacdfc0b3f99e64d171e9ca6a5220c44cc72",
+  "originalExecutableSha256": "9b75f5584a9e817e51132b6ddfbb38ffef5e9e0d674c76976e1a124c7ee63d5d",
+  "contractsSha256": "5161fecf918fb61ef297b588bd13db7206555937ead020c461136f6db1ec7235",
+  "memory": {
+    "initialBytes": 1048576,
+    "maximumBytes": 67108864,
+    "shared": false
+  },
+  "compiler": "clang version 23.1.0-wasi-sdk (https://github.com/llvm/llvm-project 895aa2c896ada719451be2e3673c83da8ddf1141)",
+  "compilerOptions": [
+    "--target=wasm32-unknown-unknown",
+    "-mcpu=mvp",
+    "-O2",
+    "-ffreestanding",
+    "-fno-builtin",
+    "-nostdlib",
+    "-fwrapv",
+    "-funsigned-char",
+    "-fno-strict-aliasing",
+    "-fno-vectorize",
+    "-fno-slp-vectorize",
+    "-Werror=implicit-function-declaration",
+    "-Wl,--no-entry",
+    "-Wl,--strip-all",
+    "-Wl,--initial-memory=1048576",
+    "-Wl,--max-memory=67108864",
+    "-Wl,--export-memory",
+    "-Wl,--export=serial_invoke",
+    "-Wl,--export=serial_result_ptr",
+    "-Wl,--export=serial_state_ptr",
+    "-Wl,--export=serial_heap_base"
+  ],
+  "sourceFiles": {
+    "native/serialization/src/serialization.c": "2176918c00a3f29b33319d6798b6302662fe038603a1630272615ea4af3aa008",
+    "native/core/src/recovered.c": "96993be82e09594b2144c752666a216f117e0582259835370d450506774fb462",
+    "native/core/src/memory.c": "bc59b36f3b421db68df12596b8b3db6b3f9c4cfd207cfb1d2f38112ac05fbc10",
+    "native/core/src/arithmetic.c": "bc5844d373457dbc59c95525c3251eb69684a4f3060718f03aecf778a1549a9e",
+    "native/core/src/core.h": "5dce1936b67ff6a22b51915a22d909e56aa9a69ac2e1b145405865630e75dc78"
+  },
+  "reusedRecoveredFunctions": [
+    {
+      "address": "4a0013e0",
+      "label": "string_length",
+      "note": "Already counted in the existing 65-function core; not a newly recovered function."
+    }
+  ]
+}

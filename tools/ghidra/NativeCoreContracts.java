@@ -14,6 +14,7 @@ import ghidra.program.model.symbol.SourceType;
 public class NativeCoreContracts extends GhidraScript {
     private DataType div64;
     private DataType type(String name) {
+        if (name.equals("void")) return VoidDataType.dataType;
         if (name.equals("div64")) return div64;
         if (name.equals("u64")) return UnsignedLongLongDataType.dataType;
         if (name.equals("u32")) return UnsignedIntegerDataType.dataType;
@@ -30,7 +31,8 @@ public class NativeCoreContracts extends GhidraScript {
     @Override
     public void run() throws Exception {
         Path project = Path.of(getScriptArgs()[0]);
-        Path output = project.resolve("recovered/native/core-analysis");
+        Path contractPath = project.resolve(getScriptArgs().length>2?getScriptArgs()[2]:"native/core/contracts.json");
+        Path output = project.resolve(getScriptArgs().length>3?getScriptArgs()[3]:"recovered/native/core-analysis");
         Files.createDirectories(output);
         JsonObject input=JsonParser.parseString(Files.readString(project.resolve("recovered/native/analysis-input.json"))).getAsJsonObject();
         byte[] elf=Files.readAllBytes(project.resolve("recovered/native/game-analysis.elf"));
@@ -38,7 +40,13 @@ public class NativeCoreContracts extends GhidraScript {
         byte[] actualImage=new byte[expectedImage.length];
         currentProgram.getMemory().getBytes(toAddr(input.get("base").getAsLong()),actualImage);
         if (!Arrays.equals(expectedImage,actualImage)) throw new IllegalStateException("Database does not match the pinned analysis image");
-        JsonObject contracts = JsonParser.parseString(Files.readString(project.resolve("native/core/contracts.json"))).getAsJsonObject();
+        JsonObject contracts = JsonParser.parseString(Files.readString(contractPath)).getAsJsonObject();
+        JsonArray allContracts = new JsonArray();
+        Set<String> localAddresses = new HashSet<>();
+        for(JsonElement element:contracts.getAsJsonArray("functions"))localAddresses.add(element.getAsJsonObject().get("address").getAsString());
+        Path baseContractPath = contracts.has("analysisBaseContracts") ? project.resolve(contracts.get("analysisBaseContracts").getAsString()) : null;
+        if (baseContractPath!=null) allContracts.addAll(JsonParser.parseString(Files.readString(baseContractPath)).getAsJsonObject().getAsJsonArray("functions"));
+        allContracts.addAll(contracts.getAsJsonArray("functions"));
         Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
         StructureDataType resultType = new StructureDataType(new CategoryPath("/Sims3Recovered"), "CoreDiv64", 0);
         resultType.add(UnsignedLongLongDataType.dataType, "quotient", "r0 low word, r1 high word");
@@ -48,11 +56,32 @@ public class NativeCoreContracts extends GhidraScript {
         Register[] registers = new Register[4];
         for (int i=0; i<4; i++) registers[i]=currentProgram.getRegister("r"+i);
         String convention=currentProgram.getCompilerSpec().getDefaultCallingConvention().getName();
+        int observedHostSignatures=0;
+        if (contracts.has("hostContracts")) {
+            FunctionIterator external=currentProgram.getFunctionManager().getExternalFunctions();
+            while(external.hasNext()) {
+                Function function=external.next();
+                for(JsonElement element:contracts.getAsJsonArray("hostContracts")) {
+                    JsonObject signature=element.getAsJsonObject();
+                    if(!function.getName().equals(signature.get("name").getAsString()))continue;
+                    List<Variable> parameters=new ArrayList<>();
+                    for(JsonElement p:signature.getAsJsonArray("parameters")) {
+                        JsonObject parameter=p.getAsJsonObject();
+                        parameters.add(new ParameterImpl(parameter.get("name").getAsString(),type(parameter.get("type").getAsString()),currentProgram));
+                    }
+                    function.setReturnType(type(signature.get("returnType").getAsString()),SourceType.USER_DEFINED);
+                    function.replaceParameters(parameters,Function.FunctionUpdateType.DYNAMIC_STORAGE_ALL_PARAMS,true,SourceType.USER_DEFINED);
+                    function.setComment("Observed call-site ABI for controlled serializer-host validation; not an original SDK header or complete host implementation.");
+                    observedHostSignatures++;
+                }
+            }
+            if(observedHostSignatures!=contracts.getAsJsonArray("hostContracts").size())throw new IllegalStateException("Missing observed host signature");
+        }
         Set<Function> core = new LinkedHashSet<>();
         Set<Function> callers = new LinkedHashSet<>();
         JsonArray changes = new JsonArray();
         int customReturns = 0;
-        for (JsonElement element : contracts.getAsJsonArray("functions")) {
+        for (JsonElement element : allContracts) {
             JsonObject contract = element.getAsJsonObject();
             Address address = toAddr(Long.parseLong(contract.get("address").getAsString(),16));
             Function function = currentProgram.getFunctionManager().getFunctionAt(address);
@@ -89,7 +118,8 @@ public class NativeCoreContracts extends GhidraScript {
                     !function.getReturn().getVariableStorage().toString().equals("r1:4,r0:4")) throw new IllegalStateException("Unexpected ARM 64-bit result join");
             }
             function.setNoReturn(false);
-            function.setComment("Analyst-recovered ABI. See native/core/contracts.json and ARM/Wasm validation. " +
+            Path provenance=localAddresses.contains(contract.get("address").getAsString())?contractPath:baseContractPath;
+            function.setComment("Analyst-recovered ABI. See " + project.relativize(provenance) + " and ARM/Wasm validation. " +
                 contract.get("recoveryNotes").getAsString());
             change.addProperty("prototype", function.getSignature().getPrototypeString());
             change.addProperty("returnStorage", function.getReturn().getVariableStorage().toString());
@@ -146,7 +176,9 @@ public class NativeCoreContracts extends GhidraScript {
         report.addProperty("status","Recovered ABI annotations and targeted decompiler output. Diagnostic C remains approximate.");
         report.addProperty("runToken",getScriptArgs().length>1?getScriptArgs()[1]:"manual");
         report.addProperty("contractsSha256",HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(
-            Files.readAllBytes(project.resolve("native/core/contracts.json")))));
+            Files.readAllBytes(contractPath))));
+        if(baseContractPath!=null)report.addProperty("baseContractsSha256",HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(Files.readAllBytes(baseContractPath))));
+        if(contracts.has("hostContracts"))report.addProperty("observedHostSignaturesApplied",observedHostSignatures);
         report.addProperty("contractsApplied",core.size());report.addProperty("fourRegisterReturns",customReturns);
         report.addProperty("callingConvention",convention);
         report.addProperty("fourRegisterReturnStorage","r3:4,r2:4,r1:4,r0:4");

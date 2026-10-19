@@ -1,0 +1,106 @@
+{
+  "status": "Recovered serialization components only. Original ARM control flow is compared under an explicitly controlled memory-file/callback host.",
+  "originalExecutableSha256": "9b75f5584a9e817e51132b6ddfbb38ffef5e9e0d674c76976e1a124c7ee63d5d",
+  "wasmSha256": "8a966642e9284d6dc2435bb1abecdacdfc0b3f99e64d171e9ca6a5220c44cc72",
+  "reference": "Unmodified original ARM/Thumb functions with real register/stack calling conventions; SDK read/write and callback boundaries bind controlled memory-file services. Caller-saved registers/flags are randomized across those boundaries.",
+  "checked": "Declared result words, original SP/callee-saved registers, every arena/canary/context byte, ordered host/callback traces, file content hashes and cursor positions.",
+  "hostScope": "Read/write ABI is recovered from original call sites. Differential tests bind a controlled memory-file host to ARM and Wasm; they do not independently prove all Marmalade SDK host behavior. The bridge import dispatches an original callback token; callback bodies are not recovered here.",
+  "limits": "Nonnegative practical counts and bit widths, valid buffers/strides/context. Nonzero division denominator and callback period. Boolean reads need complete source bytes; string reads require a reachable NUL. No complete resource parser, asynchronous streaming, native file-open layer or save persistence.",
+  "comparisons": 25811,
+  "memoryBytesCompared": 428152868,
+  "hostCallsCompared": 159404,
+  "passedFunctions": 15,
+  "failedFunctions": 0,
+  "results": [
+    {
+      "address": "4a0066d8",
+      "label": "serial_divide_unsigned32",
+      "cases": 4336,
+      "passed": true
+    },
+    {
+      "address": "4a0515e4",
+      "label": "serial_advance",
+      "cases": 1808,
+      "passed": true
+    },
+    {
+      "address": "4a056f30",
+      "label": "serial_read_strided",
+      "cases": 785,
+      "passed": true
+    },
+    {
+      "address": "4a056f94",
+      "label": "serial_write_strided",
+      "cases": 785,
+      "passed": true
+    },
+    {
+      "address": "4a0365d4",
+      "label": "serial_boolean",
+      "cases": 72,
+      "passed": true
+    },
+    {
+      "address": "4a036638",
+      "label": "serial_encoded_byte",
+      "cases": 2406,
+      "passed": true
+    },
+    {
+      "address": "4a03669c",
+      "label": "serial_signed_byte",
+      "cases": 2406,
+      "passed": true
+    },
+    {
+      "address": "4a039b90",
+      "label": "serial_byte",
+      "cases": 2406,
+      "passed": true
+    },
+    {
+      "address": "4a03c0b8",
+      "label": "serial_unsigned16",
+      "cases": 2406,
+      "passed": true
+    },
+    {
+      "address": "4a03c12c",
+      "label": "serial_unsigned32",
+      "cases": 2406,
+      "passed": true
+    },
+    {
+      "address": "4a0399e0",
+      "label": "serial_encoded32",
+      "cases": 2406,
+      "passed": true
+    },
+    {
+      "address": "4a039a4c",
+      "label": "serial_signed16",
+      "cases": 1286,
+      "passed": true
+    },
+    {
+      "address": "4a039aec",
+      "label": "serial_signed32",
+      "cases": 2246,
+      "passed": true
+    },
+    {
+      "address": "4a04e90c",
+      "label": "serial_resource_header",
+      "cases": 25,
+      "passed": true
+    },
+    {
+      "address": "4a03c064",
+      "label": "serial_string",
+      "cases": 32,
+      "passed": true
+    }
+  ]
+}

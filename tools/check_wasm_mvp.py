@@ -108,13 +108,15 @@ def instructions(reader, counts):
         raise ValueError('Function body has no terminal end')
 
 
-def inspect(data):
+def inspect(data, allowed_imports=None):
     reader = Reader(data)
     if reader.take(8) != b'\0asm\x01\0\0\0':
         raise ValueError('Expected a version-1 Wasm module')
     counts = collections.Counter()
     memories, exports, globals_ = [], [], []
     functions = types = tables = 0
+    signatures, host_imports = [], []
+    allowed = {(x['module'], x['name']): x for x in (allowed_imports or [])}
     while reader.offset < len(data):
         section_id = reader.byte()
         section = Reader(reader.take(reader.integer()))
@@ -125,16 +127,22 @@ def inspect(data):
             for _ in range(types):
                 if section.byte() != 0x60:
                     raise ValueError('Non-MVP function type')
-                for _ in range(section.integer()):
-                    value_type(section)
+                parameters = [value_type(section) for _ in range(section.integer())]
                 results = section.integer()
                 if results > 1:
                     raise ValueError('Multi-value function results')
-                for _ in range(results):
-                    value_type(section)
+                result_types = [value_type(section) for _ in range(results)]
+                signatures.append({'parameters': parameters, 'results': result_types})
         elif section_id == 2:
-            if section.integer():
-                raise ValueError('Native core must not import host, WASI, or emulator functions')
+            for _ in range(section.integer()):
+                module, name, kind = section.name(), section.name(), section.byte()
+                if kind != 0 or (module, name) not in allowed:
+                    raise ValueError('Undeclared host, WASI, emulator, or non-function import')
+                signature = signatures[section.integer()]
+                expected = allowed[(module, name)]
+                if any(signature[key] != expected[key] for key in ('parameters', 'results')):
+                    raise ValueError('Host import signature does not match its explicit contract')
+                host_imports.append({'module': module, 'name': name, **signature})
         elif section_id == 3:
             for _ in range(section.integer()):
                 section.integer()
@@ -190,7 +198,10 @@ def inspect(data):
             raise ValueError(f'Post-MVP section id: {section_id}')
         if section.offset != len(section.data):
             raise ValueError(f'Unconsumed section {section_id}')
-    return {'baseline': 'WebAssembly MVP', 'imports': 0, 'functionTypes': types,
+    if allowed and {(x['module'], x['name']) for x in host_imports} != set(allowed):
+        raise ValueError('Missing explicitly required host imports')
+    return {'baseline': 'WebAssembly MVP', 'imports': len(host_imports), 'functionTypes': types,
+            **({'hostImports': host_imports} if host_imports else {}),
             'compiledFunctions': functions, 'instructionCount': sum(counts.values()),
             'opcodes': dict(sorted(counts.items())), 'memories': memories, 'exports': exports,
             'wasmSha256': hashlib.sha256(data).hexdigest(),

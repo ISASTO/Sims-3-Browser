@@ -21,6 +21,19 @@ re-exported. The whole game does not compile natively yet. See
 The main GitHub Pages game still uses the emulator prototype and retains its
 performance/rendering problems.
 
+The next native component adds **15 original binary serialization functions**,
+bringing the repository to **80 distinct recovered original entry points**
+across the two components. It handles strided read/write calls, integer and
+boolean fields, progress callbacks, strings, and a resource header. The real
+63,953-byte font resource passes a complete native byte roundtrip with the
+original SHA-256. This component uses explicit JavaScript memory-file/callback
+services; its ARM comparisons verify behavior under those controlled host
+contracts. It is not a complete resource parser or playable game. See
+[native/serialization/README.md](native/serialization/README.md).
+
+The [native resource stream check](https://isasto.github.io/Sims-3-Browser/native/serialization/check.html)
+runs the new component fixtures and original-resource roundtrip in your browser.
+
 The separate [native component check](https://isasto.github.io/Sims-3-Browser/native/core/check.html)
 runs the rebuilt code directly in your browser and checks ARM-derived fixtures.
 It is a component validation page, not a playable game.
