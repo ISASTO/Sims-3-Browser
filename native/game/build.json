@@ -1,7 +1,7 @@
 {
  "wasm": "sims3-game.wasm",
- "bytes": 23802110,
- "sha256": "bee980d63740c356f03680888056d4e976e57266b4d0a55e9ba0e1962c3240ac",
+ "bytes": 23802010,
+ "sha256": "9f69580fd9ff00449212f602f8942462600f61784e203d979792c83be243820c",
  "executableSha256": "9b75f5584a9e817e51132b6ddfbb38ffef5e9e0d674c76976e1a124c7ee63d5d",
  "functions": 6854,
  "instructions": 412424,
@@ -27,5 +27,5 @@
  ],
  "guestLinear": 16777216,
  "guestBase": 1241513984,
- "seconds": 20.6
+ "seconds": 1.0
 }

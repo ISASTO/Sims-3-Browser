@@ -15,6 +15,12 @@ const HEAP_BASE = 0x4a400000;
 const SENTINEL = 0x0d000000;
 const PAGE = 65536;
 
+const EXT_BASE = 0x0e000000;
+/* Extension function tables, in the order the game indexes them. */
+const EXTENSIONS = {
+  0x9fe3ea45: ['ext:s3eOSReadStringUTF8', 'ext:s3eOSReadStringUTF8WithDefault', 'ext:s3eOSReadStringUTF8', 'ext:s3eOSReadStringUTF8WithDefault'],
+};
+
 class Suspend {
   constructor(reason, promise, retry) { this.reason = reason; this.promise = promise; this.retry = retry; }
 }
@@ -46,6 +52,7 @@ class NativeGame {
     this.virtualTime = 0; this.frames = 0; this.quit = false; this.strings = new Map();
     this.pointer = { x: 240, y: 160, down: 0 };
     this.keysDown = new Set();
+    this.extNames = [];
     this.audio = options.audio || null;
     this.sliceStart = 0;
     this.trace = options.trace || null;
@@ -199,7 +206,8 @@ class NativeGame {
       this.applyResult(s.result);
       return;
     }
-    const name = this.importNames[slot];
+    const name = slot >= 0x10000 ? this.extNames[slot & 0xffff] : this.importNames[slot];
+    if (!name) throw Error('Call to an unknown host extension slot 0x' + slot.toString(16));
     this.counts[name] = (this.counts[name] || 0) + 1;
     const a = [this.reg(0), this.reg(1), this.reg(2), this.reg(3)];
     if (this.trace) this.trace(name, a, this);
@@ -319,9 +327,49 @@ class NativeGame {
   suspendEvent() { if (this.devicePaused) return; this.devicePaused = true; const cb = this.callbacks.device0; if (cb) this.pendingCallbacks.push({ fn: cb.fn, args: [0, cb.data] }); }
   resumeEvent() { if (!this.devicePaused) return; this.devicePaused = false; const cb = this.callbacks.device1; if (cb) this.pendingCallbacks.push({ fn: cb.fn, args: [0, cb.data] }); this.lastYieldReturn = this.clock(); }
 
+  // --------------------------------------------------------- extensions
+  /* Marmalade extensions are function tables filled by s3eExtGetHash(hash,
+   * table, size).  Only extensions with a browser implementation are offered;
+   * the game handles the others as unavailable, as on devices without them. */
+  extGetHash(hash, table, size) {
+    if (this.opts.emulatorCompat) return 1;
+    const ext = EXTENSIONS[hash >>> 0];
+    if (!ext || size > ext.length * 4) return 1;
+    if (hash >>> 0 === 0x9fe3ea45 && !this.opts.readString) return 1;
+    for (let i = 0; i < size / 4; i++) {
+      const fname = ext[i];
+      let slot = this.extNames.indexOf(fname);
+      if (slot < 0) { slot = this.extNames.length; this.extNames.push(fname); }
+      this.put32(table + i * 4, EXT_BASE + slot * 8);
+    }
+    return 0;
+  }
+  service_ext(name, a) {
+    const [x, y] = a;
+    switch (name) {
+    case 's3eOSReadStringUTF8':
+    case 's3eOSReadStringUTF8WithDefault': {
+      if (!this.opts.readString) return 0;
+      if (this.pendingString !== undefined) {
+        const v = this.pendingString; this.pendingString = undefined;
+        if (v === null) return 0;
+        const bytes = new TextEncoder().encode(v + '\0');
+        if (!this.readStringBuffer || this.readStringBuffer.size < bytes.length) this.readStringBuffer = { p: this.alloc(Math.max(256, bytes.length)), size: Math.max(256, bytes.length) };
+        this.write(this.readStringBuffer.p, bytes);
+        return this.readStringBuffer.p;
+      }
+      const prompt = this.str(x, 1024), def = name.endsWith('Default') && y ? this.str(y, 1024) : '';
+      const promise = this.opts.readString(prompt, def).then(v => { this.pendingString = v; });
+      throw new Suspend('input', promise, true);
+    }
+    }
+    throw Error('Unimplemented host extension function ' + name);
+  }
+
   // ----------------------------------------------------------- services
   register(kind, id, fn, data) { if (fn) this.callbacks[kind + id] = { fn, data }; else delete this.callbacks[kind + id]; return 0; }
   service(name, a) {
+    if (name.startsWith('ext:')) return this.service_ext(name.slice(4), a);
     const [x, y, z, t] = a;
     const compat = !!this.opts.emulatorCompat;
     switch (name) {
@@ -426,7 +474,7 @@ class NativeGame {
     case 's3eAccelerometerStart': return 1;      // S3E_RESULT_ERROR: no accelerometer
     case 's3eAccelerometerStop': return 0;
     // -- debug
-    case 's3eExtGetHash': return 1;             // no optional extensions
+    case 's3eExtGetHash': return this.extGetHash(x, y, z);
     case 's3eDebugPrint':
     case 's3eDebugOutputString': this.log('Game: ' + this.str(x)); return 0;
     case 's3eDebugAssertShow':

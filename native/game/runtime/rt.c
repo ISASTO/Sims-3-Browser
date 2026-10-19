@@ -30,8 +30,20 @@ static void (*lookup(uint32_t k))(void) {
   return 0;
 }
 
+/* Host extension functions (returned through s3eExtGetHash) live at
+ * synthetic guest addresses EXT_BASE + 8*i; calls go to the JavaScript host. */
+#define EXT_BASE 0x0e000000u
+#define EXT_COUNT 256u
+static int is_ext(uint32_t k) { return ((k & ~1u) - EXT_BASE) < EXT_COUNT * 8u; }
+
 void rt_dispatch(uint32_t target) {
   if (CPU.rewinding) target = rw_pop();
+  if (is_ext(target)) {
+    host_call(0x10000u | (((target & ~1u) - EXT_BASE) >> 3));
+    if (CPU.unwinding) rw_push(target);
+    else CPU.pc = CPU.r[14];
+    return;
+  }
   void (*f)(void) = lookup(target);
   if (!f) {
     rt_missing(target);
@@ -46,7 +58,7 @@ void rt_dispatch(uint32_t target) {
 void rt_after(uint32_t ret) {
   if (CPU.rewinding) goto resume;
   while (CPU.pc != ret) {
-    if (!lookup(CPU.pc)) return;
+    if (!lookup(CPU.pc) && !is_ext(CPU.pc)) return;
   resume:
     rt_dispatch(CPU.pc);
     if (CPU.unwinding) return;
@@ -56,7 +68,7 @@ void rt_after(uint32_t ret) {
 /* ---- exports for the JavaScript host ---- */
 __attribute__((export_name("cpu"))) uint32_t cpu_address(void) { return (uint32_t)(uintptr_t)&CPU; }
 __attribute__((export_name("guest_linear"))) uint32_t guest_linear(void) { return GUEST_LINEAR; }
-__attribute__((export_name("is_entry"))) uint32_t is_entry(uint32_t k) { return lookup(k) != 0; }
+__attribute__((export_name("is_entry"))) uint32_t is_entry(uint32_t k) { return lookup(k) != 0 || is_ext(k); }
 
 /* Run guest code starting at `fn` until it returns to `sentinel`.  When
  * resuming after an unwind, registers are left untouched and execution

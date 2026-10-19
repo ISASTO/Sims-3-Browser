@@ -102,6 +102,23 @@ function ensureAudio() {
   return audio;
 }
 
+// ------------------------------------------------------------- text entry
+// Implements the s3eOSReadString extension (the phone's text-entry dialog).
+function readString(prompt, initial) {
+  return new Promise(resolve => {
+    const dlg = $('ask'), input = $('ask-input');
+    $('ask-label').textContent = prompt || 'Enter text';
+    input.value = initial || '';
+    state.dialogOpen = true;
+    const done = () => { state.dialogOpen = false; dlg.removeEventListener('close', done); resolve(dlg.returnValue === 'ok' ? input.value : null); };
+    dlg.addEventListener('close', done);
+    input.onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); dlg.close('ok'); } };
+    dlg.returnValue = '';
+    dlg.showModal();
+    input.focus(); input.select();
+  });
+}
+
 // ------------------------------------------------------------- input
 function canvasPoint(ev) {
   const c = $('game'), rect = c.getBoundingClientRect();
@@ -126,8 +143,8 @@ function bindInput() {
   c.addEventListener('pointermove', e => { if (!state.game) return; const p = canvasPoint(e); state.game.pointerMotion(p.x, p.y, pointerDown); });
   c.addEventListener('contextmenu', e => e.preventDefault());
   window.addEventListener('blur', () => { if (pointerDown && state.game) { pointerDown = false; state.game.pointerEvent(state.game.pointer.x, state.game.pointer.y, false); } state.game?.releaseKeys(); });
-  window.addEventListener('keydown', e => { if (!state.game || e.repeat) return; if (state.game.keyEvent(e.code, true)) e.preventDefault(); });
-  window.addEventListener('keyup', e => { if (!state.game) return; if (state.game.keyEvent(e.code, false)) e.preventDefault(); });
+  window.addEventListener('keydown', e => { if (!state.game || e.repeat || state.dialogOpen) return; if (state.game.keyEvent(e.code, true)) e.preventDefault(); });
+  window.addEventListener('keyup', e => { if (!state.game || state.dialogOpen) return; if (state.game.keyEvent(e.code, false)) e.preventDefault(); });
   document.addEventListener('visibilitychange', () => {
     if (!state.game) return;
     if (document.hidden) { state.game.suspendEvent(); audio?.suspend(); flushSaves(); }
@@ -157,6 +174,11 @@ function tick(now) {
       const s = state.game.runSlice();
       if (!s) { state.running = false; setStatus('The game has closed. Reload the page to start again.'); return; }
       if (s.reason === 'frame') break;
+      if (s.reason === 'input') {
+        state.waiting = true;
+        s.promise.then(() => { state.waiting = false; }, err => fail(err));
+        break;
+      }
       if (s.reason === 'asset') {
         state.waiting = true;
         setStatus('Loading game data… ' + (state.loadedBytes / 1048576).toFixed(1) + ' MB');
@@ -209,7 +231,7 @@ async function boot() {
       manifest, importNames: analysis.names, importAddress: analysis.address,
       loadedAssets: [['s3e.icf', s3eIcf], ['app.icf', appIcf]],
       saves, save: (name, bytes) => queueSave(name, bytes),
-      fetchAsset, graphics: gl, audio: ensureAudio(), log,
+      fetchAsset, graphics: gl, audio: ensureAudio(), log, readString,
     });
     await game.init(wasm, exe);
     state.game = game;
