@@ -8,6 +8,7 @@ const hash=data=>crypto.createHash('sha256').update(data).digest('hex');
 const readJson=name=>JSON.parse(fs.readFileSync(name));
 const onlyIndex=process.argv.indexOf('--only');
 const only=onlyIndex<0?null:new Set(process.argv[onlyIndex+1].split(','));
+const linkedResources=process.argv.includes('--linked-resources');
 
 function inputPattern(data) {
   const seed=data[0],patches=[];
@@ -21,8 +22,14 @@ function inputPattern(data) {
 }
 
 (async()=>{
-  const manifest=readJson(path.join(folder,'manifest.json'));
-  const wasm=fs.readFileSync(path.join(folder,'sims3-core.wasm'));
+  const baseline=readJson(path.join(folder,'manifest.json'));
+  const linked=linkedResources?readJson(path.join(root,'native/resources/manifest.json')):null;
+  const manifest=linked?{...baseline,wasmSha256:linked.wasmSha256,sourceFiles:{...baseline.sourceFiles,...linked.sourceFiles}}:baseline;
+  if(linked) {
+    assert.equal(hash(fs.readFileSync(path.join(root,'native/resources/contracts.json'))),linked.contractsSha256);
+    assert.equal(linked.linkedComponents.find(x=>x.path==='native/core').wasmSha256,baseline.wasmSha256);
+  }
+  const wasm=fs.readFileSync(linked?path.join(root,'native/resources/sims3-resources.wasm'):path.join(folder,'sims3-core.wasm'));
   const original=fs.readFileSync(path.join(root,'recovered/game.s3e'));
   assert.equal(hash(wasm),manifest.wasmSha256);
   assert.equal(hash(original),manifest.originalExecutableSha256);
@@ -30,8 +37,12 @@ function inputPattern(data) {
   assert.equal(hash(fs.readFileSync(path.join(folder,'contracts.json'))),manifest.contractsSha256);
   for(const [file,sha] of Object.entries(manifest.sourceFiles))assert.equal(hash(fs.readFileSync(path.join(root,file))),sha,file);
   const module=await WebAssembly.compile(wasm);
-  assert.deepEqual(WebAssembly.Module.imports(module),[]);
-  const {exports:native}=await WebAssembly.instantiate(module);
+  const imports={};
+  if(linked) {
+    assert.deepEqual(WebAssembly.Module.imports(module).map(x=>x.module+'.'+x.name).sort(),linked.hostImports.map(x=>x.module+'.'+x.name).sort());
+    for(const item of linked.hostImports)(imports[item.module]??={})[item.name]=()=>{throw new Error('Import-free core unexpectedly called '+item.module+'.'+item.name);};
+  }else assert.deepEqual(WebAssembly.Module.imports(module),[]);
+  const {exports:native}=await WebAssembly.instantiate(module,imports);
   const output=native.core_result_ptr()>>>0;
   assert.ok(native.core_heap_base()<=BASE,'Test arena must be above native data and stack');
   const uc=await require(path.join(root,'web/vendor/unicorn.cjs'))();
@@ -138,8 +149,11 @@ function inputPattern(data) {
     passedFunctions:results.filter(x=>x.passed).length,failedFunctions:results.filter(x=>!x.passed).length,
     comparisons,memoryBytesCompared,results};
   if(only)report.scope='Partial diagnostic run: '+[...only].join(',');
-  fs.writeFileSync(only?path.join(root,'analysis-work/core-partial.json'):path.join(folder,'verification.json'),JSON.stringify(report,null,2)+'\n');
-  if(!only&&!report.failedFunctions)fs.writeFileSync(path.join(folder,'browser-fixtures.json'),JSON.stringify({
+  if(linked)report.linkedResourceModule=true;
+  if(only)fs.mkdirSync(path.join(root,'analysis-work'),{recursive:true});
+  fs.writeFileSync(only?path.join(root,'analysis-work/'+(linked?'linked-core-partial.json':'core-partial.json')):
+    linked?path.join(root,'native/resources/linked-core-verification.json'):path.join(folder,'verification.json'),JSON.stringify(report,null,2)+'\n');
+  if(!only&&!linked&&!report.failedFunctions)fs.writeFileSync(path.join(folder,'browser-fixtures.json'),JSON.stringify({
     status:'Original ARM oracle outputs for browser component validation; not whole-game validation.',
     originalExecutableSha256:manifest.originalExecutableSha256,wasmSha256:manifest.wasmSha256,fixtures},null,2)+'\n');
   console.log(report.passedFunctions+'/'+results.length+' functions passed; '+comparisons+' comparisons; '+memoryBytesCompared+' memory bytes compared.');

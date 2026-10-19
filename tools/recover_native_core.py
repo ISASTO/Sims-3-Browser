@@ -11,6 +11,27 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def contract_sources(path, seen=None, addresses=None):
+    seen = set() if seen is None else seen
+    addresses = set() if addresses is None else addresses
+    path = path.resolve()
+    if path in seen:
+        raise RuntimeError('Repeated/cyclic contract source: ' + str(path))
+    seen.add(path)
+    data = path.read_bytes()
+    config = json.loads(data)
+    sources = []
+    if config.get('analysisBaseContracts'):
+        sources.extend(contract_sources(ROOT / config['analysisBaseContracts'], seen, addresses))
+    for entry in config['functions']:
+        if entry['address'] in addresses:
+            raise RuntimeError('Duplicate contract address: ' + entry['address'])
+        addresses.add(entry['address'])
+    sources.append({'path': path.relative_to(ROOT).as_posix(),
+                    'sha256': hashlib.sha256(data).hexdigest(), 'functions': len(config['functions'])})
+    return sources
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--ghidra', required=True, type=Path)
@@ -44,10 +65,12 @@ def main():
     if report['contractsSha256'] != hashlib.sha256(contracts).hexdigest():
         raise RuntimeError('Annotations reference a different contract file.')
     config = json.loads(contracts)
-    expected = len(config['functions'])
+    sources = contract_sources(args.contracts)
+    expected = sum(source['functions'] for source in sources)
+    if report.get('contractSources') != sources:
+        raise RuntimeError('Annotation source chain or provenance changed.')
     if config.get('analysisBaseContracts'):
         base_contracts = (ROOT / config['analysisBaseContracts']).read_bytes()
-        expected += len(json.loads(base_contracts)['functions'])
         if report.get('baseContractsSha256') != hashlib.sha256(base_contracts).hexdigest():
             raise RuntimeError('Base annotation contracts changed.')
     if config.get('hostContracts') and report.get('observedHostSignaturesApplied') != len(config['hostContracts']):

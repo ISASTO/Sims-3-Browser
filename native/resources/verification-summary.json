@@ -1,0 +1,35 @@
+{
+  "status": "All 86 recovered original entry points passed full original-ARM differential comparisons against the linked Wasm binary. Full gameplay remains unfinished.",
+  "wasmSha256": "81bc78791bf7e0e681c707f8f0539860f3ae6d5d4fd82c0256547ef44d368796",
+  "originalExecutableSha256": "9b75f5584a9e817e51132b6ddfbb38ffef5e9e0d674c76976e1a124c7ee63d5d",
+  "recoveredOriginalEntryPoints": 86,
+  "comparisons": 412722,
+  "memoryBytesCompared": 3505304964,
+  "hostCallsCompared": 171047,
+  "nativeCallbacksExecuted": 540,
+  "separateOriginalMemberFieldCalls": 3,
+  "reports": [
+    {
+      "report": "linked-core-verification.json",
+      "functions": 65,
+      "comparisons": 380258,
+      "memoryBytesCompared": 2912157696,
+      "hostCallsCompared": 0
+    },
+    {
+      "report": "linked-serialization-verification.json",
+      "functions": 15,
+      "comparisons": 25811,
+      "memoryBytesCompared": 428152868,
+      "hostCallsCompared": 159404
+    },
+    {
+      "report": "verification.json",
+      "functions": 6,
+      "comparisons": 6653,
+      "memoryBytesCompared": 164994400,
+      "hostCallsCompared": 11643
+    }
+  ],
+  "limits": "All comparisons target this exact linked module. File/progress services use an explicitly controlled host model, while the registered no-argument chunk callbacks execute actual original bodies. Repeated memory bytes and function counts are test scope, not gameplay coverage. Registry installation, existing-open handle binding and the temporary allocation arena remain adapters; original allocation/startup/factories and full parsing/rendering are unfinished."
+}

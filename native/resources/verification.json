@@ -1,0 +1,74 @@
+{
+  "status": "Recovered resource control flow under controlled file/progress services. Complete object parsers and gameplay remain unfinished.",
+  "originalExecutableSha256": "9b75f5584a9e817e51132b6ddfbb38ffef5e9e0d674c76976e1a124c7ee63d5d",
+  "wasmSha256": "81bc78791bf7e0e681c707f8f0539860f3ae6d5d4fd82c0256547ef44d368796",
+  "reference": "Unmodified original ARM/Thumb game routines; actual original no-argument callback bodies execute through bx r0. External SDK file/progress boundaries bind the shared controlled host; caller-saved registers/flags are randomized there.",
+  "checked": "Declared r0, original SP/callee-saved registers, every arena/table/canary/context/registry byte, separate open counter, ordered host/progress events and file bytes/cursors/closed state.",
+  "hostScope": "Unmodified original ARM/Thumb game bodies execute with controlled external SDK memory-file/progress services. Native callback tests run actual original callback bodies, not substituted game callbacks. Registry installation and existing-open stream binding are development/browser integration.",
+  "limits": [
+    "Complete four-byte chunk length reads; the original length local is otherwise uninitialized.",
+    "A bounded, valid registry of stable hash/token pairs; registration/growth and the original allocator are not recovered.",
+    "Only the five exact no-argument Thumb callback tokens in nativeCallbackTokens are accepted, each mapped to an actual recovered native body.",
+    "Resource-file looping requires a bounded terminating stream; the browser asset walker validates structural bounds before invoking it.",
+    "The core, serializer and resource component share one linear memory and one temporary arena; this is not a complete original game heap or general relocation solution.",
+    "Read/write/tell/seek/close use the documented controlled memory-file host model; complete original SDK behavior, open/seek ownership, asset factories, graphics, audio, saves and gameplay remain unfinished."
+  ],
+  "comparisons": 6653,
+  "memoryBytesCompared": 164994400,
+  "hostCallsCompared": 11643,
+  "nativeCallbacksExecuted": 540,
+  "passedFunctions": 6,
+  "failedFunctions": 0,
+  "originalAssetsTraversed": 1,
+  "assets": [
+    {
+      "name": "fonts/fonts.group.bin",
+      "bytes": 63953,
+      "sha256": "2f8380864dd9f0a2b51ae73129cfb2c3fb02bd5b9deb4b54037933a9ac9d4138",
+      "finalPosition": 63953,
+      "closed": true,
+      "openCount": 0,
+      "chunkSeeks": 2,
+      "originalTraceSha256": "abdcb1a93ded3c1bed325d992525f40d5a7eea35d0e6d96e0b1179280a351053"
+    }
+  ],
+  "memberFieldCallsCompared": 3,
+  "results": [
+    {
+      "address": "4a02b1e8",
+      "label": "resource_type_hash",
+      "cases": 4492,
+      "passed": true
+    },
+    {
+      "address": "4a04d928",
+      "label": "resource_dispatch",
+      "cases": 747,
+      "passed": true
+    },
+    {
+      "address": "4a04d7bc",
+      "label": "resource_next_chunk",
+      "cases": 725,
+      "passed": true
+    },
+    {
+      "address": "4a0399a0",
+      "label": "resource_close",
+      "cases": 216,
+      "passed": true
+    },
+    {
+      "address": "4a03989e",
+      "label": "resource_close_wrapper",
+      "cases": 216,
+      "passed": true
+    },
+    {
+      "address": "4a046724",
+      "label": "resource_read_file",
+      "cases": 257,
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,202 @@
+{
+  "baseline": "WebAssembly MVP",
+  "imports": 6,
+  "functionTypes": 16,
+  "hostImports": [
+    {
+      "module": "bridge",
+      "name": "progress",
+      "parameters": [
+        127,
+        127,
+        127
+      ],
+      "results": []
+    },
+    {
+      "module": "s3e",
+      "name": "read",
+      "parameters": [
+        127,
+        127,
+        127,
+        127
+      ],
+      "results": [
+        127
+      ]
+    },
+    {
+      "module": "s3e",
+      "name": "write",
+      "parameters": [
+        127,
+        127,
+        127,
+        127
+      ],
+      "results": [
+        127
+      ]
+    },
+    {
+      "module": "s3e",
+      "name": "tell",
+      "parameters": [
+        127
+      ],
+      "results": [
+        127
+      ]
+    },
+    {
+      "module": "s3e",
+      "name": "seek",
+      "parameters": [
+        127,
+        127,
+        127
+      ],
+      "results": [
+        127
+      ]
+    },
+    {
+      "module": "s3e",
+      "name": "close",
+      "parameters": [
+        127
+      ],
+      "results": [
+        127
+      ]
+    }
+  ],
+  "compiledFunctions": 86,
+  "instructionCount": 6633,
+  "opcodes": {
+    "0x00": 10,
+    "0x02": 323,
+    "0x03": 70,
+    "0x0b": 479,
+    "0x0c": 136,
+    "0x0d": 339,
+    "0x0e": 8,
+    "0x0f": 44,
+    "0x10": 180,
+    "0x1a": 31,
+    "0x1b": 80,
+    "0x20": 1616,
+    "0x21": 396,
+    "0x22": 253,
+    "0x23": 7,
+    "0x24": 14,
+    "0x28": 87,
+    "0x29": 4,
+    "0x2d": 114,
+    "0x2f": 10,
+    "0x36": 88,
+    "0x37": 22,
+    "0x3a": 75,
+    "0x3b": 2,
+    "0x41": 1085,
+    "0x42": 24,
+    "0x45": 104,
+    "0x46": 61,
+    "0x47": 65,
+    "0x48": 27,
+    "0x49": 46,
+    "0x4a": 15,
+    "0x4b": 15,
+    "0x4d": 5,
+    "0x4e": 4,
+    "0x4f": 6,
+    "0x51": 1,
+    "0x52": 1,
+    "0x6a": 396,
+    "0x6b": 50,
+    "0x6c": 7,
+    "0x6d": 7,
+    "0x6e": 2,
+    "0x70": 5,
+    "0x71": 106,
+    "0x72": 37,
+    "0x73": 15,
+    "0x74": 46,
+    "0x75": 19,
+    "0x76": 34,
+    "0x7d": 6,
+    "0x7e": 3,
+    "0x80": 2,
+    "0x84": 12,
+    "0x86": 13,
+    "0xad": 26
+  },
+  "memories": [
+    {
+      "initialPages": 16,
+      "maximumPages": 1024,
+      "shared": false
+    }
+  ],
+  "exports": [
+    {
+      "name": "memory",
+      "kind": 2
+    },
+    {
+      "name": "core_path_root",
+      "kind": 0
+    },
+    {
+      "name": "core_result_ptr",
+      "kind": 0
+    },
+    {
+      "name": "core_heap_base",
+      "kind": 0
+    },
+    {
+      "name": "core_invoke",
+      "kind": 0
+    },
+    {
+      "name": "serial_state_ptr",
+      "kind": 0
+    },
+    {
+      "name": "serial_result_ptr",
+      "kind": 0
+    },
+    {
+      "name": "serial_heap_base",
+      "kind": 0
+    },
+    {
+      "name": "serial_invoke",
+      "kind": 0
+    },
+    {
+      "name": "resource_registry_ptr",
+      "kind": 0
+    },
+    {
+      "name": "resource_open_count_ptr",
+      "kind": 0
+    },
+    {
+      "name": "resource_result_ptr",
+      "kind": 0
+    },
+    {
+      "name": "resource_install_registry",
+      "kind": 0
+    },
+    {
+      "name": "resource_invoke",
+      "kind": 0
+    }
+  ],
+  "wasmSha256": "81bc78791bf7e0e681c707f8f0539860f3ae6d5d4fd82c0256547ef44d368796",
+  "note": "Feature audit of the binary encoding. Engine validation and ARM differential results are recorded separately."
+}

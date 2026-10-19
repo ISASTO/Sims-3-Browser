@@ -21,18 +21,22 @@ re-exported. The whole game does not compile natively yet. See
 The main GitHub Pages game still uses the emulator prototype and retains its
 performance/rendering problems.
 
-The next native component adds **15 original binary serialization functions**,
-bringing the repository to **80 distinct recovered original entry points**
-across the two components. It handles strided read/write calls, integer and
-boolean fields, progress callbacks, strings, and a resource header. The real
-63,953-byte font resource passes a complete native byte roundtrip with the
-original SHA-256. This component uses explicit JavaScript memory-file/callback
-services; its ARM comparisons verify behavior under those controlled host
-contracts. It is not a complete resource parser or playable game. See
+The earlier stream component adds **15 original binary serialization functions**
+and a complete native byte roundtrip of the original 63,953-byte font resource.
+Its controlled memory-file/callback host and validation scope are documented in
 [native/serialization/README.md](native/serialization/README.md).
 
-The [native resource stream check](https://isasto.github.io/Sims-3-Browser/native/serialization/check.html)
-runs the new component fixtures and original-resource roundtrip in your browser.
+The latest **linked native resource build** adds six original hash/chunk/close
+routines, for **86 distinct recovered original entry points in one Wasm instance
+and one linear memory**. It passes **412,722 full ARM/native comparisons** against that linked binary,
+including 6,653 new resource cases, and 502 selected linked fixtures in Node. The original resource loop traverses and
+closes the font group; native field reads recover its `fonts` name and flags.
+The original resource factories and full font parsing/rendering remain unported.
+See [native/resources/README.md](native/resources/README.md).
+
+The [linked native resource check](https://isasto.github.io/Sims-3-Browser/native/resources/check.html)
+replays the combined fixtures and real-resource checks once Pages deploys the
+current commit. Live browser validation is recorded separately from Node.
 
 The separate [native component check](https://isasto.github.io/Sims-3-Browser/native/core/check.html)
 runs the rebuilt code directly in your browser and checks ARM-derived fixtures.

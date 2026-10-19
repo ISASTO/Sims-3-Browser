@@ -1,0 +1,23 @@
+{
+  "status": "Pending actual browser validation for the linked resource build. Passing Node results are recorded separately; this file does not claim live fixtures passed.",
+  "wasmSha256": "81bc78791bf7e0e681c707f8f0539860f3ae6d5d4fd82c0256547ef44d368796",
+  "url": "https://isasto.github.io/Sims-3-Browser/native/resources/check.html",
+  "fixtureChecks": 0,
+  "functionsCovered": 0,
+  "expectedFixtureChecks": 502,
+  "expectedRecoveredEntryPoints": 86,
+  "expectedComponents": {
+    "coreFixtures": 267,
+    "serializationFixtures": 105,
+    "resourceFixtures": 130
+  },
+  "requiredObservations": [
+    "All linked native and resource checks passed",
+    "502 / 502 recorded ARM checks",
+    "86 recovered original entry points and one Wasm memory",
+    "Original font resource of 63,953 bytes, stream closed and open count zero",
+    "Two original chunks and member fields: fonts, flags 0",
+    "Complete resource byte roundtrip with matching SHA-256"
+  ],
+  "limitations": "The published module must be tested in a real browser after Pages deploys the current revision. Node is not a browser pass. Controlled file/progress services, scoped native callback mapping and a temporary shared component arena do not establish complete SDK behavior, original allocation/startup, full resource parsing, font rendering or gameplay compatibility."
+}

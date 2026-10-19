@@ -3,7 +3,7 @@
 This component recompiles fifteen more original game routines: binary field and
 string serialization, strided file I/O, progress accounting/callback dispatch,
 and a resource-header reader. Together with the unchanged 65-function core,
-the repository now has 80 distinct recovered original function entry points
+that checkpoint exposed 80 distinct recovered original function entry points
 available through native component interfaces. This is not a complete game.
 
 The module links the core's already recovered `4a0013e0` string-length routine;
@@ -84,10 +84,14 @@ before native execution; the serializer's subsequent file calls are synchronous.
 This is not a complete native file-open/seek/close layer or asynchronous stream
 continuation implementation. Writes remain in memory, without save persistence.
 
-Core and serializer currently run as separate Wasm instances with separate
+The earlier standalone serializer loader runs core and serializer as separate
+Wasm instances with separate
 linear memories. Resolved names and file bytes cross through the browser host;
 raw pointers do not cross between the two memories. A whole-game build still
 needs a consistent heap, global layout, pointer/function tables, and runtime.
+The newer `native/resources/` build links these C sources into one Wasm instance
+and removes this component boundary; its whole-game heap/runtime work is still
+unfinished.
 
 The integration check uses the actual committed `fonts/fonts.group.bin`:
 
@@ -117,12 +121,12 @@ The actual font file is also an original-ARM input in the corpus.
 
 `browser-fixtures.json` records selected original outputs. The shared fixture
 runner can replay them in Node and a real browser, including native resource-path
-resolution and integrity checks. All 105 passed in Node. Live Chrome validation
-is pending: the implementation Pages build remained queued, and the new URL
-returned the GitHub Pages 404 page. `loader-verification.json` records Node;
-`browser-verification.json` records that deployment observation separately.
-After Pages publishes the current revision, open `native/serialization/check.html`
-and require all 105 fixtures and the complete font resource roundtrip to pass.
+resolution and integrity checks. All 105 passed in Node and on the deployed
+GitHub Pages check in the Chrome cloud browser, including the complete original
+font byte roundtrip. `loader-verification.json` records Node;
+`browser-verification.json` records the observed Chrome result, exact module
+hash and the earlier resolved Pages queue/404 observation. Other browsers and
+the full game remain unverified.
 
 ```sh
 python tools/build_native_serialization.py --clang /path/to/wasi-sdk/bin/clang
@@ -154,7 +158,9 @@ expose an uninitialized temporary. String reads require a reachable NUL and a
 sufficient destination. Complete SDK behavior, original callback bodies,
 resource parsing, the full game, and gameplay performance are not validated.
 
-The next useful work is to connect file-handle/resource lifecycle, allocation,
+Continue connected work in the newer `native/resources/` build, which adds
+original chunk/file-loop and close routines in one memory. It still needs
+file-handle/resource lifecycle, allocation,
 object layouts and factories, initialization, and remaining asset parsers to
 this verified serializer. The main Pages game still uses the slow emulator;
 this checkpoint does not fix its flashing or FPS.

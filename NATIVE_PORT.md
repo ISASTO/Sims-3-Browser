@@ -38,6 +38,8 @@ counts represent a percentage of completed gameplay.
 | `recovered/native/recovery-audit.json` | Counts, concrete review markers, and current build status |
 | `recovered/native/core-analysis/` | Recovered ABI storage, 43 annotated functions, and 128 re-exported callers |
 | `native/core/` | Connected native components, browser loader, ARM-derived fixtures, and validation reports |
+| `native/resources/` | Linked single-memory native program, six new hash/chunk/close routines, original file loop and member-field checks |
+| `recovered/native/resource-analysis/` | Recursive 64-contract annotations, five controlled file-service signatures and 128 caller diagnostics |
 | `native/serialization/` | Fifteen more original serializer functions, browser file/callback adapter, fixtures, and original-resource roundtrip |
 | `recovered/native/serialization-analysis/` | Combined 58-contract ABI recovery, observed file host signatures, and 128 caller diagnostics |
 | `native/verified-functions.*` | The original 22-function scalar subset, retained as an independent baseline |
@@ -53,10 +55,58 @@ and deliberately excluded from automatic ABI annotation.
 
 ## Actually compiled code
 
-There are now **80 distinct recovered original entry points** across the core
-and serialization components. Their validation scopes differ: the core has no
-host imports, while the serializer uses three explicit browser file/callback
-imports and compares original ARM behavior under a controlled host model.
+The latest linked program has **86 distinct recovered original entry points**:
+65 core, 15 serializer, and six new resource routines. It links them in one Wasm
+instance with one memory and temporary allocation cursor. The earlier standalone
+core and serializer binaries remain unchanged. The resource build has six
+explicit controlled host imports; it does not execute ARM instructions.
+
+### Linked resource chunk loading
+
+`native/resources/sims3-resources.wasm` is 15,326 bytes, SHA-256
+`81bc78791bf7e0e681c707f8f0539860f3ae6d5d4fd82c0256547ef44d368796`.
+It recovers the original case-insensitive type hash, chunk dispatch/next,
+close/wrapper, and complete header/chunk/close loop. The original registry
+layout and open counter are explicitly relocated. Registry installation and
+binding existing-open handles remain browser adapters; original registration,
+allocation and file-open/startup paths are not yet recovered.
+
+All six new entries passed 6,653 comparisons against unmodified original ARM,
+with 11,643 ordered file/progress events and 540 actual original native callback
+invocations. Five exact no-argument callback tokens map to recovered native
+bodies. Unknown callback tokens are rejected. File/progress service semantics
+remain an explicitly controlled model, not complete original SDK verification.
+
+Full reruns against this exact linked binary also pass all 380,258 core and
+25,811 serializer comparisons. Together with the six new routines, that is
+**412,722 original-ARM/native comparisons across all 86 original entry points**.
+The two `linked-*-verification.json` reports and `verification-summary.json`
+record these fresh results without overwriting standalone reports/fixtures.
+
+All 502 selected original-ARM fixtures pass through the linked loader in Node:
+267 core, 105 serializer and 130 resources. This also verifies the shared memory,
+allocation/growth, pinned dependency manifests/fixtures, and registry reset.
+Live browser status is separate in `native/resources/browser-verification.json`.
+
+The original font group produces two native chunk records: `ResGroupMembers`
+at offset 6 (14-byte length) and `ResGroupResources` at offset 24 (63,921-byte
+length). The original native loop reaches the terminator, closes the 63,953-byte
+file and decrements the bound open count to zero. Three additional connected
+original-ARM calls verify native member-name/flags reads (`fonts`, 0) and close.
+The linked module also passes the complete original-resource byte roundtrip.
+Unported payload handlers are skipped. Browser orchestration locates member
+fields; full resource objects, font parsing and glyph rendering remain unported.
+
+The fresh Ghidra pass applies 64 contracts across a recursive, hash-pinned source
+chain, with five controlled file-service signatures. It identifies 269 callers
+and re-exports 128 alongside those contracts: 192 overlapping diagnostics, not
+new gameplay functions. The original image is unchanged. Cycles and duplicate
+contract addresses are rejected; default core and serializer modes still work.
+
+See [native/resources/README.md](native/resources/README.md) for exact semantics,
+input domains, original addresses, callback scope and reproduction commands.
+This milestone resolves the earlier separate-memory component boundary. It
+still needs the original game heap, globals, factories, startup and gameplay.
 
 ### Native binary serialization and resource transfer
 
@@ -75,19 +125,21 @@ reloaded; requested bytes still advance progress on failed/short transfers.
 Original boolean-write progress and field-width/stride quirks are preserved.
 All fifteen routines passed 25,811 controlled-host ARM/Wasm comparisons and
 159,404 matching file/callback events. The shared browser loader passed 105
-ARM-derived fixtures in Node. Live Chrome validation is pending because the
-implementation Pages build remained queued and the new component URL returned
-404. `native/serialization/browser-verification.json` records the exact
-observation; it does not claim browser fixtures passed. Exact input domains and
-test scope are in the component's reports.
+ARM-derived fixtures in Node and on the deployed standalone component page in
+the Chrome cloud browser, including the original font byte roundtrip.
+`native/serialization/browser-verification.json` records that actual result
+separately from the newer linked build and preserves the earlier resolved
+queue/404 observation. Exact input domains and test scope are in the reports.
 
 The browser adapter uses the earlier native path resolver, verifies original
 asset hashes, and loads resource bytes into synchronous memory files. The actual
 `fonts/fonts.group.bin` yields version 3.6.6 and a six-byte header. Native header
 and payload read/write routines reproduce all 63,953 bytes with the original
 SHA-256. This validates stream integration, not complete font/resource parsing
-or rendering. Native open/seek/close, callback bodies, general runtime/global
-initialization, persistent saves, and the full game remain unported.
+or rendering. The linked build above adds native close/chunk/file-loop code.
+Native opening, complete SDK behavior/ownership, original progress callback
+bodies, general runtime/global initialization, persistent saves and the full
+game remain unfinished.
 
 The Ghidra pass applies 43 existing plus fifteen new contracts and two observed
 file host signatures, then exports those 58 functions plus 128 callers. The

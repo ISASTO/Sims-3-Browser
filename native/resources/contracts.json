@@ -1,0 +1,296 @@
+{
+  "status": "Recovered resource chunk control flow, not complete resource/object parsing or gameplay.",
+  "wordSize": 32,
+  "endianness": "little",
+  "analysisBaseContracts": "native/serialization/contracts.json",
+  "functions": [
+    {
+      "id": 1,
+      "address": "4a02b1e8",
+      "symbol": "FUN_4a02b1e8",
+      "label": "resource_type_hash",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "text"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "hash",
+      "sourceKind": "reviewed-resources",
+      "implementationFile": "native/resources/src/resources.c",
+      "recoveryNotes": "Seed 0x1505, ASCII-only lowercase, wrapping multiply by 33; byte values above 127 remain unsigned."
+    },
+    {
+      "id": 2,
+      "address": "4a04d928",
+      "symbol": "FUN_4a04d928",
+      "label": "resource_dispatch",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "u32",
+          "name": "type"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "dispatch",
+      "sourceKind": "reviewed-resources",
+      "implementationFile": "native/resources/src/resources.c",
+      "recoveryNotes": "First matching registry entry wins. Unknown read chunks seek from the length-word position by length; unknown write chunks produce no output. Known writes patch length including its own word and restore the end position."
+    },
+    {
+      "id": 3,
+      "address": "4a04d7bc",
+      "symbol": "FUN_4a04d7bc",
+      "label": "resource_next_chunk",
+      "returnType": "u32",
+      "parameters": [],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "next",
+      "sourceKind": "reviewed-resources",
+      "implementationFile": "native/resources/src/resources.c",
+      "recoveryNotes": "Zero initializes the type before reading; dispatches nonzero types and returns the original type."
+    },
+    {
+      "id": 4,
+      "address": "4a0399a0",
+      "symbol": "FUN_4a0399a0",
+      "label": "resource_close",
+      "returnType": "void",
+      "parameters": [],
+      "resultRegisters": [],
+      "suite": "close",
+      "sourceKind": "reviewed-resources",
+      "implementationFile": "native/resources/src/resources.c",
+      "recoveryNotes": "Write mode with nonzero slowFlag flushes one byte at +0xb4 without progress accounting; closes the handle and decrements the separate open counter even on close failure."
+    },
+    {
+      "id": 5,
+      "address": "4a03989e",
+      "symbol": "FUN_4a03989e",
+      "label": "resource_close_wrapper",
+      "returnType": "void",
+      "parameters": [],
+      "resultRegisters": [],
+      "suite": "close",
+      "sourceKind": "reviewed-resources",
+      "implementationFile": "native/resources/src/resources.c",
+      "recoveryNotes": "Original wrapper calls the recovered close routine."
+    },
+    {
+      "id": 6,
+      "address": "4a046724",
+      "symbol": "FUN_4a046724",
+      "label": "resource_read_file",
+      "returnType": "void",
+      "parameters": [],
+      "resultRegisters": [],
+      "suite": "file",
+      "sourceKind": "reviewed-resources",
+      "implementationFile": "native/resources/src/resources.c",
+      "recoveryNotes": "Original resource header, repeated chunk reads until zero, then original close. Existing-open stream only; native opening/startup remains unfinished."
+    }
+  ],
+  "context": {
+    "originalAddress": "4a19b6a8",
+    "length": 204,
+    "fields": {
+      "reading": 0,
+      "handle": 8,
+      "counter": 172,
+      "period": 176,
+      "slowFlag": 188,
+      "version": 192,
+      "headerExtra": 196,
+      "callback": 200
+    }
+  },
+  "relocatedGlobals": [
+    {
+      "originalAddress": "4a19fa98",
+      "length": 16,
+      "meaning": "Chunk registry descriptor; table/count are installed by the browser owner, not original registry allocation."
+    },
+    {
+      "originalAddress": "4a192814",
+      "length": 4,
+      "meaning": "Open-serialization count; original open/startup increment path remains unported."
+    }
+  ],
+  "nativeCallbackTokens": [
+    "4a04e90d",
+    "4a04d7bd",
+    "4a0399a1",
+    "4a03989f",
+    "4a046725"
+  ],
+  "hostImports": [
+    {
+      "module": "s3e",
+      "name": "read",
+      "parameters": [
+        127,
+        127,
+        127,
+        127
+      ],
+      "results": [
+        127
+      ]
+    },
+    {
+      "module": "s3e",
+      "name": "write",
+      "parameters": [
+        127,
+        127,
+        127,
+        127
+      ],
+      "results": [
+        127
+      ]
+    },
+    {
+      "module": "bridge",
+      "name": "progress",
+      "parameters": [
+        127,
+        127,
+        127
+      ],
+      "results": []
+    },
+    {
+      "module": "s3e",
+      "name": "tell",
+      "parameters": [
+        127
+      ],
+      "results": [
+        127
+      ]
+    },
+    {
+      "module": "s3e",
+      "name": "seek",
+      "parameters": [
+        127,
+        127,
+        127
+      ],
+      "results": [
+        127
+      ]
+    },
+    {
+      "module": "s3e",
+      "name": "close",
+      "parameters": [
+        127
+      ],
+      "results": [
+        127
+      ]
+    }
+  ],
+  "hostContracts": [
+    {
+      "name": "s3eFileRead",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "name": "buffer",
+          "type": "p_u8"
+        },
+        {
+          "name": "size",
+          "type": "u32"
+        },
+        {
+          "name": "count",
+          "type": "u32"
+        },
+        {
+          "name": "handle",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "s3eFileWrite",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "name": "buffer",
+          "type": "p_u8"
+        },
+        {
+          "name": "size",
+          "type": "u32"
+        },
+        {
+          "name": "count",
+          "type": "u32"
+        },
+        {
+          "name": "handle",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "s3eFileTell",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "s3eFileSeek",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "u32"
+        },
+        {
+          "name": "offset",
+          "type": "i32"
+        },
+        {
+          "name": "origin",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "s3eFileClose",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "u32"
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Complete four-byte chunk length reads; the original length local is otherwise uninitialized.",
+    "A bounded, valid registry of stable hash/token pairs; registration/growth and the original allocator are not recovered.",
+    "Only the five exact no-argument Thumb callback tokens in nativeCallbackTokens are accepted, each mapped to an actual recovered native body.",
+    "Resource-file looping requires a bounded terminating stream; the browser asset walker validates structural bounds before invoking it.",
+    "The core, serializer and resource component share one linear memory and one temporary arena; this is not a complete original game heap or general relocation solution.",
+    "Read/write/tell/seek/close use the documented controlled memory-file host model; complete original SDK behavior, open/seek ownership, asset factories, graphics, audio, saves and gameplay remain unfinished."
+  ],
+  "hostScope": "Unmodified original ARM/Thumb game bodies execute with controlled external SDK memory-file/progress services. Native callback tests run actual original callback bodies, not substituted game callbacks. Registry installation and existing-open stream binding are development/browser integration."
+}

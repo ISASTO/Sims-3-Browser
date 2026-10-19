@@ -1,0 +1,114 @@
+{
+  "status": "Original ARM member-name/flags fields and close matched native execution.",
+  "wasmSha256": "81bc78791bf7e0e681c707f8f0539860f3ae6d5d4fd82c0256547ef44d368796",
+  "originalExecutableSha256": "9b75f5584a9e817e51132b6ddfbb38ffef5e9e0d674c76976e1a124c7ee63d5d",
+  "asset": "fonts/fonts.group.bin",
+  "assetSha256": "2f8380864dd9f0a2b51ae73129cfb2c3fb02bd5b9deb4b54037933a9ac9d4138",
+  "fieldOffset": 14,
+  "metadata": {
+    "name": "fonts",
+    "flags": 0
+  },
+  "callsCompared": 3,
+  "calls": [
+    {
+      "address": "4a03c064",
+      "label": "serial_string",
+      "args": [
+        132096,
+        64,
+        0,
+        0
+      ]
+    },
+    {
+      "address": "4a03c12c",
+      "label": "serial_unsigned32",
+      "args": [
+        132160,
+        1,
+        32,
+        4
+      ]
+    },
+    {
+      "address": "4a0399a0",
+      "label": "resource_close",
+      "args": []
+    }
+  ],
+  "orderedHostEvents": [
+    {
+      "op": "read",
+      "size": 1,
+      "count": 1,
+      "handle": 7,
+      "bytes": "66",
+      "result": 1
+    },
+    {
+      "op": "read",
+      "size": 1,
+      "count": 1,
+      "handle": 7,
+      "bytes": "6f",
+      "result": 1
+    },
+    {
+      "op": "read",
+      "size": 1,
+      "count": 1,
+      "handle": 7,
+      "bytes": "6e",
+      "result": 1
+    },
+    {
+      "op": "read",
+      "size": 1,
+      "count": 1,
+      "handle": 7,
+      "bytes": "74",
+      "result": 1
+    },
+    {
+      "op": "read",
+      "size": 1,
+      "count": 1,
+      "handle": 7,
+      "bytes": "73",
+      "result": 1
+    },
+    {
+      "op": "read",
+      "size": 1,
+      "count": 1,
+      "handle": 7,
+      "bytes": "00",
+      "result": 1
+    },
+    {
+      "op": "read",
+      "size": 4,
+      "count": 1,
+      "handle": 7,
+      "bytes": "00000000",
+      "result": 1
+    },
+    {
+      "op": "close",
+      "handle": 7,
+      "result": 0
+    }
+  ],
+  "finalFiles": [
+    {
+      "handle": 7,
+      "position": 24,
+      "writable": false,
+      "closed": true,
+      "dataSha256": "2f8380864dd9f0a2b51ae73129cfb2c3fb02bd5b9deb4b54037933a9ac9d4138",
+      "bytes": 63953
+    }
+  ],
+  "scope": "Recovered string/u32 fields and close only. Browser orchestration locates these fields; the original group-member handler and object factory remain unported."
+}

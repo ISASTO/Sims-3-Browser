@@ -1,0 +1,388 @@
+{
+  "status": "Recovered resource chunk control flow, not complete resource/object parsing or gameplay.",
+  "wordSize": 32,
+  "endianness": "little",
+  "analysisBaseContracts": "native/serialization/contracts.json",
+  "functions": [
+    {
+      "id": 1,
+      "address": "4a02b1e8",
+      "symbol": "FUN_4a02b1e8",
+      "label": "resource_type_hash",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "type": "p_u8",
+          "name": "text"
+        }
+      ],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "hash",
+      "sourceKind": "reviewed-resources",
+      "implementationFile": "native/resources/src/resources.c",
+      "recoveryNotes": "Seed 0x1505, ASCII-only lowercase, wrapping multiply by 33; byte values above 127 remain unsigned.",
+      "thumb": true,
+      "recoveredBodySha256": "7ff85ef55e4b0892a3d4a2e67c6fa2aa7eebc9ee7ca567cec35dc647e3c2bf22",
+      "sourceFile": "recovered/native/decompiled/part-002.c"
+    },
+    {
+      "id": 2,
+      "address": "4a04d928",
+      "symbol": "FUN_4a04d928",
+      "label": "resource_dispatch",
+      "returnType": "void",
+      "parameters": [
+        {
+          "type": "u32",
+          "name": "type"
+        }
+      ],
+      "resultRegisters": [],
+      "suite": "dispatch",
+      "sourceKind": "reviewed-resources",
+      "implementationFile": "native/resources/src/resources.c",
+      "recoveryNotes": "First matching registry entry wins. Unknown read chunks seek from the length-word position by length; unknown write chunks produce no output. Known writes patch length including its own word and restore the end position.",
+      "thumb": true,
+      "recoveredBodySha256": "5f0a3a8ff7054ba618e0f4cfeff2a7d7cf757bbd41275a6910a1de38f7e059d4",
+      "sourceFile": "recovered/native/decompiled/part-005.c"
+    },
+    {
+      "id": 3,
+      "address": "4a04d7bc",
+      "symbol": "FUN_4a04d7bc",
+      "label": "resource_next_chunk",
+      "returnType": "u32",
+      "parameters": [],
+      "resultRegisters": [
+        "r0"
+      ],
+      "suite": "next",
+      "sourceKind": "reviewed-resources",
+      "implementationFile": "native/resources/src/resources.c",
+      "recoveryNotes": "Zero initializes the type before reading; dispatches nonzero types and returns the original type.",
+      "thumb": true,
+      "recoveredBodySha256": "20e5f50fbd475d792361d6d77a6763b559427ae170b00a3f1170255b1a4521d8",
+      "sourceFile": "recovered/native/decompiled/part-005.c"
+    },
+    {
+      "id": 4,
+      "address": "4a0399a0",
+      "symbol": "FUN_4a0399a0",
+      "label": "resource_close",
+      "returnType": "void",
+      "parameters": [],
+      "resultRegisters": [],
+      "suite": "close",
+      "sourceKind": "reviewed-resources",
+      "implementationFile": "native/resources/src/resources.c",
+      "recoveryNotes": "Write mode with nonzero slowFlag flushes one byte at +0xb4 without progress accounting; closes the handle and decrements the separate open counter even on close failure.",
+      "thumb": true,
+      "recoveredBodySha256": "9df0579192856a2135884060e6b95835c673b9157eccd77f940e43febf40a3b3",
+      "sourceFile": "recovered/native/decompiled/part-003.c"
+    },
+    {
+      "id": 5,
+      "address": "4a03989e",
+      "symbol": "FUN_4a03989e",
+      "label": "resource_close_wrapper",
+      "returnType": "void",
+      "parameters": [],
+      "resultRegisters": [],
+      "suite": "close",
+      "sourceKind": "reviewed-resources",
+      "implementationFile": "native/resources/src/resources.c",
+      "recoveryNotes": "Original wrapper calls the recovered close routine.",
+      "thumb": true,
+      "recoveredBodySha256": "6f0c850496e65c598296fd5a272b85ebe89fa08898ece2e73ff2ac26ff35e0a1",
+      "sourceFile": "recovered/native/decompiled/part-003.c"
+    },
+    {
+      "id": 6,
+      "address": "4a046724",
+      "symbol": "FUN_4a046724",
+      "label": "resource_read_file",
+      "returnType": "void",
+      "parameters": [],
+      "resultRegisters": [],
+      "suite": "file",
+      "sourceKind": "reviewed-resources",
+      "implementationFile": "native/resources/src/resources.c",
+      "recoveryNotes": "Original resource header, repeated chunk reads until zero, then original close. Existing-open stream only; native opening/startup remains unfinished.",
+      "thumb": true,
+      "recoveredBodySha256": "50a14e5f6aea0aee0df87fb4757a650f1ab886b3208061c7ab7c009adf004b98",
+      "sourceFile": "recovered/native/decompiled/part-005.c"
+    }
+  ],
+  "context": {
+    "originalAddress": "4a19b6a8",
+    "length": 204,
+    "fields": {
+      "reading": 0,
+      "handle": 8,
+      "counter": 172,
+      "period": 176,
+      "slowFlag": 188,
+      "version": 192,
+      "headerExtra": 196,
+      "callback": 200
+    }
+  },
+  "relocatedGlobals": [
+    {
+      "originalAddress": "4a19fa98",
+      "length": 16,
+      "meaning": "Chunk registry descriptor; table/count are installed by the browser owner, not original registry allocation."
+    },
+    {
+      "originalAddress": "4a192814",
+      "length": 4,
+      "meaning": "Open-serialization count; original open/startup increment path remains unported."
+    }
+  ],
+  "nativeCallbackTokens": [
+    "4a04e90d",
+    "4a04d7bd",
+    "4a0399a1",
+    "4a03989f",
+    "4a046725"
+  ],
+  "hostImports": [
+    {
+      "module": "s3e",
+      "name": "read",
+      "parameters": [
+        127,
+        127,
+        127,
+        127
+      ],
+      "results": [
+        127
+      ]
+    },
+    {
+      "module": "s3e",
+      "name": "write",
+      "parameters": [
+        127,
+        127,
+        127,
+        127
+      ],
+      "results": [
+        127
+      ]
+    },
+    {
+      "module": "bridge",
+      "name": "progress",
+      "parameters": [
+        127,
+        127,
+        127
+      ],
+      "results": []
+    },
+    {
+      "module": "s3e",
+      "name": "tell",
+      "parameters": [
+        127
+      ],
+      "results": [
+        127
+      ]
+    },
+    {
+      "module": "s3e",
+      "name": "seek",
+      "parameters": [
+        127,
+        127,
+        127
+      ],
+      "results": [
+        127
+      ]
+    },
+    {
+      "module": "s3e",
+      "name": "close",
+      "parameters": [
+        127
+      ],
+      "results": [
+        127
+      ]
+    }
+  ],
+  "hostContracts": [
+    {
+      "name": "s3eFileRead",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "name": "buffer",
+          "type": "p_u8"
+        },
+        {
+          "name": "size",
+          "type": "u32"
+        },
+        {
+          "name": "count",
+          "type": "u32"
+        },
+        {
+          "name": "handle",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "s3eFileWrite",
+      "returnType": "u32",
+      "parameters": [
+        {
+          "name": "buffer",
+          "type": "p_u8"
+        },
+        {
+          "name": "size",
+          "type": "u32"
+        },
+        {
+          "name": "count",
+          "type": "u32"
+        },
+        {
+          "name": "handle",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "s3eFileTell",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "s3eFileSeek",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "u32"
+        },
+        {
+          "name": "offset",
+          "type": "i32"
+        },
+        {
+          "name": "origin",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "s3eFileClose",
+      "returnType": "i32",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "u32"
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Complete four-byte chunk length reads; the original length local is otherwise uninitialized.",
+    "A bounded, valid registry of stable hash/token pairs; registration/growth and the original allocator are not recovered.",
+    "Only the five exact no-argument Thumb callback tokens in nativeCallbackTokens are accepted, each mapped to an actual recovered native body.",
+    "Resource-file looping requires a bounded terminating stream; the browser asset walker validates structural bounds before invoking it.",
+    "The core, serializer and resource component share one linear memory and one temporary arena; this is not a complete original game heap or general relocation solution.",
+    "Read/write/tell/seek/close use the documented controlled memory-file host model; complete original SDK behavior, open/seek ownership, asset factories, graphics, audio, saves and gameplay remain unfinished."
+  ],
+  "hostScope": "Unmodified original ARM/Thumb game bodies execute with controlled external SDK memory-file/progress services. Native callback tests run actual original callback bodies, not substituted game callbacks. Registry installation and existing-open stream binding are development/browser integration.",
+  "target": "wasm32-unknown-unknown",
+  "wasmSha256": "81bc78791bf7e0e681c707f8f0539860f3ae6d5d4fd82c0256547ef44d368796",
+  "originalExecutableSha256": "9b75f5584a9e817e51132b6ddfbb38ffef5e9e0d674c76976e1a124c7ee63d5d",
+  "contractsSha256": "ef8aaba93caddc4c08cbaa773516bbcceb86aa8816e11703b341f654b232c93a",
+  "memory": {
+    "initialBytes": 1048576,
+    "maximumBytes": 67108864,
+    "shared": false
+  },
+  "singleLinearMemory": true,
+  "linkedOriginalEntryPoints": 86,
+  "linkedComponents": [
+    {
+      "path": "native/core",
+      "wasmSha256": "96a67db80b92d6defaef5713bf3d0ecbbacdcec5d87a339148332dbfd4824048",
+      "manifestSha256": "454adbabdbb454aaa6d70464205e7be1ee63a2ff15c8c22b5d19b6b6da0a824c",
+      "functions": 65
+    },
+    {
+      "path": "native/serialization",
+      "wasmSha256": "8a966642e9284d6dc2435bb1abecdacdfc0b3f99e64d171e9ca6a5220c44cc72",
+      "manifestSha256": "f2c045cce87aa82ef88284c6132ac78ff2d0e3e9ca7bfa0ca132f51f8ee2b2ed",
+      "functions": 15
+    }
+  ],
+  "linkedFixtureSources": {
+    "native/core/browser-fixtures.json": "cd90c538d7d004a9840cb721412beafc78dfa566576e77de3785f110c9e0db7c",
+    "native/serialization/browser-fixtures.json": "225551a12b436c702790d1c9e9a7688d13f89ce3470c7a7afa9b85f85ff1525d"
+  },
+  "compiler": "clang version 23.1.0-wasi-sdk (https://github.com/llvm/llvm-project 895aa2c896ada719451be2e3673c83da8ddf1141)",
+  "compilerOptions": [
+    "--target=wasm32-unknown-unknown",
+    "-mcpu=mvp",
+    "-O2",
+    "-ffreestanding",
+    "-fno-builtin",
+    "-nostdlib",
+    "-fwrapv",
+    "-funsigned-char",
+    "-fno-strict-aliasing",
+    "-fno-vectorize",
+    "-fno-slp-vectorize",
+    "-Werror=implicit-function-declaration",
+    "-Wl,--no-entry",
+    "-Wl,--strip-all",
+    "-Wl,--initial-memory=1048576",
+    "-Wl,--max-memory=67108864",
+    "-Wl,--export-memory",
+    "-Wl,--export=core_invoke",
+    "-Wl,--export=core_result_ptr",
+    "-Wl,--export=core_heap_base",
+    "-Wl,--export=core_path_root",
+    "-Wl,--export=serial_invoke",
+    "-Wl,--export=serial_result_ptr",
+    "-Wl,--export=serial_state_ptr",
+    "-Wl,--export=serial_heap_base",
+    "-Wl,--export=resource_invoke",
+    "-Wl,--export=resource_result_ptr",
+    "-Wl,--export=resource_registry_ptr",
+    "-Wl,--export=resource_open_count_ptr",
+    "-Wl,--export=resource_install_registry"
+  ],
+  "sourceFiles": {
+    "native/core/src/arithmetic.c": "bc5844d373457dbc59c95525c3251eb69684a4f3060718f03aecf778a1549a9e",
+    "native/core/src/memory.c": "bc59b36f3b421db68df12596b8b3db6b3f9c4cfd207cfb1d2f38112ac05fbc10",
+    "native/core/src/recovered.c": "96993be82e09594b2144c752666a216f117e0582259835370d450506774fb462",
+    "native/core/src/path.c": "19a4ed7aeeb5d279db3287f73eea627f5a46a2403c1a73ac7e8a0fae6de75d0f",
+    "native/core/src/dispatch.c": "811550ffc6f78dd000c2669f1760226f25d7d637077a6ba84750b12f8680860b",
+    "native/verified-functions.c": "df899966906364173918799cd72a170f2ca22dab1f93ab2b9f9aeb103bb520d2",
+    "native/serialization/src/serialization.c": "2176918c00a3f29b33319d6798b6302662fe038603a1630272615ea4af3aa008",
+    "native/resources/src/resources.c": "ec245016534fe9866330b1b4ee1ccba46c35bfd84f1a2ed6a5754454f34894ed",
+    "native/core/src/core.h": "5dce1936b67ff6a22b51915a22d909e56aa9a69ac2e1b145405865630e75dc78",
+    "native/core/src/path-data.h": "cc01e42ef2d4f274bb2ab57206df136f7ff44a2b5f01440b0fafeea5c47e3046"
+  }
+}

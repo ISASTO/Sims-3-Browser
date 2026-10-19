@@ -1,0 +1,65 @@
+{
+  "status": "All linked Node fixture, memory, original-resource and member-field integration checks passed. Live browser results are separate.",
+  "environment": "Node.js v24.19.0",
+  "wasmSha256": "81bc78791bf7e0e681c707f8f0539860f3ae6d5d4fd82c0256547ef44d368796",
+  "linkedOriginalEntryPoints": 86,
+  "coreFixtureChecks": 267,
+  "serializationFixtureChecks": 105,
+  "resourceFixtureChecks": 130,
+  "totalFixtureChecks": 502,
+  "newFunctionsCovered": 6,
+  "memoryLayout": "All three gateways use the same WebAssembly.Memory and temporary allocation cursor. No raw pointers cross between different instances.",
+  "linkedRoundtrip": {
+    "name": "fonts/fonts.group.bin",
+    "bytes": 63953,
+    "sha256": "2f8380864dd9f0a2b51ae73129cfb2c3fb02bd5b9deb4b54037933a9ac9d4138",
+    "version": "3.6.6",
+    "headerExtra": 0,
+    "headerBytes": 6,
+    "note": "Complete resource-byte transfer through recovered stream code; full font parsing/rendering remains unported."
+  },
+  "resource": {
+    "name": "fonts/fonts.group.bin",
+    "bytes": 63953,
+    "sha256": "2f8380864dd9f0a2b51ae73129cfb2c3fb02bd5b9deb4b54037933a9ac9d4138",
+    "version": 198150,
+    "chunks": [
+      {
+        "typeHash": "8081e087",
+        "typeName": "ResGroupMembers",
+        "offset": 6,
+        "length": 14,
+        "payloadBytes": 10,
+        "nextOffset": 24
+      },
+      {
+        "typeHash": "dc3c2177",
+        "typeName": "ResGroupResources",
+        "offset": 24,
+        "length": 63921,
+        "payloadBytes": 63917,
+        "nextOffset": 63949
+      }
+    ],
+    "memberMetadata": {
+      "name": "fonts",
+      "flags": 0
+    },
+    "closed": true,
+    "finalPosition": 63953,
+    "openCount": 0,
+    "memoryShared": true,
+    "note": "Original chunk loop skips unknown chunk payloads. Member fields use recovered native string/u32 routines with browser orchestration; original group construction, resource/font parsers and rendering remain unported."
+  },
+  "checked": [
+    "Original expectations from all three ARM fixture corpora replayed in the linked build",
+    "Nested original native callback bodies, registry duplicates, unknown chunks and length patching",
+    "Close/flush/count behavior including failure and repeated close; hash/close do not require progress period",
+    "Callback allowlist and invalid arguments",
+    "Pinned linked manifest/corpus integrity, including changed metadata rejection",
+    "Memory growth, fresh views and registry clearing before arena reuse",
+    "Actual native resource header/chunk/close loop, native type hashes and original member fields",
+    "Full original font byte roundtrip in the linked module"
+  ],
+  "limitations": "Registry installation and binding existing-open handles are adapters. Original open/startup, registry allocation/growth, general heap/vtables, group factories and full font/resource parsing remain unfinished. This does not fix main game FPS/flashing or establish whole-game/browser compatibility."
+}

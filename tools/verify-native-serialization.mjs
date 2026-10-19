@@ -13,8 +13,12 @@ const require=createRequire(import.meta.url),root=fileURLToPath(new URL('../',im
 const folder=path.join(root,'native/serialization'),json=p=>JSON.parse(fs.readFileSync(p,'utf8'));
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 const onlyArg=process.argv.indexOf('--only'),only=onlyArg<0?null:new Set(process.argv[onlyArg+1].split(','));
-const manifest=json(path.join(folder,'manifest.json')),original=fs.readFileSync(path.join(root,'recovered/game.s3e'));
-const wasm=fs.readFileSync(path.join(folder,'sims3-serialization.wasm'));
+const linkedResources=process.argv.includes('--linked-resources');
+const baseline=json(path.join(folder,'manifest.json')),linked=linkedResources?json(path.join(root,'native/resources/manifest.json')):null;
+const manifest=linked?{...baseline,wasmSha256:linked.wasmSha256,sourceFiles:{...baseline.sourceFiles,...linked.sourceFiles}}:baseline;
+if(linked){assert.equal(hash(fs.readFileSync(path.join(root,'native/resources/contracts.json'))),linked.contractsSha256);assert.equal(linked.linkedComponents.find(x=>x.path==='native/serialization').wasmSha256,baseline.wasmSha256);}
+const original=fs.readFileSync(path.join(root,'recovered/game.s3e'));
+const wasm=fs.readFileSync(linked?path.join(root,'native/resources/sims3-resources.wasm'):path.join(folder,'sims3-serialization.wasm'));
 assert.equal(hash(wasm),manifest.wasmSha256);assert.equal(hash(original),manifest.originalExecutableSha256);
 assert.deepEqual(original,fs.readFileSync(path.join(root,'web/game.s3e')));
 assert.equal(hash(fs.readFileSync(path.join(folder,'contracts.json'))),manifest.contractsSha256);
@@ -35,7 +39,8 @@ const refHost=createMemoryHost(referenceMemory,{onProgress:()=>patchCounter(refe
 let native;
 const nativeMemory={read:(a,n)=>new Uint8Array(native.memory.buffer,a,n),write:(a,b)=>new Uint8Array(native.memory.buffer,a,b.length).set(b)};
 const nativeHost=createMemoryHost(nativeMemory,{onProgress:()=>patchCounter(nativeMemory,native.serial_state_ptr()>>>0)});
-native=(await WebAssembly.instantiate(wasm,{s3e:{read:nativeHost.read,write:nativeHost.write},bridge:{progress:nativeHost.progress}})).instance.exports;
+const extra=linked?Object.fromEntries(['tell','seek','close'].map(name=>[name,()=>{throw new Error('Serializer unexpectedly called '+name);}])):{};
+native=(await WebAssembly.instantiate(wasm,{s3e:{read:nativeHost.read,write:nativeHost.write,...extra},bridge:{progress:nativeHost.progress}})).instance.exports;
 const nativeContext=native.serial_state_ptr()>>>0;
 assert.ok(native.serial_heap_base()<=BASE,'Comparison arena overlaps native data or stack');
 for(const binding of bindings)cpu.hook_add(uc.HOOK_CODE,()=>{pending=binding.name;cpu.emu_stop();},null,binding.arm,binding.arm);
@@ -133,7 +138,9 @@ const report={status:'Recovered serialization components only. Original ARM cont
  passedFunctions:results.filter(x=>x.passed).length,failedFunctions:results.filter(x=>!x.passed).length,results};
 if(only)report.scope='Partial diagnostic run: '+[...only].join(',');
 fs.mkdirSync(path.join(root,'analysis-work'),{recursive:true});
-fs.writeFileSync(only?path.join(root,'analysis-work/serialization-partial.json'):path.join(folder,'verification.json'),JSON.stringify(report,null,2)+'\n');
-if(!only&&!report.failedFunctions)fs.writeFileSync(path.join(folder,'browser-fixtures.json'),JSON.stringify({status:report.status,wasmSha256:manifest.wasmSha256,originalExecutableSha256:manifest.originalExecutableSha256,hostScope:manifest.hostScope,fixtures},null,2)+'\n');
+if(linked)report.linkedResourceModule=true;
+fs.writeFileSync(only?path.join(root,'analysis-work/'+(linked?'linked-serialization-partial.json':'serialization-partial.json')):
+ linked?path.join(root,'native/resources/linked-serialization-verification.json'):path.join(folder,'verification.json'),JSON.stringify(report,null,2)+'\n');
+if(!only&&!linked&&!report.failedFunctions)fs.writeFileSync(path.join(folder,'browser-fixtures.json'),JSON.stringify({status:report.status,wasmSha256:manifest.wasmSha256,originalExecutableSha256:manifest.originalExecutableSha256,hostScope:manifest.hostScope,fixtures},null,2)+'\n');
 console.log(report.passedFunctions+'/'+results.length+' functions; '+comparisons+' comparisons; '+hostCallsCompared+' host/callback events matched.');
 if(report.failedFunctions)process.exitCode=1;

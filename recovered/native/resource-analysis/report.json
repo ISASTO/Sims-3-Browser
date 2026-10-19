@@ -1,0 +1,32 @@
+{
+  "status": "Recovered ABI annotations and targeted decompiler output. Diagnostic C remains approximate.",
+  "runToken": "7232787561d64bbda9b646fd48c8b1e3",
+  "contractsSha256": "ef8aaba93caddc4c08cbaa773516bbcceb86aa8816e11703b341f654b232c93a",
+  "baseContractsSha256": "5161fecf918fb61ef297b588bd13db7206555937ead020c461136f6db1ec7235",
+  "contractSources": [
+    {
+      "path": "native/core/contracts.json",
+      "sha256": "f741513cd0e84af28e689bd548d42409f0eb42bb0842e651cb931e450b66f6a3",
+      "functions": 43
+    },
+    {
+      "path": "native/serialization/contracts.json",
+      "sha256": "5161fecf918fb61ef297b588bd13db7206555937ead020c461136f6db1ec7235",
+      "functions": 15
+    },
+    {
+      "path": "native/resources/contracts.json",
+      "sha256": "ef8aaba93caddc4c08cbaa773516bbcceb86aa8816e11703b341f654b232c93a",
+      "functions": 6
+    }
+  ],
+  "observedHostSignaturesApplied": 5,
+  "contractsApplied": 64,
+  "fourRegisterReturns": 2,
+  "callingConvention": "__stdcall",
+  "fourRegisterReturnStorage": "r3:4,r2:4,r1:4,r0:4",
+  "analysisImageUnchanged": true,
+  "affectedCallingFunctions": 269,
+  "callingFunctionsReexported": 128,
+  "functionsReexported": 192
+}
