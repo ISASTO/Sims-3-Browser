@@ -42,9 +42,9 @@ same unfinished gameplay and rendering limitations described above.
 ## Run the prototype locally
 
 Requires a current desktop Chrome or Firefox browser with WebGL and
-OffscreenCanvas, and Python 3 to serve the files. Browser behavior has not been
-tested in this environment; the rendering checks used a surfaceless OpenGL ES
-context, not a browser.
+OffscreenCanvas, and Python 3 to serve the files. Prototype gameplay has not been
+validated in this environment; its rendering checks used a surfaceless OpenGL
+ES context. The separate native component check has passed in Chrome.
 
 Clone this repository or download and extract the entire project first.
 On Windows, run `Start-Windows.bat`.

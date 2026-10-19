@@ -91,11 +91,18 @@ plus the 30 core functions. These 158 diagnostic exports overlap the original
 function inventory; they are not additional discovered functions. Ghidra's
 diagnostic C remains approximate, while the compiled core uses the reviewed
 implementations and explicit return corrections recorded in `contracts.json`.
+Across these same 158 exports, untyped extra-return markers fell from 39 to 4;
+six implicit-register markers and 33 warning comments remain. These source
+diagnostics identify further recovery work and do not establish correctness.
 
 The [browser component check](https://isasto.github.io/Sims-3-Browser/native/core/check.html)
 replays 215 fixtures recorded from original ARM execution across all 52
 functions. It compares exact result words and memory hashes. This page has no
 dependency on the emulator or WebGL and does not run the complete game.
+All 215 checks passed on the live GitHub Pages page in the Chrome cloud browser;
+`native/core/browser-verification.json` records that observation separately
+from the Node loader integration checks. Other browsers and whole-game
+rendering have not been validated by this component check.
 
 The original division-by-zero exception path has **not** been ported. Core
 equivalence tests require nonzero divisors; the JS wrapper rejects zero and
