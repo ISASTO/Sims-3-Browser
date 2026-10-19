@@ -29,14 +29,15 @@ Its controlled memory-file/callback host and validation scope are documented in
 The latest **linked native resource build** adds six original hash/chunk/close
 routines, for **86 distinct recovered original entry points in one Wasm instance
 and one linear memory**. It passes **412,722 full ARM/native comparisons** against that linked binary,
-including 6,653 new resource cases, and 502 selected linked fixtures in Node. The original resource loop traverses and
+including 6,653 new resource cases, and 502 selected linked fixtures in Node
+and on the deployed GitHub Pages check in Chrome. The original resource loop traverses and
 closes the font group; native field reads recover its `fonts` name and flags.
 The original resource factories and full font parsing/rendering remain unported.
 See [native/resources/README.md](native/resources/README.md).
 
 The [linked native resource check](https://isasto.github.io/Sims-3-Browser/native/resources/check.html)
-replays the combined fixtures and real-resource checks once Pages deploys the
-current commit. Live browser validation is recorded separately from Node.
+passed all 502 combined fixtures and real-resource checks in the Chrome cloud
+browser. Live browser validation is recorded separately from Node.
 
 The separate [native component check](https://isasto.github.io/Sims-3-Browser/native/core/check.html)
 runs the rebuilt code directly in your browser and checks ARM-derived fixtures.

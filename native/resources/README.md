@@ -130,8 +130,10 @@ transfer and chunk traversal are not complete font parsing or glyph rendering.
   callback invocations execute across all five supported targets.
 - **164,994,400** arena/state bytes were compared across repeated buffers; this
   is a test measurement, not unique game bytes or gameplay coverage.
-- **502** selected ARM-derived fixtures pass in Node through the linked browser
-  loader: 267 core, 105 serializer, and 130 new resource fixtures.
+- **502** selected ARM-derived fixtures pass in Node and on the live GitHub
+  Pages check in the Chrome cloud browser: 267 core, 105 serializer, and 130
+  new resource fixtures. The actual page also confirmed native close/count,
+  original member fields and the complete resource byte roundtrip.
 - The real font's complete native file loop, member fields and byte roundtrip
   pass. There is one suitable `.group.bin` in the committed resource manifest;
   no broader asset/parser coverage is implied.
@@ -147,9 +149,10 @@ not independent equivalence of every original SDK service.
 The shared loader checks include memory growth/fresh views, shared allocation,
 registry clearing, invalid arguments/callbacks, bounded asset traversal, and
 rejection of changed linked manifests/fixture bytes. Actual browser results
-are recorded separately in `browser-verification.json`; Node is not a browser
-pass. The new public check page is `native/resources/check.html` once Pages has
-deployed the current commit.
+are recorded separately in `browser-verification.json`, including source
+commit `4abb93eed1ff956cb9e0b88b9e66c418c83014bd` and the exact module hash.
+The public `native/resources/check.html` page has passed all 502 checks in
+Chrome. Other browsers and full gameplay remain unverified.
 
 ```sh
 python tools/build_native_resources.py --clang /path/to/wasi-sdk/bin/clang

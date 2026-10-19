@@ -86,7 +86,11 @@ record these fresh results without overwriting standalone reports/fixtures.
 All 502 selected original-ARM fixtures pass through the linked loader in Node:
 267 core, 105 serializer and 130 resources. This also verifies the shared memory,
 allocation/growth, pinned dependency manifests/fixtures, and registry reset.
-Live browser status is separate in `native/resources/browser-verification.json`.
+The same 502 selected fixtures and original-resource checks also passed on the
+live GitHub Pages page in the Chrome cloud browser. The exact module, deployed
+source and observed result are recorded separately in
+`native/resources/browser-verification.json`; other browsers and gameplay
+remain unverified.
 
 The original font group produces two native chunk records: `ResGroupMembers`
 at offset 6 (14-byte length) and `ResGroupResources` at offset 24 (63,921-byte

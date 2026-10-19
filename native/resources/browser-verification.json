@@ -1,9 +1,9 @@
 {
-  "status": "Pending actual browser validation for the linked resource build. Passing Node results are recorded separately; this file does not claim live fixtures passed.",
+  "status": "All 502 linked ARM-derived fixtures, original resource traversal/member fields and the complete original font byte roundtrip passed in the live Chrome cloud browser.",
   "wasmSha256": "81bc78791bf7e0e681c707f8f0539860f3ae6d5d4fd82c0256547ef44d368796",
   "url": "https://isasto.github.io/Sims-3-Browser/native/resources/check.html",
-  "fixtureChecks": 0,
-  "functionsCovered": 0,
+  "fixtureChecks": 502,
+  "functionsCovered": 86,
   "expectedFixtureChecks": 502,
   "expectedRecoveredEntryPoints": 86,
   "expectedComponents": {
@@ -19,5 +19,46 @@
     "Two original chunks and member fields: fonts, flags 0",
     "Complete resource byte roundtrip with matching SHA-256"
   ],
-  "limitations": "The published module must be tested in a real browser after Pages deploys the current revision. Node is not a browser pass. Controlled file/progress services, scoped native callback mapping and a temporary shared component arena do not establish complete SDK behavior, original allocation/startup, full resource parsing, font rendering or gameplay compatibility."
+  "limitations": "This records selected fixture and resource integration checks in Chrome, separately from the full ARM differential suites and Node tests. Exact Chrome version, Firefox, Safari, Edge and whole-game behavior remain unverified. Controlled file/progress services, the scoped native callback map and the temporary shared component arena do not establish complete SDK behavior, original allocation/startup, resource factories, full font parsing/rendering, audio, saving or gameplay compatibility.",
+  "sourceCommit": "4abb93eed1ff956cb9e0b88b9e66c418c83014bd",
+  "checkedAt": "2026-10-19T17:10:41.599Z",
+  "environment": "Chrome cloud browser; exact browser version not recorded.",
+  "newFunctionsCovered": 6,
+  "observedStatus": "All linked native and resource checks passed",
+  "observedCounts": "502 / 502 recorded ARM checks",
+  "observedDetails": [
+    "86 recovered original entry points · one Wasm memory",
+    "267 core + 105 stream + 130 resource fixtures",
+    "Original file loop: complete · stream closed · open count 0",
+    "Complete resource byte roundtrip: SHA-256 matched"
+  ],
+  "observedResource": {
+    "name": "fonts/fonts.group.bin",
+    "bytes": 63953,
+    "integrity": "Original SHA-256 verified",
+    "chunks": [
+      {
+        "typeName": "ResGroupMembers",
+        "offset": 6,
+        "payloadBytes": 10
+      },
+      {
+        "typeName": "ResGroupResources",
+        "offset": 24,
+        "payloadBytes": 63917
+      }
+    ],
+    "memberMetadata": {
+      "name": "fonts",
+      "flags": 0
+    },
+    "memberFields": "Name and flags matched original ARM execution."
+  },
+  "deploymentObservation": {
+    "runId": 39291364138,
+    "sourceCommit": "4abb93eed1ff956cb9e0b88b9e66c418c83014bd",
+    "status": "completed",
+    "conclusion": "success",
+    "updatedAt": "2026-10-19T17:07:53Z"
+  }
 }
