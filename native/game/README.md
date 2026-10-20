@@ -70,6 +70,28 @@ the legacy emulator's strobing).
   through the letterbox, Esc/Backspace as the phone Back key, pause on tab hide,
   save export/import.
 
+Input is queued and delivered one press or release per game frame, as a phone
+touch screen would deliver it; a mouse click whose press and release land in the
+same slow frame is therefore never lost. Mouse movement without a pressed button
+is not forwarded (a touch screen has no hover).
+
+The game renders at its original 480×320 logical size, but `gles1.js` scales the
+off-screen framebuffer, viewport, scissor and line widths to the canvas's real
+device-pixel size (recomputed on resize and fullscreen; capped at 3840×2160
+pixels and the GPU's renderbuffer limit), so the 3D scene and the UI are drawn
+at native resolution. `?scale=N` forces a fixed factor.
+
+The accelerometer (`s3eAccelerometer*`) reports the real device sensor where the
+browser offers one (DeviceMotion; iOS asks for permission on Play), otherwise a
+level device. The green diamond in the page header, or <kbd>S</kbd>, injects a
+shake; <kbd>A</kbd>/<kbd>D</kbd> tilt. In this Android build only the cooking
+minigame (shake to cool the pots) and the fishing minigame (tilt) read the
+accelerometer.
+
+`ranged.json` (written by the build) lets the page fetch `res.dz` (32 MB, of
+which the game reads only its table of contents) in SHA-256-verified 64 KiB
+chunks with HTTP range requests.
+
 ## Verification
 
 `tools/lockstep.mjs` runs the original ARM code in the legacy Unicorn.js oracle

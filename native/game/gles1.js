@@ -74,7 +74,13 @@ class GLES1 {
   constructor(canvas, options = {}) {
     this.canvas = canvas;
     this.log = options.log || (() => {});
+    // Logical size reported to the game; the off-screen target is rendered at
+    // `scale` times this size (internal-resolution upscaling, transparent to
+    // the game: viewport/scissor rectangles are scaled on the way to WebGL).
     this.width = options.width || 480; this.height = options.height || 320;
+    this.scale = 1;
+    this.maxPixels = options.maxPixels || 3840 * 2160;
+    this.fixedScale = options.scale || 0;
     const attrs = { alpha: false, antialias: false, depth: false, stencil: false, preserveDrawingBuffer: false, premultipliedAlpha: false, powerPreference: 'high-performance' };
     const gl = canvas.getContext('webgl', attrs) || canvas.getContext('experimental-webgl', attrs);
     if (!gl) throw Error('WebGL is not available in this browser.');
@@ -118,6 +124,7 @@ class GLES1 {
     this.draws = 0; this.framesPresented = 0;
     this.streamBuffers = [gl.createBuffer(), gl.createBuffer(), gl.createBuffer(), gl.createBuffer(), gl.createBuffer()];
     this.indexStream = gl.createBuffer();
+    this.scale = this.desiredScale();
     this.createTarget();
     this.createPresenter();
     gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4);
@@ -129,22 +136,42 @@ class GLES1 {
     const gl = this.gl;
     this.fbo = gl.createFramebuffer();
     this.fboTex = gl.createTexture();
+    this.fboDepth = gl.createRenderbuffer();
+    this.allocateTarget();
+  }
+  /* (Re)allocate the off-screen colour/depth/stencil target at the current scale. */
+  allocateTarget() {
+    const gl = this.gl;
+    const W = Math.max(1, Math.round(this.width * this.scale)), H = Math.max(1, Math.round(this.height * this.scale));
+    this.targetW = W; this.targetH = H;
     gl.bindTexture(gl.TEXTURE_2D, this.fboTex);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.width, this.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, W, H, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-    this.fboDepth = gl.createRenderbuffer();
     gl.bindRenderbuffer(gl.RENDERBUFFER, this.fboDepth);
-    gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_STENCIL, this.width, this.height);
+    gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_STENCIL, W, H);
     gl.bindFramebuffer(gl.FRAMEBUFFER, this.fbo);
     gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.fboTex, 0);
     gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_STENCIL_ATTACHMENT, gl.RENDERBUFFER, this.fboDepth);
     const status = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
     if (status !== gl.FRAMEBUFFER_COMPLETE) throw Error('Off-screen framebuffer incomplete: 0x' + status.toString(16));
-    gl.viewport(0, 0, this.width, this.height);
+    gl.viewport(0, 0, W, H);
     gl.clearColor(0, 0, 0, 1); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT | gl.STENCIL_BUFFER_BIT);
+    gl.bindTexture(gl.TEXTURE_2D, null);
+  }
+  sx(v) { return Math.round(v * this.scale); }
+  applyViewport() { const v = this.viewport; this.gl.viewport(this.sx(v[0]), this.sx(v[1]), this.sx(v[0] + v[2]) - this.sx(v[0]), this.sx(v[1] + v[3]) - this.sx(v[1])); }
+  applyScissor() { const v = this.scissor; this.gl.scissor(this.sx(v[0]), this.sx(v[1]), this.sx(v[0] + v[2]) - this.sx(v[0]), this.sx(v[1] + v[3]) - this.sx(v[1])); }
+  /* Choose the internal scale for the canvas size (device pixels). */
+  desiredScale() {
+    if (this.fixedScale) return this.fixedScale;
+    const cw = this.canvas.width, ch = this.canvas.height;
+    let k = Math.min(cw / this.width, ch / this.height);
+    const maxRb = this.gl.getParameter(this.gl.MAX_RENDERBUFFER_SIZE) || 4096;
+    k = Math.min(k, Math.sqrt(this.maxPixels / (this.width * this.height)), maxRb / this.width, maxRb / this.height);
+    return Math.max(1, Math.round(k * 4) / 4);
   }
   createPresenter() {
     const gl = this.gl;
@@ -182,6 +209,16 @@ class GLES1 {
     this.restoreFixedState(saved);
     this.framesPresented++;
     this.presentRectPx = { x: (cw - this.width * scale) / 2, y: (ch - this.height * scale) / 2, w: this.width * scale, h: this.height * scale };
+    // Follow canvas size changes between frames (resize, fullscreen, DPR).
+    const k = this.desiredScale();
+    if (k !== this.scale) {
+      this.scale = k;
+      this.allocateTarget();
+      gl.bindFramebuffer(gl.FRAMEBUFFER, this.fbo);
+      this.applyViewport(); this.applyScissor();
+      gl.activeTexture(gl.TEXTURE0 + this.activeUnit);
+      gl.bindTexture(gl.TEXTURE_2D, this.textures.get(this.boundTex[this.activeUnit]) || null);
+    }
   }
   saveFixedState() {
     const gl = this.gl;
@@ -193,14 +230,27 @@ class GLES1 {
     if (s.blend) gl.enable(gl.BLEND); if (s.depth) gl.enable(gl.DEPTH_TEST); if (s.cull) gl.enable(gl.CULL_FACE);
     if (s.scissor) gl.enable(gl.SCISSOR_TEST); if (s.stencil) gl.enable(gl.STENCIL_TEST);
     gl.colorMask(...this.colorMask);
-    gl.viewport(...this.viewport);
+    this.applyViewport();
     gl.clearColor(...this.clearColor);
     gl.activeTexture(gl.TEXTURE0 + this.activeUnit);
     gl.bindTexture(gl.TEXTURE_2D, this.textures.get(this.boundTex[this.activeUnit]) || null);
   }
+  /* Read logical-resolution pixels: read the scaled region and resample. */
   readPixels(x, y, w, h) {
     const gl = this.gl, out = new Uint8Array(w * h * 4);
-    gl.readPixels(x, y, w, h, gl.RGBA, gl.UNSIGNED_BYTE, out);
+    if (this.scale === 1) { gl.readPixels(x, y, w, h, gl.RGBA, gl.UNSIGNED_BYTE, out); return out; }
+    const X = this.sx(x), Y = this.sx(y), W = Math.max(1, this.sx(x + w) - X), H = Math.max(1, this.sx(y + h) - Y);
+    const big = new Uint8Array(W * H * 4);
+    gl.readPixels(X, Y, W, H, gl.RGBA, gl.UNSIGNED_BYTE, big);
+    for (let j = 0; j < h; j++) {
+      const y0 = Math.floor(j * H / h), y1 = Math.max(y0 + 1, Math.floor((j + 1) * H / h));
+      for (let i = 0; i < w; i++) {
+        const x0 = Math.floor(i * W / w), x1 = Math.max(x0 + 1, Math.floor((i + 1) * W / w));
+        let r = 0, g = 0, b = 0, a = 0, n = 0;
+        for (let yy = y0; yy < y1; yy++) for (let xx = x0; xx < x1; xx++) { const o = (yy * W + xx) * 4; r += big[o]; g += big[o + 1]; b += big[o + 2]; a += big[o + 3]; n++; }
+        const o = (j * w + i) * 4; out[o] = r / n; out[o + 1] = g / n; out[o + 2] = b / n; out[o + 3] = a / n;
+      }
+    }
     return out;
   }
 
@@ -601,8 +651,8 @@ class GLES1 {
     case 'glDrawArrays': this.draw(host, x, null, y, z); return 0;
     case 'glDrawElements': this.draw(host, x, { type: z, ptr: t }, 0, y); return 0;
     // ---- raster state forwarded directly
-    case 'glViewport': this.viewport = [x | 0, y | 0, z | 0, t | 0]; gl.viewport(x | 0, y | 0, z | 0, t | 0); return 0;
-    case 'glScissor': this.scissor = [x | 0, y | 0, z | 0, t | 0]; gl.scissor(x | 0, y | 0, z | 0, t | 0); return 0;
+    case 'glViewport': this.viewport = [x | 0, y | 0, z | 0, t | 0]; this.applyViewport(); return 0;
+    case 'glScissor': this.scissor = [x | 0, y | 0, z | 0, t | 0]; this.applyScissor(); return 0;
     case 'glClearColor': case 'glClearColorx': this.clearColor = [num(0), num(1), num(2), num(3)]; gl.clearColor(...this.clearColor); return 0;
     case 'glClearDepthf': case 'glClearDepthx': gl.clearDepth(num(0)); return 0;
     case 'glClearStencil': gl.clearStencil(x); return 0;
@@ -624,7 +674,7 @@ class GLES1 {
     case 'glStencilOp': gl.stencilOp(x, y, z); return 0;
     case 'glStencilOpSeparate': gl.stencilOpSeparate(x, y, z, t); return 0;
     case 'glPolygonOffset': case 'glPolygonOffsetx': gl.polygonOffset(num(0), num(1)); return 0;
-    case 'glLineWidth': case 'glLineWidthx': gl.lineWidth(Math.max(1, num(0))); return 0;
+    case 'glLineWidth': case 'glLineWidthx': gl.lineWidth(Math.max(1, num(0) * this.scale)); return 0;
     case 'glPointSize': case 'glPointSizex': this.pointSize = num(0); return 0;
     case 'glReadPixels': {
       const w = z | 0, h = t | 0, format = host.arg(4), type = host.arg(5), ptr = host.arg(6);

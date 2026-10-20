@@ -52,6 +52,8 @@ class NativeGame {
     this.virtualTime = 0; this.frames = 0; this.quit = false; this.strings = new Map();
     this.pointer = { x: 240, y: 160, down: 0 };
     this.keysDown = new Set();
+    this.inputQueue = []; this.buttonFrame = -1; this.browserPointerDown = false; this.browserKeys = new Set();
+    this.motion = { real: null, realAt: 0, tilt: 0, shakeAt: -1e9, shakes: 0 };
     this.extNames = [];
     this.audio = options.audio || null;
     this.sliceStart = 0;
@@ -185,13 +187,39 @@ class NativeGame {
     }
   }
   fileOpen(name, mode) {
-    const norm = this.normalized(name); let bytes = this.asset(name);
-    if (mode.includes('w')) bytes = new Uint8Array();
+    const norm = this.normalized(name);
+    const ranged = this.opts.ranged && this.opts.ranged[norm];
+    if (ranged && !mode.includes('w') && !mode.includes('+') && !this.saved.has(norm) && !this.loadedAssets.has(norm)) {
+      // Large read-only archive: fetched on demand in verified chunks.
+      const id = this.nextFile++;
+      this.files.set(id, { name: norm, ranged, size: ranged.size, bytes: null, pos: 0, eof: false, write: false });
+      return id;
+    }
+    let bytes = mode.includes('w') ? new Uint8Array() : this.asset(name);
     if (bytes === null && mode.includes('a')) bytes = new Uint8Array();
     if (bytes === null) { this.log('Missing file: ' + name); return 0; }
     const id = this.nextFile++;
     this.files.set(id, { name: norm, bytes, pos: mode.includes('a') ? bytes.length : 0, eof: false, write: /[wa+]/.test(mode) });
     return id;
+  }
+
+  fileSize(f) { return f.ranged ? f.size : f.bytes.length; }
+  /* Bytes [pos, pos+n) of an open file.  Ranged archives suspend the call
+   * (retried after the download) when a chunk has not arrived yet. */
+  fileBytes(f, pos, n) {
+    if (!f.ranged) return f.bytes.subarray(pos, pos + n);
+    if (n <= 0) return new Uint8Array(0);
+    const r = f.ranged, cs = r.chunkSize, first = Math.floor(pos / cs), last = Math.floor((pos + n - 1) / cs);
+    const missing = [];
+    for (let i = first; i <= last; i++) if (!r.chunks.has(i)) missing.push(i);
+    if (missing.length) throw new Suspend('asset', Promise.all(missing.map(i => r.fetch(i))), true);
+    if (first === last) { const c = r.chunks.get(first), o = pos - first * cs; return c.subarray(o, o + n); }
+    const out = new Uint8Array(n);
+    for (let i = first, o = 0; i <= last; i++) {
+      const c = r.chunks.get(i), start = i === first ? pos - first * cs : 0, len = Math.min(c.length - start, n - o);
+      out.set(c.subarray(start, start + len), o); o += len;
+    }
+    return out;
   }
 
   // ---------------------------------------------------------- execution
@@ -245,7 +273,7 @@ class NativeGame {
       this.setReg(14, SENTINEL);
       this.x.run(this.entry, SENTINEL);
     } else {
-      if (this.suspended && (this.suspended.reason === 'yield' || this.suspended.reason === 'frame')) this.deliverCallbacks();
+      if (this.suspended && this.suspended.reason === 'yield') this.deliverCallbacks();
       this.views();
       this.cpu32[21] = 0;      // clear unwinding
       this.cpu32[22] = 1;      // rewinding
@@ -278,6 +306,10 @@ class NativeGame {
       this.cpu32.set(saved, 0);
     }
   }
+  /* Deliver queued timer and input callbacks.  As on the phone, input
+   * reaches the game while it is inside s3eDeviceYield.  A press and its
+   * release are never delivered in the same game frame (a fast mouse click or
+   * a throttled browser frame would otherwise look like no tap at all). */
   deliverCallbacks() {
     const now = this.time();
     for (const ev of this.timerEvents) if (ev && ev.at <= now) { this.pendingCallbacks.push({ fn: ev.fn, args: [0, ev.data] }); ev.at = Infinity; }
@@ -286,30 +318,53 @@ class NativeGame {
       this.callGuest(cb.fn, cb.args);
       if (cb.free) this.free(cb.free);
     }
+    while (this.inputQueue.length) {
+      const ev = this.inputQueue[0];
+      if (ev.button && this.buttonFrame === this.frames) break;
+      this.inputQueue.shift();
+      if (ev.button) this.buttonFrame = this.frames;
+      this.dispatchInput(ev);
+    }
+  }
+  dispatchInput(ev) {
+    const calls = [];
+    if (ev.type === 'pointer') {
+      this.pointer = { x: ev.x, y: ev.y, down: ev.down ? 1 : 0 };
+      for (const id of [0, 2]) {          // S3E_POINTER_BUTTON_EVENT, S3E_POINTER_TOUCH_EVENT
+        const cb = this.callbacks['pointer' + id];
+        if (!cb) continue;
+        const p = this.alloc(16);
+        this.put32(p, 0); this.put32(p + 4, ev.down ? 1 : 0); this.put32(p + 8, ev.x); this.put32(p + 12, ev.y);
+        calls.push([cb, p]);
+      }
+    } else if (ev.type === 'motion') {
+      this.pointer.x = ev.x; this.pointer.y = ev.y;
+      const cb1 = this.callbacks.pointer1;
+      if (cb1) { const p = this.alloc(8); this.put32(p, ev.x); this.put32(p + 4, ev.y); calls.push([cb1, p]); }
+      const cb3 = this.callbacks.pointer3;
+      if (cb3) { const p = this.alloc(12); this.put32(p, 0); this.put32(p + 4, ev.x); this.put32(p + 8, ev.y); calls.push([cb3, p]); }
+    } else if (ev.type === 'key') {
+      if (ev.down) this.keysDown.add(ev.key); else this.keysDown.delete(ev.key);
+      const cb = this.callbacks.keyboard0;
+      if (cb) { const p = this.alloc(8); this.put32(p, ev.key); this.put32(p + 4, ev.down ? 1 : 0); calls.push([cb, p]); }
+    }
+    for (const [cb, p] of calls) { this.callGuest(cb.fn, [p, cb.data]); this.free(p); }
   }
   time() { return this.deterministic ? this.virtualTime : this.clock() - this.started + this.virtualTime; }
 
   pointerEvent(x, y, down) {
-    this.pointer = { x: Math.round(x), y: Math.round(y), down: down ? 1 : 0 };
-    this.pointerChanged = true;
-    for (const id of [0, 2]) {          // S3E_POINTER_BUTTON_EVENT, S3E_POINTER_TOUCH_EVENT
-      const cb = this.callbacks['pointer' + id];
-      if (!cb) continue;
-      const p = this.alloc(16);
-      this.put32(p, 0); this.put32(p + 4, down ? 1 : 0); this.put32(p + 8, this.pointer.x); this.put32(p + 12, this.pointer.y);
-      this.pendingCallbacks.push({ fn: cb.fn, args: [p, cb.data], free: p });
-    }
-  }
-  pointerMotion(x, y) {
     x = Math.round(x); y = Math.round(y);
-    if (x === this.pointer.x && y === this.pointer.y) return;
-    this.pointer.x = x; this.pointer.y = y;
-    // Coalesce motion: only the latest position matters before the next yield.
-    this.pendingCallbacks = this.pendingCallbacks.filter(cb => !cb.motion || (cb.free && this.free(cb.free), false));
-    const cb1 = this.callbacks.pointer1;
-    if (cb1) { const p = this.alloc(8); this.put32(p, x); this.put32(p + 4, y); this.pendingCallbacks.push({ fn: cb1.fn, args: [p, cb1.data], free: p, motion: true }); }
-    const cb3 = this.callbacks.pointer3;
-    if (cb3) { const p = this.alloc(12); this.put32(p, 0); this.put32(p + 4, x); this.put32(p + 8, y); this.pendingCallbacks.push({ fn: cb3.fn, args: [p, cb3.data], free: p, motion: true }); }
+    this.browserPointerDown = !!down;
+    this.inputQueue.push({ type: 'pointer', button: true, x, y, down: !!down });
+  }
+  pointerMotion(x, y, down = true) {
+    x = Math.round(x); y = Math.round(y);
+    // A touch screen only reports motion while touching; hovering the mouse
+    // must not look like a drag to the game.
+    if (!down && !this.browserPointerDown) return;
+    const last = this.inputQueue[this.inputQueue.length - 1];
+    if (last && last.type === 'motion') { last.x = x; last.y = y; return; }   // coalesce
+    this.inputQueue.push({ type: 'motion', x, y });
   }
   /* Browser key code -> s3eKey.  Arrow keys and Back are what the game's
    * keyboard handler (0x4a036854) acts on. */
@@ -317,12 +372,31 @@ class NativeGame {
     const map = { Escape: 126, Backspace: 126, BrowserBack: 126, ArrowLeft: 9, ArrowUp: 10, ArrowRight: 11, ArrowDown: 12, Enter: 4, Space: 8 };
     const key = map[code];
     if (key === undefined) return false;
-    if (down) this.keysDown.add(key); else this.keysDown.delete(key);
-    const cb = this.callbacks.keyboard0;
-    if (cb) { const p = this.alloc(8); this.put32(p, key); this.put32(p + 4, down ? 1 : 0); this.pendingCallbacks.push({ fn: cb.fn, args: [p, cb.data], free: p }); }
+    if (down) this.browserKeys.add(code); else this.browserKeys.delete(code);
+    this.inputQueue.push({ type: 'key', button: true, key, down: !!down });
     return true;
   }
-  releaseKeys() { for (const k of [...this.keysDown]) { const code = { 126: 'Escape', 9: 'ArrowLeft', 10: 'ArrowUp', 11: 'ArrowRight', 12: 'ArrowDown', 4: 'Enter', 8: 'Space' }[k]; if (code) this.keyEvent(code, false); } }
+  releaseKeys() { for (const code of [...this.browserKeys]) this.keyEvent(code, false); }
+  // ---------------------------------------------------------- motion
+  /* Device motion in milli-g along the device axes (as s3eAccelerometer
+   * reports them): real sensor data, a keyboard tilt, plus injected shakes. */
+  setMotion(x, y, z) { this.motion.real = [x, y, z]; this.motion.realAt = this.clock(); }
+  setTilt(t) { this.motion.tilt = Math.max(-1, Math.min(1, t)); }
+  shake() { this.motion.shakeAt = this.clock(); this.motion.shakes++; }
+  accel(axis) {
+    const m = this.motion, now = this.clock();
+    let v;
+    if (m.real && now - m.realAt < 1000) v = m.real.slice();
+    else { const a = m.tilt * 0.6; v = [1000 * Math.sin(a), 0, -1000 * Math.cos(a)]; }
+    const dt = now - m.shakeAt;
+    if (dt >= 0 && dt < 700) {
+      // A vigorous shake: ~8 Hz oscillation of about 2 g that decays.
+      const env = 1 - dt / 700, ph = 2 * Math.PI * 8 * dt / 1000;
+      v[0] += 2200 * env * Math.sin(ph); v[1] += 1600 * env * Math.sin(ph + 1.3); v[2] += 1200 * env * Math.cos(ph);
+    }
+    return Math.round(v[axis]) >>> 0;
+  }
+
   /* S3E_DEVICE_PAUSE (0) / S3E_DEVICE_UNPAUSE (1) device callbacks. */
   suspendEvent() { if (this.devicePaused) return; this.devicePaused = true; const cb = this.callbacks.device0; if (cb) this.pendingCallbacks.push({ fn: cb.fn, args: [0, cb.data] }); }
   resumeEvent() { if (!this.devicePaused) return; this.devicePaused = false; const cb = this.callbacks.device1; if (cb) this.pendingCallbacks.push({ fn: cb.fn, args: [0, cb.data] }); this.lastYieldReturn = this.clock(); }
@@ -426,26 +500,31 @@ class NativeGame {
     case 's3eFileOpenFromMemory': { const id = this.nextFile++; this.files.set(id, { name: 'memory', bytes: this.read(x, y), pos: 0, eof: false }); return id; }
     case 's3eFileClose': {
       const f = this.files.get(x);
-      if (f && f.write) { this.saved.set(f.name, f.bytes); this.onSave(f.name, f.bytes, this.saved); }
+      if (f && f.write) { const data = f.bytes.slice(); this.saved.set(f.name, data); this.onSave(f.name, data, this.saved); }
       this.files.delete(x); return f ? 0 : 1;
     }
     case 's3eFileRead': {
       const f = this.files.get(t); if (!f || !y) return 0;
-      const n = Math.min(y * z, Math.max(0, f.bytes.length - f.pos)); const full = Math.floor(n / y);
-      this.write(x, f.bytes.subarray(f.pos, f.pos + full * y)); f.pos += full * y; f.eof = full < z; return full;
+      const n = Math.min(y * z, Math.max(0, this.fileSize(f) - f.pos)); const full = Math.floor(n / y);
+      this.write(x, this.fileBytes(f, f.pos, full * y)); f.pos += full * y; f.eof = full < z; return full;
     }
     case 's3eFileWrite': {
       const f = this.files.get(t); if (!f || !f.write) return 0;
-      const n = y * z;
-      if (f.pos + n > f.bytes.length) { const b = new Uint8Array(Math.max(f.pos + n, f.bytes.length * 2)); b.set(f.bytes); f.capacity = b; }
-      const out = new Uint8Array(Math.max(f.bytes.length, f.pos + n)); out.set(f.bytes); out.set(this.read(x, n), f.pos);
-      f.bytes = out; f.pos += n; return z;
+      const n = y * z, end = f.pos + n;
+      if (!f.buf || end > f.buf.length) {           // grow geometrically: the game writes saves byte by byte
+        const b = new Uint8Array(Math.max(end, 4096, (f.buf ? f.buf.length : f.bytes.length) * 2));
+        b.set(f.buf ? f.buf.subarray(0, f.bytes.length) : f.bytes);
+        f.buf = b;
+      }
+      f.buf.set(this.view(x, n), f.pos);
+      f.bytes = f.buf.subarray(0, Math.max(f.bytes.length, end));
+      f.pos = end; return z;
     }
-    case 's3eFileSeek': { const f = this.files.get(x); if (!f) return 1; const p = (z === 0 ? 0 : z === 1 ? f.pos : f.bytes.length) + (y | 0); if (p < 0) return 1; f.pos = p; f.eof = false; return 0; }
+    case 's3eFileSeek': { const f = this.files.get(x); if (!f) return 1; const p = (z === 0 ? 0 : z === 1 ? f.pos : this.fileSize(f)) + (y | 0); if (p < 0) return 1; f.pos = p; f.eof = false; return 0; }
     case 's3eFileTell': { const f = this.files.get(x); return f ? f.pos : -1; }
-    case 's3eFileGetSize': { const f = this.files.get(x); return f ? f.bytes.length : -1; }
+    case 's3eFileGetSize': { const f = this.files.get(x); return f ? this.fileSize(f) : -1; }
     case 's3eFileEOF': { const f = this.files.get(x); return f && f.eof ? 1 : 0; }
-    case 's3eFileGetChar': { const f = this.files.get(x); if (!f || f.pos >= f.bytes.length) { if (f) f.eof = true; return -1; } return f.bytes[f.pos++]; }
+    case 's3eFileGetChar': { const f = this.files.get(x); if (!f || f.pos >= this.fileSize(f)) { if (f) f.eof = true; return -1; } const c = this.fileBytes(f, f.pos, 1)[0]; f.pos++; return c; }
     case 's3eFileCheckExists': { const n = this.normalized(this.str(x)); return this.saved.has(n) || !!this.assets[n] || !!this.webAssets[n] ? 1 : 0; }
     case 's3eFileGetFileInt': {
       const n = this.normalized(this.str(x));
@@ -469,9 +548,14 @@ class NativeGame {
     case 's3ePointerRegister': return this.register('pointer', x, y, z);
     case 's3eKeyboardRegister': return compat ? 0 : this.register('keyboard', x, y, z);
     case 's3eKeyboardSetInt': return 0;
-    case 's3eAccelerometerGetInt': return 0;
-    case 's3eAccelerometerGetX': case 's3eAccelerometerGetY': case 's3eAccelerometerGetZ': return 0;
-    case 's3eAccelerometerStart': return 1;      // S3E_RESULT_ERROR: no accelerometer
+    // -- accelerometer (milli-g).  The phone always had one; in the browser
+    // it is fed by DeviceMotion where available, or by the page's shake and
+    // tilt controls on desktop.
+    case 's3eAccelerometerGetInt': return compat ? 0 : x === 0 ? 1 : x === 1 ? 50 : 0;   // AVAILABLE, UPDATE_FREQ
+    case 's3eAccelerometerGetX': return compat ? 0 : this.accel(0);
+    case 's3eAccelerometerGetY': return compat ? 0 : this.accel(1);
+    case 's3eAccelerometerGetZ': return compat ? 0 : this.accel(2);
+    case 's3eAccelerometerStart': return compat ? 1 : 0;
     case 's3eAccelerometerStop': return 0;
     // -- debug
     case 's3eExtGetHash': return this.extGetHash(x, y, z);
@@ -534,7 +618,6 @@ class NativeGame {
     if (name === 'eglSwapBuffers') {
       this.frames++;
       if (this.opts.frameMs) this.virtualTime += this.opts.frameMs;
-      this.deliverCallbacks();
       if (this.graphics) this.graphics.present();
       throw Object.assign(new Suspend('frame', null, false), { result: 1 });
     }

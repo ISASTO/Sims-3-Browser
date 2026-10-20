@@ -48,6 +48,47 @@ async function fetchAsset(name) {
   return p;
 }
 
+// Large archives the game opens but reads only small parts of (res.dz) are
+// fetched in verified 64 KiB chunks with HTTP range requests.
+const partCache = new Map();
+async function fetchRange(url, start, end) {
+  if (partCache.has(url)) return (await partCache.get(url)).subarray(start, end);
+  const r = await fetch(url, { headers: { Range: `bytes=${start}-${end - 1}` } });
+  if (!r.ok) throw Error('Could not load ' + url + ' (HTTP ' + r.status + ')');
+  const bytes = new Uint8Array(await r.arrayBuffer());
+  if (r.status === 206 && bytes.length === end - start) return bytes;
+  // The server ignored the range: keep the whole part for later reads.
+  partCache.set(url, Promise.resolve(bytes));
+  return bytes.subarray(start, end);
+}
+function makeRanged(info) {
+  const r = { size: info.size, chunkSize: info.chunkSize, chunks: new Map(), pending: new Map() };
+  r.fetch = i => {
+    if (r.chunks.has(i)) return Promise.resolve();
+    if (r.pending.has(i)) return r.pending.get(i);
+    const start = i * r.chunkSize, end = Math.min(r.size, start + r.chunkSize);
+    const p = (async () => {
+      const pieces = [];
+      let off = 0;
+      for (const part of info.parts) {
+        const ps = off, pe = off + part.size;
+        if (pe > start && ps < end) pieces.push(fetchRange(WEB + part.url, Math.max(start, ps) - ps, Math.min(end, pe) - ps));
+        off = pe;
+      }
+      const bufs = await Promise.all(pieces);
+      const out = new Uint8Array(end - start);
+      let o = 0; for (const b of bufs) { out.set(b, o); o += b.length; }
+      if (crypto.subtle && (await sha256(out)) !== info.sha256[i]) throw Error('Game archive chunk checksum failed');
+      state.loadedBytes += out.length;
+      r.chunks.set(i, out);
+      r.pending.delete(i);
+    })();
+    r.pending.set(i, p);
+    return p;
+  };
+  return r;
+}
+
 // ------------------------------------------------------------- saves
 const DB = 'sims3-native';
 function openDB() {
@@ -143,14 +184,53 @@ function bindInput() {
   c.addEventListener('pointermove', e => { if (!state.game) return; const p = canvasPoint(e); state.game.pointerMotion(p.x, p.y, pointerDown); });
   c.addEventListener('contextmenu', e => e.preventDefault());
   window.addEventListener('blur', () => { if (pointerDown && state.game) { pointerDown = false; state.game.pointerEvent(state.game.pointer.x, state.game.pointer.y, false); } state.game?.releaseKeys(); });
-  window.addEventListener('keydown', e => { if (!state.game || e.repeat || state.dialogOpen) return; if (state.game.keyEvent(e.code, true)) e.preventDefault(); });
-  window.addEventListener('keyup', e => { if (!state.game || state.dialogOpen) return; if (state.game.keyEvent(e.code, false)) e.preventDefault(); });
+  const tiltKeys = new Set();
+  const updateTilt = () => state.game?.setTilt((tiltKeys.has('KeyD') ? 1 : 0) - (tiltKeys.has('KeyA') ? 1 : 0));
+  window.addEventListener('keydown', e => {
+    if (!state.game || state.dialogOpen) return;
+    if (e.code === 'KeyS' && !e.repeat) { shake(); e.preventDefault(); return; }
+    if (e.code === 'KeyA' || e.code === 'KeyD') { tiltKeys.add(e.code); updateTilt(); e.preventDefault(); return; }
+    if (e.repeat) return;
+    if (state.game.keyEvent(e.code, true)) e.preventDefault();
+  });
+  window.addEventListener('keyup', e => {
+    if (!state.game || state.dialogOpen) return;
+    if (e.code === 'KeyA' || e.code === 'KeyD') { tiltKeys.delete(e.code); updateTilt(); return; }
+    if (state.game.keyEvent(e.code, false)) e.preventDefault();
+  });
+  window.addEventListener('blur', () => { tiltKeys.clear(); updateTilt(); });
+  $('plumbob').addEventListener('click', shake);
   document.addEventListener('visibilitychange', () => {
     if (!state.game) return;
     if (document.hidden) { state.game.suspendEvent(); audio?.suspend(); flushSaves(); }
     else { state.game.resumeEvent(); if (!state.paused) audio?.resume(); }
   });
   window.addEventListener('pagehide', flushSaves);
+}
+
+// ------------------------------------------------------------- motion
+function shake() {
+  if (!state.game) return;
+  state.game.shake();
+  const b = $('plumbob'); b.classList.remove('shaking'); void b.offsetWidth; b.classList.add('shaking');
+}
+// Real accelerometer on phones and tablets (DeviceMotion, in m/s^2) mapped to
+// s3eAccelerometer milli-g.  iOS reports the opposite sign convention.
+let motionStarted = false;
+function startMotion() {
+  if (motionStarted || typeof DeviceMotionEvent === 'undefined') return;
+  const go = () => {
+    motionStarted = true;
+    const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const k = (ios ? -1 : 1) * 1000 / 9.80665;
+    window.addEventListener('devicemotion', e => {
+      const a = e.accelerationIncludingGravity;
+      if (!state.game || !a || a.x === null) return;
+      state.game.setMotion(a.x * k, a.y * k, a.z * k);
+    });
+  };
+  if (typeof DeviceMotionEvent.requestPermission === 'function') DeviceMotionEvent.requestPermission().then(r => { if (r === 'granted') go(); }).catch(() => {});
+  else go();
 }
 
 // ------------------------------------------------------------- sizing
@@ -210,20 +290,22 @@ function fail(err) {
 // ------------------------------------------------------------- boot
 async function boot() {
   $('start').disabled = true;
+  startMotion();          // needs the Play click as a user gesture on iOS
   try {
     setStatus('Loading the recompiled game…');
     ensureAudio();
     const canvas = $('game');
     resize();
-    const [man, analysis, wasm, exe] = await Promise.all([
+    const [man, analysis, rangedInfo, wasm, exe] = await Promise.all([
       fetch(WEB + 'manifest.json').then(r => r.json()),
       fetch('imports.json').then(r => r.json()),
+      fetch('ranged.json').then(r => r.ok ? r.json() : {}).catch(() => ({})),
       fetchBytes('sims3-game.wasm'),
       fetchBytes(WEB + 'game.s3e'),
     ]);
     manifest = man;
     const [s3eIcf, appIcf] = await Promise.all([fetchAsset('s3e.icf'), fetchAsset('app.icf')]);
-    const gl = new GLES1(canvas, { width: 480, height: 320, log, onContextLost: () => fail(Error('The graphics context was lost. Reload the page to continue.')) });
+    const gl = new GLES1(canvas, { width: 480, height: 320, scale: Number(params.get('scale')) || 0, log, onContextLost: () => fail(Error('The graphics context was lost. Reload the page to continue.')) });
     state.gl = gl;
     const saves = await loadSaves().catch(() => []);
     if (saves.length) $('save-status').textContent = saves.length + ' saved file(s) in this browser.';
@@ -232,6 +314,7 @@ async function boot() {
       loadedAssets: [['s3e.icf', s3eIcf], ['app.icf', appIcf]],
       saves, save: (name, bytes) => queueSave(name, bytes),
       fetchAsset, graphics: gl, audio: ensureAudio(), log, readString,
+      ranged: Object.fromEntries(Object.entries(rangedInfo).map(([name, info]) => [name, makeRanged(info)])),
     });
     await game.init(wasm, exe);
     state.game = game;

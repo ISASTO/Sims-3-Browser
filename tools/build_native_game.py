@@ -92,7 +92,32 @@ def main():
     }
     if not args.trace:
         (GAME / "build.json").write_text(json.dumps(build, indent=1) + "\n")
+        write_ranged_index()
     print(json.dumps(build, indent=1))
+
+
+# Archives the game opens but reads only a small part of.  res.dz (32 MB) is
+# opened at boot, but only its table of contents (~42 KB) is ever read, so the
+# page fetches it in verified chunks with HTTP range requests.
+RANGED = ["res.dz"]
+CHUNK = 65536
+
+
+def write_ranged_index():
+    manifest = json.loads((ROOT / "web/manifest.json").read_text())
+    out = {}
+    for name in RANGED:
+        entry = manifest["webAssets"][name]
+        parts, data = [], bytearray()
+        for url in entry["parts"]:
+            b = (ROOT / "web" / url).read_bytes()
+            parts.append({"url": url, "size": len(b)})
+            data += b
+        if len(data) != entry["size"] or hashlib.sha256(data).hexdigest() != entry["sha256"]:
+            raise SystemExit("ranged asset does not match manifest: " + name)
+        out[name] = {"size": len(data), "chunkSize": CHUNK, "parts": parts, "sha256Whole": entry["sha256"],
+                     "sha256": [hashlib.sha256(data[i:i + CHUNK]).hexdigest() for i in range(0, len(data), CHUNK)]}
+    (GAME / "ranged.json").write_text(json.dumps(out, separators=(",", ":")) + "\n")
 
 
 if __name__ == "__main__":

@@ -11,7 +11,11 @@
 html,body{margin:0;background:var(--bg);color:var(--text)}
 main{width:min(100% - 32px,1180px);margin:0 auto;padding:24px 0 32px}
 header{display:flex;align-items:center;gap:14px;margin-bottom:18px}
-header svg{width:24px;height:40px;flex:none}
+header svg{width:24px;height:40px;flex:none;display:block}
+.plumbob{background:none;border:0;padding:2px 4px;border-radius:8px;cursor:pointer;flex:none}
+.plumbob:hover{background:#121a17}
+.plumbob.shaking svg{animation:shake .5s ease-in-out}
+@keyframes shake{0%,100%{transform:translateX(0) rotate(0)}15%{transform:translateX(-5px) rotate(-12deg)}35%{transform:translateX(5px) rotate(12deg)}55%{transform:translateX(-4px) rotate(-9deg)}75%{transform:translateX(3px) rotate(6deg)}}
 h1{font-size:20px;margin:0;font-weight:650;letter-spacing:-.4px}
 .sub{color:var(--muted);font-size:13px;margin-top:3px}
 .stage{position:relative;background:#000;border:1px solid var(--line);border-radius:10px;overflow:hidden;aspect-ratio:3/2;width:100%;max-height:calc(100svh - 190px);margin:0 auto}
@@ -51,7 +55,7 @@ dialog .row{justify-content:flex-end}
 <body>
 <main>
 <header>
-  <svg viewBox="0 0 40 66" aria-hidden="true"><path fill="#86e39a" d="M20 0 39 29 20 66 1 29Z"/><path fill="#3f9b63" d="M20 0v66L1 29Z"/><path fill="#bbf6ae" d="M20 0 39 29H20Z"/></svg>
+  <button id="plumbob" class="plumbob" title="Shake the device (S)" aria-label="Shake the device"><svg viewBox="0 0 40 66" aria-hidden="true"><path fill="#86e39a" d="M20 0 39 29 20 66 1 29Z"/><path fill="#3f9b63" d="M20 0v66L1 29Z"/><path fill="#bbf6ae" d="M20 0 39 29H20Z"/></svg></button>
   <div><h1>The Sims 3</h1><div class="sub">Original Android game · recompiled to WebAssembly</div></div>
 </header>
 <section class="stage" id="stage" aria-label="Game screen">
@@ -70,7 +74,7 @@ dialog .row{justify-content:flex-end}
     <button id="fullscreen">Fullscreen</button>
   </div>
 </div>
-<p class="hint">Click or tap to interact; drag to move the camera. <kbd>Esc</kbd> acts as the phone's Back button. Progress is saved in this browser.</p>
+<p class="hint">Click or tap to interact; drag to move the camera. <kbd>Esc</kbd> acts as the phone's Back button. Shake the phone by clicking the green diamond or pressing <kbd>S</kbd>; tilt it with <kbd>A</kbd>/<kbd>D</kbd>. On phones and tablets the real motion sensor is used. Progress is saved in this browser.</p>
 <details>
   <summary>Saves &amp; diagnostics</summary>
   <div class="row"><button id="export">Export saves</button><label class="file-button" for="import">Import saves</label><input id="import" type="file" accept="application/json,.json"><span id="save-status">No saves stored yet.</span></div>
