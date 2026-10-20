@@ -1,0 +1,219 @@
+{
+ "format": "sims3-hd-overlay-v1",
+ "scale": 2,
+ "source": {
+  "bundle": "com.ea.sims3bv",
+  "version": "1.4.16",
+  "ipaSha256": "d3982ba8e17fc008fd3824c056e60578e2bc7471e70cf17a8c5506db17fc8980"
+ },
+ "assets": {
+  "images/btn_hand.png": {
+   "from": "btn_hand_4x.png",
+   "file": "images_btn_hand.png.62ddcafe3ca1.z",
+   "size": 17890,
+   "sha256": "62ddcafe3ca101a976d510ac7148595ed9c32ffe8fda3f4069120431b9dda855",
+   "packed": 17906,
+   "androidOnlyPixelsFilled": 0
+  },
+  "texture_quad_event_death.m3g": {
+   "from": "texture_quad_event_death.m3g",
+   "file": "texture_quad_event_death.m3g.be9d64b333de.z",
+   "size": 1048678,
+   "sha256": "be9d64b333de86c4284c3df2b15884924e1a37c6e891a2eae7226fb8325191a1",
+   "packed": 249940,
+   "androidOnlyPixelsFilled": 27932
+  },
+  "texture_quad_event_hired.m3g": {
+   "from": "texture_quad_event_hired.m3g",
+   "file": "texture_quad_event_hired.m3g.b845b1d85f42.z",
+   "size": 1048678,
+   "sha256": "b845b1d85f426da2a4bead94fab68431023660910e07a0d7f78e30bd086937bd",
+   "packed": 207563,
+   "androidOnlyPixelsFilled": 27932
+  },
+  "texture_quad_event_houseupgrade.m3g": {
+   "from": "texture_quad_event_houseupgrade.m3g",
+   "file": "texture_quad_event_houseupgrade.m3g.534be4047d35.z",
+   "size": 1048678,
+   "sha256": "534be4047d3582e0f7cf5de883efaf414fb2101f025d4252b058205ecf48bf95",
+   "packed": 326710,
+   "androidOnlyPixelsFilled": 27932
+  },
+  "texture_quad_event_kiss.m3g": {
+   "from": "texture_quad_event_kiss.m3g",
+   "file": "texture_quad_event_kiss.m3g.08c3c268fd7c.z",
+   "size": 1048678,
+   "sha256": "08c3c268fd7cb39ed8ef4e98d4fd89213348e61ae4842e660b142866f42847be",
+   "packed": 201663,
+   "androidOnlyPixelsFilled": 720
+  },
+  "texture_quad_event_marriage.m3g": {
+   "from": "texture_quad_event_marriage.m3g",
+   "file": "texture_quad_event_marriage.m3g.c961da5e7538.z",
+   "size": 1048678,
+   "sha256": "c961da5e7538de47eb4265bc0e35a7b1c04e39e0bf79d74ff2a2a78484c5a8ae",
+   "packed": 229149,
+   "androidOnlyPixelsFilled": 27932
+  },
+  "texture_quad_event_persona.m3g": {
+   "from": "texture_quad_event_persona.m3g",
+   "file": "texture_quad_event_persona.m3g.30c11d1d54b2.z",
+   "size": 1048678,
+   "sha256": "30c11d1d54b209fb6df4d1dafa3e773ad5760bc1dac6a1347c09503adb503637",
+   "packed": 273848,
+   "androidOnlyPixelsFilled": 27932
+  },
+  "texture_quad_event_promotion.m3g": {
+   "from": "texture_quad_event_promotion.m3g",
+   "file": "texture_quad_event_promotion.m3g.2820b93d98d4.z",
+   "size": 1048678,
+   "sha256": "2820b93d98d40f1436294618d8e8e7944ad95434ae0aa2c15944ad265f8108d9",
+   "packed": 298011,
+   "androidOnlyPixelsFilled": 27932
+  },
+  "texture_quad_event_skillmax.m3g": {
+   "from": "texture_quad_event_skillmax.m3g",
+   "file": "texture_quad_event_skillmax.m3g.41eac0f634eb.z",
+   "size": 1048678,
+   "sha256": "41eac0f634eb5b02d8b89406698873089e3110611dafdbaa548c56079e2c0240",
+   "packed": 321835,
+   "androidOnlyPixelsFilled": 27932
+  },
+  "texture_quad_event_woohoo.m3g": {
+   "from": "texture_quad_event_woohoo.m3g",
+   "file": "texture_quad_event_woohoo.m3g.16ea4b1ad5a2.z",
+   "size": 1048678,
+   "sha256": "16ea4b1ad5a2eec339636dbba5e872ccbde6331852fdb085c79ff9212e445c1a",
+   "packed": 234381,
+   "androidOnlyPixelsFilled": 27932
+  },
+  "texture_quad_hud_censor_pixellation.m3g": {
+   "from": "texture_quad_hud_censor_pixellation.m3g",
+   "file": "texture_quad_hud_censor_pixellation.m3g.301987d03bef.z",
+   "size": 16486,
+   "sha256": "301987d03befbaaa4ff7f3a3e422e103a710736230bc672ce51291ba40004e35",
+   "packed": 451,
+   "androidOnlyPixelsFilled": 0
+  },
+  "texture_quad_hud_fishing.m3g": {
+   "from": "texture_quad_hud_fishing_2x.m3g",
+   "file": "texture_quad_hud_fishing.m3g.826d0bc5fdf4.z",
+   "size": 65638,
+   "sha256": "826d0bc5fdf4512a2dc26168f46bc2006227d3185ce534257fe628c31b924786",
+   "packed": 32040,
+   "androidOnlyPixelsFilled": 0
+  },
+  "texture_quad_hud_group01.m3g": {
+   "from": "texture_quad_hud_group01_2x.m3g",
+   "file": "texture_quad_hud_group01.m3g.434a7cc4eef6.z",
+   "size": 4194406,
+   "sha256": "434a7cc4eef66dfe2009712f97783e7c9394fea9efc1d8b6e6a45eb6fe76f707",
+   "packed": 569587,
+   "androidOnlyPixelsFilled": 15007
+  },
+  "texture_quad_hud_group02_cas_and_fe.m3g": {
+   "from": "texture_quad_hud_group02_cas_and_fe_2x.m3g",
+   "file": "texture_quad_hud_group02_cas_and_fe.m3g.5f32d0dc35a2.z",
+   "size": 1048678,
+   "sha256": "5f32d0dc35a29885eaa10a9e580a7a2ba5f63e0b7243a24c4b9c1b5133148503",
+   "packed": 130020,
+   "androidOnlyPixelsFilled": 944
+  },
+  "texture_quad_hud_group03_sims_info.m3g": {
+   "from": "texture_quad_hud_group03_sims_info_2x.m3g",
+   "file": "texture_quad_hud_group03_sims_info.m3g.11d018558946.z",
+   "size": 4194406,
+   "sha256": "11d0185589460045cd152203617f8bf9c0ab78c5b83b0bc9e43ba008dfe33ab7",
+   "packed": 655559,
+   "androidOnlyPixelsFilled": 6564
+  },
+  "texture_quad_hud_group04_cas.m3g": {
+   "from": "texture_quad_hud_group04_cas_2x.m3g",
+   "file": "texture_quad_hud_group04_cas.m3g.2a43f2622066.z",
+   "size": 1048678,
+   "sha256": "2a43f26220663b64893dbef2596f1de2357a918a3f884ee220deb257929bf565",
+   "packed": 170206,
+   "androidOnlyPixelsFilled": 96
+  },
+  "texture_quad_hud_group05.m3g": {
+   "from": "texture_quad_hud_group05_2x.m3g",
+   "file": "texture_quad_hud_group05.m3g.d8ef0c464423.z",
+   "size": 4194406,
+   "sha256": "d8ef0c46442339a20f02b61d2042ec4129749a30c9189e33f3002e9fcfa07239",
+   "packed": 543026,
+   "androidOnlyPixelsFilled": 4138
+  },
+  "texture_quad_hud_group06.m3g": {
+   "from": "texture_quad_hud_group06_2x.m3g",
+   "file": "texture_quad_hud_group06.m3g.a9fe776dc4d0.z",
+   "size": 1048678,
+   "sha256": "a9fe776dc4d0b6ce14dc44d10751766c663317602a815476ad94c54d1fa26bf9",
+   "packed": 242705,
+   "androidOnlyPixelsFilled": 2730
+  },
+  "texture_quad_hud_group07_cas_and_fe.m3g": {
+   "from": "texture_quad_hud_group07_cas_and_fe_2x.m3g",
+   "file": "texture_quad_hud_group07_cas_and_fe.m3g.eeb7e3ee502b.z",
+   "size": 1048678,
+   "sha256": "eeb7e3ee502b449aa34884de6da1dec6a94aafd32190d1a5bf7d30e1fe5dcd07",
+   "packed": 152377,
+   "androidOnlyPixelsFilled": 1476
+  },
+  "texture_quad_hud_group08_loadscreen.m3g": {
+   "from": "texture_quad_hud_group08_loadscreen_2x.m3g",
+   "file": "texture_quad_hud_group08_loadscreen.m3g.b3b35b5d91f4.z",
+   "size": 1048678,
+   "sha256": "b3b35b5d91f4fe3b0c0d7eae690c76c8c8aef98366bc7850e4893563d999689f",
+   "packed": 155005,
+   "androidOnlyPixelsFilled": 2423
+  },
+  "texture_quad_hud_group09_build.m3g": {
+   "from": "texture_quad_hud_group09_build_2x.m3g",
+   "file": "texture_quad_hud_group09_build.m3g.d6698e45bece.z",
+   "size": 262246,
+   "sha256": "d6698e45bece480a35ca44ac6ab180e21df6124e27f39759ec9a24abc5b271c4",
+   "packed": 32314,
+   "androidOnlyPixelsFilled": 0
+  },
+  "texture_quad_hud_npc_portraits.m3g": {
+   "from": "texture_quad_hud_npc_portraits_2x.m3g",
+   "file": "texture_quad_hud_npc_portraits.m3g.ffd2afbdf0e2.z",
+   "size": 1048678,
+   "sha256": "ffd2afbdf0e28f3541e9f70bdb5d5ab4216bc698f9bf1790b8450f8ef59649ea",
+   "packed": 503877,
+   "androidOnlyPixelsFilled": 0
+  },
+  "texture_quad_icons_inventory.m3g": {
+   "from": "texture_quad_icons_inventory_2x.m3g",
+   "file": "texture_quad_icons_inventory.m3g.80b652e393da.z",
+   "size": 1048678,
+   "sha256": "80b652e393daf98b20bccd972d9530bf9b344079764632173ad20e28c61c59fd",
+   "packed": 314873,
+   "androidOnlyPixelsFilled": 0
+  },
+  "texture_quad_logo_local_les_los.m3g": {
+   "from": "texture_quad_logo_local_les_los_2x.m3g",
+   "file": "texture_quad_logo_local_les_los.m3g.85be2ce10d82.z",
+   "size": 65638,
+   "sha256": "85be2ce10d827b5105ef92722c8f38b778bd7d4f66feda91f7a40c861924b8d1",
+   "packed": 15494,
+   "androidOnlyPixelsFilled": 0
+  },
+  "texture_quad_logo_local_the_die.m3g": {
+   "from": "texture_quad_logo_local_the_die_2x.m3g",
+   "file": "texture_quad_logo_local_the_die.m3g.18bed1ae192f.z",
+   "size": 65638,
+   "sha256": "18bed1ae192f75ef3e01065ef311ec4d51fe21db0fea6603a1d94299882c4b6c",
+   "packed": 17074,
+   "androidOnlyPixelsFilled": 78
+  },
+  "texture_quad_ui_sims_logo_small.m3g": {
+   "from": "texture_quad_ui_sims_logo_small_2x.m3g",
+   "file": "texture_quad_ui_sims_logo_small.m3g.ffa858457092.z",
+   "size": 262246,
+   "sha256": "ffa8584570925f2dbf69a2d070b3f1a39ab9b5b8320502b45e43891d6d876887",
+   "packed": 39939,
+   "androidOnlyPixelsFilled": 1177
+  }
+ }
+}

@@ -600,7 +600,10 @@ class NativeGame {
     case 's3eSocketClose': return 0;
     // -- compression
     case 's3eCompressionDecomp': {
-      const src = this.read(x, y), dest = this.u32(z), capacity = this.u32(t);
+      // The game passes its buffer capacity as the input length; the stream
+      // itself may end earlier, so never read past mapped memory.
+      this.views();
+      const src = this.read(x, Math.max(0, Math.min(y, this.u8.length - this.lin(x)))), dest = this.u32(z), capacity = this.u32(t);
       let out;
       if (src[0] === 31 && src[1] === 139) out = compression.gunzipSync(src);
       else if ((src[0] & 15) === 8 && ((src[0] * 256 + src[1]) % 31) === 0) out = compression.unzlibSync(src);

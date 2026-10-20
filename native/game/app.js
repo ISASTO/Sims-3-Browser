@@ -34,10 +34,17 @@ async function fetchAsset(name) {
   const entry = manifest.webAssets[name];
   if (!entry) throw Error('Missing asset entry: ' + name);
   const p = (async () => {
-    const chunks = await Promise.all(entry.parts.map(part => fetchBytes(WEB + part)));
-    const out = new Uint8Array(entry.size);
-    let pos = 0; for (const c of chunks) { out.set(c, pos); pos += c.length; }
-    if (pos !== entry.size) throw Error('Incomplete game resource ' + name);
+    let out;
+    if (entry.hd) {
+      // High-resolution iPad art (zlib-compressed; see tools/build_hd_assets.py).
+      out = fflate.unzlibSync(await fetchBytes(entry.hd));
+      if (out.length !== entry.size) throw Error('Incomplete game resource ' + name);
+    } else {
+      const chunks = await Promise.all(entry.parts.map(part => fetchBytes(WEB + part)));
+      out = new Uint8Array(entry.size);
+      let pos = 0; for (const c of chunks) { out.set(c, pos); pos += c.length; }
+      if (pos !== entry.size) throw Error('Incomplete game resource ' + name);
+    }
     if (crypto.subtle && (await sha256(out)) !== entry.sha256) throw Error('Game resource checksum failed: ' + name);
     state.loadedBytes += out.length;
     assetCache.set(name, out);
@@ -87,6 +94,32 @@ function makeRanged(info) {
     return p;
   };
   return r;
+}
+
+// ------------------------------------------------------- iPad art overlay
+// The iOS/iPad release ships the same 2D interface as the Android release in
+// 2x and 4x resolutions, in the same file formats.  When enabled, those files
+// replace the Android originals under the same names.  ?ui=1 keeps the
+// original Android art; ?ui=2 / ?ui=4 force a set.
+function hdScale() {
+  const q = params.get('ui');
+  if (q === '1' || q === '2' || q === '4') return Number(q);
+  const touch = navigator.maxTouchPoints > 1 || /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent);
+  const px = Math.max(screen.width, screen.height) * (devicePixelRatio || 1);
+  return !touch && px >= 1900 ? 4 : 2;     // the 4x set needs more memory
+}
+async function applyHdArt(man) {
+  const scale = hdScale();
+  if (scale < 2) return 1;
+  const base = `hd/${scale}x/`;
+  const index = await fetch(base + 'index.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).catch(() => null);
+  if (!index || index.format !== 'sims3-hd-overlay-v1') return 1;
+  for (const [name, a] of Object.entries(index.assets)) {
+    if (!man.webAssets[name]) continue;
+    man.webAssets[name] = { size: a.size, sha256: a.sha256, hd: base + a.file };
+    if (man.assets && man.assets[name]) man.assets[name] = [man.assets[name][0], a.size];
+  }
+  return scale;
 }
 
 // ------------------------------------------------------------- saves
@@ -304,6 +337,8 @@ async function boot() {
       fetchBytes(WEB + 'game.s3e'),
     ]);
     manifest = man;
+    state.uiArt = await applyHdArt(man);
+    if (state.uiArt > 1) log(`Using the iPad release's ${state.uiArt}x interface art.`);
     const [s3eIcf, appIcf] = await Promise.all([fetchAsset('s3e.icf'), fetchAsset('app.icf')]);
     const gl = new GLES1(canvas, { width: 480, height: 320, scale: Number(params.get('scale')) || 0, log, onContextLost: () => fail(Error('The graphics context was lost. Reload the page to continue.')) });
     state.gl = gl;

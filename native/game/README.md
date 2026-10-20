@@ -88,6 +88,20 @@ shake; <kbd>A</kbd>/<kbd>D</kbd> tilt. In this Android build only the cooking
 minigame (shake to cool the pots) and the fishing minigame (tilt) read the
 accelerometer.
 
+### iPad interface art
+
+`tools/build_hd_assets.py <ipa>` reads the resource files (never the
+executable, which is FairPlay-encrypted) of the iOS/iPad release 1.4.16
+(`com.ea.sims3bv`). Its 2D interface atlases share the Android sprite layout
+and ship at 2× and 4× resolution; the game addresses sprites with normalised
+texture coordinates, so the larger atlases replace the Android ones under the
+same names while the Android layout file (`anim2d.m3g`) is kept. The few
+sprites only the Android atlases contain (where the iOS atlas is transparent)
+are filled in from the Android art. The output, `hd/2x/` and `hd/4x/`
+(zlib-compressed, content-addressed, SHA-256 verified), is used by default:
+4× on large non-touch screens, 2× elsewhere; `?ui=1` keeps the original art,
+`?ui=2`/`?ui=4` force a set. Text still uses the Android bitmap font.
+
 `ranged.json` (written by the build) lets the page fetch `res.dz` (32 MB, of
 which the game reads only its table of contents) in SHA-256-verified 64 KiB
 chunks with HTTP range requests.
