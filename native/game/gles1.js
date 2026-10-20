@@ -171,7 +171,8 @@ class GLES1 {
     let k = Math.min(cw / this.width, ch / this.height);
     const maxRb = this.gl.getParameter(this.gl.MAX_RENDERBUFFER_SIZE) || 4096;
     k = Math.min(k, Math.sqrt(this.maxPixels / (this.width * this.height)), maxRb / this.width, maxRb / this.height);
-    return Math.max(1, Math.round(k * 4) / 4);
+    // Exactly the size the frame is shown at, so it is copied 1:1 to the canvas.
+    return Math.max(1, k);
   }
   createPresenter() {
     const gl = this.gl;
@@ -188,8 +189,12 @@ class GLES1 {
     const gl = this.gl;
     if (this.contextLost) return;
     const cw = this.canvas.width, ch = this.canvas.height;
-    const scale = Math.min(cw / this.width, ch / this.height);
-    const w = this.width * scale / cw, h = this.height * scale / ch;
+    // Letterboxed rectangle in whole device pixels (so a target of the same
+    // size maps texel-to-pixel without resampling).
+    const fit = Math.min(cw / this.width, ch / this.height);
+    const pw = Math.max(1, Math.round(this.width * fit)), ph = Math.max(1, Math.round(this.height * fit));
+    const left = Math.floor((cw - pw) / 2), bottom = Math.floor((ch - ph) / 2);
+    const w = pw / cw, h = ph / ch, cx = (2 * left + pw) / cw - 1, cy = (2 * bottom + ph) / ch - 1;
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     const saved = this.saveFixedState();
     gl.disable(gl.BLEND); gl.disable(gl.DEPTH_TEST); gl.disable(gl.CULL_FACE); gl.disable(gl.SCISSOR_TEST); gl.disable(gl.STENCIL_TEST);
@@ -197,7 +202,7 @@ class GLES1 {
     gl.viewport(0, 0, cw, ch);
     gl.clearColor(0, 0, 0, 1); gl.clear(gl.COLOR_BUFFER_BIT);
     gl.useProgram(this.presentProgram);
-    gl.uniform4f(this.presentRect, 0, 0, w, h);
+    gl.uniform4f(this.presentRect, cx, cy, w, h);
     gl.bindBuffer(gl.ARRAY_BUFFER, this.presentQuad);
     for (let i = 0; i < 8; i++) gl.disableVertexAttribArray(i);
     gl.enableVertexAttribArray(0);
@@ -208,10 +213,10 @@ class GLES1 {
     gl.bindFramebuffer(gl.FRAMEBUFFER, this.fbo);
     this.restoreFixedState(saved);
     this.framesPresented++;
-    this.presentRectPx = { x: (cw - this.width * scale) / 2, y: (ch - this.height * scale) / 2, w: this.width * scale, h: this.height * scale };
+    this.presentRectPx = { x: left, y: ch - bottom - ph, w: pw, h: ph };
     // Follow canvas size changes between frames (resize, fullscreen, DPR).
     const k = this.desiredScale();
-    if (k !== this.scale) {
+    if (Math.round(this.width * k) !== this.targetW || Math.round(this.height * k) !== this.targetH) {
       this.scale = k;
       this.allocateTarget();
       gl.bindFramebuffer(gl.FRAMEBUFFER, this.fbo);
