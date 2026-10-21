@@ -1,0 +1,7 @@
+# Private inputs and generated material derived from the IPA are never committed.
+original/
+extract/
+analysis/
+build/
+*.pyc
+__pycache__/
