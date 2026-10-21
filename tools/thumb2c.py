@@ -76,6 +76,7 @@ class Ctx:
         self.ro_lo = self.img.segments[1].vmaddr
         self.ro_hi = self.img.segments[1].vmaddr + self.img.segments[1].vmsize
         self.import_names = set()
+        self.async_names = async_set(self.funcs)
 
     def func_at(self, a):
         i = bisect.bisect_right(self.addrs, a) - 1
@@ -90,6 +91,39 @@ class Ctx:
             if s <= a < s + self.dic[s][0]:
                 return True
         return False
+
+
+# Imports that may suspend the calling guest thread (cooperative scheduler, DECISIONS.md D7).
+YIELD_IMPORTS = {'_usleep', '_sleep', '_nanosleep', '_sched_yield', '_pthread_yield_np'}
+# Functions that sleep/yield (directly or through the usleep branch island).
+YIELD_LEAVES = {'__ZN4midp6Thread5sleepEl', '__ZN4midp6Thread5yieldEv', '_usleep$shim', '__ZN4midp6Thread4joinEv'}
+
+
+def async_set(funcs):
+    """Functions that get a resumable variant: thread entry points and every Runnable/TimerTask run() (reached by
+    virtual call), plus every function reachable from them by direct call that can itself reach a sleep/yield."""
+    cg = json.load(open(ROOT + '/analysis/callgraph.json'))
+    names = set(f['name'] for f in funcs)
+    roots = {'__ZN4midp15Thread_posixRunEPv'} | {n for n in names if re.fullmatch(r'__ZN.*3runEv', n)}
+    rev = collections.defaultdict(set)
+    for f, cs in cg.items():
+        for t in cs:
+            rev[t].add(f)
+    reach = set(YIELD_LEAVES)
+    st = list(reach)
+    while st:
+        for p in rev.get(st.pop(), ()):
+            if p not in reach:
+                reach.add(p)
+                st.append(p)
+    fwd = set(roots)
+    st = list(roots)
+    while st:
+        for t in cg.get(st.pop(), []):
+            if t not in fwd:
+                fwd.add(t)
+                st.append(t)
+    return ((fwd & reach) | roots) & names
 
 
 def hname(sym):
@@ -110,6 +144,9 @@ class Fn:
         self.problems = []
         self.calls = set()
         self.resume = set()
+        self.it_blocks = {}
+        self.async_mode = False  # emit the resumable variant (A_*) used on cooperative guest threads
+        self.sites = []
 
     # ------------------------------------------------------------------ discovery
     def decode(self, a):
@@ -119,8 +156,17 @@ class Fn:
         l = list(self.ctx.md.disasm(b, a, 1))
         if not l:
             return None
-        self.insns[a] = l[0]
-        return l[0]
+        i = l[0]
+        if i.id == A.ARM_INS_IT:
+            # capstone tracks IT state only within one disasm() call: decode the IT block together
+            n = len(i.mnemonic) - 1  # 'it'=1, 'itt'=2, 'ite'=2, ... up to 4 instructions
+            blk = list(self.ctx.md.disasm(self.ctx.img.read(a, 2 + 4 * n), a, 1 + n))
+            for j in blk:
+                self.insns[j.address] = j
+            self.it_blocks[a] = [j.address for j in blk[1:]]
+            return blk[0]
+        self.insns[a] = i
+        return i
 
     def discover(self):
         work = [self.lo] + sorted(self.extra_entries)
@@ -209,8 +255,8 @@ class Fn:
             m = i.id
             ops = i.operands
             try:
-                if m == A.ARM_INS_MOVW and ops[1].type == arm.ARM_OP_IMM:
-                    regs[ops[0].reg] = ops[1].imm & 0xffff
+                if m in (A.ARM_INS_MOVW, A.ARM_INS_MOV, A.ARM_INS_MOVS) and len(ops) == 2 and ops[1].type == arm.ARM_OP_IMM:
+                    regs[ops[0].reg] = ops[1].imm & 0xffffffff
                 elif m == A.ARM_INS_MOVT and ops[0].reg in regs:
                     regs[ops[0].reg] = (regs[ops[0].reg] & 0xffff) | ((ops[1].imm & 0xffff) << 16)
                 elif m == A.ARM_INS_LDR and len(ops) == 2 and ops[1].type == arm.ARM_OP_MEM and ops[1].mem.base == A.ARM_REG_PC:
@@ -361,11 +407,13 @@ class Fn:
         return None
 
     # ------------------------------------------------------------------ main emit
-    def emit(self):
+    def emit(self, async_mode=False):
         out = []
         self.out = out
         self.uses_unwind = False
-        fname = 'F_' + hexa(self.lo)
+        self.async_mode = async_mode
+        self.sites = []
+        fname = ('A_' if async_mode else 'F_') + hexa(self.lo)
         body = []
         prev_fall = None
         for idx, a in enumerate(self.order):
@@ -395,10 +443,25 @@ class Fn:
             else:
                 body.append('  TRAP_FALLOFF(c, 0x%xu);' % prev_fall)
         out.append('void %s(CPU *c) { /* %s */' % (fname, self.f['name']))
-        out.append('  ENTRY_REGS;')
+        if async_mode:
+            out.append('  ENTRY_REGS_A;')
+            if self.sites:
+                out.append('  uint32_t _site = 0;')
+                out.append('  if (__builtin_expect(c->resuming != 0, 0)) {')
+                out.append('    AF_RESTORE(_site);')
+                out.append('    switch (_site) {')
+                for k in self.sites:
+                    out.append('      case %d: sched_resume_inner(c); goto AR_%d;' % (k, k))
+                out.append('    }')
+                out.append('    TRAP_BADRESUME(c, _site);')
+                out.append('  }')
+        else:
+            out.append('  ENTRY_REGS;')
         out.extend(body)
         if self.uses_unwind:
             out.append('unwind:')
+            if async_mode and self.sites:
+                out.append('  if (c->unwinding == UNWIND_SUSPEND) { AF_SAVE(_site, %s); return; }' % fname)
             if self.resume:
                 out.append('  if (c->unwind_target >= sp && c->unwind_target < entry_sp) {')
                 out.append('    uint32_t _ctx = c->unwind_target; c->unwinding = 0;')
@@ -421,6 +484,8 @@ class Fn:
                 self.ctx.import_names.add(name)
                 self.calls.add(name)
                 self.uses_unwind = True
+                if self.async_mode:
+                    return self.asite('ACALL' if name in YIELD_IMPORTS else 'ACALLN', hname(name), self.cur.address + self.cur.size | 1)
                 return 'CALLH(%s, 0x%xu);' % (hname(name), self.cur.address + self.cur.size | 1)
         f = self.ctx.fstart.get(t & ~1)
         if f is None:
@@ -429,17 +494,39 @@ class Fn:
             raise Unsupported('blx to ARM-mode function %x' % t)
         self.calls.add(f['name'])
         self.uses_unwind = True
+        if self.async_mode:
+            if f['name'] in self.ctx.async_names:
+                return self.asite('ACALL', 'A_' + hexa(t & ~1), self.cur.address + self.cur.size | 1)
+            return self.asite('ACALLN', 'F_' + hexa(t & ~1), self.cur.address + self.cur.size | 1)
         return 'CALL(F_%s, 0x%xu);' % (hexa(t & ~1), self.cur.address + self.cur.size | 1)
+
+    def asite(self, mac, f, ret):
+        self.sites.append(len(self.sites) + 1)
+        return '%s(%s, 0x%xu, %d);' % (mac, f, ret, len(self.sites))
+
+    def calli(self, t, ret):
+        if self.async_mode:
+            return self.asite('ACALLI', t, ret)
+        return 'CALLI(%s, 0x%xu);' % (t, ret)
+
+    def taili(self, t):
+        return ('ATAILI(%s);' if self.async_mode else 'TAILI(%s);') % t
 
     def tail_call(self, t):
         if (t & ~3) in self.ctx.stubs:
             sect, name, idx = self.ctx.stubs[t & ~3]
             if name:
                 self.ctx.import_names.add(name)
+                if self.async_mode:
+                    return ('ATAIL(%s);' if name in YIELD_IMPORTS else 'ATAILN(%s);') % hname(name)
                 return 'TAILH(%s);' % hname(name)
         f = self.ctx.fstart.get(t & ~1)
         if f is None:
             raise Unsupported('branch to non-function %x' % t)
+        if self.async_mode:
+            if f['name'] in self.ctx.async_names:
+                return 'ATAIL(A_%s);' % hexa(t & ~1)
+            return 'ATAILN(F_%s);' % hexa(t & ~1)
         return 'TAIL(F_%s);' % hexa(t & ~1)
 
     def ret(self):
@@ -477,12 +564,12 @@ class Fn:
             if ops[0].type == arm.ARM_OP_IMM:
                 return self.call_direct(ops[0].imm, m == A.ARM_INS_BLX), True
             self.uses_unwind = True
-            return 'CALLI(%s, 0x%xu);' % (R(ops[0].reg), nxt | 1), True
+            return self.calli(R(ops[0].reg), nxt | 1), True
         if m == A.ARM_INS_BX:
             r = self.reg(ops[0].reg)
             if r == 'lr':
                 return self.ret(), False
-            return 'TAILI(%s);' % r, False
+            return self.taili(r), False
         if m in (A.ARM_INS_TBB, A.ARM_INS_TBH):
             tb = self.tables.get(a) or self.jump_table(i)
             idx = R(ops[0].mem.index)
@@ -491,7 +578,7 @@ class Fn:
 
         # ---------------- moves
         if m in (A.ARM_INS_MOV, A.ARM_INS_MOVS) and ops[0].type == arm.ARM_OP_REG and self.reg(ops[0].reg) == 'pc':
-            return 'TAILI(%s);' % R(ops[1].reg), False
+            return self.taili(R(ops[1].reg)), False
         if m in (A.ARM_INS_MOV, A.ARM_INS_MOVS, A.ARM_INS_MVN):
             v, cy = self.op2(ops[1], uf)
             if m == A.ARM_INS_MVN:
@@ -776,7 +863,7 @@ class Fn:
                 # load into pc: return (pop-like) or indirect jump
                 if base == 'sp' and post:
                     return '{ uint32_t _a = %s; %s RETURN; }' % (ea, upd), False
-                return '{ uint32_t _a = %s; uint32_t _t = %s; %s TAILI(_t); }' % (ea, val, upd), False
+                return '{ uint32_t _a = %s; uint32_t _t = %s; %s %s }' % (ea, val, upd, self.taili('_t')), False
             if m in (A.ARM_INS_LDREX, A.ARM_INS_LDREXB, A.ARM_INS_LDREXH):
                 return '{ uint32_t _a = %s; %s }' % (ea, self.wr_reg(rt, val)), True
             return '{ uint32_t _a = %s; uint32_t _v = %s; %s %s }' % (ea, val, upd, self.wr_reg(rt, '_v')), True
@@ -1418,6 +1505,8 @@ def main():
         try:
             fn.analyze()
             code = fn.emit()
+            if f['name'] in ctx.async_names:
+                code += '\n\n' + fn.emit(async_mode=True)
         except Exception as e:
             import traceback
             code = 'void F_%s(CPU *c) { TRAP_UNIMPL(c, 0x%xu, "recompiler failure"); } /* %s */' % (hexa(f['addr']), f['addr'], repr(e).replace('*/', ''))
@@ -1435,13 +1524,20 @@ def main():
     with open(os.path.join(out_dir, 'recomp_decls.h'), 'w') as fo:
         for f in ctx.funcs:
             fo.write('void F_%s(CPU *c);\n' % hexa(f['addr']))
+            if f['name'] in ctx.async_names:
+                fo.write('void A_%s(CPU *c);\n' % hexa(f['addr']))
     with open(os.path.join(out_dir, 'recomp_table.c'), 'w') as fo:
         fo.write(HEADER)
         fo.write('const struct FuncEntry recomp_funcs[] = {\n')
         for f in ctx.funcs:
             fo.write('  {0x%xu, 0x%xu, F_%s, "%s"},\n' % (f['addr'], f['end'], hexa(f['addr']), f['name']))
         fo.write('};\nconst unsigned recomp_nfuncs = %d;\n' % len(ctx.funcs))
-    all_imports = sorted(set(n for (s, n, ix) in ctx.stubs.values() if n and s == '__picsymbolstub4'))
+        af = [f for f in ctx.funcs if f['name'] in ctx.async_names]
+        fo.write('const struct AsyncEntry async_funcs[] = {\n')
+        for f in af:
+            fo.write('  {0x%xu, A_%s},\n' % (f['addr'], hexa(f['addr'])))
+        fo.write('};\nconst unsigned async_nfuncs = %d;\n' % len(af))
+    all_imports = sorted(set(sy.name for sy in ctx.img.symbols if not sy.is_stab and (sy.type & 0x0e) == 0 and (sy.type & 1) and sy.name))
     with open(os.path.join(out_dir, 'imports.h'), 'w') as fo:
         for n in all_imports:
             fo.write('void %s(CPU *c); /* %s */\n' % (hname(n), n))
@@ -1453,6 +1549,13 @@ def main():
         for n in all_imports:
             fo.write('  {"%s", %s},\n' % (n, hname(n)))
         fo.write('};\nconst unsigned import_nfuncs = %d;\n' % len(all_imports))
+        stubl = sorted((a, n) for a, (sec, n, ix) in ctx.stubs.items() if sec == '__picsymbolstub4' and n)
+        fo.write('const struct StubEntry stub_funcs[] = {\n')
+        for a, n in stubl:
+            fo.write('  {0x%xu, %s},\n' % (a, hname(n)))
+        fo.write('};\nconst unsigned stub_nfuncs = %d;\n' % len(stubl))
+        yl = sorted(n for n in all_imports if n in YIELD_IMPORTS)
+        fo.write('const GuestFn async_imports[] = {%s};\nconst unsigned async_nimports = %d;\n' % (', '.join(hname(n) for n in yl) or '0', len(yl)))
     json.dump(report, open(os.path.join(out_dir, 'report.json'), 'w'), indent=0)
     nprob = sum(1 for v in report.values() if v['problems'])
     print('functions', len(report), 'with problems', nprob)

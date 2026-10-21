@@ -18,11 +18,29 @@ typedef struct CPU {
     uint32_t thread_id;
     uint32_t stack_lo, stack_hi;
     uint32_t depth;
+    /* cooperative threads (threads.c, DECISIONS.md D7) */
+    uint32_t async_ok;       /* 1 while every frame on this thread's host stack is a resumable A_* variant */
+    uint32_t resuming;       /* 1 while a suspended thread's frames are being re-entered */
+    uint32_t locks;          /* locks held (no preemption while > 0) */
+    struct AFrame *astack;   /* saved frames of a suspended thread, innermost first */
+    uint32_t asp, acap;
 } CPU;
 
 typedef void (*GuestFn)(CPU *c);
+struct AsyncEntry { uint32_t addr; GuestFn fn; };
+#define UNWIND_SUSPEND 0x53555350u   /* c->unwinding value while a thread suspends */
+typedef struct AFrame {
+    GuestFn fn; uint32_t site, entry_sp;
+    uint32_t r[15]; uint32_t f[9]; uint64_t d[32];
+} AFrame;
+AFrame *afr_push(CPU *c);
+AFrame *afr_pop(CPU *c);
+void sched_resume_inner(CPU *c);
+int sched_should_preempt(CPU *c);
+void call_indirect_async(CPU *c, uint32_t target);
 struct FuncEntry { uint32_t addr, end; GuestFn fn; const char *name; };
 struct ImportEntry { const char *name; GuestFn fn; };
+struct StubEntry { uint32_t addr; GuestFn fn; };
 
 #ifdef GUEST_IDENTITY
 #define G2H(a) ((uint8_t *)(uintptr_t)(uint32_t)(a))
@@ -68,6 +86,40 @@ void trap_badresume(CPU *c, uint32_t pc) __attribute__((noreturn));
              d12 = 0, d13 = 0, d14 = 0, d15 = 0, d16 = 0, d17 = 0, d18 = 0, d19 = 0, d20 = 0, d21 = 0, d22 = 0, \
              d23 = 0, d24 = 0, d25 = 0, d26 = 0, d27 = 0, d28 = 0, d29 = 0, d30 = 0, d31 = 0; \
     const uint32_t entry_sp = sp; (void)entry_sp; (void)lr; (void)fpscr_rest
+
+/* resumable variants (A_*): entry_sp is restored on resume; every call site is a suspension point */
+#define ENTRY_REGS_A \
+    uint32_t r0 = c->r[0], r1 = c->r[1], r2 = c->r[2], r3 = c->r[3], r4 = 0, r5 = 0, r6 = 0, r7 = c->r[7], \
+             r8 = 0, r9 = 0, r10 = 0, r11 = 0, r12 = c->r[12], sp = c->r[13], lr = c->r[14]; \
+    uint32_t n = 0, z = 0, cf = 0, v = 0, fn = 0, fz = 0, fc = 0, fv = 0, fpscr_rest = 0; \
+    uint64_t d0 = 0, d1 = 0, d2 = 0, d3 = 0, d4 = 0, d5 = 0, d6 = 0, d7 = 0, d8 = 0, d9 = 0, d10 = 0, d11 = 0, \
+             d12 = 0, d13 = 0, d14 = 0, d15 = 0, d16 = 0, d17 = 0, d18 = 0, d19 = 0, d20 = 0, d21 = 0, d22 = 0, \
+             d23 = 0, d24 = 0, d25 = 0, d26 = 0, d27 = 0, d28 = 0, d29 = 0, d30 = 0, d31 = 0; \
+    uint32_t entry_sp = sp; (void)entry_sp; (void)lr; (void)fpscr_rest
+#define AF_REGS(X) X(0, r0) X(1, r1) X(2, r2) X(3, r3) X(4, r4) X(5, r5) X(6, r6) X(7, r7) X(8, r8) X(9, r9) X(10, r10) \
+    X(11, r11) X(12, r12) X(13, sp) X(14, lr)
+#define AF_FLAGS(X) X(0, n) X(1, z) X(2, cf) X(3, v) X(4, fn) X(5, fz) X(6, fc) X(7, fv) X(8, fpscr_rest)
+#define AF_DREGS(X) X(0, d0) X(1, d1) X(2, d2) X(3, d3) X(4, d4) X(5, d5) X(6, d6) X(7, d7) X(8, d8) X(9, d9) X(10, d10) \
+    X(11, d11) X(12, d12) X(13, d13) X(14, d14) X(15, d15) X(16, d16) X(17, d17) X(18, d18) X(19, d19) X(20, d20) \
+    X(21, d21) X(22, d22) X(23, d23) X(24, d24) X(25, d25) X(26, d26) X(27, d27) X(28, d28) X(29, d29) X(30, d30) X(31, d31)
+#define AF_S_R(i, x) _f->r[i] = x;
+#define AF_S_F(i, x) _f->f[i] = x;
+#define AF_S_D(i, x) _f->d[i] = x;
+#define AF_L_R(i, x) x = _f->r[i];
+#define AF_L_F(i, x) x = _f->f[i];
+#define AF_L_D(i, x) x = _f->d[i];
+#define AF_SAVE(k, self) do { AFrame *_f = afr_push(c); _f->fn = self; _f->site = (k); _f->entry_sp = entry_sp; \
+    AF_REGS(AF_S_R) AF_FLAGS(AF_S_F) AF_DREGS(AF_S_D) } while (0)
+#define AF_RESTORE(k) do { AFrame *_f = afr_pop(c); (k) = _f->site; entry_sp = _f->entry_sp; \
+    AF_REGS(AF_L_R) AF_FLAGS(AF_L_F) AF_DREGS(AF_L_D) } while (0)
+#define ASYNC_AFTER(k) if (__builtin_expect(c->unwinding != 0, 0) || sched_should_preempt(c)) { \
+    if (!c->unwinding) c->unwinding = UNWIND_SUSPEND; _site = (k); goto unwind; }
+#define ACALL(f, ret, k)  do { SPILL(); c->r[14] = lr = (ret); f(c); AR_##k: RELOAD(); ASYNC_AFTER(k) } while (0)
+#define ACALLN(f, ret, k) do { SPILL(); c->r[14] = lr = (ret); c->async_ok = 0; f(c); c->async_ok = 1; AR_##k: RELOAD(); ASYNC_AFTER(k) } while (0)
+#define ACALLI(t, ret, k) do { uint32_t _t = (t); SPILL(); c->r[14] = lr = (ret); call_indirect_async(c, _t); AR_##k: RELOAD(); ASYNC_AFTER(k) } while (0)
+#define ATAIL(f)  do { SPILL(); c->r[14] = lr; f(c); return; } while (0)
+#define ATAILN(f) do { SPILL(); c->r[14] = lr; c->async_ok = 0; f(c); c->async_ok = 1; return; } while (0)
+#define ATAILI(t) do { uint32_t _t = (t); SPILL(); c->r[14] = lr; call_indirect_async(c, _t); return; } while (0)
 
 #define SPILL() (c->r[0] = r0, c->r[1] = r1, c->r[2] = r2, c->r[3] = r3, c->r[7] = r7, c->r[12] = r12, c->r[13] = sp)
 #define RELOAD() (r0 = c->r[0], r1 = c->r[1], r2 = c->r[2], r3 = c->r[3], r12 = c->r[12])
