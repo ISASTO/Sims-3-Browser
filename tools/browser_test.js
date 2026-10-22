@@ -43,6 +43,25 @@ fs.mkdirSync(out, { recursive: true });
       for (let i = 1; i <= n; i++) { await page.mouse.move(a + (c - a) * i / n, b + (d - b) * i / n); await page.waitForTimeout((ms || 300) / n); }
       await page.mouse.up();
     }
+    // deterministic mode (page opened with ?test): frames advance only when the script says so
+    if (s.frames) { const r = await page.evaluate(([n, d]) => window.sims3Test.step(n, d), [s.frames, s.draw !== false]); if (r === 'dead') console.log('game stopped'); }
+    if (s.ftap) {
+      const [x, y] = await toPage(...s.ftap); await page.mouse.move(x, y); await page.mouse.down();
+      await page.evaluate(() => window.sims3Test.step(4, false)); await page.mouse.up(); await page.evaluate(() => window.sims3Test.step(1, false));
+    }
+    if (s.fdrag) {
+      const [x0, y0, x1, y1, n] = s.fdrag; const [a, b] = await toPage(x0, y0); const [c, d] = await toPage(x1, y1);
+      await page.mouse.move(a, b); await page.mouse.down({ button: s.right ? 'right' : 'left' });
+      for (let i = 1; i <= n; i++) { await page.mouse.move(a + (c - a) * i / n, b + (d - b) * i / n); await page.evaluate(() => window.sims3Test.step(1, false)); }
+      await page.mouse.up({ button: s.right ? 'right' : 'left' }); await page.evaluate(() => window.sims3Test.step(1, false));
+    }
+    if (s.waitBoot) await page.waitForFunction(() => window.sims3Test, null, { timeout: 120000 });
+    if (s.rdrag) {   // right-button drag (two-finger gesture on the desktop mapping)
+      const [x0, y0, x1, y1, ms] = s.rdrag; const [a, b] = await toPage(x0, y0); const [c, d] = await toPage(x1, y1);
+      await page.mouse.move(a, b); await page.mouse.down({ button: 'right' }); const n = 12;
+      for (let i = 1; i <= n; i++) { await page.mouse.move(a + (c - a) * i / n, b + (d - b) * i / n); await page.waitForTimeout((ms || 400) / n); }
+      await page.mouse.up({ button: 'right' });
+    }
     if (s.type) await page.keyboard.type(s.type, { delay: 60 });
     if (s.key) await page.keyboard.press(s.key);
     if (s.reload) { await page.reload(); }

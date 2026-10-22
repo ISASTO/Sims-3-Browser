@@ -24,6 +24,7 @@ export function createGL(canvas, mem, log) {
   let drawableFB = 0, drawableRB = 0, drawW = 0, drawH = 0;
   let glError = 0;
   let unpackAlign = 4;
+  let depthMask = true;
   const caps = new Map();
   const isEnabledES1 = (cap) => !!caps.get(cap);
 
@@ -207,7 +208,7 @@ export function createGL(canvas, mem, log) {
     if (stats.capture) {   // debugging aid: window.sims3GL.capture = N records the draws of the next N frames
       const mv = stacks[GL_MODELVIEW], pr = stacks[GL_PROJECTION];
       stats.draws.push({ fb: curFB, n: nverts, tex: [caps.get('tex0') && boundTex[0], caps.get('tex1') && boundTex[1]], depth: !!caps.get(0x0B71), blend: !!caps.get(0x0BE2),
-        cull: !!caps.get(0x0B44), alpha: !!caps.get(0x0BC0), fog: !!caps.get(0x0B60), color: color.slice(), colorArr: arrays.color.enabled,
+        cull: !!caps.get(0x0B44), alpha: !!caps.get(0x0BC0), fog: !!caps.get(0x0B60), fogp: [fog.mode, fog.density, fog.start, fog.end, fog.color.map((x) => +x.toFixed(2)).join('/')], dmask: depthMask, color: color.slice(), colorArr: arrays.color.enabled,
         vtx: [arrays.vertex.size, arrays.vertex.type, arrays.vertex.stride, !!arrays.vertex.buffer], P: Array.from(pr[pr.length - 1]).map((x) => +x.toFixed(4)),
         MV: Array.from(mv[mv.length - 1]).map((x) => +x.toFixed(3)), vp: gl.getParameter(gl.VIEWPORT) && Array.from(gl.getParameter(gl.VIEWPORT)) });
     }
@@ -240,7 +241,7 @@ export function createGL(canvas, mem, log) {
     },
     BufferSubData: (t, off, size, p) => { const d = U8().subarray(p, p + size); gl.bufferSubData(t, off, d); const o = buffers.get(t === 0x8892 ? arrayBuffer : elementBuffer); if (t === 0x8893 && o && o.shadow) o.shadow.set(d, off); },
     CheckFramebufferStatus: (t) => gl.checkFramebufferStatus(gl.FRAMEBUFFER),
-    Clear: (m) => gl.clear(m),
+    Clear: (m) => { if (!stats.skipDraws) gl.clear(m); },
     ClearColor: (r, g, b, a) => gl.clearColor(r, g, b, a),
     ColorMask: (r, g, b, a) => gl.colorMask(!!r, !!g, !!b, !!a),
     CompileShader: (s) => gl.compileShader(shaders.get(s)),
@@ -255,12 +256,12 @@ export function createGL(canvas, mem, log) {
     DeleteRenderbuffers: (n, p) => del(n, p, rbos, (o) => gl.deleteRenderbuffer(o.obj)),
     DeleteShader: (s) => { const o = shaders.get(s); if (o) { gl.deleteShader(o); shaders.delete(s); } },
     DeleteTextures: (n, p) => del(n, p, textures, (o) => gl.deleteTexture(o)),
-    DepthMask: (f) => gl.depthMask(!!f),
+    DepthMask: (f) => { depthMask = !!f; gl.depthMask(!!f); },
     Disable: (c) => { if (c === 0x0DE1) { caps.set('tex' + activeTex, false); return; } caps.set(c, false); if (c === 0x0BC0 || c === 0x0B60 || c === 0x8840 || c === 0x0B50 || c === 0x0B57 || c === 0x0BA1 || c === 0x0B71 + 1000) return; try { gl.disable(c); } catch (e) {} },
     DisableVertexAttribArray: (i) => { attribs[i].enabled = false; },
-    DrawArrays: (m, first, count) => { if (count <= 0) return; prepareDraw(first + count); gl.drawArrays(m, first, count); },
+    DrawArrays: (m, first, count) => { if (count <= 0 || stats.skipDraws) return; prepareDraw(first + count); gl.drawArrays(m, first, count); },
     DrawElements: (m, count, type, off, p) => {
-      if (count <= 0) return;
+      if (count <= 0 || stats.skipDraws) return;
       const n = maxIndex(count, type, p, off);
       prepareDraw(n);
       if (elementBuffer) gl.drawElements(m, count, type, off);
@@ -332,6 +333,7 @@ export function createGL(canvas, mem, log) {
     Viewport: (x, y, w, h) => gl.viewport(x, y, w, h),
     SetDrawableRenderbuffer: () => { drawableRB = curRB; const o = rbos.get(curRB); drawW = o.w; drawH = o.h; canvas.width = o.w; canvas.height = o.h; },
     Present: () => {
+      if (stats.skipDraws) { stats.presents++; return; }
       const fb = fbos.get(drawableFB);
       if (!fb) return;
       gl.bindFramebuffer(gl.READ_FRAMEBUFFER, fb);

@@ -14,6 +14,10 @@ const logBox = [];
 function log(s) { console.log(s); logBox.push(s); if (logBox.length > 400) logBox.shift(); }
 
 let inst = null, exp = null;
+// Deterministic test mode (?test): no animation-frame loop; the driver advances a virtual clock one 60 Hz frame at a
+// time through window.sims3Test.step(), optionally skipping draw submission for frames it does not capture.
+const TEST = new URLSearchParams(location.search).has('test');
+let vclock = TEST ? 0 : null; const wall0 = Date.now();
 const mem = { get buffer() { return exp.memory.buffer; } };
 const U8 = () => new Uint8Array(exp.memory.buffer);
 const DV = () => new DataView(exp.memory.buffer);
@@ -104,8 +108,8 @@ function homeParents(rel) { const parts = rel.split('/'); for (let i = 1; i < pa
 const env = {
   js_console: (p) => log(cstr(p)),
   js_fatal: (p) => fatal(cstr(p)),
-  js_now: () => performance.now(),
-  js_wall: () => Date.now(),
+  js_now: () => vclock !== null ? vclock : performance.now(),
+  js_wall: () => vclock !== null ? wall0 + vclock : Date.now(),
   js_tz_offset_min: (ms) => -new Date(ms).getTimezoneOffset(),
   js_file_size: (pp) => {
     const path = cstr(pp); let r = relBundle(path);
@@ -378,10 +382,34 @@ function fatal(msg) {
 // ------------------------------------------------------------------ input
 function setupInput(canvas) {
   const pt = (ev) => { const r = canvas.getBoundingClientRect(); return [(ev.clientX - r.left) / r.width * POINTS_W, (ev.clientY - r.top) / r.height * POINTS_H]; };
+  // Touch and pen pointers map 1:1 to UITouches.  A mouse has one pointer, so the game's two-finger gesture
+  // (orbit the camera) is synthesized: right-button drag (or Ctrl + left drag) places two virtual fingers either
+  // side of the cursor and turns them around it with horizontal motion and moves them together with vertical motion.
   const down = new Set();
-  canvas.addEventListener('pointerdown', (ev) => { ev.preventDefault(); if (actx && actx.state === 'suspended' && document.visibilityState === 'visible') actx.resume(); else ac(); canvas.setPointerCapture(ev.pointerId); down.add(ev.pointerId); const [x, y] = pt(ev); exp.sims3_touch(0, ev.pointerId, x, y); });
-  canvas.addEventListener('pointermove', (ev) => { if (!down.has(ev.pointerId)) return; ev.preventDefault(); const [x, y] = pt(ev); exp.sims3_touch(1, ev.pointerId, x, y); });
-  const end = (type) => (ev) => { if (!down.delete(ev.pointerId)) return; ev.preventDefault(); const [x, y] = pt(ev); exp.sims3_touch(type, ev.pointerId, x, y); };
+  const TWO_A = 1000001, TWO_B = 1000002, R = 45;
+  let two = null;   // { cx, cy, x0, y0 }
+  const twoPos = (dx, dy) => { const a = dx * 0.012; const ox = Math.cos(a) * R, oy = Math.sin(a) * R; return [[two.cx + ox, two.cy + oy + dy], [two.cx - ox, two.cy - oy + dy]]; };
+  const unlockAudio = () => { if (actx && actx.state === 'suspended' && document.visibilityState === 'visible') actx.resume(); else ac(); };
+  canvas.addEventListener('pointerdown', (ev) => {
+    ev.preventDefault(); unlockAudio(); canvas.setPointerCapture(ev.pointerId);
+    const [x, y] = pt(ev);
+    if (ev.pointerType === 'mouse' && (ev.button === 2 || (ev.button === 0 && ev.ctrlKey))) {
+      two = { cx: x, cy: y, x0: x, y0: y, id: ev.pointerId };
+      const [a, b] = twoPos(0, 0); exp.sims3_touch(0, TWO_A, a[0], a[1]); exp.sims3_touch(0, TWO_B, b[0], b[1]);
+      return;
+    }
+    down.add(ev.pointerId); exp.sims3_touch(0, ev.pointerId, x, y);
+  });
+  canvas.addEventListener('pointermove', (ev) => {
+    const [x, y] = pt(ev);
+    if (two && ev.pointerId === two.id) { ev.preventDefault(); const [a, b] = twoPos(x - two.x0, y - two.y0); exp.sims3_touch(1, TWO_A, a[0], a[1]); exp.sims3_touch(1, TWO_B, b[0], b[1]); return; }
+    if (!down.has(ev.pointerId)) return; ev.preventDefault(); exp.sims3_touch(1, ev.pointerId, x, y);
+  });
+  const end = (type) => (ev) => {
+    const [x, y] = pt(ev);
+    if (two && ev.pointerId === two.id) { ev.preventDefault(); const [a, b] = twoPos(x - two.x0, y - two.y0); exp.sims3_touch(type, TWO_A, a[0], a[1]); exp.sims3_touch(type, TWO_B, b[0], b[1]); two = null; return; }
+    if (!down.delete(ev.pointerId)) return; ev.preventDefault(); exp.sims3_touch(type, ev.pointerId, x, y);
+  };
   canvas.addEventListener('pointerup', end(2)); canvas.addEventListener('pointercancel', end(3));
   canvas.addEventListener('contextmenu', (ev) => ev.preventDefault());
   // lifecycle: hidden page = background (the game saves there), lost focus = inactive
@@ -433,6 +461,21 @@ async function main() {
       perf.t0 = now; perf.frames = 0; perf.cpu = 0; perf.worst = 0; perf.presents0 = glh.stats.presents;
     }
     requestAnimationFrame(frame);
+  }
+  if (TEST) {
+    window.sims3Test = {
+      step(n, drawLast = true) {
+        for (let i = 0; i < n && !dead; i++) {
+          vclock += 1000 / 60;
+          glh.stats.skipDraws = !(drawLast && i === n - 1);
+          try { exp.sims3_frame(vclock); } catch (e) { if (!dead) fatal(String(e && e.stack || e)); }
+        }
+        glh.stats.skipDraws = false;
+        return dead ? 'dead' : 'ok';
+      },
+      frame: () => Math.round(vclock * 60 / 1000),
+    };
+    return;
   }
   requestAnimationFrame(frame);
 }
