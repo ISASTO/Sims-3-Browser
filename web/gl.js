@@ -7,9 +7,12 @@ export function createGL(canvas, mem, log) {
   const gl = canvas.getContext('webgl2', { alpha: false, antialias: false, depth: false, stencil: false,
     preserveDrawingBuffer: false, premultipliedAlpha: false, powerPreference: 'high-performance' });
   if (!gl) throw new Error('WebGL2 is required');
-  const U8 = () => new Uint8Array(mem.buffer);
-  const I32 = () => new Int32Array(mem.buffer);
-  const F32 = () => new Float32Array(mem.buffer);
+  // typed views of wasm memory, recreated only when the memory has grown (a grown buffer detaches the old views)
+  let vbuf = null, u8v = null, i32v = null, f32v = null;
+  const views = () => { vbuf = mem.buffer; u8v = new Uint8Array(vbuf); i32v = new Int32Array(vbuf); f32v = new Float32Array(vbuf); };
+  const U8 = () => { if (mem.buffer !== vbuf) views(); return u8v; };
+  const I32 = () => { if (mem.buffer !== vbuf) views(); return i32v; };
+  const F32 = () => { if (mem.buffer !== vbuf) views(); return f32v; };
   const cstr = (p) => { const u = U8(); let e = p; while (u[e]) e++; return new TextDecoder().decode(u.subarray(p, e)); };
 
   // ---------------------------------------------------------------- object name tables
@@ -137,28 +140,28 @@ export function createGL(canvas, mem, log) {
     gl.linkProgram(prog);
     if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error('ES1 emu link: ' + gl.getProgramInfoLog(prog));
     const u = {}; for (const n of ['uMV', 'uP', 'uT0', 'uT1', 'uColor', 'uS0', 'uS1', 'uEnvC0', 'uEnvC1', 'uAlphaRef', 'uFogColor', 'uFog', 'uPal']) u[n] = gl.getUniformLocation(prog, n);
-    p = { prog, u };
+    p = { prog, u, cache: {} };
     progCache.set(key, p);
     return p;
   }
   const texFormats = new Map(); // gl texture name -> 'rgba'|'rgb'|'a'|'l'|'la'
 
   // ---------------------------------------------------------------- client array upload
-  let es1Mode = true;
-  function setupArray(loc, a, maxVertex, slot) {
-    if (!a.enabled) { gl.disableVertexAttribArray(loc); return; }
+  let es1Mode = true, curGLProg = null;
+  function setupArray(loc, a, maxVertex, slot, on = a.enabled, norm = a.norm) {
+    if (!on) { gl.disableVertexAttribArray(loc); return; }
     const ts = typeSize(a.type);
     const stride = a.stride || a.size * ts;
     const normalize = a.type === 0x1401 || a.type === 0x1400 ? (loc === 1 || a.normForce) : false;
     if (a.buffer) {
       const b = buffers.get(a.buffer); gl.bindBuffer(gl.ARRAY_BUFFER, b.obj);
       if (a.type === 0x140C) { /* GL_FIXED */ a.fixedSrc = true; }
-      gl.vertexAttribPointer(loc, a.size, a.type === 0x140C ? gl.INT : a.type, a.norm !== undefined ? a.norm : normalize, stride, a.offset);
+      gl.vertexAttribPointer(loc, a.size, a.type === 0x140C ? gl.INT : a.type, norm !== undefined ? norm : normalize, stride, a.offset);
     } else {
       const bytes = stride * (maxVertex - 1) + a.size * ts;
       gl.bindBuffer(gl.ARRAY_BUFFER, streamVB[slot]);
       gl.bufferData(gl.ARRAY_BUFFER, U8().subarray(a.ptr, a.ptr + bytes), gl.STREAM_DRAW);
-      gl.vertexAttribPointer(loc, a.size, a.type === 0x140C ? gl.INT : a.type, a.norm !== undefined ? a.norm : normalize, stride, 0);
+      gl.vertexAttribPointer(loc, a.size, a.type === 0x140C ? gl.INT : a.type, norm !== undefined ? norm : normalize, stride, 0);
     }
     gl.enableVertexAttribArray(loc);
   }
@@ -180,34 +183,44 @@ export function createGL(canvas, mem, log) {
       const on = !dbgSolid && (caps.get('tex' + u) || false) && boundTex[u] && arrays.tex[u].enabled;
       st.tex.push(on); st.env.push(texEnv[u]); st.texFmt.push(texFormats.get(boundTex[u]) || 'rgba');
     }
-    const key = JSON.stringify([st.tex, st.tex.map((t, u) => t ? [texEnv[u].mode, texEnv[u].combineRGB, texEnv[u].combineAlpha, texEnv[u].src, texEnv[u].op, texEnv[u].rgbScale, texEnv[u].alphaScale, st.texFmt[u]] : 0),
-      st.colorArray, st.flat, st.alphaTest && st.alphaFunc, st.fog && st.fogMode, st.palette && st.palUnits]);
+    let key = '';
+    for (let u = 0; u < 2; u++) {
+      if (!st.tex[u]) { key += '-|'; continue; }
+      const e = texEnv[u];
+      if (!e.key) e.key = `${e.mode},${e.combineRGB},${e.combineAlpha},${e.src.join(',')},${e.op.join(',')},${e.rgbScale},${e.alphaScale}`;
+      key += e.key + ',' + st.texFmt[u] + '|';
+    }
+    key += `${st.colorArray ? 1 : 0}${st.flat ? 1 : 0}|${st.alphaTest ? st.alphaFunc : 0}|${st.fog ? st.fogMode : 0}|${st.palette ? st.palUnits : 0}`;
     const p = es1Program(key, st);
-    gl.useProgram(p.prog);
-    const mv = stacks[GL_MODELVIEW], pr = stacks[GL_PROJECTION];
-    gl.uniformMatrix4fv(p.u.uMV, false, mv[mv.length - 1]);
-    gl.uniformMatrix4fv(p.u.uP, false, pr[pr.length - 1]);
-    gl.uniformMatrix4fv(p.u.uT0, false, stacks.tex[0][stacks.tex[0].length - 1]);
-    gl.uniformMatrix4fv(p.u.uT1, false, stacks.tex[1][stacks.tex[1].length - 1]);
-    gl.uniform4fv(p.u.uColor, color);
-    gl.uniform1i(p.u.uS0, 0); gl.uniform1i(p.u.uS1, 1);
-    gl.uniform4fv(p.u.uEnvC0, texEnv[0].color); gl.uniform4fv(p.u.uEnvC1, texEnv[1].color);
-    gl.uniform1f(p.u.uAlphaRef, alphaRef);
-    gl.uniform4fv(p.u.uFogColor, fog.color); gl.uniform3f(p.u.uFog, fog.density, fog.start, fog.end);
+    if (curGLProg !== p.prog) { gl.useProgram(p.prog); curGLProg = p.prog; }
+    const c = p.cache, mv = stacks[GL_MODELVIEW], pr = stacks[GL_PROJECTION];
+    const mvT = mv[mv.length - 1], prT = pr[pr.length - 1], t0 = stacks.tex[0][stacks.tex[0].length - 1], t1 = stacks.tex[1][stacks.tex[1].length - 1];
+    if (c.mv !== mvT) { gl.uniformMatrix4fv(p.u.uMV, false, mvT); c.mv = mvT; }
+    if (c.p !== prT) { gl.uniformMatrix4fv(p.u.uP, false, prT); c.p = prT; }
+    if (c.t0 !== t0) { gl.uniformMatrix4fv(p.u.uT0, false, t0); c.t0 = t0; }
+    if (c.t1 !== t1) { gl.uniformMatrix4fv(p.u.uT1, false, t1); c.t1 = t1; }
+    if (c.color !== color) { gl.uniform4fv(p.u.uColor, color); c.color = color; }
+    if (!c.samplers) { gl.uniform1i(p.u.uS0, 0); gl.uniform1i(p.u.uS1, 1); c.samplers = true; }
+    if (c.env0 !== texEnv[0].color) { gl.uniform4fv(p.u.uEnvC0, texEnv[0].color); c.env0 = texEnv[0].color; }
+    if (c.env1 !== texEnv[1].color) { gl.uniform4fv(p.u.uEnvC1, texEnv[1].color); c.env1 = texEnv[1].color; }
+    if (c.aref !== alphaRef) { gl.uniform1f(p.u.uAlphaRef, alphaRef); c.aref = alphaRef; }
+    if (c.fogc !== fog.color) { gl.uniform4fv(p.u.uFogColor, fog.color); c.fogc = fog.color; }
+    if (c.fd !== fog.density || c.fs !== fog.start || c.fe !== fog.end) { gl.uniform3f(p.u.uFog, fog.density, fog.start, fog.end); c.fd = fog.density; c.fs = fog.start; c.fe = fog.end; }
     if (st.palette) { const flat = new Float32Array(32 * 16); for (let i = 0; i < 32; i++) flat.set(palette[i], i * 16); gl.uniformMatrix4fv(p.u.uPal, false, flat); }
     setupArray(0, arrays.vertex, nverts, 0);
     setupArray(1, arrays.color, nverts, 1);
-    setupArray(2, Object.assign({}, arrays.tex[0], { enabled: st.tex[0] }), nverts, 2);
-    setupArray(3, Object.assign({}, arrays.tex[1], { enabled: st.tex[1] }), nverts, 3);
-    if (st.palette) { setupArray(4, Object.assign({}, arrays.mindex, { norm: false }), nverts, 4); setupArray(5, arrays.weight, nverts, 5); }
+    setupArray(2, arrays.tex[0], nverts, 2, st.tex[0]);
+    setupArray(3, arrays.tex[1], nverts, 3, st.tex[1]);
+    if (st.palette) { setupArray(4, arrays.mindex, nverts, 4, true, false); setupArray(5, arrays.weight, nverts, 5); }
     else { gl.disableVertexAttribArray(4); gl.disableVertexAttribArray(5); gl.vertexAttrib4f(4, 0, 0, 0, 0); gl.vertexAttrib4f(5, 1, 0, 0, 0); }
     if (!arrays.color.enabled) gl.vertexAttrib4fv(1, color);
-    if (dbgSolid) { gl.disableVertexAttribArray(1); gl.vertexAttrib4f(1, 1, 0, 0, 1); gl.uniform4f(p.u.uColor, 1, 0, 0, 1); }
+    if (dbgSolid) { gl.disableVertexAttribArray(1); gl.vertexAttrib4f(1, 1, 0, 0, 1); gl.uniform4f(p.u.uColor, 1, 0, 0, 1); c.color = null; }
     if (!st.tex[0]) gl.vertexAttrib4f(2, 0, 0, 0, 1);
     if (!st.tex[1]) gl.vertexAttrib4f(3, 0, 0, 0, 1);
   }
   function es2Draw(nverts) {
-    gl.useProgram(curProgram ? programs.get(curProgram).obj : null);
+    const o = curProgram ? programs.get(curProgram).obj : null;
+    if (curGLProg !== o) { gl.useProgram(o); curGLProg = o; }
     for (let i = 0; i < 16; i++) { const a = attribs[i]; if (a.enabled) setupArray(i, a, nverts, i % 8); else gl.disableVertexAttribArray(i); }
   }
   function prepareDraw(nverts) {
@@ -343,7 +356,7 @@ export function createGL(canvas, mem, log) {
     Uniform4f: (l, a, b, c, d) => gl.uniform4f(uloc(l), a, b, c, d),
     Uniform4fv: (l, n, p) => gl.uniform4fv(uloc(l), F32().subarray(p >> 2, (p >> 2) + 4 * n)),
     UniformMatrix4fv: (l, n, t, p) => gl.uniformMatrix4fv(uloc(l), !!t, F32().subarray(p >> 2, (p >> 2) + 16 * n)),
-    UseProgram: (p) => { curProgram = p; gl.useProgram(p ? programs.get(p).obj : null); },
+    UseProgram: (p) => { curProgram = p; const o = p ? programs.get(p).obj : null; gl.useProgram(o); curGLProg = o; },
     ValidateProgram: (p) => gl.validateProgram(programs.get(p).obj),
     VertexAttribPointer: (i, size, type, norm, stride, off, p) => { Object.assign(attribs[i], { size, type, norm: !!norm, stride, buffer: arrayBuffer, offset: off, ptr: p }); },
     Viewport: (x, y, w, h) => gl.viewport(x, y, w, h),
@@ -378,8 +391,8 @@ export function createGL(canvas, mem, log) {
     Orthof: (l, r, b, t, n, f) => setTop(mul(topM(), new Float32Array([2 / (r - l), 0, 0, 0, 0, 2 / (t - b), 0, 0, 0, 0, -2 / (f - n), 0, -(r + l) / (r - l), -(t + b) / (t - b), -(f + n) / (f - n), 1]))),
     PopMatrix: () => { const s = curStack(); if (s && s.length > 1) s.pop(); else glError = 0x0504; },
     PushMatrix: () => { const s = curStack(); if (s) s.push(new Float32Array(s[s.length - 1])); },
-    Scalef: (x, y, z) => setTop(mul(topM(), new Float32Array([x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1]))),
-    Translatef: (x, y, z) => setTop(mul(topM(), new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, x, y, z, 1]))),
+    Scalef: (x, y, z) => { const m = topM(), r = new Float32Array(16); for (let i = 0; i < 4; i++) { r[i] = m[i] * x; r[4 + i] = m[4 + i] * y; r[8 + i] = m[8 + i] * z; r[12 + i] = m[12 + i]; } setTop(r); },
+    Translatef: (x, y, z) => { const m = topM(), r = new Float32Array(m); for (let i = 0; i < 4; i++) r[12 + i] = m[i] * x + m[4 + i] * y + m[8 + i] * z + m[12 + i]; setTop(r); },
     ShadeModel: (m) => { shadeFlat = m === 0x1D00; },
     TexCoordPointer: (size, type, stride, off, p) => Object.assign(arrays.tex[clientActive], { size, type, stride, buffer: arrayBuffer, offset: off, ptr: p, norm: false }),
     TexEnvf: (t, pn, v) => texEnvSet(pn, v),
@@ -394,6 +407,7 @@ export function createGL(canvas, mem, log) {
   }
   function texEnvSet(pn, v) {
     const e = texEnv[activeTex];
+    e.key = null;
     if (pn === 0x2200) e.mode = v; else if (pn === 0x8571) e.combineRGB = v; else if (pn === 0x8572) e.combineAlpha = v;
     else if (pn >= 0x8580 && pn <= 0x8582) e.src[pn - 0x8580] = v; else if (pn >= 0x8588 && pn <= 0x858A) e.src[3 + pn - 0x8588] = v;
     else if (pn >= 0x8590 && pn <= 0x8592) e.op[pn - 0x8590] = v; else if (pn >= 0x8598 && pn <= 0x859A) e.op[3 + pn - 0x8598] = v;

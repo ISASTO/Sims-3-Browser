@@ -17,7 +17,11 @@ let inst = null, exp = null;
 // Deterministic test mode (?test): no animation-frame loop; the driver advances a virtual clock one 60 Hz frame at a
 // time through window.sims3Test.step(), optionally skipping draw submission for frames it does not capture.
 const TEST = new URLSearchParams(location.search).has('test');
-let vclock = TEST ? 0 : null; const wall0 = Date.now();
+let vclock = TEST ? 0 : null;
+// test mode is reproducible: a fixed wall-clock origin and a seeded random source (normal play uses the real ones)
+const wall0 = TEST ? Date.UTC(2026, 0, 15, 12, 0, 0) : Date.now();
+let testSeed = 0x2545F491;
+const testRandom = (u8) => { for (let i = 0; i < u8.length; i++) { testSeed ^= testSeed << 13; testSeed ^= testSeed >>> 17; testSeed ^= testSeed << 5; u8[i] = testSeed & 0xff; } };
 const mem = { get buffer() { return exp.memory.buffer; } };
 const U8 = () => new Uint8Array(exp.memory.buffer);
 const DV = () => new DataView(exp.memory.buffer);
@@ -356,9 +360,9 @@ const wasi = new Proxy({
   fd_prestat_get: () => 8, fd_prestat_dir_name: () => 8, fd_read: () => 8, path_open: () => 44, path_filestat_get: () => 44,
   environ_sizes_get: (c, s) => { DV().setUint32(c, 0, true); DV().setUint32(s, 0, true); return 0; }, environ_get: () => 0,
   args_sizes_get: (c, s) => { DV().setUint32(c, 0, true); DV().setUint32(s, 0, true); return 0; }, args_get: () => 0,
-  clock_time_get: (id, prec, out) => { const ns = id === 0 ? BigInt(Date.now()) * 1000000n : BigInt(Math.round(performance.now() * 1e6)); DV().setBigUint64(out, ns, true); return 0; },
+  clock_time_get: (id, prec, out) => { const ms = id === 0 ? env.js_wall() : env.js_now(); DV().setBigUint64(out, BigInt(Math.round(ms * 1e6)), true); return 0; },
   clock_res_get: (id, out) => { DV().setBigUint64(out, 1000n, true); return 0; },
-  random_get: (p, n) => { crypto.getRandomValues(U8().subarray(p, p + n)); return 0; },
+  random_get: (p, n) => { const u = U8().subarray(p, p + n); if (TEST) testRandom(u); else crypto.getRandomValues(u); return 0; },
   proc_exit: (code) => { throw new Error('proc_exit ' + code); },
   sched_yield: () => 0, poll_oneoff: () => 52,
 }, { get: (t, k) => t[k] || (() => { log('wasi: ' + String(k) + ' not provided'); return 52; }) });
