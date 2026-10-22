@@ -325,6 +325,20 @@ static gptr find_touch_view(void) {
     while (n) { gptr v = stack[--n]; View *s = V(v); if (s->hidden) continue; if (objc_is_kind_of(v, eagl)) best = v; for (uint32_t i = 0; i < s->nsub && n < 63; i++) stack[n++] = s->sub[i]; }
     return best;
 }
+/* EAGLView.draw binds, paints through DisplayIPhone.refresh, and flushes; it does not update the game.
+ * Coalesce a render skipped during fast-forward into one complete visible frame without advancing time. */
+__attribute__((export_name("sims3_redraw")))
+int sims3_redraw(void) {
+    if (boot_state != 2 || app_state != 1) return 0;
+    gptr view = find_touch_view();
+    if (!view || !responds(view, "draw")) return 0;
+    CPU *c = main_cpu;
+    uint32_t sp = c->r[13]; c->r[13] = ui_sp_base;
+    msg(c, view, "draw", 0);
+    c->r[13] = sp;
+    if (c->unwinding) rt_fatal(c, "exception escaped browser redraw");
+    return 1;
+}
 static void ui_dispatch_text(CPU *c);
 static void ui_dispatch_actions(CPU *c);
 void media_dispatch(CPU *c);

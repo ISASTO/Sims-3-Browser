@@ -43,6 +43,15 @@ fs.mkdirSync(out, { recursive: true });
   page.on('pageerror', (e) => { failed = true; logf.write('PAGEERROR ' + e.stack + '\n'); console.log('pageerror', e.message); });
   const t0 = Date.now();
   try {
+  // Test-only access to the original memory for real-time assertions, without enabling ?test.
+  if (process.argv.includes('--inspect-wasm')) await page.addInitScript(() => {
+    const instantiate = WebAssembly.instantiate;
+    WebAssembly.instantiate = async (...args) => {
+      const result = await instantiate(...args);
+      window.sims3InspectedWasm = result.instance || result;
+      return result;
+    };
+  });
   await page.goto(url);
   const stage = async () => (await page.$('#stage')).boundingBox();
   const toPage = async (x, y) => { const b = await stage(); return [b.x + x / 667 * b.width, b.y + y / 375 * b.height]; };

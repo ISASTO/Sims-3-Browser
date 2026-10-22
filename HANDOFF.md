@@ -15,7 +15,48 @@ for what works and `DECISIONS.md` for why it is built this way.
   release contains the compiled runtime and the resources needed to play.
 - Local development servers bind to 127.0.0.1 by default.
 
-### Current published controls verification
+### Fast-forward and superspeed (2026-10-22)
+- The player **Speed** selector offers Normal 1×, Fast-forward 2× and Superspeed 4×/8×. Reload starts at 1×.
+  The selected boost applies to a loaded, active world. Loading, pause/context/hint menus, the content dialog,
+  inactive/background app states and held mouse/touch/wheel gestures use 1×; returning to play resumes the selection.
+- `web/simulation.js` advances the original run loop in at most 16.67 ms accelerated steps. Additional steps have
+  a 12 ms CPU budget and a 16-step limit per display callback; excess work is discarded without catch-up debt.
+  Normal speed retains one run-loop call per display callback. Visibility changes reset the physical timestamp,
+  so reopening a tab does not replay time spent away. Physical input timing stays independent of game time.
+- Both monotonic and epoch clocks follow this simulation timeline. Original `midp::System::currentTimeMillis`
+  (0xd0a00) calls `gettimeofday`; accelerating only `js_now` makes host metrics fast while ordinary gameplay stays
+  at 1×. `js_wall` is therefore a real boot epoch plus elapsed simulation time in normal play too. The deterministic
+  mode uses the same clock relationship, with its existing fixed epoch. No game-clock or action-state fields are patched.
+- `sims3_speed_available` reads the original scene/world/modal flags. It permits sleep and action cameras, rather
+  than requiring the manual camera. Intermediate draws are suppressed. If a native paint happened before the last
+  substep, `sims3_redraw` calls the original `EAGLView.draw` once to present current state without another update.
+  That method binds, calls `DisplayIPhone::refresh` and flushes; the original paint path is separate from update.
+  Visible FPS counts actual blits, not skipped presentations. Dropping that earlier paint without a redraw reduced
+  visible FPS in the first real-time test, even when the simulation had spare CPU.
+- Accelerated gameplay mutes game audio. Stream queues still consume in simulation time; mode changes stop and
+  discard old scheduled sound before re-anchoring, so there is no sound backlog or accumulating PCM buffers.
+  Normal/menu audio resumes at 1×. User-selected music files remain on their independent media timeline.
+- Metrics show measured simulation speed and the selected rate. CPU limits can reduce the achieved rate, especially
+  at 8×. Lowering render quality can help when graphics submission consumes the available budget.
+- Current package: **53 files / 134,292,962 bytes**, 1,263 original resources in 35 packs. Runtime
+  `game-code-da0c477701c0a1bf.bin`, 13,703,647 uncompressed bytes, SHA-256
+  `da0c477701c0a1bf33956555d4b08026ed3c54df5d174ec43eb74e250e826b83`; host version `d19471246feccb68`.
+- `tools/tests/speed_controls.json` includes the complete mouse/player/save regression and checks the original
+  SimData minute counter, exact requested clock ratios, pause/menu/input suppression, 8× complete frames,
+  bounded audio queues, background/resume, reload default and the saved §1,190 household/content records.
+  `tools/test_simulation_clock.mjs` checks rate invariance at 60/144 Hz, CPU limiting, bounded stalls and clock resets.
+- Final local validation: seven clock unit cases, 56 browser assertions and 48 complete-frame probes. The original
+  clock advances 2/4/8/16 game minutes over two deterministic display seconds at the four rates. A separate
+  ordinary real-time run passed eight assertions and advanced 3/6/12/23 game minutes in three seconds; sampled
+  achieved rates were 1×/2×/3.90×/7.51×, with visible FPS 60/43/52/58 at Performance 50% (566×318) on SwiftShader.
+  These short samples are not hardware-GPU benchmarks. Audio queues remained bounded and normal sound returned.
+  `verification/speed-controls.json` records samples and limits; `verification/superspeed.png` shows the 8× player.
+- `tools/tests/speed_realtime.json` uses ordinary play, an existing saved Alex profile, and the harness option
+  `--inspect-wasm` to read original memory. This option instruments module instantiation in the test browser only;
+  it does not enable deterministic time or add a memory accessor to the public player. Each rate compares original
+  elapsed game minutes against elapsed simulation seconds. Review its clock captures as well as FPS samples.
+
+### Previous published mouse controls verification
 - Gameplay commit `11a7e4c0366f20a97e78f270cc626fbae7a4e08e`, source commit
   `2e173464bb275d5ca388a97d8128febe735b1a82`, Pages run `39820638134`: deployment succeeded.
 - Downloaded all 52 public release files (134,287,801 bytes) with normal TLS certificate validation. Every Git
@@ -149,7 +190,8 @@ From `main`, run `python3 -m http.server 8333 --bind 127.0.0.1` in the repositor
 `http://127.0.0.1:8333/ios/play/`. On the source branch, serve `play/` instead.
 
 Click/tap for ordinary input, drag to pan, scroll to zoom, and double-click-hold, right-drag or Ctrl+drag for
-two-finger camera gestures. Hold the header diamond for the optional content unlock. Use the
+two-finger camera gestures. Use **Speed** for 2× fast-forward or 4×/8× superspeed; game audio mutes during a boost.
+Hold the header diamond for the optional content unlock. Use the
 game's **Save and Continue**, then confirm the green tick, before reloading. Saves are stored in IndexedDB on
 the current browser origin; the former Android build's saves are separate and are not imported.
 
@@ -208,6 +250,7 @@ python3 tools/serve.py             # http://127.0.0.1:8333/
     | `tools/tests/newgame.json` | fresh profile, then privacy, DLC notice, menu, CAS, persona, traits, name "Alex", confirm, world | 21 `b_*` captures and `w0`–`w5` (tutorial prompt) |
     | `tools/tests/world_snack.json` | continues from the world: declines the tutorial, closes the hint, opens the fridge, Quick snack | `z1`–`z4` (§690, then "New Wish: Cook minestrone") |
     | `tools/tests/save_reload.json` | includes `world_snack`, locks the wish, dismisses its hint, explicitly saves and confirms, backgrounds/resumes, reloads, selects Alex and reloads the world | `after_save`, `saved_slot`, `loaded_world`, `loaded_world_resumed`; saved balance §690 |
+    | `tools/tests/speed_controls.json` | includes all mouse/player regressions, then 1×/2×/4×/8×, original clock, input/pause, audio, background and save/reload | 56 assertions, 48 complete-frame probes; `speed_1` through `speed_8`, `speed_saved_household` |
 
   - The save/reload path was re-verified on the packed static release under a `/Sims-3-Browser/ios/play/` prefix.
     Check the screenshots as well as assertions: finding `sim3dat0` alone does not prove recent progress was saved.
@@ -231,6 +274,9 @@ python3 tools/serve.py             # http://127.0.0.1:8333/
     `debugSolid`) are diagnostics.
 - **Real-time browser runs.** Leave out `?test`. `perf` steps report `sims3Perf` (presented fps, wasm + GL CPU per
   frame).
+  `--script tools/tests/speed_realtime.json --profile SAVED_ALEX_PROFILE --inspect-wasm` checks the native clock
+  under real-time acceleration. Use a copy of a saved profile produced by the complete regression.
+- **Simulation-clock unit checks.** `node tools/test_simulation_clock.mjs` runs seven dependency-free cases.
 - **Headless native run.**
   - `./build/sims3_native <frames>` boots and runs N frames at 60 Hz.
   - Environment variables:

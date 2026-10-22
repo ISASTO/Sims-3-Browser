@@ -13,6 +13,9 @@ export function createPlayer({ graphics, shake, unlockAll, unlockStatus, persist
   let lastDpr = 0, lastShake = -Infinity, resizePending = true;
   const wrap = $('wrap'), stage = $('stage'), viewport = $('viewport');
   const select = $('quality'), fit = $('fit-tab'), fullscreen = $('fullscreen'), diamond = $('plumbob');
+  const speed = $('speed');
+  speed.value = '1'; // A reload always starts at normal speed.
+  speed.addEventListener('change', () => { state.speed = Number(speed.value); });
   const persist = () => { try { localStorage.setItem(KEY, JSON.stringify({ quality, expanded: wrap.classList.contains('expanded') })); } catch {} };
   select.value = quality;
   function expanded(on) {
@@ -106,6 +109,7 @@ export function createPlayer({ graphics, shake, unlockAll, unlockStatus, persist
         `${g.drawCalls} draws/frame · ${(perf.uploadBytesPerSecond / 1048576).toFixed(1)} MiB/s uploads`,
         `Display ${dpr.toFixed(2)}× · render ${Math.round(state.scale * 100)}%${state.capped ? ' (GPU limit)' : ''}`,
         `Game memory ${perf.memoryMiB.toFixed(0)} MiB`,
+        `Simulation ${perf.simSpeed.toFixed(2)}× · selected ${state.speed}×`,
       ];
       $('metric-values').replaceChildren(...entries.map((s) => { const el = document.createElement('span'); el.textContent = s; return el; }));
     }
@@ -117,7 +121,8 @@ export function createPlayer({ graphics, shake, unlockAll, unlockStatus, persist
     if (low >= 3 && autoScale > floor) { autoScale = Math.max(floor, autoScale * .85); low = high = 0; settling = 3; resizePending = true; }
     else if (high >= 8 && autoScale < 1) { autoScale = Math.min(1, autoScale / .9); low = high = 0; settling = 5; resizePending = true; }
   }
-  const state = { initialized: false, quality };
+  const state = { initialized: false, quality, speed: 1 };
   beforeFrame();
-  return { beforeFrame, afterFrame, update, state, onModal: (callback) => { modalCallback = callback; }, ready: () => { diamond.disabled = false; } };
+  return { beforeFrame, afterFrame, update, state, speed: () => state.speed,
+    onModal: (callback) => { modalCallback = callback; }, ready: () => { diamond.disabled = false; speed.disabled = false; } };
 }

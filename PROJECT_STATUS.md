@@ -68,6 +68,22 @@ reimplements the iOS frameworks it uses.
 - Hardware-GPU and Firefox/Safari measurements remain outstanding; every individual pack item has not been
   purchased/rendered during this pass.
 
+## 2026-10-22 fast-forward and superspeed
+- Added Normal 1×, Fast-forward 2× and Superspeed 4×/8× to the player. Original simulation and epoch/monotonic
+  clocks advance together; menus, held interactions and inactive states remain at normal speed. Reload defaults
+  to 1×. A bounded CPU budget drops excess accelerated time without later catch-up.
+- Intermediate GL work is suppressed; a skipped native paint is coalesced into one original EAGLView redraw
+  without another simulation update. Visible FPS excludes suppressed presentations. Game audio is muted during
+  acceleration, its queues remain bounded, and normal sound resumes without a backlog. Local music is independent.
+- Seven clock unit cases pass. The browser regression adds exact original SimData clock checks at all four rates,
+  pause/menu/input/background behavior, audio recovery and confirmed save/reload to the entire prior player/mouse
+  regression: 56 assertions and 48 complete-frame probes. The saved §1,190 balance, 15 packs and bonus survive.
+- Ordinary real-time play also checks original memory, not just host metrics: three seconds advanced about 3, 6,
+  12 and 23 game minutes at the selected rates. The sampled achieved rates were 1×, 2×, 3.90× and 7.51×, with
+  presented FPS 60, 43, 52 and 58 respectively at the Performance preset on SwiftShader. These are short smoke
+  samples, not hardware-GPU guarantees. See `verification/speed-controls.json` and HANDOFF.md.
+- Current package: 53 files / 134,292,962 bytes, with the same 1,263 original resources in 35 packs.
+
 ## Inputs (verified)
 | Item | Value |
 | --- | --- |

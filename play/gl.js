@@ -424,7 +424,7 @@ export function createGL(canvas, mem, log) {
     Viewport: (x, y, w, h) => { viewport = [x, y, w, h]; gl.viewport(...mappedBox(viewport)); },
     SetDrawableRenderbuffer: () => { drawableRB = curRB; const o = rbos.get(curRB); drawW = o.w; drawH = o.h; resizeDrawable(); },
     Present: () => {
-      if (stats.skipDraws) { stats.presents++; return; }
+      if (stats.skipDraws) { stats.skippedPresents++; return; }
       const fb = fbos.get(drawableFB);
       if (!fb) return;
       gl.bindFramebuffer(gl.READ_FRAMEBUFFER, fb);
@@ -500,6 +500,6 @@ export function createGL(canvas, mem, log) {
   function uloc(id) { const p = programs.get(id >> 12); return p ? p.uniforms.get(id) : null; }
   // ES1 GL_TEXTURE_ENV_COLOR via TexEnvfv is not imported; COMBINE sources use env colour default (0).
   let frameDraws = 0, frameUploads = 0;
-  const stats = { presents: 0, capture: 0, draws: [], frames: [], autoMipmaps: 0, drawCalls: 0, uploadBytes: 0, totalUploadBytes: 0, renderWidth: renderW, renderHeight: renderH };
+  const stats = { presents: 0, skippedPresents: 0, capture: 0, draws: [], frames: [], autoMipmaps: 0, drawCalls: 0, uploadBytes: 0, totalUploadBytes: 0, renderWidth: renderW, renderHeight: renderH };
   return { imports: imp, stats, gl, setRenderSize, maxRenderSize };
 }
