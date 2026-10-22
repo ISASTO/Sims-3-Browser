@@ -62,6 +62,9 @@ reimplements the iOS frameworks it uses.
 - The packaged inventory is now 1,263 original resources in 35 packs, 52 files / 134,287,801 bytes. File-sync
   staging artifacts are excluded, and verification checks the complete inventory as well as every resource byte.
   Historical release counts above include the former artifacts. See HANDOFF.md for current runtime hashes.
+- Pages deployed gameplay commit `11a7e4c0366f20a97e78f270cc626fbae7a4e08e` (run `39820638134`). All 52 public
+  files matched the tested package; complete resource/wasm reconstruction passed. The final exact-release run
+  passed 40 assertions and 24 complete-frame probes. See `verification/mouse-controls.json`.
 - Hardware-GPU and Firefox/Safari measurements remain outstanding; every individual pack item has not been
   purchased/rendered during this pass.
 

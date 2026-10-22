@@ -15,6 +15,18 @@ for what works and `DECISIONS.md` for why it is built this way.
   release contains the compiled runtime and the resources needed to play.
 - Local development servers bind to 127.0.0.1 by default.
 
+### Current published controls verification
+- Gameplay commit `11a7e4c0366f20a97e78f270cc626fbae7a4e08e`, source commit
+  `2e173464bb275d5ca388a97d8128febe735b1a82`, Pages run `39820638134`: deployment succeeded.
+- Downloaded all 52 public release files (134,287,801 bytes) with normal TLS certificate validation. Every Git
+  blob hash matched the tested package. Reconstructed all 1,263 original resources and the wasm byte for byte.
+- The final exact-release fresh-profile replay passed **40 assertions**, including all 24 complete-frame probes,
+  actual wheel zoom limits, double/right/Ctrl camera rotation, cancellation, persistent content records and the
+  confirmed saved §1,190 household. Reviewed the camera, content-dialog, saved-household and original §1,000
+  house-upgrade captures. A separate ordinary real-time run passed wheel, double-hold and dialog checks.
+- `verification/mouse-controls.json` and `RELEASE_CHECKS.json` record the input/build identity and delivery.
+  Hardware GPU and additional-browser limitations below remain applicable.
+
 ### Mouse controls and content easter egg (2026-10-22)
 - Scroll over the game to zoom: up moves closer, down moves farther away. `runtime/browser_controls.c` reads
   the original live zoom-bar geometry and distance, and the host sends a single virtual finger down/move/up
