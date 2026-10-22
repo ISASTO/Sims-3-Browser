@@ -14,6 +14,10 @@ void hle_init_modules(void);
 void objc_rt_init(void);
 int boot_state;   /* 0 = not booted, 1 = inside main, 2 = run loop active, 3 = dead */
 
+/* browser: ?verbose turns on the runtime's trace logging (natively: SIMS3_VERBOSE) */
+__attribute__((export_name("sims3_set_verbose")))
+void sims3_set_verbose(int on) { rt_verbose = on; }
+
 __attribute__((export_name("sims3_boot")))
 int sims3_boot(void) {
     static CPU mc;

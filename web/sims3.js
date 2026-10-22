@@ -263,56 +263,36 @@ const text = {
 };
 
 // ------------------------------------------------------------------ audio (WebAudio)
-let actx = null, master = null;
-const abufs = new Map(), asrcs = new Map(), streams = new Map(), streamCache = new Map();
+let actx = null, master = null, ameter = null;
+const abufs = new Map(), asrcs = new Map(), streams = new Map();
 function ac() {
-  if (!actx) { actx = new (window.AudioContext || window.webkitAudioContext)({ latencyHint: 'interactive' }); master = actx.createGain(); master.connect(actx.destination); }
+  if (!actx) {
+    actx = new (window.AudioContext || window.webkitAudioContext)({ latencyHint: 'interactive' });
+    master = actx.createGain(); ameter = actx.createAnalyser(); ameter.fftSize = 2048;
+    master.connect(ameter); ameter.connect(actx.destination);   // the analyser passes audio through; it feeds sims3AudioLevel()
+  }
   return actx;
 }
-function cafToAdts(bytes) {
-  // CAF (AAC-LC, 'desc' + 'kuki' esds + 'pakt' + 'data') -> ADTS stream that decodeAudioData accepts
-  const dv = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
-  if (dv.getUint32(0) !== 0x63616666) return null;   // 'caff'
-  let p = 8, rate = 44100, ch = 2, fmt = 0, data = null, pkts = [], kuki = null;
-  while (p + 12 <= bytes.length) {
-    const type = dv.getUint32(p), hi = dv.getUint32(p + 4), lo = dv.getUint32(p + 8); let size = hi * 4294967296 + lo; p += 12;
-    if (size === 0xffffffffffffffff || p + size > bytes.length) size = bytes.length - p;
-    if (type === 0x64657363) { rate = dv.getFloat64(p); fmt = dv.getUint32(p + 8); ch = dv.getUint32(p + 24); }
-    else if (type === 0x6b756b69) kuki = bytes.subarray(p, p + size);
-    else if (type === 0x64617461) data = bytes.subarray(p + 4, p + size);
-    else if (type === 0x70616b74) {
-      const n = Number(dv.getBigUint64(p)); let q = p + 24;
-      for (let i = 0; i < n; i++) { let v = 0, b; do { b = bytes[q++]; v = v * 128 + (b & 0x7f); } while (b & 0x80); pkts.push(v); }
-    }
-    p += size;
-  }
-  if (fmt !== 0x61616320 || !data) return null;      // 'aac '
-  let profile = 2, srIdx = [96000, 88200, 64000, 48000, 44100, 32000, 24000, 22050, 16000, 12000, 11025, 8000, 7350].indexOf(rate);
-  if (kuki) { for (let i = 0; i + 1 < kuki.length; i++) if (kuki[i] === 0x05 && (kuki[i + 1] & 0x80) === 0 && kuki[i + 1] >= 2 && i + 3 < kuki.length) { profile = kuki[i + 2] >> 3; srIdx = ((kuki[i + 2] & 7) << 1) | (kuki[i + 3] >> 7); break; } }
-  if (srIdx < 0) srIdx = 4;
-  let total = 0; for (const s of pkts) total += s + 7;
-  const out = new Uint8Array(total); let o = 0, d = 0;
-  for (const s of pkts) {
-    const fl = s + 7;
-    out[o] = 0xFF; out[o + 1] = 0xF1; out[o + 2] = ((profile - 1) << 6) | (srIdx << 2) | (ch >> 2);
-    out[o + 3] = ((ch & 3) << 6) | (fl >> 11); out[o + 4] = (fl >> 3) & 0xFF; out[o + 5] = ((fl & 7) << 5) | 0x1F; out[o + 6] = 0xFC;
-    out.set(data.subarray(d, d + s), o + 7); o += fl; d += s;
-  }
-  return out;
+const audioStats = { buffers: 0, plays: 0, streams: 0, pcmFrames: 0, chunks: 0, underruns: 0 };
+// AudioQueue output streams (hostaudio.h contract). The C runtime decodes; this side schedules PCM chunks gaplessly
+// on the AudioContext timeline and reports how many frames the device has played. In ?test mode the position follows
+// the virtual clock so that buffer callbacks stay deterministic.
+const LEAD = 0.05;
+const sclock = () => (TEST ? vclock / 1000 : ac().currentTime);
+function sPlayed(s) {
+  if (!s.running) return s.base;   // a suspended AudioContext's currentTime does not advance
+  return Math.min(s.queued, s.base + Math.max(0, sclock() - s.anchor) * s.rate);
 }
-async function streamBuffer(path) {
-  if (streamCache.has(path)) return streamCache.get(path);
-  const pr = (async () => {
-    const r = relBundle(path); if (r === null) return null;
-    const res = await fetch('bundle/' + r); const raw = new Uint8Array(await res.arrayBuffer());
-    const adts = cafToAdts(raw);
-    try { return await ac().decodeAudioData((adts || raw).buffer.slice(0)); } catch (e) { log(`audio: cannot decode ${r}: ${e}`); return null; }
-  })();
-  streamCache.set(path, pr);
-  return pr;
+function sSchedule(s, ck, fromFrame) {
+  const ctx = ac(), n = ctx.createBufferSource();
+  n.buffer = ck.b; n.connect(s.g);
+  const t = Math.max(s.schedEnd, ctx.currentTime + LEAD), off = Math.max(0, fromFrame - ck.start) / s.rate;
+  n.start(t, off); ck.node = n; s.schedEnd = t + ck.frames / s.rate - off;
 }
+function sHalt(s) { for (const ck of s.chunks) if (ck.node) { try { ck.node.stop(); } catch (e) {} ck.node.disconnect(); ck.node = null; } s.schedEnd = 0; }
 const audio = {
   buffer: (id, pcm, bytes, chn, bits, freq) => {
+    audioStats.buffers++;
     const ctx = ac(); const frames = Math.floor(bytes / (chn * bits / 8)); if (frames <= 0) return;
     const b = ctx.createBuffer(chn, frames, freq); const dv = DV();
     for (let c = 0; c < chn; c++) {
@@ -324,6 +304,7 @@ const audio = {
   },
   buffer_delete: (id) => abufs.delete(id),
   source_play: (src, buf, loop, gain, pitch) => {
+    audioStats.plays++;
     audio.source_stop(src);
     const b = abufs.get(buf); if (!b) return;
     const ctx = ac(); const n = ctx.createBufferSource(); const g = ctx.createGain();
@@ -334,20 +315,31 @@ const audio = {
   source_stop: (src) => { const s = asrcs.get(src); if (s) { try { s.n.stop(); } catch (e) {} asrcs.delete(src); } },
   source_loop: (src, loop) => { const s = asrcs.get(src); if (s) s.n.loop = !!loop; },
   source_param: (src, gain, pitch) => { const s = asrcs.get(src); if (s) { s.g.gain.value = gain; s.n.playbackRate.value = pitch || 1; } },
-  stream_play: (q, pp, offset, gain) => {
-    audio.stream_stop(q);
-    const path = cstr(pp), ctx = ac(), g = ctx.createGain(); g.gain.value = gain; g.connect(master);
-    const s = { g, n: null, stopped: false, t0: ctx.currentTime };
-    streams.set(q, s);
-    streamBuffer(path).then((buf) => {
-      if (!buf || s.stopped) return;
-      const n = ctx.createBufferSource(); n.buffer = buf; n.connect(g);
-      const late = ctx.currentTime - s.t0;   // keep the C-side timeline: start where it expects to be now
-      const off = offset + late; if (off >= buf.duration) return;
-      n.start(0, off); s.n = n;
-    });
+  stream_open: (q, rate, ch) => {
+    audio.stream_stop(q); audioStats.streams++;
+    const ctx = ac(), g = ctx.createGain(); g.connect(master);
+    streams.set(q, { g, rate, ch, chunks: [], queued: 0, running: false, base: 0, anchor: 0, schedEnd: 0, gain: 1 });
   },
-  stream_stop: (q) => { const s = streams.get(q); if (s) { s.stopped = true; if (s.n) try { s.n.stop(); } catch (e) {} s.g.disconnect(); streams.delete(q); } },
+  stream_pcm: (q, p, frames) => {
+    const s = streams.get(q); if (!s || frames <= 0) return;
+    const ctx = ac(), b = ctx.createBuffer(s.ch, frames, s.rate), src = new Int16Array(mem.buffer, p, frames * s.ch);
+    for (let c = 0; c < s.ch; c++) { const out = b.getChannelData(c); for (let i = 0, j = c; i < frames; i++, j += s.ch) out[i] = src[j] / 32768; }
+    const played = sPlayed(s);
+    if (s.running && played >= s.queued) { if (s.queued > 0) audioStats.underruns++; s.base = s.queued; s.anchor = sclock() + LEAD; }
+    while (s.chunks.length && s.chunks[0].start + s.chunks[0].frames <= played) s.chunks.shift();
+    const ck = { b, start: s.queued, frames, node: null };
+    s.chunks.push(ck); s.queued += frames; audioStats.pcmFrames += frames; audioStats.chunks++;
+    if (s.running) sSchedule(s, ck, ck.start);
+  },
+  stream_run: (q, on) => {
+    const s = streams.get(q); if (!s || s.running === !!on) return;
+    if (on) {
+      s.running = true; s.anchor = sclock() + LEAD; s.schedEnd = 0;
+      for (const ck of s.chunks) if (ck.start + ck.frames > s.base) sSchedule(s, ck, s.base);
+    } else { s.base = sPlayed(s); s.running = false; sHalt(s); }
+  },
+  stream_played: (q) => { const s = streams.get(q); return s ? sPlayed(s) : 0; },
+  stream_stop: (q) => { const s = streams.get(q); if (s) { sHalt(s); s.g.disconnect(); streams.delete(q); } },
   stream_volume: (q, gain) => { const s = streams.get(q); if (s) s.g.gain.value = gain; },
   suspend: (on) => { if (actx) on ? actx.suspend() : actx.resume(); },
 };
@@ -437,6 +429,7 @@ async function main() {
   await new Promise((r) => setTimeout(r, 0));
   const tb = performance.now();
   let rc;
+  if (new URLSearchParams(location.search).has('verbose')) exp.sims3_set_verbose(1);
   try { rc = exp.sims3_boot(); } catch (e) { if (!dead) fatal(String(e && e.stack || e)); return; }
   log(`boot: ${(performance.now() - tb).toFixed(0)} ms, result ${rc}, bundle reads ${stats.bundleReads} (${(stats.bundleBytes / 1048576).toFixed(1)} MiB, ${stats.readMs.toFixed(0)} ms)`);
   if (rc !== 0) { fatal('boot did not reach the run loop (state ' + rc + ')'); return; }
@@ -446,6 +439,13 @@ async function main() {
   const perf = { frames: 0, presents0: 0, t0: performance.now(), cpu: 0, worst: 0 };
   window.sims3Perf = { fps: 0, cpuMs: 0, worstMs: 0, presents: () => glh.stats.presents, stats };
   window.sims3GL = glh.stats;
+  window.sims3Audio = audioStats; window.sims3AudioStreams = streams;
+  window.sims3AudioLevel = () => {   // RMS of what is reaching the output right now, plus the context state
+    if (!ameter) return { state: 'none', rms: 0 };
+    const d = new Float32Array(ameter.fftSize); ameter.getFloatTimeDomainData(d);
+    let e = 0; for (const v of d) e += v * v;
+    return { state: actx.state, time: +actx.currentTime.toFixed(2), rms: +Math.sqrt(e / d.length).toFixed(4) };
+  };
   const meter = $('meter');
   function frame(now) {
     if (dead) return;

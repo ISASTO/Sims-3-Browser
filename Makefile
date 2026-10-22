@@ -43,7 +43,7 @@ $(WASM_O)/rt/dlmalloc.o: runtime/third_party/dlmalloc.c
 build/web/sims3.wasm: $(WASM_GEN_OBJ) $(WASM_RT_OBJ)
 	@mkdir -p $(dir $@)
 	$(WASM_CC) -nostartfiles /usr/lib/wasm32-wasi/crt1-reactor.o -Wl,--no-entry -Wl,--export=_initialize -o $@ $^ -lm -Wl,--global-base=16777216 -Wl,-z,stack-size=8388608 \
-	  -Wl,--initial-memory=67108864 -Wl,--max-memory=4294967296 -Wl,--export=sims3_boot -Wl,--export=sims3_frame \
+	  -Wl,--initial-memory=67108864 -Wl,--max-memory=4294967296 -Wl,--export=sims3_boot -Wl,--export=sims3_set_verbose -Wl,--export=sims3_frame \
 	  -Wl,--export=sims3_touch -Wl,--export=sims3_lifecycle -Wl,--export=sims3_text_event -Wl,--export=sims3_ui_action -Wl,--export=malloc -Wl,--export=free
 build/web/index.html build/web/sims3.js build/web/gl.js: build/web/%: web/%
 	@mkdir -p $(dir $@)

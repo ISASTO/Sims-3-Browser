@@ -107,10 +107,52 @@ void ha_source_play(uint32_t s, uint32_t b, int l, float g, float p) { (void)s; 
 void ha_source_stop(uint32_t s) { (void)s; }
 void ha_source_loop(uint32_t s, int l) { (void)s; (void)l; }
 void ha_source_param(uint32_t s, float g, float p) { (void)s; (void)g; (void)p; }
-void ha_stream_play(uint32_t q, const char *path, double off, float g) { if (rt_verbose) rt_log("audio: stream %u play %s @%.2fs gain %.2f", q, path, off, g); native_audio_events++; }
-void ha_stream_stop(uint32_t q) { (void)q; }
+/* AudioQueue output streams: a simulated output device that consumes frames in real (run-loop) time, honouring the
+   hostaudio.h contract. SIMS3_AUDIO_DUMP=dir writes every stream's PCM to dir/aq<k>_<n>_<rate>Hz_<ch>ch.s16le. */
+typedef struct { bool used, running; double rate; uint32_t ch; uint64_t appended; double base, anchor; FILE *dump; } NStream;
+static NStream nstreams[8];
+static bool dev_suspended;
+static NStream *nst(uint32_t q) { return &nstreams[q & 7]; }
+static double ns_played(NStream *s) {
+    if (!s->running || dev_suspended) return s->base;
+    double p = s->base + (rt_now_ms / 1000.0 - s->anchor) * s->rate;
+    return p > (double)s->appended ? (double)s->appended : p;
+}
+void ha_stream_open(uint32_t q, double rate, uint32_t ch) {
+    static int serial;
+    NStream *s = nst(q);
+    if (s->dump) fclose(s->dump);
+    memset(s, 0, sizeof *s);
+    s->used = true; s->rate = rate; s->ch = ch;
+    const char *dir = getenv("SIMS3_AUDIO_DUMP");
+    if (dir) { char p[512]; snprintf(p, sizeof p, "%s/aq%u_%d_%.0fHz_%uch.s16le", dir, q & 7, serial++, rate, ch); s->dump = fopen(p, "wb"); }
+    native_audio_events++;
+}
+void ha_stream_pcm(uint32_t q, const int16_t *pcm, uint32_t frames) {
+    NStream *s = nst(q);
+    if (!s->used) return;
+    if (s->running && !dev_suspended && ns_played(s) >= (double)s->appended) { s->base = (double)s->appended; s->anchor = rt_now_ms / 1000.0; }
+    s->appended += frames;
+    if (s->dump) fwrite(pcm, sizeof(int16_t) * s->ch, frames, s->dump);
+}
+void ha_stream_run(uint32_t q, int on) {
+    NStream *s = nst(q);
+    if (!s->used || s->running == !!on) return;
+    if (on) { s->anchor = rt_now_ms / 1000.0; s->running = true; }
+    else { s->base = ns_played(s); s->running = false; }
+}
+double ha_stream_played(uint32_t q) { NStream *s = nst(q); return s->used ? ns_played(s) : 0; }
+void ha_stream_stop(uint32_t q) { NStream *s = nst(q); if (s->dump) fclose(s->dump); memset(s, 0, sizeof *s); }
 void ha_stream_volume(uint32_t q, float g) { (void)q; (void)g; }
-void ha_suspend(int s) { (void)s; }
+void ha_suspend(int on) {
+    if (dev_suspended == !!on) return;
+    for (int i = 0; i < 8; i++) {
+        NStream *s = &nstreams[i];
+        if (!s->used || !s->running) continue;
+        if (on) s->base = ns_played(s); else s->anchor = rt_now_ms / 1000.0;
+    }
+    dev_suspended = !!on;
+}
 #endif
 #ifndef GUEST_IDENTITY
 void hgl_AlphaFunc(uint32_t a, float b) { (void)a; (void)b; CNT; }

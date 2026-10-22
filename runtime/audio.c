@@ -3,8 +3,8 @@
  * Timing model (DECISIONS.md D13): source/queue state is advanced on the run-loop clock in C, so the game's
  * state queries and AudioQueue buffer callbacks are deterministic; the browser host only renders sound:
  *   - OpenAL buffers are uploaded as PCM and sources are started/stopped on the host;
- *   - AudioQueue playback of AAC packets read from a CAF file is rendered by the host from the same file at
- *     the packet offset the game enqueued (the host decodes the file once). */
+ *   - AudioQueue buffers are decoded here (AAC-LC via aac.c, or linear PCM) and streamed to the host as PCM; the
+ *     host's output clock decides when each buffer has been played and is returned to the game. */
 #include "rt.h"
 #include "hostaudio.h"
 
@@ -290,54 +290,70 @@ void H_AudioFileReadBytes(CPU *c) {
     ST32(io, want);
     RET(0);
 }
-/* remember where packet payloads were copied, so AudioQueue knows what the game enqueued */
-typedef struct { gptr dst; uint32_t file; uint64_t first; uint32_t count; } PktOrigin;
-#define NPO 64
-static PktOrigin porig[NPO]; static uint32_t nporig;
 void H_AudioFileReadPackets(CPU *c) {
+    /* (inAudioFile, inUseCache, outNumBytes, outPacketDescriptions, SInt64 inStartingPacket, ioNumPackets, outBuffer);
+       outNumBytes is output-only here (unlike AudioFileReadPacketData's ioNumBytes): the caller sizes outBuffer for
+       ioNumPackets packets of the file's maximum packet size */
     AFile *f = AF(ARG(0)); if (!f) { RET(-50); return; }
     gptr out_bytes = ARG(2), descs = ARG(3);
     uint64_t start = (uint64_t)LD32(c->r[13]) | ((uint64_t)LD32(c->r[13] + 4) << 32);
     gptr io_np = LD32(c->r[13] + 8), out = LD32(c->r[13] + 12);
     uint32_t want = LD32(io_np), got = 0, bytes = 0;
-    uint32_t cap = out_bytes ? LD32(out_bytes) : 0xffffffffu;
     for (uint64_t p = start; p < f->npackets && got < want; p++, got++) {
         uint32_t off = f->pkt_off ? f->pkt_off[p] : (uint32_t)(p * f->bpp), sz = f->pkt_size ? f->pkt_size[p] : f->bpp;
-        if (cap != 0xffffffffu && bytes + sz > cap) break;
         memcpy(G2H(out + bytes), f->bytes + f->data_off + off, sz);
         if (descs) { ST64(descs + 16 * got, bytes); ST32(descs + 16 * got + 8, 0); ST32(descs + 16 * got + 12, sz); }
         bytes += sz;
     }
     if (out_bytes) ST32(out_bytes, bytes);
     ST32(io_np, got);
-    PktOrigin o = {out, ARG(0), start, got};
-    porig[nporig++ % NPO] = o;
     RET(0);
 }
 
-/* ================================================================== AudioQueue (output) */
-typedef struct { gptr buf; double dur; uint32_t file; uint64_t first; uint32_t count; } QEnt;
+/* ================================================================== AudioQueue (output)
+ * As on iOS, the queue decodes what the game enqueues: AAC packets go through the runtime's AAC-LC decoder (aac.c),
+ * linear PCM is converted to 16-bit. The decoded PCM is appended to a host output stream. Buffers are handed back to
+ * the game (the output callback) when the host's output clock has played past their last frame, so playback is
+ * driven by the audio device as it is on the device (DECISIONS.md D13). */
+#include "aac.h"
+typedef struct { gptr buf; uint64_t end; } QEnt;        /* end: stream frame position after this buffer */
 typedef struct {
     bool used, running, paused, stopping;
-    gptr cb, user, fmt_rate_ptr; double rate; uint32_t fpp;
-    QEnt q[16]; uint32_t nq;
-    double play_start;      /* run-loop time at which q[0] began playing */
-    double played_frames;   /* frames fully played (for AudioQueueGetCurrentTime) */
+    gptr cb, user;
+    double rate; uint32_t fmt, flags, bpf, fpp, ch, bits;
+    QEnt q[64]; uint32_t nq;
+    uint64_t total;          /* frames appended to the host stream since the queue's timeline started */
     float volume;
     gptr listener_proc, listener_user;
-    uint32_t host_file; uint64_t host_next_packet; bool host_playing;
+    uint8_t *cookie; uint32_t cookie_len;
+    AacDec *aac; bool aac_failed; uint32_t decode_errors;
+    int16_t *pcm; uint32_t pcm_cap;   /* host scratch for one buffer's decoded frames */
 } AQ;
 #define NAQ 8
 static AQ aqs[NAQ];
 static AQ *Q(uint32_t id) { uint32_t k = id & 0xff; return (id & 0xFF000000u) == 0xB1000000u && k < NAQ && aqs[k].used ? &aqs[k] : NULL; }
+static uint32_t out_channels(const AQ *a) { return a->ch == 1 ? 1 : 2; }
 void H_AudioQueueNewOutput(CPU *c) {
+    /* (inFormat, inCallbackProc, inUserData, inCallbackRunLoop, inCallbackRunLoopMode, inFlags, outAQ) */
     gptr fmt = ARG(0);
     int k = 0; while (k < NAQ && aqs[k].used) k++;
-    if (k == NAQ) { RET(-50); return; }
+    if (k == NAQ) { rt_log("AudioQueueNewOutput: all %d queues in use", NAQ); RET(-50); return; }
     AQ *a = &aqs[k]; memset(a, 0, sizeof *a);
     a->used = true; a->cb = ARG(1); a->user = ARG(2); a->volume = 1;
-    a->rate = U2D(LD64(fmt)); a->fpp = LD32(fmt + 20); if (!a->fpp) a->fpp = 1;
-    ST32(LD32(c->r[13] + 8), 0xB1000000u | (uint32_t)k);
+    a->rate = U2D(LD64(fmt)); a->fmt = LD32(fmt + 8); a->flags = LD32(fmt + 12); a->bpf = LD32(fmt + 24);
+    a->fpp = LD32(fmt + 20); a->ch = LD32(fmt + 28); a->bits = LD32(fmt + 32);
+    uint32_t id = 0xB1000000u | (uint32_t)k;
+    if (a->fmt != 0x61616320 /* 'aac ' */ && a->fmt != 0x6c70636d /* 'lpcm' */)
+        rt_log("AudioQueueNewOutput: format %c%c%c%c has no decoder in this runtime; its buffers will play as silence",
+               a->fmt >> 24, a->fmt >> 16 & 0xff, a->fmt >> 8 & 0xff, a->fmt & 0xff);
+    ha_stream_open(id, a->rate, out_channels(a));
+    ST32(LD32(c->r[13] + 8), id);
+    RET(0);
+}
+void H_AudioQueueAllocateBuffer(CPU *c) {
+    gptr b = gcalloc(1, 28);
+    ST32(b, ARG(1)); ST32(b + 4, gmalloc(ARG(1)));
+    ST32(ARG(2), b);
     RET(0);
 }
 void H_AudioQueueAllocateBufferWithPacketDescriptions(CPU *c) {
@@ -353,57 +369,131 @@ static void aq_set_running(CPU *c, uint32_t id, AQ *a, bool r) {
     a->running = r;
     if (a->listener_proc) guest_call3(c, a->listener_proc, a->listener_user, id, 0x6171726e /* 'aqrn' */);
 }
-static void host_sync(uint32_t id, AQ *a) {
-    if (!a->running || a->paused || !a->nq) { if (a->host_playing) { ha_stream_stop(id); a->host_playing = false; } return; }
-    QEnt *e = &a->q[0];
-    AFile *f = AF(e->file);
-    if (!f) return;
-    if (!a->host_playing || a->host_file != e->file || a->host_next_packet != e->first) {
-        double off = (double)e->first * a->fpp / a->rate + (rt_now_ms / 1000.0 - a->play_start);
-        if (off < 0) off = 0;
-        ha_stream_play(id, f->path, off, a->volume);
-        a->host_playing = true; a->host_file = e->file;
+static int16_t *aq_scratch(AQ *a, uint32_t frames) {
+    uint32_t need = frames * out_channels(a);
+    if (need > a->pcm_cap) { free(a->pcm); a->pcm_cap = need + 4096; a->pcm = malloc(sizeof(int16_t) * a->pcm_cap); }
+    return a->pcm;
+}
+/* decode one enqueued buffer to PCM and append it to the host stream; returns the frame count */
+static uint32_t aq_render(uint32_t id, AQ *a, gptr b, uint32_t ndesc, gptr descs) {
+    gptr data = LD32(b + 4); uint32_t bytes = LD32(b + 8), och = out_channels(a);
+    if (a->fmt == 0x61616320) {   /* 'aac ' */
+        if (!a->aac && !a->aac_failed) {
+            const uint8_t *asc = NULL; uint32_t asc_len = a->cookie ? aac_cookie_asc(a->cookie, a->cookie_len, &asc) : 0;
+            const char *why = NULL;
+            a->aac = aac_open(asc, asc_len, a->rate, a->ch, &why);
+            if (!a->aac) { a->aac_failed = true; rt_log("AudioQueue %08x: cannot decode this AAC stream: %s; its buffers will play as silence", id, why); }
+        }
+        if (!ndesc) {   /* AAC is variable-bit-rate: without packet descriptions the packet boundaries are unknown */
+            rt_log("AudioQueue %08x: AAC buffer enqueued without packet descriptions (kAudioQueueErr_BufferEmpty)", id);
+            return 0;
+        }
+        int16_t *out = aq_scratch(a, ndesc * 1024u);
+        for (uint32_t i = 0; i < ndesc; i++) {
+            gptr dsc = descs + 16 * i;
+            uint32_t off = (uint32_t)LD64(dsc), sz = LD32(dsc + 12);
+            int16_t *o = out + (size_t)i * 1024u * och;
+            if (!a->aac || off + sz > bytes) { memset(o, 0, sizeof(int16_t) * 1024u * och); continue; }
+            if (aac_decode(a->aac, G2H(data + off), sz, o) < 0 && a->decode_errors++ < 8)
+                rt_log("AudioQueue %08x: AAC packet error: %s (packet played as silence)", id, aac_error(a->aac));
+        }
+        ha_stream_pcm(id, out, ndesc * 1024u);
+        return ndesc * 1024u;
     }
-    a->host_next_packet = e->first + e->count;
+    if (a->fmt == 0x6c70636d && a->bpf) {   /* 'lpcm' */
+        uint32_t frames = bytes / a->bpf;
+        int16_t *out = aq_scratch(a, frames);
+        const uint8_t *src = G2H(data);
+        bool flt = a->flags & 1, big = a->flags & 2, sgn = a->flags & 4;
+        for (uint32_t i = 0; i < frames; i++)
+            for (uint32_t ch = 0; ch < och; ch++) {
+                uint32_t sc = ch < a->ch ? ch : 0;
+                const uint8_t *s = src + i * a->bpf + sc * (a->bits / 8);
+                int v = 0;
+                if (flt && a->bits == 32) { float x; memcpy(&x, s, 4); x *= 32768.0f; v = x > 32767 ? 32767 : x < -32768 ? -32768 : (int)x; }
+                else if (a->bits == 16) { v = big ? (int16_t)(s[0] << 8 | s[1]) : (int16_t)(s[0] | s[1] << 8); }
+                else if (a->bits == 8) v = sgn ? (int8_t)s[0] * 256 : (s[0] - 128) * 256;
+                out[i * och + ch] = (int16_t)v;
+            }
+        ha_stream_pcm(id, out, frames);
+        return frames;
+    }
+    /* no decoder: keep the queue's timing with silence of the buffer's nominal duration */
+    uint32_t frames = (ndesc ? ndesc : 1) * (a->fpp ? a->fpp : 1024);
+    int16_t *out = aq_scratch(a, frames);
+    memset(out, 0, sizeof(int16_t) * frames * och);
+    ha_stream_pcm(id, out, frames);
+    return frames;
 }
 void H_AudioQueueEnqueueBuffer(CPU *c) {
-    AQ *a = Q(ARG(0)); if (!a) { RET(-50); return; }
+    /* (inAQ, inBuffer, inNumPacketDescs, inPacketDescs) */
+    uint32_t id = ARG(0); AQ *a = Q(id); if (!a) { RET(-50); return; }
     gptr b = ARG(1);
-    if (a->nq == 16) { RET(-66687); return; }
-    QEnt e = {b, 0, 0, 0, 0};
-    uint32_t np = ARG(2) ? ARG(2) : LD32(b + 24);
-    e.dur = (double)np * a->fpp / a->rate;
-    gptr data = LD32(b + 4);
-    for (uint32_t i = 0; i < NPO && i < nporig; i++) if (porig[i].dst == data) { e.file = porig[i].file; e.first = porig[i].first; e.count = porig[i].count; }
-    if (!a->nq) a->play_start = now_s();
+    if (a->nq == sizeof a->q / sizeof a->q[0]) { rt_log("AudioQueueEnqueueBuffer: queue %08x full", id); RET(-66687); return; }
+    uint32_t ndesc = ARG(2); gptr descs = ARG(3);
+    if (!ndesc) { ndesc = LD32(b + 24); descs = LD32(b + 20); }
+    if (a->fmt == 0x61616320 && !LD32(b + 8)) { RET(-66686 /* kAudioQueueErr_BufferEmpty */); return; }
+    uint32_t frames = aq_render(id, a, b, ndesc, descs);
+    a->total += frames;
+    QEnt e = { b, a->total };
     a->q[a->nq++] = e;
     RET(0);
 }
-void H_AudioQueuePrime(CPU *c) { if (ARG(2)) ST32(ARG(2), 0); RET(0); }
+void H_AudioQueuePrime(CPU *c) { if (ARG(2)) ST32(ARG(2), 0); RET(0); }   /* decoding happens at enqueue */
 void H_AudioQueueStart(CPU *c) {
     uint32_t id = ARG(0); AQ *a = Q(id); if (!a) { RET(-50); return; }
-    if (a->paused) { a->paused = false; a->play_start = now_s(); }
-    else if (!a->running) a->play_start = now_s();
+    a->paused = false;
     aq_set_running(c, id, a, true);
-    host_sync(id, a);
+    ha_stream_run(id, 1);
+    if (rt_verbose) rt_log("AudioQueueStart %08x (%u buffers queued, volume %.2f)", id, a->nq, a->volume);
     RET(0);
 }
-void H_AudioQueuePause(CPU *c) { uint32_t id = ARG(0); AQ *a = Q(id); if (!a) { RET(-50); return; } a->paused = true; if (a->host_playing) { ha_stream_stop(id); a->host_playing = false; } RET(0); }
+void H_AudioQueuePause(CPU *c) { uint32_t id = ARG(0); AQ *a = Q(id); if (!a) { RET(-50); return; } a->paused = true; ha_stream_run(id, 0); if (rt_verbose) rt_log("AudioQueuePause %08x", id); RET(0); }
+static void aq_reset_timeline(uint32_t id, AQ *a) {
+    a->nq = 0; a->total = 0; a->paused = false; a->stopping = false;
+    if (a->aac) aac_reset(a->aac);
+    ha_stream_open(id, a->rate, out_channels(a));   /* discards queued audio; the stream's position restarts at 0 */
+}
 void H_AudioQueueStop(CPU *c) {
     uint32_t id = ARG(0); AQ *a = Q(id); if (!a) { RET(-50); return; }
-    if (ARG(1) & 0xff) {   /* immediate */
-        a->nq = 0; a->paused = false; a->stopping = false;
-        if (a->host_playing) { ha_stream_stop(id); a->host_playing = false; }
+    if (rt_verbose) rt_log("AudioQueueStop %08x %s", id, ARG(1) & 0xff ? "immediate" : "after queued buffers");
+    if (ARG(1) & 0xff) {   /* immediate: buffers are dropped without callbacks */
+        aq_reset_timeline(id, a);
         aq_set_running(c, id, a, false);
-        a->played_frames = 0;
-    } else a->stopping = true;
+    } else a->stopping = true;   /* play out what is queued, then stop (see audio_tick) */
     RET(0);
 }
-void H_AudioQueueFlush(CPU *c) { RET(0); }
-void H_AudioQueueDispose(CPU *c) { uint32_t id = ARG(0); AQ *a = Q(id); if (!a) { RET(-50); return; } if (a->host_playing) ha_stream_stop(id); a->used = false; RET(0); }
-void H_AudioQueueSetParameter(CPU *c) { AQ *a = Q(ARG(0)); if (!a) { RET(-50); return; } if (ARG(1) == 1) { a->volume = U2F(ARG(2)); ha_stream_volume(ARG(0), a->volume); } RET(0); }
+void H_AudioQueueFlush(CPU *c) { RET(0); }   /* every enqueued buffer is already decoded and handed to the host */
+void H_AudioQueueReset(CPU *c) { uint32_t id = ARG(0); AQ *a = Q(id); if (!a) { RET(-50); return; } bool r = a->running && !a->paused; aq_reset_timeline(id, a); if (r) ha_stream_run(id, 1); RET(0); }
+void H_AudioQueueDispose(CPU *c) {
+    uint32_t id = ARG(0); AQ *a = Q(id); if (!a) { RET(-50); return; }
+    ha_stream_stop(id);
+    if (a->aac) aac_close(a->aac);
+    free(a->cookie); free(a->pcm);
+    a->used = false;
+    RET(0);
+}
+void H_AudioQueueSetParameter(CPU *c) {
+    AQ *a = Q(ARG(0)); if (!a) { RET(-50); return; }
+    if (ARG(1) == 1) {   /* kAudioQueueParam_Volume */
+        float v = U2F(ARG(2));
+        if (rt_verbose && v != a->volume) rt_log("AudioQueue %08x volume %.2f", ARG(0), v);
+        a->volume = v; ha_stream_volume(ARG(0), v);
+    } else rt_log("AudioQueueSetParameter %u unsupported", ARG(1));
+    RET(0);
+}
 void H_AudioQueueGetParameter(CPU *c) { AQ *a = Q(ARG(0)); if (!a) { RET(-50); return; } ST32(ARG(2), F2U(ARG(1) == 1 ? a->volume : 0)); RET(0); }
-void H_AudioQueueSetProperty(CPU *c) { RET(0); }   /* magic cookie / channel layout: the host decoder reads the file's own cookie */
+void H_AudioQueueSetProperty(CPU *c) {
+    AQ *a = Q(ARG(0)); if (!a) { RET(-50); return; }
+    if (ARG(1) == 0x61716d63 /* 'aqmc' kAudioQueueProperty_MagicCookie */) {
+        free(a->cookie); a->cookie_len = ARG(3); a->cookie = malloc(a->cookie_len ? a->cookie_len : 1);
+        memcpy(a->cookie, G2H(ARG(2)), a->cookie_len);
+        if (a->aac) { aac_close(a->aac); a->aac = NULL; a->aac_failed = false; }   /* reopen with the new config */
+        RET(0); return;
+    }
+    if (ARG(1) == 0x6171636c /* 'aqcl' channel layout */) { RET(0); return; }   /* mono/stereo layouts need no remapping */
+    rt_log("AudioQueueSetProperty %08x unsupported", ARG(1)); RET(-50);
+}
 void H_AudioQueueGetProperty(CPU *c) {
     AQ *a = Q(ARG(0)); if (!a) { RET(-50); return; }
     if (ARG(1) == 0x6171726e) { ST32(ARG(2), a->running); if (ARG(3)) ST32(ARG(3), 4); RET(0); return; }
@@ -415,30 +505,28 @@ void H_AudioQueueRemovePropertyListener(CPU *c) { AQ *a = Q(ARG(0)); if (a) a->l
 void H_AudioQueueCreateTimeline(CPU *c) { ST32(ARG(1), 0x7100); RET(0); }
 void H_AudioQueueDisposeTimeline(CPU *c) { RET(0); }
 void H_AudioQueueGetCurrentTime(CPU *c) {
-    AQ *a = Q(ARG(0)); if (!a) { RET(-50); return; }
+    /* (inAQ, inTimeline, outTimeStamp, outTimelineDiscontinuity): mSampleTime = frames the device has played */
+    uint32_t id = ARG(0); AQ *a = Q(id); if (!a) { RET(-50); return; }
     gptr ts = ARG(2);
-    double frames = a->played_frames;
-    if (a->running && !a->paused && a->nq) frames += (now_s() - a->play_start) * a->rate;
-    if (ts) { memset(G2H(ts), 0, 64); ST64(ts, D2U(frames)); ST32(ts + 56, 1); }
+    double frames = ha_stream_played(id);
+    if (ts) { memset(G2H(ts), 0, 64); ST64(ts, D2U(frames)); ST32(ts + 56, 1 /* kAudioTimeStampSampleTimeValid */); }
     if (ARG(3)) ST8(ARG(3), 0);
     RET(0);
 }
-/* run-loop step: complete buffers whose play time has elapsed and hand them back to the game */
+/* run-loop step: hand back buffers the host has finished playing */
 void audio_tick(CPU *c) {
     for (int k = 0; k < NAQ; k++) {
         AQ *a = &aqs[k];
         if (!a->used || !a->running || a->paused) continue;
         uint32_t id = 0xB1000000u | (uint32_t)k;
+        double played = ha_stream_played(id);
         int guard = 0;
-        while (a->nq && now_s() >= a->play_start + a->q[0].dur && guard++ < 16) {
+        while (a->nq && (double)a->q[0].end <= played + 0.5 && guard++ < 64) {
             QEnt e = a->q[0];
-            a->play_start += e.dur;
-            a->played_frames += e.dur * a->rate;
             memmove(a->q, a->q + 1, (a->nq - 1) * sizeof(QEnt)); a->nq--;
             if (!a->stopping) guest_call3(c, a->cb, a->user, id, e.buf);
         }
-        if (!a->nq && a->stopping) { a->stopping = false; aq_set_running(c, id, a, false); }
-        host_sync(id, a);
+        if (!a->nq && a->stopping) { aq_reset_timeline(id, a); aq_set_running(c, id, a, false); }
     }
 }
 void audio_init(void) {}

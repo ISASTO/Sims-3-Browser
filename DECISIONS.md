@@ -133,11 +133,24 @@ Each entry lists the evidence it rests on and what would justify revisiting it.
   byte-compatible with Apple's archives. The game's own save files are written by its own C++ code and are
   unaffected.
 
-## D13. Audio timing
-- OpenAL buffers and sources map to WebAudio buffer sources.
-- AudioQueue (music) is driven by a C-side timeline on the run-loop clock that issues the game's buffer callbacks.
-  The host plays the original CAF (AAC) file from the matching offset, after repackaging it as ADTS for
-  `decodeAudioData`.
+## D13. Audio
+- **OpenAL.** Buffers are uploaded to WebAudio as PCM; sources are started and stopped on the host. Source state
+  (`AL_SOURCE_STATE`, offsets) advances on the run-loop clock in C, so the game's queries are deterministic.
+- **AudioQueue decodes, as AudioToolbox does.** The game enqueues raw AAC packets (from `AudioFileReadPackets`) with
+  packet descriptions. The runtime decodes them: AAC-LC through `runtime/aac.c`, linear PCM by conversion. It
+  appends the 16-bit PCM to a host output stream.
+  - The decoder is validated against FFmpeg's: all 12 music files in the bundle decode to within ±1 LSB of FFmpeg's
+    output (SNR ≥ 104 dB), with no packet errors (`tools/aac_test.c`).
+  - Unsupported streams (HE-AAC, AAC Main/SSR, coupling channels, 960-sample frames, other codecs) are reported
+    and play as silence of the right length. They are never approximated.
+- **Device-clock driven.** A buffer goes back to the game (its output callback) once the host's output clock has
+  played its last frame (`ha_stream_played`). As on iOS, a suspended device (autoplay policy before the first tap, a
+  backgrounded page) stops the queue from consuming buffers. The contract is in `runtime/hostaudio.h`. The native
+  host simulates the device in run-loop time, and `SIMS3_AUDIO_DUMP=dir` writes each stream's PCM.
+- **Test mode.** In `?test` mode the stream clock is the virtual clock, so buffer callbacks stay deterministic.
+- **Rejected alternative.** Earlier, the host played the original CAF file from the packet offset the game enqueued,
+  after repackaging it as ADTS for `decodeAudioData`. It depended on the browser having an AAC decoder (Playwright's
+  Chromium has none) and on guessing file positions from buffer addresses.
 
 ## D14. Browser host
 - **Main thread.** wasm runs on the main thread.
@@ -155,6 +168,23 @@ Each entry lists the evidence it rests on and what would justify revisiting it.
 - **Text.** `UITextField` is a real `<input>` element placed at the field's frame. Return delivers
   `textFieldShouldReturn:` and `UIControlEventEditingDidEndOnExit`, as the iOS keyboard does.
 
+## D16. Deterministic browser test mode
+- `?test` replaces the wall clock with a virtual clock. Frames advance only when the test driver calls
+  `window.sims3Test.step(n, drawLast)`. Only the frames that are captured are drawn.
+- **Why.** Native text metrics differ from the browser's Canvas2D metrics, so scripted inputs recorded natively do
+  not replay in the browser at the same moments. Real-time browser runs vary with SwiftShader speed. A
+  frame-exact browser run makes regressions reproducible.
+- **Reference script.** `tools/tests/newgame.json` runs from a fresh profile through privacy, DLC notice, menu,
+  Create-A-Sim, naming, confirmation and into the world.
+
+## D17. Desktop input mapping
+- Touch and pen pointers map one-to-one to UITouches.
+- A mouse has only one pointer, so the game's two-finger gestures (camera orbit and pinch) are synthesized. A
+  right-button drag (or Ctrl + left drag) places two virtual fingers 45 points either side of the cursor:
+  - horizontal motion turns them about the cursor (0.012 rad per point);
+  - vertical motion moves them together.
+- The game receives ordinary two-touch sequences. Nothing in the game's gesture code is altered.
+
 ## D15. Toolchain (pinned to what is installed and tested)
 | Tool | Version |
 | --- | --- |
@@ -166,3 +196,4 @@ Each entry lists the evidence it rests on and what would justify revisiting it.
 | Node | 22.22.0 |
 | Playwright | 1.56.0 |
 | Chromium (headless test browser) | 141.0.7390.37 |
+| FFmpeg (AAC reference decoder, tests only) | 6.1.1 (Ubuntu) |
