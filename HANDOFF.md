@@ -10,9 +10,22 @@ for what works and `DECISIONS.md` for why it is built this way.
   release in `ios/play/`. The repository root entry page opens that release. The previous Android prototype
   remains under `web/` and its recovery work is preserved.
 - Public release URL: https://isasto.github.io/Sims-3-Browser/ios/play/
-- The original IPA, extraction, generated C, analysis output, test captures, and users' saves are still excluded
-  from source commits. The published release contains the compiled runtime and the resources needed to play.
+- The original IPA, extraction, generated C, analysis output, full test-capture directories, and users' saves are
+  excluded from source commits. A selected test screenshot is in `verification/gameplay.png`. The published
+  release contains the compiled runtime and the resources needed to play.
 - Local development servers bind to 127.0.0.1 by default.
+
+### Published delivery verification
+- Pages successfully deployed gameplay commit `a3c47f42e2cb7cd91c707d0ec41fc50e789f10f7` in Actions run
+  `39773079079` (2026-10-22).
+- Downloaded all 52 static release files from the public HTTPS URL using normal TLS verification: 136,190,201
+  bytes. Every Git blob hash matched the tested release, then `verify_site.py` confirmed all 1,265 resources and
+  the wasm against the extracted input/local build.
+- Browser gameplay validation used WebGL2-enabled Chrome Headless Shell, including normal real-time loading of
+  the saved house. The screenshot under `verification/` comes from that local test.
+- This chat's separate cloud browser reached the deployed host but could not create a WebGL2 context. It stopped
+  at the explicit graphics requirement, so a live UI gameplay pass in that browser is unverified. Hardware-backed
+  browser tests remain the next target. The public-delivery hash check and local gameplay checks are distinct.
 
 ## Run the prebuilt release
 From `main`, run `python3 -m http.server 8333 --bind 127.0.0.1` in the repository root, then open

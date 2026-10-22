@@ -53,5 +53,21 @@
     "some UIKit and video classes remain placeholders",
     "network/store services are offline",
     "no original-device comparison for all behavior"
-  ]
+  ],
+  "published_delivery": {
+    "gameplay_commit": "a3c47f42e2cb7cd91c707d0ec41fc50e789f10f7",
+    "pages_run": 39773079079,
+    "status": "success",
+    "url": "https://isasto.github.io/Sims-3-Browser/ios/play/",
+    "files": 52,
+    "bytes": 136190201,
+    "all_git_blob_hashes_match": true,
+    "tls_verification": "curl default certificate validation; no certificate bypass"
+  },
+  "cloud_preview": {
+    "webgl2": false,
+    "gameplay": "unverified in the separate cloud browser; it cannot create a WebGL2 context",
+    "note": "Local Chromium with WebGL2 passed gameplay. Public files were independently downloaded and hash checked."
+  },
+  "screenshot": "verification/gameplay.png"
 }
