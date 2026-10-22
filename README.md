@@ -13,6 +13,12 @@ testing. GPU-backed performance has not been measured in the development environ
 Click or tap to interact. Drag to pan; right-drag or Ctrl+drag for two-finger camera controls. Save through the
 game's menu, then confirm the green tick. Saves stay in IndexedDB for this browser origin.
 
+The player includes **Fit to tab**, **Fullscreen**, quality selection and optional performance metrics. **Auto**
+adjusts resolution for smoother play; **Native** follows the game area's size and the display's pixel density,
+including window and monitor changes. The original aspect ratio is preserved. The small header diamond sends
+a device shake. Software-renderer tests averaged about 28 FPS at 1334×750 and 49 FPS at 667×375; these are not
+hardware-GPU measurements.
+
 The source branch keeps these files at its root. On `main`, they live in `ios/`, and the published build lives
 in `ios/play/`. The earlier Android prototype and analysis remain elsewhere in the repository.
 

@@ -90,6 +90,7 @@ void runloop_tick(CPU *c, double now) {
     rt_now_ms = now;
     uint32_t pool = objc_pool_push();
     void ui_dispatch_lifecycle(CPU *c); ui_dispatch_lifecycle(c);
+    void motion_tick(CPU *c); motion_tick(c);
     ui_dispatch_input(c);
     audio_tick(c);
     /* deferred performs and dispatched blocks that are due (FIFO by sequence) */

@@ -1,5 +1,5 @@
 /* misc.c — platform services with explicit "browser device" contracts (DECISIONS.md D11):
- * no ad tracking, no cellular, network reported unreachable, no in-app purchase, no accelerometer,
+ * no ad tracking, no cellular, network reported unreachable, no in-app purchase, synthetic accelerometer,
  * keychain persisted in the app container, CommonCrypto digests implemented. */
 #include "rt.h"
 
@@ -34,8 +34,69 @@ static void av_otherAudio(CPU *c) { RET(media_other_audio_playing()); }
 static gptr skq;
 static void sk_default(CPU *c) { RET(skq); }
 static void sk_transactions(CPU *c) { RET(nsarray_new(NULL, 0, false, false)); }
-/* CMMotionManager: no accelerometer on desktop browsers */
-static void cm_available(CPU *c) { RET(0); }
+/* CMMotionManager: synthetic samples delivered through the game's original block, in g.
+ * No browser sensor permissions or game-state writes. A host shake is a short physical-input waveform.
+ * Keep the 32-bit CoreMotion ABI: CMAcceleration is three doubles returned via objc_msgSend_stret. */
+gptr block_copy(gptr b);
+void block_release(CPU *c, gptr b);
+uint32_t block_invoke_addr(gptr b);
+void objc_destroy_instance(gptr obj);
+int ui_app_state(void);
+typedef struct { gptr handler, data; double interval, next; bool active; } Motion;
+typedef struct { double x, y, z, timestamp; } Accel;
+static gptr motion_managers[16];
+static double shake_start = -1e9;
+static Motion *motion_state(gptr obj) {
+    Motion *s = hostdata(obj);
+    if (!s) { s = hostdata_ensure(obj, sizeof(Motion), NULL); s->interval = 1.0 / 30; }
+    return s;
+}
+static void cm_interval(CPU *c) { double v = ARGD(2); motion_state(SELF)->interval = isfinite(v) && v > 0 ? fmax(1.0 / 120, fmin(1, v)) : 1.0 / 30; }
+static void cm_getInterval(CPU *c) { RETD(motion_state(SELF)->interval); }
+static void cm_stop(CPU *c) { Motion *s = motion_state(SELF); s->active = false; gptr b = s->handler; s->handler = 0; if (b) block_release(c, b); }
+static void cm_start(CPU *c) {
+    Motion *s = motion_state(SELF);
+    if (s->handler) block_release(c, s->handler);
+    s->handler = ARG(3) ? block_copy(ARG(3)) : 0;
+    s->active = true; s->next = rt_now_ms;
+    if (!s->data) {
+        s->data = objc_alloc_instance(objc_class_named("CMAccelerometerData"), 0);
+        Accel *a = hostdata_ensure(s->data, sizeof(Accel), NULL); a->z = -1;
+    }
+    for (int i = 0; i < 16; i++) if (motion_managers[i] == SELF) return;
+    for (int i = 0; i < 16; i++) if (!motion_managers[i]) { motion_managers[i] = SELF; return; }
+    rt_fatal(c, "too many active motion managers");
+}
+static void cm_pollStart(CPU *c) { c->r[3] = 0; cm_start(c); }
+static void cm_active(CPU *c) { RET(motion_state(SELF)->active); }
+static void cm_data(CPU *c) { Motion *s = motion_state(SELF); RET(s->active ? s->data : 0); }
+static void cm_acceleration(CPU *c) {
+    Accel *a = hostdata(ARG(1));
+    ST64(ARG(0), D2U(a ? a->x : 0)); ST64(ARG(0) + 8, D2U(a ? a->y : 0)); ST64(ARG(0) + 16, D2U(a ? a->z : -1));
+}
+static void cm_timestamp(CPU *c) { Accel *a = hostdata(SELF); RETD(a ? a->timestamp : 0); }
+static void cm_dealloc(CPU *c) {
+    cm_stop(c);
+    for (int i = 0; i < 16; i++) if (motion_managers[i] == SELF) motion_managers[i] = 0;
+    Motion *s = motion_state(SELF); if (s->data) objc_release_(c, s->data);
+    objc_destroy_instance(SELF);
+}
+__attribute__((export_name("sims3_shake")))
+void sims3_shake(void) { if (ui_app_state() == 1 && rt_now_ms - shake_start >= 800) shake_start = rt_now_ms; }
+void motion_tick(CPU *c) {
+    if (ui_app_state() != 1) { shake_start = -1e9; return; }
+    double t = (rt_now_ms - shake_start) / 1000;
+    double pulse = t >= 0 && t < 0.65 ? 3.25 * sin(t * 2 * 3.141592653589793 * 7.5) : 0;
+    for (int i = 0; i < 16; i++) {
+        if (!motion_managers[i]) continue;
+        Motion *s = motion_state(motion_managers[i]);
+        if (!s->active || rt_now_ms < s->next) continue;
+        s->next = rt_now_ms + s->interval * 1000;
+        Accel *a = hostdata(s->data); a->x = pulse; a->y = pulse * 0.6; a->z = -1 + pulse * 0.35; a->timestamp = rt_now_ms / 1000;
+        if (s->handler) guest_call3(c, block_invoke_addr(s->handler), s->handler, s->data, 0);
+        if (c->unwinding) rt_fatal(c, "exception escaped accelerometer handler");
+    }
+}
 /* ADClient */
 static gptr adc;
 static void ad_shared(CPU *c) { RET(adc); }
@@ -128,11 +189,14 @@ void misc_init(void) {
     CM(k, "defaultQueue", sk_default); CM(k, "canMakePayments", r_no); M(k, "addTransactionObserver:", r_noop); M(k, "removeTransactionObserver:", r_noop);
     M(k, "transactions", sk_transactions);
     k = host_class("CMMotionManager", "NSObject", 4);
-    M(k, "isAccelerometerAvailable", cm_available); M(k, "isDeviceMotionAvailable", cm_available); M(k, "isGyroAvailable", cm_available);
-    M(k, "setAccelerometerUpdateInterval:", r_noop); M(k, "startAccelerometerUpdates", r_noop); M(k, "stopAccelerometerUpdates", r_noop);
-    M(k, "accelerometerData", r_nil); M(k, "isAccelerometerActive", r_no);
-    /* no motion hardware: update handlers are accepted but never invoked */
-    M(k, "startAccelerometerUpdatesToQueue:withHandler:", r_noop); M(k, "startDeviceMotionUpdatesToQueue:withHandler:", r_noop); M(k, "stopDeviceMotionUpdates", r_noop);
+    M(k, "isAccelerometerAvailable", r_yes); M(k, "isDeviceMotionAvailable", r_no); M(k, "isGyroAvailable", r_no);
+    M(k, "setAccelerometerUpdateInterval:", cm_interval); M(k, "accelerometerUpdateInterval", cm_getInterval);
+    M(k, "startAccelerometerUpdates", cm_pollStart); M(k, "stopAccelerometerUpdates", cm_stop);
+    M(k, "accelerometerData", cm_data); M(k, "isAccelerometerActive", cm_active); M(k, "dealloc", cm_dealloc);
+    M(k, "startAccelerometerUpdatesToQueue:withHandler:", cm_start);
+    M(k, "startDeviceMotionUpdatesToQueue:withHandler:", r_noop); M(k, "stopDeviceMotionUpdates", r_noop);
+    k = host_class("CMAccelerometerData", "NSObject", 4);
+    M(k, "acceleration", cm_acceleration); M(k, "timestamp", cm_timestamp);
     k = host_class("ADClient", "NSObject", 4); adc = singleton("ADClient");
     CM(k, "sharedClient", ad_shared); M(k, "requestAttributionDetailsWithBlock:", r_noop); M(k, "determineAppInstallationAttributionWithCompletionHandler:", r_noop);
     k = host_class("UIPasteboard", "NSObject", 4); pb = singleton("UIPasteboard");

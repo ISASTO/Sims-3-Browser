@@ -6,6 +6,7 @@
 // The writable container (/home: saves, preferences, keychain) is kept in memory and persisted to IndexedDB.
 'use strict';
 import { createGL } from './gl.js';
+import { createPlayer } from './player.js';
 import { gunzipSync } from './vendor/fflate.js';
 
 const POINTS_W = 667, POINTS_H = 375;           // virtual device: iPhone 6 class, landscape, @2x
@@ -556,6 +557,8 @@ async function main() {
   await homeOpen();
   status('Compiling game code…');
   const glh = createGL(canvas, mem, log);
+  const player = createPlayer({ graphics: glh, shake: () => { if (exp && !dead) exp.sims3_shake(); }, testMode: TEST });
+  window.sims3Display = player.state;
   const t0 = performance.now();
   const imports = { env, gl: glh.imports, audio, text, wasi_snapshot_preview1: wasi };
   const runtime = manifest.runtime || { url: 'sims3.wasm' };
@@ -584,10 +587,11 @@ async function main() {
   log(`boot: ${(performance.now() - tb).toFixed(0)} ms, result ${rc}, bundle reads ${stats.bundleReads} (${(stats.bundleBytes / 1048576).toFixed(1)} MiB, ${stats.readMs.toFixed(0)} ms)`);
   if (rc !== 0) { fatal('boot did not reach the run loop (state ' + rc + ')'); return; }
   setupInput(canvas);
+  player.ready();
   $('status').style.display = 'none';
   // frame loop + performance meter (frames presented per second and CPU time per frame)
-  const perf = { frames: 0, presents0: 0, t0: performance.now(), cpu: 0, worst: 0 };
-  window.sims3Perf = { fps: 0, cpuMs: 0, worstMs: 0, presents: () => glh.stats.presents, stats };
+  const perf = { frames: 0, presents0: 0, uploads0: 0, t0: performance.now(), cpu: 0, worst: 0, intervals: [], lastPresent: 0 };
+  window.sims3Perf = { fps: 0, cpuMs: 0, worstMs: 0, frameMs: 0, p95Ms: 0, memoryMiB: 0, uploadBytesPerSecond: 0, presents: () => glh.stats.presents, stats };
   window.sims3GL = glh.stats;
   window.sims3Audio = audioStats; window.sims3AudioStreams = streams;
   window.sims3Home = () => Object.fromEntries([...home].map(([k, v]) => [k, v.length]));   // saved files and sizes (diagnostics)
@@ -597,25 +601,42 @@ async function main() {
     let e = 0; for (const v of d) e += v * v;
     return { state: actx.state, time: +actx.currentTime.toFixed(2), rms: +Math.sqrt(e / d.length).toFixed(4) };
   };
-  const meter = $('meter');
+  function resetPerf(now, clearClock = false) {
+    perf.t0 = now; perf.frames = 0; perf.cpu = 0; perf.worst = 0;
+    perf.presents0 = glh.stats.presents; perf.uploads0 = glh.stats.totalUploadBytes; perf.intervals.length = 0;
+    if (clearClock) perf.lastPresent = 0;
+  }
+  document.addEventListener('visibilitychange', () => resetPerf(performance.now(), true));
   function frame(now) {
     if (dead) return;
+    if (document.hidden) { requestAnimationFrame(frame); return; }
+    player.beforeFrame();
+    const presents0 = glh.stats.presents;
     const a = performance.now();
     try { exp.sims3_frame(now); } catch (e) { if (!dead) fatal(String(e && e.stack || e)); return; }
     const dt = performance.now() - a;
+    if (glh.stats.presents > presents0) {
+      if (perf.lastPresent) perf.intervals.push((now - perf.lastPresent) / (glh.stats.presents - presents0));
+      perf.lastPresent = now;
+    }
     perf.frames++; perf.cpu += dt; if (dt > perf.worst) perf.worst = dt;
     if (now - perf.t0 >= 1000) {
       const presents = glh.stats.presents - perf.presents0;
-      const fps = presents * 1000 / (now - perf.t0);
-      window.sims3Perf.fps = fps; window.sims3Perf.cpuMs = perf.cpu / perf.frames; window.sims3Perf.worstMs = perf.worst;
-      if (meter) meter.textContent = `${fps.toFixed(0)} fps · ${(perf.cpu / perf.frames).toFixed(1)} ms/frame`;
-      perf.t0 = now; perf.frames = 0; perf.cpu = 0; perf.worst = 0; perf.presents0 = glh.stats.presents;
+      const elapsed = now - perf.t0, fps = presents * 1000 / elapsed;
+      const sorted = perf.intervals.sort((a, b) => a - b);
+      Object.assign(window.sims3Perf, { fps, cpuMs: perf.cpu / perf.frames, worstMs: perf.worst,
+        frameMs: presents ? elapsed / presents : 0, p95Ms: sorted.length ? sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * .95))] : 0,
+        memoryMiB: exp.memory.buffer.byteLength / 1048576,
+        uploadBytesPerSecond: (glh.stats.totalUploadBytes - perf.uploads0) * 1000 / elapsed });
+      player.update(window.sims3Perf);
+      resetPerf(now);
     }
     requestAnimationFrame(frame);
   }
   if (TEST) {
     window.sims3Test = {
       step(n, drawLast = true) {
+        player.beforeFrame();
         for (let i = 0; i < n && !dead; i++) {
           vclock += 1000 / 60;
           glh.stats.skipDraws = !(drawLast && i === n - 1);

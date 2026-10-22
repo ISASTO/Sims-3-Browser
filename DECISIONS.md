@@ -102,6 +102,8 @@ Each entry lists the evidence it rests on and what would justify revisiting it.
 ## D9. Virtual device
 - An iPhone 6-class device on iOS 9.3.5, landscape, 667×375 points at @2x (1334×750 pixels).
 - The game then selects its @2x iPhone assets and layouts, which are the ones exercised in testing.
+- The browser drawable can rasterize at a different physical size while the guest retains this coordinate and
+  asset contract. See D19.
 
 ## D10. Graphics: OpenGL ES 1.1 emulated on WebGL2; complete frames presented
 - **Evidence.**
@@ -221,3 +223,25 @@ input binary; the original IPA and executable hashes remain the build gate.
 - `tools/verify_site.py` compares every reconstructed resource and the wasm against the loose build, not merely
   against metadata produced by the packer. Browser tests exercise decoding and real original gameplay.
 - Revisit pack sizing or use a worker if measured network stalls or long decompression tasks impair play.
+
+## D19. Display pixels without changing the guest device
+- The player measures the aspect-fitted game rectangle in CSS pixels and multiplies by DPR and the selected
+  resolution scale. Native is 100%; fixed presets are 85%, 67% and 50%. GPU renderbuffer/viewport limits cap it.
+- Only the EAGL drawable color and attached depth/stencil buffers scale. Guest viewport/scissor rectangles map
+  to those physical pixels, but guest GL queries return virtual coordinates. Other framebuffer targets retain
+  their own dimensions. Changing the emulated UIScreen scale would also change asset selection and layout.
+- Reallocation happens between guest frames; visible canvas backing dimensions change at the completed-frame
+  blit. ResizeObserver/resize/DPR changes feed this same path. Input remains in 667×375 points.
+- Auto uses presented rate with hysteresis and cooldowns. It starts at roughly 1080p or below and drops scale
+  after three low-rate samples. Eight high-rate samples can raise it. It does not claim to measure GPU time.
+- The shell and module imports share a content-derived query version in packaged releases, avoiding an older
+  cached GL adapter being loaded alongside a new player. Loose development files retain simple module URLs.
+
+## D20. Device shake through CoreMotion
+- The recovered `iPhoneAccelerometer` uses CMMotionManager's queue/block API, not UIKit motionBegan/motionEnded.
+- Implement that API subset and CMAccelerometerData's three-double struct return. Copy/release the handler via
+  the existing 32-bit Blocks runtime; deliver at the requested interval on the guest run loop without catch-up
+  bursts. Backgrounding cancels a pending synthetic shake.
+- A plumbob click injects a short acceleration waveform. The recompiled game decides whether it is in Gardening
+  Tips and awards its original §500. Idle samples represent a stationary device; gyro/device-motion APIs remain
+  unavailable. No browser hardware-sensor permission or direct SimData/money access is required.
