@@ -42,6 +42,10 @@ reimplements the iOS frameworks it uses.
   new Performance preset averaged 49.4 FPS (44.3–52.1), against 25.6–29.0 before at the larger resolution. CPU time
   averaged 4.62 → 4.37 ms at the same resolution. Hardware-GPU measurements remain outstanding. Raw samples are
   in `verification/performance.json`.
+- Pages deployed gameplay commit `efd96f9827cb009e5991fc7aeb9b5152d8276786` successfully (run `39780557567`). All
+  53 public release files matched the tested package by Git blob hash; resource/wasm reconstruction verification
+  passed. The final fresh-profile regression passed all render/depth/DPR/fullscreen assertions and 24 frame
+  probes. Auto's final four-sample software-renderer smoke was 49–58 FPS; selected quality survived reload.
 
 ## Inputs (verified)
 | Item | Value |

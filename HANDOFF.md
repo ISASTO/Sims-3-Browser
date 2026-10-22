@@ -63,6 +63,19 @@ for what works and `DECISIONS.md` for why it is built this way.
   within run-to-run variation. See `verification/performance.json` for samples. These are not hardware-GPU FPS
   guarantees. Hardware-backed Chrome, Firefox and Safari still need a measured pass.
 
+### Current published player verification
+- Gameplay commit `efd96f9827cb009e5991fc7aeb9b5152d8276786`, source commit
+  `e9c6361277f23205fa79f504de48391e7f49e198`, Pages run `39780557567`: deployment succeeded.
+- Downloaded all 53 public release files (136,207,293 bytes) with normal TLS verification. Every Git blob hash
+  matched the tested package. Reconstructed all 1,265 resources and compared the wasm against the local build;
+  all passed. Host module version: `935157e8d0099e54`.
+- The final fresh-profile `player_controls.json` replay passed, including all 24 consecutive frame probes
+  (9/9 lit locations each). Visually checked the restored world, §500 reward and portrait pause-menu input.
+  A separate DPR-2 CAS capture showed the character and mirror correctly.
+- A final real-time Auto smoke test on the static project prefix sampled 49–58 FPS at an adaptive 688×387
+  render size with metrics open. Background/resume and a selected Balanced preference surviving reload passed.
+  This four-sample smoke is separate from the fixed-resolution comparison above.
+
 ### Initial published delivery verification
 - Pages successfully deployed gameplay commit `a3c47f42e2cb7cd91c707d0ec41fc50e789f10f7` in Actions run
   `39773079079` (2026-10-22).
