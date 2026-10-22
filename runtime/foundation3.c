@@ -368,7 +368,20 @@ static void ur_URLByAppendingPathComponent_dir(CPU *c) { RET(msg(c, SELF, "URLBy
 static void ur_fragment(CPU *c) { const char *s = nsstr_cstr(msg(c, SELF, "absoluteString", 0)); const char *h = strchr(s, '#'); RET(h ? nsstr(h + 1) : 0); }
 static void ur_resourceSpecifier(CPU *c) { const char *s = nsstr_cstr(msg(c, SELF, "absoluteString", 0)); const char *h = strchr(s, ':'); RET(h ? nsstr(h + 1) : 0); }
 
+/* NSCopying for immutable value classes: a copy of an immutable object is the object itself (+1), as in Foundation.
+   (Mutable subclasses such as NSMutableCharacterSet are not in this list: their copies must be distinct.) */
+static void imm_copy(CPU *c) { RET(rt_retain(c, SELF)); }
+static void add_immutable_copying(void) {
+    static const char *const cls[] = { "NSDate", "NSValue", "NSNull", "NSUUID", "__NSCFUUID", "NSLocale", "NSTimeZone",
+        "NSError", "NSNotification", "UIColor", "UIFont", "NSRegularExpression", "NSTextCheckingResult", "NSPredicate" };
+    for (unsigned i = 0; i < sizeof cls / sizeof cls[0]; i++) {
+        gptr k = objc_class_named(cls[i]);
+        if (k && !objc_lookup_imp(k, sel_get("copyWithZone:"))) host_method(k, "copyWithZone:", "", imm_copy);
+    }
+}
+
 void foundation_sdk_init(void) {
+    add_immutable_copying();
     gptr JS = host_class("NSJSONSerialization", "NSObject", 4);
     host_cmethod(JS, "JSONObjectWithData:options:error:", "", js_JSONObjectWithData);
     host_cmethod(JS, "dataWithJSONObject:options:error:", "", js_dataWithJSONObject);

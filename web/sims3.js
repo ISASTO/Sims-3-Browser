@@ -534,6 +534,7 @@ async function main() {
   window.sims3Perf = { fps: 0, cpuMs: 0, worstMs: 0, presents: () => glh.stats.presents, stats };
   window.sims3GL = glh.stats;
   window.sims3Audio = audioStats; window.sims3AudioStreams = streams;
+  window.sims3Home = () => Object.fromEntries([...home].map(([k, v]) => [k, v.length]));   // saved files and sizes (diagnostics)
   window.sims3AudioLevel = () => {   // RMS of what is reaching the output right now, plus the context state
     if (!ameter) return { state: 'none', rms: 0 };
     const d = new Float32Array(ameter.fftSize); ameter.getFloatTimeDomainData(d);

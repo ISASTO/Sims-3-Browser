@@ -353,7 +353,6 @@ static void ar_countByEnumerating(CPU *c) {
     Arr *a = AA(c, SELF); gptr st = ARG(2);
     uint32_t idx = LD32(st);
     if (idx == 0) { ST32(st + 8, SELF + 0); }
-    if (rt_verbose) rt_log("fastenum %08x st=%08x idx=%u n=%u mptr=%08x *mptr=%08x", SELF, st, idx, a->n, LD32(st + 8), LD32(LD32(st + 8)));
     if (idx >= a->n) { RET(0); return; }
     /* hand out a guest copy of the remaining items */
     uint32_t n = a->n - idx, max = ARG(4) ? ARG(4) : 16; if (n > max) n = max;
@@ -375,6 +374,16 @@ static void en_dtor(void *p) { free(((Enum *)p)->v); }
 static gptr make_enum(const gptr *v, uint32_t n) { gptr e = objc_alloc_instance(cls_NSArrayEnum, 0); Enum *s = hostdata_ensure(e, sizeof(Enum), en_dtor); s->v = malloc(n * 4 + 4); memcpy(s->v, v, n * 4); s->n = n; return objc_autorelease_(e); }
 static void en_nextObject(CPU *c) { Enum *e = hostdata(SELF); RET(e && e->i < e->n ? e->v[e->i++] : 0); }
 static void en_allObjects(CPU *c) { Enum *e = hostdata(SELF); RET(nsarray_new(e->v + e->i, e->n - e->i, false, false)); }
+/* NSEnumerator conforms to NSFastEnumeration: hand out up to len objects from successive -nextObject calls (this
+   works for the host enumerators and for guest NSEnumerator subclasses alike) */
+static void en_countByEnumerating(CPU *c) {
+    gptr self = SELF, st = ARG(2), buf = ARG(3); uint32_t len = ARG(4) ? ARG(4) : 1;
+    if (!LD32(st)) { ST32(st, 1); ST32(st + 8, self); }   /* mutationsPtr: the enumerator's isa (never changes) */
+    uint32_t n = 0;
+    while (n < len) { gptr o = msg(c, self, "nextObject", 0); if (!o) break; ST32(buf + 4 * n, o); n++; }
+    ST32(st + 4, buf);
+    RET(n);
+}
 static void ar_objectEnumerator(CPU *c) { Arr *a = AA(c, SELF); RET(make_enum(a->v, a->n)); }
 static void ar_reverseObjectEnumerator(CPU *c) { Arr *a = AA(c, SELF); gptr *t = malloc(a->n * 4 + 4); for (uint32_t i = 0; i < a->n; i++) t[i] = a->v[a->n - 1 - i]; RET(make_enum(t, a->n)); free(t); }
 
@@ -597,8 +606,9 @@ void foundation_init(void) {
 
     cls_NSArray = host_class("NSArray", "NSObject", 4);
     cls_NSMutableArray = host_class("NSMutableArray", "NSArray", 4);
-    cls_NSArrayEnum = host_class("__NSFastEnumerationEnumerator", "NSObject", 4);
     cls_NSEnumerator = host_class("NSEnumerator", "NSObject", 4);
+    cls_NSArrayEnum = host_class("__NSFastEnumerationEnumerator", "NSEnumerator", 4);
+    M(cls_NSEnumerator, "countByEnumeratingWithState:objects:count:", en_countByEnumerating);
     gptr Ar = cls_NSArray;
     CM(Ar, "array", ar_array); CM(Ar, "arrayWithObject:", ar_arrayWithObject); CM(Ar, "arrayWithObjects:count:", ar_arrayWithObjects_count);
     CM(Ar, "arrayWithObjects:", ar_arrayWithObjects); CM(Ar, "arrayWithArray:", ar_arrayWithArray); CM(Ar, "alloc", ar_alloc); CM(Ar, "allocWithZone:", ar_alloc);

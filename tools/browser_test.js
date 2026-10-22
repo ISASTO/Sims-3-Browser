@@ -4,7 +4,7 @@
 // Usage: NODE_PATH=/opt/npm-tools/node_modules node tools/browser_test.js [url] [outdir] [--script steps.json]
 //   steps.json: [{"wait": ms}, {"tap": [x, y]}, {"drag": [x0, y0, x1, y1, ms]}, {"shot": "name"}, {"perf": ms},
 //                {"type": "text"}, {"key": "Enter"}, {"reload": true}, {"eval": "js expression"},
-//                {"files": [selector, path...]}, {"click": selector}]
+//                {"files": [selector, path...]}, {"click": selector}, {"background": ms}]
 //   (coordinates in game points, 667 x 375)
 const { chromium } = require('playwright');
 const fs = require('fs');
@@ -68,6 +68,10 @@ fs.mkdirSync(out, { recursive: true });
     if (s.type) await page.keyboard.type(s.type, { delay: 60 });
     if (s.key) await page.keyboard.press(s.key);
     if (s.reload) { await page.reload(); }
+    if (s.background !== undefined) {   // simulate switching away from the tab and back (visibilitychange)
+      const setHidden = (h) => page.evaluate((h) => { Object.defineProperty(document, 'hidden', { value: h, configurable: true }); Object.defineProperty(document, 'visibilityState', { value: h ? 'hidden' : 'visible', configurable: true }); document.dispatchEvent(new Event('visibilitychange')); }, h);
+      await setHidden(true); await page.waitForTimeout(s.background || 500); await setHidden(false);
+    }
     if (s.eval) console.log('eval', JSON.stringify(await page.evaluate(s.eval)));
     if (s.shot) { await page.screenshot({ path: path.join(out, s.shot + '.png') }); console.log(`[${((Date.now() - t0) / 1000).toFixed(1)}s] shot ${s.shot}`); }
     if (s.perf) {
