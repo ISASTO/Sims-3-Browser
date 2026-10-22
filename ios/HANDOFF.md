@@ -15,6 +15,18 @@ for what works and `DECISIONS.md` for why it is built this way.
   release contains the compiled runtime and the resources needed to play.
 - Local development servers bind to 127.0.0.1 by default.
 
+### Current published speed verification
+- Gameplay commit `8020f528932936c55d58e04fe56f5354e7c8b8b6`, source commit
+  `3c950ccd344ea2577ce7beeadb841b38e6dc24fb`, Pages run `39852839506`: deployment succeeded.
+- Downloaded all **53 public release files / 134,292,962 bytes** using normal TLS certificate validation. Every
+  Git blob hash matched the tested package. Reconstructed all 1,263 original resources and the WebAssembly module
+  byte for byte against the original input/local build.
+- The final exact-release fresh-profile run passed **56 assertions and 48 complete-frame probes** (9/9 lit sample
+  locations each). Seven clock unit cases and eight ordinary real-time assertions also passed. Original game-clock
+  progression, paused menus, input timing, audio recovery and confirmed saved §1,190/content records were checked.
+- Visually reviewed the ordinary-play 1×/8× clock captures, metrics view, deterministic 8× world and reloaded
+  household. Hardware GPU and Firefox/Safari limitations remain unchanged. Evidence: `verification/speed-controls.json`.
+
 ### Fast-forward and superspeed (2026-10-22)
 - The player **Speed** selector offers Normal 1×, Fast-forward 2× and Superspeed 4×/8×. Reload starts at 1×.
   The selected boost applies to a loaded, active world. Loading, pause/context/hint menus, the content dialog,

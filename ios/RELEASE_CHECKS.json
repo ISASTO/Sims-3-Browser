@@ -283,6 +283,20 @@
     "real_time_native_clock_verified": true,
     "evidence": "verification/speed-controls.json",
     "release_files": 53,
-    "release_bytes": 134292962
+    "release_bytes": 134292962,
+    "regression_status": "passed"
+  },
+  "published_delivery": {
+    "gameplay_commit": "8020f528932936c55d58e04fe56f5354e7c8b8b6",
+    "source_commit": "3c950ccd344ea2577ce7beeadb841b38e6dc24fb",
+    "pages_run": 39852839506,
+    "status": "success",
+    "url": "https://isasto.github.io/Sims-3-Browser/ios/play/",
+    "files": 53,
+    "bytes": 134292962,
+    "all_git_blob_hashes_match": true,
+    "original_resources_and_wasm_match": true,
+    "tls_verification": "curl default certificate validation; no bypass",
+    "host_version": "d19471246feccb68"
   }
 }
