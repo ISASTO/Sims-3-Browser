@@ -3,17 +3,17 @@
   "base_ios_commit": "e12d028823675b8d70fc64a55cbc2be30b945409",
   "input_sha256": "8820bd6221c288d3d2d413ccd013b2300276a22c55cdaa14399af18b745c55aa",
   "runtime": {
-    "url": "game-code-f71cbc6d842f1374.bin",
+    "url": "game-code-da0c477701c0a1bf.bin",
     "encoding": "gzip",
-    "bytes": 13703075,
-    "sha256": "f71cbc6d842f1374b02f4e97bc61263e9d73b89f8abb937abedd3d37c0067b5e"
+    "bytes": 13703647,
+    "sha256": "da0c477701c0a1bf33956555d4b08026ed3c54df5d174ec43eb74e250e826b83"
   },
   "packaged_resources": 1263,
   "packs": 35,
   "packaging": "complete original resource inventory, each resource and wasm verified byte for byte; excludes file-sync staging artifacts",
   "browser": "Chrome Headless Shell 141.0.7390.37, Playwright 1.56.0, SwiftShader",
   "browser_mode": "single-process, no-zygote, in-process-gpu; local testing flags only",
-  "test": "tools/tests/mouse_controls.json",
+  "test": "tools/tests/speed_controls.json",
   "tested_path": [
     "new game",
     "Create-A-Sim",
@@ -60,7 +60,7 @@
     "note": "Local Chromium with WebGL2 passed gameplay. Public files were independently downloaded and hash checked."
   },
   "screenshot": "verification/gameplay.png",
-  "host_version": "82aa5b93427b90f8",
+  "host_version": "d19471246feccb68",
   "player_pass": {
     "presets": [
       "Auto",
@@ -168,18 +168,6 @@
     "tls_verification": "curl default certificate validation; no bypass",
     "host_version": "935157e8d0099e54"
   },
-  "published_delivery": {
-    "gameplay_commit": "11a7e4c0366f20a97e78f270cc626fbae7a4e08e",
-    "source_commit": "2e173464bb275d5ca388a97d8128febe735b1a82",
-    "pages_run": 39820638134,
-    "status": "success",
-    "url": "https://isasto.github.io/Sims-3-Browser/ios/play/",
-    "files": 52,
-    "bytes": 134287801,
-    "all_git_blob_hashes_match": true,
-    "tls_verification": "curl default certificate validation; no bypass",
-    "host_version": "82aa5b93427b90f8"
-  },
   "mouse_and_content_pass": {
     "date": "2026-10-22",
     "script": "tools/tests/mouse_controls.json",
@@ -261,5 +249,40 @@
       "wheel_and_double_hold_captures": "visually reviewed",
       "samples_are_not_hardware_benchmark": true
     }
+  },
+  "previous_mouse_delivery": {
+    "gameplay_commit": "11a7e4c0366f20a97e78f270cc626fbae7a4e08e",
+    "source_commit": "2e173464bb275d5ca388a97d8128febe735b1a82",
+    "pages_run": 39820638134,
+    "status": "success",
+    "url": "https://isasto.github.io/Sims-3-Browser/ios/play/",
+    "files": 52,
+    "bytes": 134287801,
+    "all_git_blob_hashes_match": true,
+    "tls_verification": "curl default certificate validation; no bypass",
+    "host_version": "82aa5b93427b90f8"
+  },
+  "speed_pass": {
+    "options": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "normal_on_reload": true,
+    "both_monotonic_and_epoch_clocks_scaled": true,
+    "controls_and_menus_normal": true,
+    "bounded_steps": 16,
+    "extra_step_budget_ms": 12,
+    "hidden_tab_catchup": false,
+    "draw_coalescing": "original EAGLView.draw without another simulation update",
+    "audio": "muted while accelerating; consume bounded stream metadata; restore normal audio without backlog",
+    "browser_assertions": 56,
+    "complete_frame_probes": 48,
+    "unit_cases": 7,
+    "real_time_native_clock_verified": true,
+    "evidence": "verification/speed-controls.json",
+    "release_files": 53,
+    "release_bytes": 134292962
   }
 }

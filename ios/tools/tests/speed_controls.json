@@ -1,0 +1,302 @@
+[
+  {
+    "include": "mouse_controls.json"
+  },
+  {
+    "reload": true
+  },
+  {
+    "waitBoot": true
+  },
+  {
+    "frames": 1600
+  },
+  {
+    "ftap": [
+      450,
+      182
+    ]
+  },
+  {
+    "frames": 235
+  },
+  {
+    "ftap": [
+      226,
+      158
+    ]
+  },
+  {
+    "frames": 1800
+  },
+  {
+    "eval": "window.speedSnapshot=()=>{const d=sims3Test.memory(),app=d.getUint32(0x2c2424,true),sim=d.getUint32(app+0x5b4,true);return {minutes:d.getInt32(sim+0x78c,true),time:sims3Speed.time,wall:sims3Test.wallTime(),active:sims3Speed.active,blocked:sims3Speed.blocked,muted:sims3Speed.audioMuted,steps:sims3Speed.steps,limited:sims3Speed.limited,chunks:[...sims3AudioStreams.values()].map(s=>({running:s.running,chunks:s.chunks.length,queued:s.queued,base:s.base,nodes:s.chunks.filter(c=>c.node).length,buffers:s.chunks.filter(c=>c.b).length}))};};window.speedSamples=[];speedSnapshot()"
+  },
+  {
+    "assert": "document.querySelector('#speed').value==='1' && speedSnapshot().active===1 && !speedSnapshot().muted"
+  },
+  {
+    "select": [
+      "#speed",
+      "1"
+    ]
+  },
+  {
+    "eval": "window.speedBefore=speedSnapshot()"
+  },
+  {
+    "frames": 120
+  },
+  {
+    "eval": "window.speedEnd=speedSnapshot();speedSamples.push({rate:1,minutes:speedEnd.minutes-speedBefore.minutes,clockRatio:(speedEnd.time-speedBefore.time)/(speedEnd.wall-speedBefore.wall),state:speedEnd});speedSamples.at(-1)"
+  },
+  {
+    "assert": "Math.abs(speedSamples.at(-1).clockRatio-1)<.0001 && Math.abs(speedSamples.at(-1).minutes-2)<=1 && speedEnd.active===1 && speedEnd.muted===false"
+  },
+  {
+    "shot": "speed_1"
+  },
+  {
+    "select": [
+      "#speed",
+      "2"
+    ]
+  },
+  {
+    "eval": "window.speedBefore=speedSnapshot()"
+  },
+  {
+    "frames": 120
+  },
+  {
+    "eval": "window.speedEnd=speedSnapshot();speedSamples.push({rate:2,minutes:speedEnd.minutes-speedBefore.minutes,clockRatio:(speedEnd.time-speedBefore.time)/(speedEnd.wall-speedBefore.wall),state:speedEnd});speedSamples.at(-1)"
+  },
+  {
+    "assert": "Math.abs(speedSamples.at(-1).clockRatio-2)<.0001 && Math.abs(speedSamples.at(-1).minutes-4)<=1 && speedEnd.active===2 && speedEnd.muted===true"
+  },
+  {
+    "shot": "speed_2"
+  },
+  {
+    "select": [
+      "#speed",
+      "4"
+    ]
+  },
+  {
+    "eval": "window.speedBefore=speedSnapshot()"
+  },
+  {
+    "frames": 120
+  },
+  {
+    "eval": "window.speedEnd=speedSnapshot();speedSamples.push({rate:4,minutes:speedEnd.minutes-speedBefore.minutes,clockRatio:(speedEnd.time-speedBefore.time)/(speedEnd.wall-speedBefore.wall),state:speedEnd});speedSamples.at(-1)"
+  },
+  {
+    "assert": "Math.abs(speedSamples.at(-1).clockRatio-4)<.0001 && Math.abs(speedSamples.at(-1).minutes-8)<=1 && speedEnd.active===4 && speedEnd.muted===true"
+  },
+  {
+    "shot": "speed_4"
+  },
+  {
+    "select": [
+      "#speed",
+      "8"
+    ]
+  },
+  {
+    "eval": "window.speedBefore=speedSnapshot()"
+  },
+  {
+    "frames": 120
+  },
+  {
+    "eval": "window.speedEnd=speedSnapshot();speedSamples.push({rate:8,minutes:speedEnd.minutes-speedBefore.minutes,clockRatio:(speedEnd.time-speedBefore.time)/(speedEnd.wall-speedBefore.wall),state:speedEnd});speedSamples.at(-1)"
+  },
+  {
+    "assert": "Math.abs(speedSamples.at(-1).clockRatio-8)<.0001 && Math.abs(speedSamples.at(-1).minutes-16)<=1 && speedEnd.active===8 && speedEnd.muted===true"
+  },
+  {
+    "shot": "speed_8"
+  },
+  {
+    "assert": "speedSnapshot().chunks.every(s=>s.chunks<=8 && s.nodes===0 && s.buffers===0)"
+  },
+  {
+    "eval": "window.speedPresents=sims3GL.presents;window.speedFrameSamples=Array.from({length:24},()=>{sims3Test.step(1);const g=document.querySelector('#screen').getContext('webgl2'),p=new Uint8Array(4);let lit=0;for(const x of [.15,.5,.85])for(const y of [.15,.5,.85]){g.readPixels(Math.round(x*sims3Display.width),Math.round(y*sims3Display.height),1,1,g.RGBA,g.UNSIGNED_BYTE,p);if(p[0]+p[1]+p[2]>6)lit++;}return lit;});speedFrameSamples"
+  },
+  {
+    "assert": "speedFrameSamples.every(n=>n>=6) && sims3GL.presents-speedPresents<=24 && sims3GL.skippedPresents>0"
+  },
+  {
+    "eval": "window.pointerSpeedBefore=speedSnapshot();sims3Test.takeInputTrace()"
+  },
+  {
+    "pointer": [
+      "down",
+      400,
+      120
+    ],
+    "right": true
+  },
+  {
+    "frames": 12
+  },
+  {
+    "assert": "Math.abs((speedSnapshot().time-pointerSpeedBefore.time)/(speedSnapshot().wall-pointerSpeedBefore.wall)-1)<.0001 && sims3Speed.blocked"
+  },
+  {
+    "pointer": [
+      "up"
+    ],
+    "right": true
+  },
+  {
+    "frames": 90
+  },
+  {
+    "eval": "window.heldTrace=sims3Test.takeInputTrace();heldTrace"
+  },
+  {
+    "assert": "[1000001,1000002].every(id=>heldTrace.some(e=>e.id===id&&e.type===0)&&heldTrace.some(e=>e.id===id&&e.type===2))"
+  },
+  {
+    "fdrag": [
+      400,
+      120,
+      470,
+      140,
+      30
+    ],
+    "double": true
+  },
+  {
+    "frames": 90
+  },
+  {
+    "eval": "window.doubleSpeedTrace=sims3Test.takeInputTrace();doubleSpeedTrace"
+  },
+  {
+    "assert": "[1000001,1000002].every(id=>doubleSpeedTrace.some(e=>e.id===id&&e.type===0)&&doubleSpeedTrace.some(e=>e.id===id&&e.type===1)&&doubleSpeedTrace.some(e=>e.id===id&&e.type===2))"
+  },
+  {
+    "shot": "speed_mouse_controls"
+  },
+  {
+    "ftap": [
+      30,
+      345
+    ]
+  },
+  {
+    "frames": 90
+  },
+  {
+    "eval": "window.pauseSpeedBefore=speedSnapshot()"
+  },
+  {
+    "frames": 120
+  },
+  {
+    "assert": "sims3Speed.blocked && sims3Speed.active===1 && Math.abs((speedSnapshot().time-pauseSpeedBefore.time)/(speedSnapshot().wall-pauseSpeedBefore.wall)-1)<.0001 && speedSnapshot().minutes===pauseSpeedBefore.minutes"
+  },
+  {
+    "shot": "speed_pause"
+  },
+  {
+    "ftap": [
+      333,
+      238
+    ]
+  },
+  {
+    "frames": 180
+  },
+  {
+    "ftap": [
+      382,
+      232
+    ]
+  },
+  {
+    "frames": 180
+  },
+  {
+    "background": 250
+  },
+  {
+    "frames": 1
+  },
+  {
+    "assert": "sims3Speed.active===1 && !sims3Speed.audioMuted && sims3Home()['Documents/sim3dat0']>0"
+  },
+  {
+    "reload": true
+  },
+  {
+    "waitBoot": true
+  },
+  {
+    "frames": 1600
+  },
+  {
+    "assert": "document.querySelector('#speed').value==='1' && sims3Speed.requested===1 && sims3Speed.active===1"
+  },
+  {
+    "select": [
+      "#speed",
+      "8"
+    ]
+  },
+  {
+    "eval": "window.menuSpeedBefore=sims3Speed.time;window.menuWallBefore=sims3Test.wallTime()"
+  },
+  {
+    "frames": 120
+  },
+  {
+    "assert": "sims3Speed.blocked && sims3Speed.active===1 && Math.abs((sims3Speed.time-menuSpeedBefore)/(sims3Test.wallTime()-menuWallBefore)-1)<.0001"
+  },
+  {
+    "ftap": [
+      450,
+      182
+    ]
+  },
+  {
+    "frames": 235
+  },
+  {
+    "ftap": [
+      226,
+      158
+    ]
+  },
+  {
+    "frames": 1800
+  },
+  {
+    "select": [
+      "#speed",
+      "1"
+    ]
+  },
+  {
+    "frames": 60
+  },
+  {
+    "eval": "window.speedSnapshot=()=>{const d=sims3Test.memory(),app=d.getUint32(0x2c2424,true),sim=d.getUint32(app+0x5b4,true);return {minutes:d.getInt32(sim+0x78c,true),time:sims3Speed.time,wall:sims3Test.wallTime(),active:sims3Speed.active,blocked:sims3Speed.blocked,muted:sims3Speed.audioMuted,steps:sims3Speed.steps,limited:sims3Speed.limited,chunks:[...sims3AudioStreams.values()].map(s=>({running:s.running,chunks:s.chunks.length,queued:s.queued,base:s.base,nodes:s.chunks.filter(c=>c.node).length,buffers:s.chunks.filter(c=>c.b).length}))};};window.speedSamples=[];speedSnapshot()"
+  },
+  {
+    "eval": "window.savedSpeedState=(()=>{const d=sims3Test.memory(),app=d.getUint32(0x2c2424,true),sim=d.getUint32(app+0x5b4,true);return {money:d.getInt32(sim+0x790,true),packs:d.getUint32(0x2c2570+0x2c,true),bonus:d.getUint8(app+0x55c),clock:speedSnapshot()};})();savedSpeedState"
+  },
+  {
+    "assert": "savedSpeedState.money===1190 && savedSpeedState.packs===15 && savedSpeedState.bonus===1 && !sims3Speed.audioMuted && sims3Speed.active===1"
+  },
+  {
+    "assert": "speedSnapshot().chunks.every(s=>s.chunks<=8) && speedSnapshot().chunks.some(s=>s.running&&s.nodes>0&&s.buffers>0)"
+  },
+  {
+    "shot": "speed_saved_household"
+  }
+]

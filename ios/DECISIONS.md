@@ -266,3 +266,17 @@ input binary; the original IPA and executable hashes remain the build gate.
   authoritative for its records. Verify the original records and a confirmed saved household after reload.
 - Exclude sync staging artifacts from both loose and packed resource indexes, and assert the full resource set
   during release verification so local workspace files cannot silently change the distributed bundle.
+
+## D23. Accelerate original simulation with bounded work and complete presentation
+- Use one shared virtual timeline for monotonic and epoch APIs. The original midp clock wraps `gettimeofday`,
+  so scaling only browser timer timestamps fails in ordinary play even if deterministic tests pass. Retain a real
+  boot epoch, then advance both clock APIs by simulation elapsed time; keep physical input and media clocks separate.
+- Normal speed runs once per display callback. Boosts advance the original run loop with steps no larger than
+  16.67 ms, a 12 ms extra-step budget and a hard 16-step cap. Drop unused time rather than accumulating debt.
+  Loading/modal/pause/inactive states and held interactions temporarily use 1×. Reload defaults to 1×.
+- Skip intermediate graphics submission, then coalesce any skipped native paint into one original EAGLView.draw
+  if the last update did not itself present. Redraw does not advance time. Count actual presentations for FPS.
+- Mute game audio during accelerated simulation. Consume stream metadata using simulation time without allocating
+  PCM buffers; discard scheduled sound on transitions and restore normal-time playback without a queued tail.
+- Test the original SimData clock under both deterministic and ordinary real-time play. Check visible frames,
+  interactions, pause/background behavior, audio recovery and confirmed save/reload, not only host timer ratios.

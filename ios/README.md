@@ -22,6 +22,11 @@ and house-upgrade eligibility. Items still cost Simoleons; goals, skills and mon
 persist in this browser. Software-renderer tests averaged about 28 FPS at 1334×750 and 49 FPS at 667×375; these are not
 hardware-GPU measurements.
 
+The **Speed** selector adds **Fast-forward 2×** and **Superspeed 4×/8×**. It accelerates the original simulation,
+including its game clock. Menus and held mouse/touch controls stay at normal speed. Game audio mutes during
+acceleration and resumes at 1×; selected music files play normally. Metrics show the achieved simulation rate,
+which depends on available CPU time. Reloading always starts at normal speed.
+
 The source branch keeps these files at its root. On `main`, they live in `ios/`, and the published build lives
 in `ios/play/`. The earlier Android prototype and analysis remain elsewhere in the repository.
 

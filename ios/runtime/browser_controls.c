@@ -35,6 +35,14 @@ static gptr scene_game(gptr app) {
     return app && LD32(app + 0x4f8) == 2 ? LD32(app + 0x48) : 0;
 }
 
+/* Accelerate live simulation, including sleep/actions; keep loading, pause and modal UI at 1x. */
+__attribute__((export_name("sims3_speed_available")))
+int sims3_speed_available(void) {
+    gptr scene = scene_game(engine());
+    return scene && LD32(scene + 0x2c) && LD32(scene + 0x1ec) == 6 &&
+        !LD8(scene + 0x680) && !LD8(scene + 0x208) && !LD8(scene + 0x636) && !LD8(scene + 0x244);
+}
+
 __attribute__((export_name("sims3_zoom_bar")))
 gptr sims3_zoom_bar(void) {
     gptr scene = scene_game(engine());

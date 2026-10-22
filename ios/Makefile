@@ -46,9 +46,9 @@ build/web/sims3.wasm: $(WASM_GEN_OBJ) $(WASM_RT_OBJ)
 	@mkdir -p $(dir $@)
 	$(WASM_CC) $(WASM_LDFLAGS) -nostartfiles $(WASI_SYSROOT)/lib/wasm32-wasi/crt1-reactor.o -Wl,--no-entry -Wl,--export=_initialize -o $@ $^ -lm -Wl,--global-base=16777216 -Wl,-z,stack-size=8388608 \
 	  -Wl,--initial-memory=67108864 -Wl,--max-memory=4294967296 -Wl,--export=sims3_boot -Wl,--export=sims3_set_verbose -Wl,--export=sims3_frame \
-  -Wl,--export=sims3_touch -Wl,--export=sims3_shake -Wl,--export=sims3_zoom_bar -Wl,--export=sims3_orbit_hint -Wl,--export=sims3_content_mode -Wl,--export=sims3_unlock_all -Wl,--export=sims3_unlock_status \
+  -Wl,--export=sims3_touch -Wl,--export=sims3_shake -Wl,--export=sims3_zoom_bar -Wl,--export=sims3_orbit_hint -Wl,--export=sims3_speed_available -Wl,--export=sims3_redraw -Wl,--export=sims3_content_mode -Wl,--export=sims3_unlock_all -Wl,--export=sims3_unlock_status \
   -Wl,--export=sims3_lifecycle -Wl,--export=sims3_text_event -Wl,--export=sims3_ui_action -Wl,--export=sims3_media_picked -Wl,--export=malloc -Wl,--export=free
-WEB_FILES = index.html sims3.js gl.js player.js vendor/fflate.js vendor/fflate-LICENSE.txt
+WEB_FILES = index.html sims3.js gl.js player.js simulation.js vendor/fflate.js vendor/fflate-LICENSE.txt
 $(addprefix build/web/,$(WEB_FILES)): build/web/%: web/%
 	@mkdir -p $(dir $@)
 	cp $< $@

@@ -7,6 +7,7 @@
 'use strict';
 import { createGL } from './gl.js';
 import { createPlayer } from './player.js';
+import { SimulationClock } from './simulation.js';
 import { gunzipSync } from './vendor/fflate.js';
 
 const POINTS_W = 667, POINTS_H = 375;           // virtual device: iPhone 6 class, landscape, @2x
@@ -20,7 +21,11 @@ let inst = null, exp = null;
 // time through window.sims3Test.step(), optionally skipping draw submission for frames it does not capture.
 const TEST = new URLSearchParams(location.search).has('test');
 let vclock = TEST ? 0 : null;
+let tclock = 0, simulation = null;
+const gameNow = () => simulation ? simulation.now : vclock !== null ? vclock : performance.now();
+const inputNow = () => TEST ? tclock : performance.now();
 // test mode is reproducible: a fixed wall-clock origin and a seeded random source (normal play uses the real ones)
+const clock0 = TEST ? 0 : performance.now();
 const wall0 = TEST ? Date.UTC(2026, 0, 15, 12, 0, 0) : Date.now();
 let testSeed = 0x2545F491;
 const testRandom = (u8) => { for (let i = 0; i < u8.length; i++) { testSeed ^= testSeed << 13; testSeed ^= testSeed >>> 17; testSeed ^= testSeed << 5; u8[i] = testSeed & 0xff; } };
@@ -132,8 +137,10 @@ function homeParents(rel) { const parts = rel.split('/'); for (let i = 1; i < pa
 const env = {
   js_console: (p) => log(cstr(p)),
   js_fatal: (p) => fatal(cstr(p)),
-  js_now: () => vclock !== null ? vclock : performance.now(),
-  js_wall: () => vclock !== null ? wall0 + vclock : Date.now(),
+  js_now: gameNow,
+  // midp::System::currentTimeMillis uses gettimeofday, while iOS timers use monotonic time.
+  // Both clocks must follow the same simulation timeline in ordinary play as well as tests.
+  js_wall: () => wall0 + gameNow() - clock0,
   js_tz_offset_min: (ms) => -new Date(ms).getTimezoneOffset(),
   js_file_size: (pp) => {
     const path = cstr(pp); let r = relBundle(path);
@@ -302,11 +309,13 @@ const text = {
 
 // ------------------------------------------------------------------ audio (WebAudio)
 let actx = null, master = null, ameter = null;
+let fastAudio = false;
 const abufs = new Map(), asrcs = new Map(), streams = new Map();
 function ac() {
   if (!actx) {
     actx = new (window.AudioContext || window.webkitAudioContext)({ latencyHint: 'interactive' });
     master = actx.createGain(); ameter = actx.createAnalyser(); ameter.fftSize = 2048;
+    master.gain.value = fastAudio ? 0 : 1;
     master.connect(ameter); ameter.connect(actx.destination);   // the analyser passes audio through; it feeds sims3AudioLevel()
   }
   return actx;
@@ -316,18 +325,28 @@ const audioStats = { buffers: 0, plays: 0, streams: 0, pcmFrames: 0, chunks: 0, 
 // on the AudioContext timeline and reports how many frames the device has played. In ?test mode the position follows
 // the virtual clock so that buffer callbacks stay deterministic.
 const LEAD = 0.05;
-const sclock = () => (TEST ? vclock / 1000 : ac().currentTime);
+const sclock = () => (TEST ? vclock / 1000 : fastAudio ? gameNow() / 1000 : ac().currentTime);
 function sPlayed(s) {
   if (!s.running) return s.base;   // a suspended AudioContext's currentTime does not advance
   return Math.min(s.queued, s.base + Math.max(0, sclock() - s.anchor) * s.rate);
 }
 function sSchedule(s, ck, fromFrame) {
+  if (fastAudio || !ck.b) return;
   const ctx = ac(), n = ctx.createBufferSource();
   n.buffer = ck.b; n.connect(s.g);
   const t = Math.max(s.schedEnd, ctx.currentTime + LEAD), off = Math.max(0, fromFrame - ck.start) / s.rate;
   n.start(t, off); ck.node = n; s.schedEnd = t + ck.frames / s.rate - off;
 }
 function sHalt(s) { for (const ck of s.chunks) if (ck.node) { try { ck.node.stop(); } catch (e) {} ck.node.disconnect(); ck.node = null; } s.schedEnd = 0; }
+function setFastAudio(on) {
+  if (fastAudio === on) return;
+  // Drop queued sound on both edges, then re-anchor the playback cursor to its new clock.
+  // Muted streams still consume in simulation time, so AudioQueue callbacks cannot build a backlog.
+  for (const s of streams.values()) { sHalt(s); s.base = s.queued; s.chunks.length = 0; }
+  fastAudio = on;
+  if (master) master.gain.value = on ? 0 : 1;
+  for (const s of streams.values()) s.anchor = sclock() + LEAD;
+}
 // ------------------------------------------------------------------ device music library (MediaPlayer framework)
 // The picker panel (ui kind 12) lets the user choose audio files from this computer; the system music player plays
 // them with an audio element outside the game's audio graph; the now-playing chip stands in for the system's
@@ -438,8 +457,12 @@ const audio = {
   },
   stream_pcm: (q, p, frames) => {
     const s = streams.get(q); if (!s || frames <= 0) return;
-    const ctx = ac(), b = ctx.createBuffer(s.ch, frames, s.rate), src = new Int16Array(mem.buffer, p, frames * s.ch);
-    for (let c = 0; c < s.ch; c++) { const out = b.getChannelData(c); for (let i = 0, j = c; i < frames; i++, j += s.ch) out[i] = src[j] / 32768; }
+    let b = null;
+    if (!fastAudio) {
+      b = ac().createBuffer(s.ch, frames, s.rate);
+      const src = new Int16Array(mem.buffer, p, frames * s.ch);
+      for (let c = 0; c < s.ch; c++) { const out = b.getChannelData(c); for (let i = 0, j = c; i < frames; i++, j += s.ch) out[i] = src[j] / 32768; }
+    }
     const played = sPlayed(s);
     if (s.running && played >= s.queued) { if (s.queued > 0) audioStats.underruns++; s.base = s.queued; s.anchor = sclock() + LEAD; }
     while (s.chunks.length && s.chunks[0].start + s.chunks[0].frames <= played) s.chunks.shift();
@@ -503,7 +526,7 @@ function zoomBar() {
 }
 function setupInput(canvas) {
   const pt = (ev) => { const r = canvas.getBoundingClientRect(); return [(ev.clientX - r.left) / r.width * POINTS_W, (ev.clientY - r.top) / r.height * POINTS_H]; };
-  const clock = () => env.js_now();
+  const clock = inputNow;
   const down = new Map();
   const TWO_A = 1000001, TWO_B = 1000002, WHEEL = 1000003, R = 45;
   const trace = TEST ? [] : null;
@@ -592,7 +615,8 @@ function setupInput(canvas) {
   window.addEventListener('blur', () => { cancel(); if (exp) exp.sims3_lifecycle(0); });
   window.addEventListener('focus', () => exp && exp.sims3_lifecycle(1));
   window.addEventListener('pagehide', () => { if (exp && !dead) { cancel(); exp.sims3_lifecycle(2); exp.sims3_frame(env.js_now()); } homeFlush(); });
-  return { beforeFrame, cancel, takeTrace: () => trace ? trace.splice(0) : [] };
+  return { beforeFrame, cancel, active: () => !!two || down.size > 0 || !!wheel || !!wheelPending,
+    takeTrace: () => trace ? trace.splice(0) : [] };
 }
 
 // ------------------------------------------------------------------ boot + frame loop
@@ -651,11 +675,37 @@ async function main() {
   try { exp.sims3_content_mode(localStorage.getItem('sims3-content-unlocked-v1') === '1'); } catch {}
   const input = setupInput(canvas);
   player.onModal(input.cancel);
+  simulation = new SimulationClock(TEST ? vclock : performance.now(), { budgetMs: TEST ? Infinity : 12 });
+  const speedState = window.sims3Speed = { requested: 1, active: 1, effective: 1, limited: false,
+    blocked: false, audioMuted: false, totalSteps: 0, time: simulation.now };
+  const canBoost = () => !dead && !document.hidden && !$('secrets').open && !input.active() && !!exp.sims3_speed_available();
+  function advance(realNow, draw = true) {
+    const presentsBefore = glh.stats.presents, skippedBefore = glh.stats.skippedPresents;
+    input.beforeFrame(realNow);
+    const requested = player.speed();
+    setFastAudio(requested > 1 && canBoost());
+    let result;
+    try {
+      result = simulation.advance(realNow, requested, canBoost, (time, present) => {
+        if (TEST) vclock = time;
+        if (fastAudio && !canBoost()) setFastAudio(false);
+        glh.stats.skipDraws = !draw || !present;
+        exp.sims3_frame(time); player.afterFrame();
+      });
+    } finally { glh.stats.skipDraws = false; }
+    // A native paint can fall on an earlier substep rather than the last one. Redraw its latest state
+    // once, instead of losing that visible frame or running another simulation step to obtain one.
+    if (draw && glh.stats.presents === presentsBefore && glh.stats.skippedPresents > skippedBefore)
+      exp.sims3_redraw();
+    Object.assign(speedState, result, { effective: result.elapsed ? result.advanced / result.elapsed : 1,
+      audioMuted: fastAudio, time: simulation.now, totalSteps: speedState.totalSteps + result.steps });
+    return result;
+  }
   player.ready();
   $('status').style.display = 'none';
   // frame loop + performance meter (frames presented per second and CPU time per frame)
-  const perf = { frames: 0, presents0: 0, uploads0: 0, t0: performance.now(), cpu: 0, worst: 0, intervals: [], lastPresent: 0 };
-  window.sims3Perf = { fps: 0, cpuMs: 0, worstMs: 0, frameMs: 0, p95Ms: 0, memoryMiB: 0, uploadBytesPerSecond: 0, presents: () => glh.stats.presents, stats };
+  const perf = { frames: 0, presents0: 0, uploads0: 0, t0: performance.now(), cpu: 0, worst: 0, simMs: 0, intervals: [], lastPresent: 0 };
+  window.sims3Perf = { fps: 0, cpuMs: 0, worstMs: 0, frameMs: 0, p95Ms: 0, memoryMiB: 0, uploadBytesPerSecond: 0, simSpeed: 1, presents: () => glh.stats.presents, stats };
   window.sims3GL = glh.stats;
   window.sims3Audio = audioStats; window.sims3AudioStreams = streams;
   window.sims3Home = () => Object.fromEntries([...home].map(([k, v]) => [k, v.length]));   // saved files and sizes (diagnostics)
@@ -666,18 +716,20 @@ async function main() {
     return { state: actx.state, time: +actx.currentTime.toFixed(2), rms: +Math.sqrt(e / d.length).toFixed(4) };
   };
   function resetPerf(now, clearClock = false) {
-    perf.t0 = now; perf.frames = 0; perf.cpu = 0; perf.worst = 0;
+    perf.t0 = now; perf.frames = 0; perf.cpu = 0; perf.worst = 0; perf.simMs = 0;
     perf.presents0 = glh.stats.presents; perf.uploads0 = glh.stats.totalUploadBytes; perf.intervals.length = 0;
     if (clearClock) perf.lastPresent = 0;
   }
-  document.addEventListener('visibilitychange', () => resetPerf(performance.now(), true));
+  document.addEventListener('visibilitychange', () => {
+    simulation.reset(inputNow()); setFastAudio(false); resetPerf(performance.now(), true);
+  });
   function frame(now) {
     if (dead) return;
     if (document.hidden) { requestAnimationFrame(frame); return; }
     player.beforeFrame();
     const presents0 = glh.stats.presents;
     const a = performance.now();
-    try { input.beforeFrame(now); exp.sims3_frame(now); player.afterFrame(); } catch (e) { if (!dead) fatal(String(e && e.stack || e)); return; }
+    try { perf.simMs += advance(now).advanced; } catch (e) { if (!dead) fatal(String(e && e.stack || e)); return; }
     const dt = performance.now() - a;
     if (glh.stats.presents > presents0) {
       if (perf.lastPresent) perf.intervals.push((now - perf.lastPresent) / (glh.stats.presents - presents0));
@@ -691,7 +743,8 @@ async function main() {
       Object.assign(window.sims3Perf, { fps, cpuMs: perf.cpu / perf.frames, worstMs: perf.worst,
         frameMs: presents ? elapsed / presents : 0, p95Ms: sorted.length ? sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * .95))] : 0,
         memoryMiB: exp.memory.buffer.byteLength / 1048576,
-        uploadBytesPerSecond: (glh.stats.totalUploadBytes - perf.uploads0) * 1000 / elapsed });
+        uploadBytesPerSecond: (glh.stats.totalUploadBytes - perf.uploads0) * 1000 / elapsed,
+        simSpeed: perf.simMs / elapsed });
       player.update(window.sims3Perf);
       resetPerf(now);
     }
@@ -702,9 +755,8 @@ async function main() {
       step(n, drawLast = true) {
         player.beforeFrame();
         for (let i = 0; i < n && !dead; i++) {
-          vclock += 1000 / 60;
-          glh.stats.skipDraws = !(drawLast && i === n - 1);
-          try { input.beforeFrame(vclock); exp.sims3_frame(vclock); player.afterFrame(); } catch (e) { if (!dead) fatal(String(e && e.stack || e)); }
+          tclock += 1000 / 60;
+          try { advance(tclock, drawLast && i === n - 1); } catch (e) { if (!dead) fatal(String(e && e.stack || e)); }
         }
         glh.stats.skipDraws = false;
         return dead ? 'dead' : 'ok';
@@ -713,6 +765,7 @@ async function main() {
       takeInputTrace: input.takeTrace,
       zoomBar,
       memory: () => DV(),
+      wallTime: () => tclock,
     };
     return;
   }

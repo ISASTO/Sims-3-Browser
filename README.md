@@ -22,6 +22,11 @@ packs, bonus rewards, furniture tiers and house-upgrade eligibility. Items retai
 persists in this browser without completing goals or changing skills or money. In software-renderer house tests, the 50% preset averaged
 49 FPS versus 27 FPS at the previous fixed resolution; hardware-GPU frame rates remain unmeasured.
 
+The **Speed** selector offers **Fast-forward 2×** and **Superspeed 4×/8×** for the original simulation and game
+clock. Menus and held mouse/touch controls stay at normal speed. Game audio mutes while accelerated and resumes
+at 1×; selected music files play normally. Metrics show the achieved rate, which depends on available CPU time.
+Reloading starts at normal speed.
+
 The build uses ordinary static hosting. It needs WebAssembly and WebGL2, with no application server or special
 cross-origin headers. The complete release is about 128 MiB, fetched as needed; the code and initial resource
 packs download before play begins.

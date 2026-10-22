@@ -16,7 +16,7 @@ import tempfile
 from project import ROOT
 
 PACK_SIZE = 4 << 20
-WEB_FILES = ('index.html', 'sims3.js', 'gl.js', 'player.js', 'vendor/fflate.js', 'vendor/fflate-LICENSE.txt')
+WEB_FILES = ('index.html', 'sims3.js', 'gl.js', 'player.js', 'simulation.js', 'vendor/fflate.js', 'vendor/fflate-LICENSE.txt')
 
 
 def package(bundle, web, out):

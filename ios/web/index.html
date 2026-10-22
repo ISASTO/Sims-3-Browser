@@ -77,13 +77,14 @@
   <div id="viewport"><div id="stage"><canvas id="screen" width="1334" height="750" aria-label="Game screen"></canvas><div id="status" role="status">Loading…</div></div></div>
   <footer id="toolbar">
     <label for="quality">Quality <select id="quality"><option value="auto">Auto</option><option value="native">Native · 100%</option><option value="high">High · 85%</option><option value="balanced">Balanced · 67%</option><option value="performance">Performance · 50%</option></select></label>
+    <label for="speed" title="Applies during play. Menus and mouse/touch controls stay at normal speed. Game audio is muted while accelerated.">Speed <select id="speed" disabled><option value="1">Normal · 1×</option><option value="2">Fast-forward · 2×</option><option value="4">Superspeed · 4×</option><option value="8">Superspeed · 8×</option></select></label>
     <output id="meter" aria-label="Rendering performance">Starting…</output>
     <button id="metrics-toggle" aria-pressed="false" aria-controls="metrics">Metrics</button>
     <button id="fit-tab" aria-pressed="false">Fit to tab</button>
     <button id="fullscreen">Fullscreen</button>
     <span id="shell-notice" role="status"></span>
   </footer>
-  <aside id="metrics" hidden><div id="metric-values"></div><p>Auto adjusts resolution for smoother play. Native matches display pixels. CPU time covers game logic and graphics submission; frame time also includes browser and rendering delays.</p></aside>
+  <aside id="metrics" hidden><div id="metric-values"></div><p>Auto adjusts resolution for smoother play. Native matches display pixels. CPU time covers game logic and graphics submission; frame time also includes browser and rendering delays. Faster speeds apply during play and mute game audio. Actual simulation speed depends on available CPU time.</p></aside>
 </section>
 <dialog id="secrets" aria-labelledby="secrets-title" aria-describedby="secrets-description">
   <h2 id="secrets-title">A little extra</h2>

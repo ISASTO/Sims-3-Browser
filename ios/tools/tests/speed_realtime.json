@@ -1,0 +1,158 @@
+[
+  {
+    "wait": 12000
+  },
+  {
+    "select": [
+      "#quality",
+      "performance"
+    ]
+  },
+  {
+    "tap": [
+      450,
+      182
+    ]
+  },
+  {
+    "wait": 1500
+  },
+  {
+    "tap": [
+      226,
+      158
+    ]
+  },
+  {
+    "wait": 8000
+  },
+  {
+    "eval": "window.realtimeSpeedSamples=[];window.realSpeedSnapshot=()=>{const d=new DataView(sims3InspectedWasm.exports.memory.buffer),app=d.getUint32(0x2c2424,true),sim=d.getUint32(app+0x5b4,true);return {minutes:d.getInt32(sim+0x78c,true),time:sims3Speed.time,real:performance.now()}}"
+  },
+  {
+    "select": [
+      "#speed",
+      "1"
+    ]
+  },
+  {
+    "eval": "window.realSpeedBefore=realSpeedSnapshot()"
+  },
+  {
+    "wait": 3000
+  },
+  {
+    "eval": "window.realSpeedEnd=realSpeedSnapshot();realtimeSpeedSamples.push({minutes:realSpeedEnd.minutes-realSpeedBefore.minutes,simulationSeconds:(realSpeedEnd.time-realSpeedBefore.time)/1000,realSeconds:(realSpeedEnd.real-realSpeedBefore.real)/1000,selected:1,active:sims3Speed.active,fps:sims3Perf.fps,measuredSpeed:sims3Perf.simSpeed,cpuMs:sims3Perf.cpuMs,limited:sims3Speed.limited,muted:sims3Speed.audioMuted,chunks:[...sims3AudioStreams.values()].map(s=>({chunks:s.chunks.length,nodes:s.chunks.filter(c=>c.node).length,buffers:s.chunks.filter(c=>c.b).length}))});realtimeSpeedSamples.at(-1)"
+  },
+  {
+    "assert": "Math.abs(realtimeSpeedSamples.at(-1).minutes-realtimeSpeedSamples.at(-1).simulationSeconds)<2"
+  },
+  {
+    "shot": "realtime_1"
+  },
+  {
+    "select": [
+      "#speed",
+      "2"
+    ]
+  },
+  {
+    "eval": "window.realSpeedBefore=realSpeedSnapshot()"
+  },
+  {
+    "wait": 3000
+  },
+  {
+    "eval": "window.realSpeedEnd=realSpeedSnapshot();realtimeSpeedSamples.push({minutes:realSpeedEnd.minutes-realSpeedBefore.minutes,simulationSeconds:(realSpeedEnd.time-realSpeedBefore.time)/1000,realSeconds:(realSpeedEnd.real-realSpeedBefore.real)/1000,selected:2,active:sims3Speed.active,fps:sims3Perf.fps,measuredSpeed:sims3Perf.simSpeed,cpuMs:sims3Perf.cpuMs,limited:sims3Speed.limited,muted:sims3Speed.audioMuted,chunks:[...sims3AudioStreams.values()].map(s=>({chunks:s.chunks.length,nodes:s.chunks.filter(c=>c.node).length,buffers:s.chunks.filter(c=>c.b).length}))});realtimeSpeedSamples.at(-1)"
+  },
+  {
+    "assert": "Math.abs(realtimeSpeedSamples.at(-1).minutes-realtimeSpeedSamples.at(-1).simulationSeconds)<2"
+  },
+  {
+    "shot": "realtime_2"
+  },
+  {
+    "select": [
+      "#speed",
+      "4"
+    ]
+  },
+  {
+    "eval": "window.realSpeedBefore=realSpeedSnapshot()"
+  },
+  {
+    "wait": 3000
+  },
+  {
+    "eval": "window.realSpeedEnd=realSpeedSnapshot();realtimeSpeedSamples.push({minutes:realSpeedEnd.minutes-realSpeedBefore.minutes,simulationSeconds:(realSpeedEnd.time-realSpeedBefore.time)/1000,realSeconds:(realSpeedEnd.real-realSpeedBefore.real)/1000,selected:4,active:sims3Speed.active,fps:sims3Perf.fps,measuredSpeed:sims3Perf.simSpeed,cpuMs:sims3Perf.cpuMs,limited:sims3Speed.limited,muted:sims3Speed.audioMuted,chunks:[...sims3AudioStreams.values()].map(s=>({chunks:s.chunks.length,nodes:s.chunks.filter(c=>c.node).length,buffers:s.chunks.filter(c=>c.b).length}))});realtimeSpeedSamples.at(-1)"
+  },
+  {
+    "assert": "Math.abs(realtimeSpeedSamples.at(-1).minutes-realtimeSpeedSamples.at(-1).simulationSeconds)<2"
+  },
+  {
+    "shot": "realtime_4"
+  },
+  {
+    "select": [
+      "#speed",
+      "8"
+    ]
+  },
+  {
+    "eval": "window.realSpeedBefore=realSpeedSnapshot()"
+  },
+  {
+    "wait": 3000
+  },
+  {
+    "eval": "window.realSpeedEnd=realSpeedSnapshot();realtimeSpeedSamples.push({minutes:realSpeedEnd.minutes-realSpeedBefore.minutes,simulationSeconds:(realSpeedEnd.time-realSpeedBefore.time)/1000,realSeconds:(realSpeedEnd.real-realSpeedBefore.real)/1000,selected:8,active:sims3Speed.active,fps:sims3Perf.fps,measuredSpeed:sims3Perf.simSpeed,cpuMs:sims3Perf.cpuMs,limited:sims3Speed.limited,muted:sims3Speed.audioMuted,chunks:[...sims3AudioStreams.values()].map(s=>({chunks:s.chunks.length,nodes:s.chunks.filter(c=>c.node).length,buffers:s.chunks.filter(c=>c.b).length}))});realtimeSpeedSamples.at(-1)"
+  },
+  {
+    "assert": "Math.abs(realtimeSpeedSamples.at(-1).minutes-realtimeSpeedSamples.at(-1).simulationSeconds)<2"
+  },
+  {
+    "shot": "realtime_8"
+  },
+  {
+    "assert": "sims3Speed.requested===8 && sims3Speed.active===8 && sims3Speed.audioMuted && sims3Perf.simSpeed>1 && sims3Perf.simSpeed<=8.2 && sims3Perf.fps>0 && sims3Perf.fps<90"
+  },
+  {
+    "assert": "realtimeSpeedSamples[1].fps>=realtimeSpeedSamples[0].fps*.6 && realtimeSpeedSamples[2].fps>=realtimeSpeedSamples[0].fps*.6"
+  },
+  {
+    "eval": "window.resumeClockBefore=sims3Speed.time"
+  },
+  {
+    "background": 1500
+  },
+  {
+    "wait": 400
+  },
+  {
+    "assert": "sims3Speed.time-resumeClockBefore<1000 && sims3Speed.active===1 && !sims3Speed.audioMuted"
+  },
+  {
+    "select": [
+      "#speed",
+      "1"
+    ]
+  },
+  {
+    "wait": 1000
+  },
+  {
+    "assert": "sims3Speed.requested===1 && !sims3Speed.audioMuted"
+  },
+  {
+    "click": "#metrics-toggle"
+  },
+  {
+    "wait": 1200
+  },
+  {
+    "shot": "realtime_metrics"
+  },
+  {
+    "eval": "realtimeSpeedSamples"
+  }
+]

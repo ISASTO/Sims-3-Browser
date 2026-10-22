@@ -1,0 +1,123 @@
+{
+  "date": "2026-10-22",
+  "input_sha256": "8820bd6221c288d3d2d413ccd013b2300276a22c55cdaa14399af18b745c55aa",
+  "runtime": {
+    "url": "game-code-da0c477701c0a1bf.bin",
+    "encoding": "gzip",
+    "bytes": 13703647,
+    "sha256": "da0c477701c0a1bf33956555d4b08026ed3c54df5d174ec43eb74e250e826b83"
+  },
+  "host_version": "d19471246feccb68",
+  "release_files": 53,
+  "release_bytes": 134292962,
+  "browser": "Chrome Headless Shell 141.0.7390.37, Playwright 1.56.0, SwiftShader",
+  "script": "tools/tests/speed_controls.json",
+  "browser_assertions": 56,
+  "complete_frame_probes": 48,
+  "unit_test": "node tools/test_simulation_clock.mjs",
+  "unit_cases": 7,
+  "deterministic_native_minutes_per_two_seconds": {
+    "1": 2,
+    "2": 4,
+    "4": 8,
+    "8": 16
+  },
+  "checks": [
+    "full player/mouse/shake/unlock/save regression",
+    "original SimData clock acceleration",
+    "one visible presentation per captured display tick",
+    "24 additional complete frames at 8x",
+    "held contacts and pause/menu suppression",
+    "background without catch-up",
+    "reload defaults to normal",
+    "audio queues bounded and normal audio restored",
+    "1190 balance, 15 packs and bonus persist after confirmed save/reload"
+  ],
+  "real_time": {
+    "script": "tools/tests/speed_realtime.json",
+    "harness_option": "--inspect-wasm (test-only instantiation capture; no deterministic mode)",
+    "quality": "Performance 50%, 566x318 drawable",
+    "sample_duration_seconds": 3,
+    "samples": [
+      {
+        "minutes": 3,
+        "simulationSeconds": 2.9999000000000016,
+        "realSeconds": 3.006299999999814,
+        "selected": 1,
+        "active": 1,
+        "fps": 60.00393468424146,
+        "measuredSpeed": 1,
+        "cpuMs": 4.127868852463597,
+        "limited": false,
+        "muted": false,
+        "chunks": [
+          {
+            "chunks": 3,
+            "nodes": 3,
+            "buffers": 3
+          }
+        ]
+      },
+      {
+        "minutes": 6,
+        "simulationSeconds": 5.949666666667047,
+        "realSeconds": 3.0040999999996276,
+        "selected": 2,
+        "active": 2,
+        "fps": 42.99570042995707,
+        "measuredSpeed": 1.9998666799988034,
+        "cpuMs": 8.467441860467282,
+        "limited": false,
+        "muted": true,
+        "chunks": [
+          {
+            "chunks": 3,
+            "nodes": 0,
+            "buffers": 0
+          }
+        ]
+      },
+      {
+        "minutes": 12,
+        "simulationSeconds": 11.69946666666559,
+        "realSeconds": 3.143,
+        "selected": 4,
+        "active": 4,
+        "fps": 52,
+        "measuredSpeed": 3.900266666666226,
+        "cpuMs": 10.484615384556282,
+        "limited": true,
+        "muted": true,
+        "chunks": []
+      },
+      {
+        "minutes": 23,
+        "simulationSeconds": 22.675066666664897,
+        "realSeconds": 3.0386999999997206,
+        "selected": 8,
+        "active": 8,
+        "fps": 58.04230201672405,
+        "measuredSpeed": 7.506017379897365,
+        "cpuMs": 15.288135593267695,
+        "limited": false,
+        "muted": true,
+        "chunks": [
+          {
+            "chunks": 3,
+            "nodes": 0,
+            "buffers": 0
+          }
+        ]
+      }
+    ],
+    "assertions": 8,
+    "fps_interpretation": "single short sample per rate on a software renderer; not a hardware-GPU benchmark or a guaranteed rate"
+  },
+  "screenshot": "verification/superspeed.png",
+  "limitations": [
+    "Hardware-backed Chrome frame rates unmeasured",
+    "Firefox and Safari untested",
+    "Full gameplay coverage remains incomplete",
+    "8x is a target; CPU limiting may lower achieved speed"
+  ]
+}
