@@ -83,6 +83,9 @@ reimplements the iOS frameworks it uses.
   presented FPS 60, 43, 52 and 58 respectively at the Performance preset on SwiftShader. These are short smoke
   samples, not hardware-GPU guarantees. See `verification/speed-controls.json` and HANDOFF.md.
 - Current package: 53 files / 134,292,962 bytes, with the same 1,263 original resources in 35 packs.
+- Pages deployed gameplay commit `8020f528932936c55d58e04fe56f5354e7c8b8b6` (run `39852839506`). All 53 public
+  files match the tested package; every original resource and the wasm were reconstructed byte for byte using
+  downloads with normal TLS validation. The handoff records the exact source/build/deployment identity.
 
 ## Inputs (verified)
 | Item | Value |
