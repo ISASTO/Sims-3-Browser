@@ -155,5 +155,17 @@
     "bytes": 136190201,
     "all_git_blob_hashes_match": true,
     "tls_verification": "curl default certificate validation; no certificate bypass"
+  },
+  "published_delivery": {
+    "gameplay_commit": "efd96f9827cb009e5991fc7aeb9b5152d8276786",
+    "source_commit": "e9c6361277f23205fa79f504de48391e7f49e198",
+    "pages_run": 39780557567,
+    "status": "success",
+    "url": "https://isasto.github.io/Sims-3-Browser/ios/play/",
+    "files": 53,
+    "bytes": 136207293,
+    "all_git_blob_hashes_match": true,
+    "tls_verification": "curl default certificate validation; no bypass",
+    "host_version": "935157e8d0099e54"
   }
 }
