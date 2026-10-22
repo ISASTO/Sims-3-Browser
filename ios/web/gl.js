@@ -25,6 +25,44 @@ export function createGL(canvas, mem, log) {
   let arrayBuffer = 0, elementBuffer = 0, curFB = 0, curRB = 0, activeTex = 0, curProgram = 0;
   const boundTex = new Array(8).fill(0);
   let drawableFB = 0, drawableRB = 0, drawW = 0, drawH = 0;
+  const attachments = new Map();
+  let renderW = 1334, renderH = 750;
+  const maxRenderSize = Math.min(gl.getParameter(gl.MAX_RENDERBUFFER_SIZE), ...gl.getParameter(gl.MAX_VIEWPORT_DIMS));
+  let viewport = [0, 0, 1334, 750], scissor = [0, 0, 1334, 750];
+  // The guest keeps its original device coordinates. Only the drawable and its depth/stencil
+  // attachments scale; texture-backed reflection/shadow targets keep their own dimensions.
+  const onDrawable = () => drawableFB !== 0 && curFB === drawableFB;
+  const mappedBox = (b) => {
+    if (!onDrawable() || !drawW || !drawH) return b;
+    const sx = renderW / drawW, sy = renderH / drawH;
+    const x = Math.round(b[0] * sx), y = Math.round(b[1] * sy);
+    return [x, y, Math.round((b[0] + b[2]) * sx) - x, Math.round((b[1] + b[3]) * sy) - y];
+  };
+  function applyBoxes() { gl.viewport(...mappedBox(viewport)); gl.scissor(...mappedBox(scissor)); }
+  function allocateRB(o, scaled) {
+    if (!o || !o.fmt) return;
+    const w = scaled ? renderW : o.w, h = scaled ? renderH : o.h;
+    if (o.pw === w && o.ph === h && o.pfmt === o.fmt) return;
+    gl.bindRenderbuffer(gl.RENDERBUFFER, o.obj);
+    gl.renderbufferStorage(gl.RENDERBUFFER, o.fmt, w, h);
+    o.pw = w; o.ph = h; o.pfmt = o.fmt;
+  }
+  function resizeDrawable() {
+    const rb = rbos.get(drawableRB);
+    allocateRB(rb, true);
+    for (const r of attachments.get(drawableFB)?.values() || []) allocateRB(rbos.get(r), true);
+    gl.bindRenderbuffer(gl.RENDERBUFFER, rbos.get(curRB)?.obj || null);
+    applyBoxes();
+    stats.renderWidth = renderW; stats.renderHeight = renderH;
+  }
+  function setRenderSize(w, h) {
+    const scale = Math.min(1, maxRenderSize / w, maxRenderSize / h);
+    w = Math.max(1, Math.round(w * scale)); h = Math.max(1, Math.round(h * scale));
+    if (w === renderW && h === renderH) return;
+    renderW = w; renderH = h;
+    // Called between guest frames. The visible canvas is resized only when a complete frame presents.
+    if (drawableRB) resizeDrawable();
+  }
   let glError = 0;
   let unpackAlign = 4;
   let depthMask = true;
@@ -36,10 +74,12 @@ export function createGL(canvas, mem, log) {
   const ident = () => new Float32Array([1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1]);
   const stacks = { [GL_MODELVIEW]: [ident()], [GL_PROJECTION]: [ident()], tex: [[ident()], [ident()]] };
   const palette = []; for (let i = 0; i < 32; i++) palette.push(ident());
+  const paletteFlat = new Float32Array(32 * 16);
+  let paletteRevision = 0, flatRevision = -1;
   let matrixMode = GL_MODELVIEW, curPalette = 0;
   const curStack = () => matrixMode === GL_TEXTURE ? stacks.tex[activeTex] : matrixMode === GL_MATRIX_PALETTE_OES ? null : stacks[matrixMode];
   const topM = () => { if (matrixMode === GL_MATRIX_PALETTE_OES) return palette[curPalette]; const s = curStack(); return s[s.length - 1]; };
-  const setTop = (m) => { if (matrixMode === GL_MATRIX_PALETTE_OES) { palette[curPalette] = m; return; } const s = curStack(); s[s.length - 1] = m; };
+  const setTop = (m) => { if (matrixMode === GL_MATRIX_PALETTE_OES) { palette[curPalette] = m; paletteRevision++; return; } const s = curStack(); s[s.length - 1] = m; };
   const mul = (a, b) => { // a * b, column-major
     const r = new Float32Array(16);
     for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) { let s = 0; for (let k = 0; k < 4; k++) s += a[k * 4 + j] * b[i * 4 + k]; r[i * 4 + j] = s; }
@@ -161,6 +201,7 @@ export function createGL(canvas, mem, log) {
       const bytes = stride * (maxVertex - 1) + a.size * ts;
       gl.bindBuffer(gl.ARRAY_BUFFER, streamVB[slot]);
       gl.bufferData(gl.ARRAY_BUFFER, U8().subarray(a.ptr, a.ptr + bytes), gl.STREAM_DRAW);
+      frameUploads += bytes;
       gl.vertexAttribPointer(loc, a.size, a.type === 0x140C ? gl.INT : a.type, norm !== undefined ? norm : normalize, stride, 0);
     }
     gl.enableVertexAttribArray(loc);
@@ -206,7 +247,10 @@ export function createGL(canvas, mem, log) {
     if (c.aref !== alphaRef) { gl.uniform1f(p.u.uAlphaRef, alphaRef); c.aref = alphaRef; }
     if (c.fogc !== fog.color) { gl.uniform4fv(p.u.uFogColor, fog.color); c.fogc = fog.color; }
     if (c.fd !== fog.density || c.fs !== fog.start || c.fe !== fog.end) { gl.uniform3f(p.u.uFog, fog.density, fog.start, fog.end); c.fd = fog.density; c.fs = fog.start; c.fe = fog.end; }
-    if (st.palette) { const flat = new Float32Array(32 * 16); for (let i = 0; i < 32; i++) flat.set(palette[i], i * 16); gl.uniformMatrix4fv(p.u.uPal, false, flat); }
+    if (st.palette && c.paletteRevision !== paletteRevision) {
+      if (flatRevision !== paletteRevision) { for (let i = 0; i < 32; i++) paletteFlat.set(palette[i], i * 16); flatRevision = paletteRevision; }
+      gl.uniformMatrix4fv(p.u.uPal, false, paletteFlat); c.paletteRevision = paletteRevision;
+    }
     setupArray(0, arrays.vertex, nverts, 0);
     setupArray(1, arrays.color, nverts, 1);
     setupArray(2, arrays.tex[0], nverts, 2, st.tex[0]);
@@ -224,6 +268,7 @@ export function createGL(canvas, mem, log) {
     for (let i = 0; i < 16; i++) { const a = attribs[i]; if (a.enabled) setupArray(i, a, nverts, i % 8); else gl.disableVertexAttribArray(i); }
   }
   function prepareDraw(nverts) {
+    frameDraws++;
     if (curProgram) { es1Mode = false; es2Draw(nverts); } else { es1Mode = true; es1Draw(nverts); }
     if (stats.capture) {   // debugging aid: window.sims3GL.capture = N records the draws of the next N frames
       const mv = stacks[GL_MODELVIEW], pr = stacks[GL_PROJECTION];
@@ -252,6 +297,7 @@ export function createGL(canvas, mem, log) {
     BindFramebuffer: (t, f) => {
       curFB = f; let o = fbos.get(f); if (f && !o) { o = gl.createFramebuffer(); fbos.set(f, o); }
       gl.bindFramebuffer(gl.FRAMEBUFFER, f ? o : null);
+      applyBoxes();
     },
     BindRenderbuffer: (t, r) => { curRB = r; let o = rbos.get(r); if (r && !o) { o = { obj: gl.createRenderbuffer(), w: 0, h: 0 }; rbos.set(r, o); } gl.bindRenderbuffer(gl.RENDERBUFFER, o ? o.obj : null); },
     BindTexture: (t, n) => {
@@ -261,10 +307,11 @@ export function createGL(canvas, mem, log) {
     BlendFunc: (s, d) => gl.blendFunc(s, d),
     BufferData: (t, size, p, usage) => {
       const o = buffers.get(t === 0x8892 ? arrayBuffer : elementBuffer);
-      if (p) { const data = U8().slice(p, p + size); gl.bufferData(t, data, usage); if (t === 0x8893 && o) o.shadow = data; }
+      if (p) { const data = U8().subarray(p, p + size); gl.bufferData(t, data, usage); if (t === 0x8893 && o) o.shadow = data.slice(); }
       else { gl.bufferData(t, size, usage); if (t === 0x8893 && o) o.shadow = new Uint8Array(size); }
+      frameUploads += size;
     },
-    BufferSubData: (t, off, size, p) => { const d = U8().subarray(p, p + size); gl.bufferSubData(t, off, d); const o = buffers.get(t === 0x8892 ? arrayBuffer : elementBuffer); if (t === 0x8893 && o && o.shadow) o.shadow.set(d, off); },
+    BufferSubData: (t, off, size, p) => { const d = U8().subarray(p, p + size); gl.bufferSubData(t, off, d); frameUploads += size; const o = buffers.get(t === 0x8892 ? arrayBuffer : elementBuffer); if (t === 0x8893 && o && o.shadow) o.shadow.set(d, off); },
     CheckFramebufferStatus: (t) => gl.checkFramebufferStatus(gl.FRAMEBUFFER),
     Clear: (m) => { if (stats.capture) stats.draws.push({ clear: m, fb: curFB, cc: Array.from(gl.getParameter(gl.COLOR_CLEAR_VALUE)) }); if (!stats.skipDraws) gl.clear(m); },
     ClearColor: (r, g, b, a) => gl.clearColor(r, g, b, a),
@@ -276,7 +323,7 @@ export function createGL(canvas, mem, log) {
     CreateShader: (t) => { const id = nextName++; shaders.set(id, gl.createShader(t)); return id; },
     CullFace: (m) => gl.cullFace(m),
     DeleteBuffers: (n, p) => del(n, p, buffers, (o) => gl.deleteBuffer(o.obj)),
-    DeleteFramebuffers: (n, p) => del(n, p, fbos, (o) => gl.deleteFramebuffer(o)),
+    DeleteFramebuffers: (n, p) => { for (let i = 0; i < n; i++) attachments.delete(I32()[(p >> 2) + i]); del(n, p, fbos, (o) => gl.deleteFramebuffer(o)); },
     DeleteProgram: (p) => { const o = programs.get(p); if (o) { gl.deleteProgram(o.obj); programs.delete(p); } },
     DeleteRenderbuffers: (n, p) => del(n, p, rbos, (o) => gl.deleteRenderbuffer(o.obj)),
     DeleteShader: (s) => { const o = shaders.get(s); if (o) { gl.deleteShader(o); shaders.delete(s); } },
@@ -291,11 +338,17 @@ export function createGL(canvas, mem, log) {
       prepareDraw(n);
       if (stats.capture && stats.capturePos && n >= stats.capturePos && !elementBuffer && type === 0x1403) { const d = stats.draws[stats.draws.length - 1]; d.mode = m; d.idx = Array.from(new Uint16Array(U8().buffer, p, count)); }
       if (elementBuffer) gl.drawElements(m, count, type, off);
-      else { gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, streamIB); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, U8().subarray(p, p + count * typeSize(type)), gl.STREAM_DRAW); gl.drawElements(m, count, type, 0); }
+      else { gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, streamIB); const bytes = count * typeSize(type); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, U8().subarray(p, p + bytes), gl.STREAM_DRAW); frameUploads += bytes; gl.drawElements(m, count, type, 0); }
     },
     Enable: (c) => { if (c === 0x0DE1) { caps.set('tex' + activeTex, true); return; } caps.set(c, true); if (c === 0x0BC0 || c === 0x0B60 || c === 0x8840 || c === 0x0B50 || c === 0x0B57 || c === 0x0BA1) return; try { gl.enable(c); } catch (e) {} },
     EnableVertexAttribArray: (i) => { attribs[i].enabled = true; },
-    FramebufferRenderbuffer: (t, att, rt, r) => { gl.framebufferRenderbuffer(gl.FRAMEBUFFER, att, gl.RENDERBUFFER, r ? rbos.get(r).obj : null); if (att === 0x8CE0 && r === drawableRB) drawableFB = curFB; },
+    FramebufferRenderbuffer: (t, att, rt, r) => {
+      if (!attachments.has(curFB)) attachments.set(curFB, new Map());
+      attachments.get(curFB).set(att, r);
+      gl.framebufferRenderbuffer(gl.FRAMEBUFFER, att, gl.RENDERBUFFER, r ? rbos.get(r).obj : null);
+      if (att === 0x8CE0 && r === drawableRB) drawableFB = curFB;
+      if (onDrawable()) resizeDrawable();
+    },
     FramebufferTexture2D: (t, att, tt, tex, l) => gl.framebufferTexture2D(gl.FRAMEBUFFER, att, tt, tex ? textures.get(tex) : null, l),
     FrontFace: (m) => gl.frontFace(m),
     GenBuffers: (n, p) => gen(n, p, buffers, () => ({ obj: gl.createBuffer(), shadow: null })),
@@ -303,14 +356,21 @@ export function createGL(canvas, mem, log) {
     GenRenderbuffers: (n, p) => gen(n, p, rbos, () => ({ obj: gl.createRenderbuffer(), w: 0, h: 0 })),
     GenTextures: (n, p) => gen(n, p, textures, () => gl.createTexture()),
     GetError: () => { const e = glError || gl.getError(); glError = 0; return e; },
-    GetFloatv: (pn, p) => { const v = gl.getParameter(pn); const f = F32(); if (v && v.length) for (let i = 0; i < v.length; i++) f[(p >> 2) + i] = v[i]; else f[p >> 2] = v || 0; },
+    GetFloatv: (pn, p) => { const v = pn === 0x0BA2 ? viewport : pn === 0x0C10 ? scissor : gl.getParameter(pn); const f = F32(); if (v && v.length) for (let i = 0; i < v.length; i++) f[(p >> 2) + i] = v[i]; else f[p >> 2] = v || 0; },
     GetIntegerv: (pn, p) => {
       const a = I32();
+      if (pn === 0x84E1) { a[p >> 2] = 0x84C0 + clientActive; return; } // CLIENT_ACTIVE_TEXTURE (ES1)
+      if (pn === 0x0BA0) { a[p >> 2] = matrixMode; return; }             // MATRIX_MODE (ES1)
+      if (pn === 0x0BA2 || pn === 0x0C10) { a.set(pn === 0x0BA2 ? viewport : scissor, p >> 2); return; }
       if (pn === 0x8CA6) { a[p >> 2] = curFB; return; } if (pn === 0x8CA7) { a[p >> 2] = curRB; return; }
       if (pn === 0x8842) { a[p >> 2] = 32; return; } // MAX_PALETTE_MATRICES_OES
       if (pn === 0x86A4) { a[p >> 2] = 4; return; }  // MAX_VERTEX_UNITS_OES
       if (pn === 0x84E2) { a[p >> 2] = 2; return; }  // MAX_TEXTURE_UNITS (ES1)
-      if (pn === 0x0D32) { a[p >> 2] = 32; return; } // MAX_MODELVIEW_STACK_DEPTH etc.
+      if (pn === 0x0D31) { a[p >> 2] = 8; return; }  // MAX_LIGHTS (ES1)
+      if (pn === 0x0D32) { a[p >> 2] = 6; return; }  // MAX_CLIP_PLANES (ES1)
+      if (pn === 0x0D36) { a[p >> 2] = 32; return; } // MAX_MODELVIEW_STACK_DEPTH (ES1)
+      if (pn === 0x0D38) { a[p >> 2] = 2; return; }  // MAX_PROJECTION_STACK_DEPTH (ES1)
+      if (pn === 0x0D39) { a[p >> 2] = 2; return; }  // MAX_TEXTURE_STACK_DEPTH (ES1)
       let v; try { v = gl.getParameter(pn); } catch (e) { v = 0; }
       if (v && v.length !== undefined) for (let i = 0; i < v.length; i++) a[(p >> 2) + i] = v[i]; else a[p >> 2] = typeof v === 'boolean' ? (v ? 1 : 0) : (v | 0);
     },
@@ -332,9 +392,11 @@ export function createGL(canvas, mem, log) {
     RenderbufferStorage: (t, f, w, h) => {
       const o = rbos.get(curRB); o.w = w; o.h = h;
       const fmt = f === 0x81A5 || f === 0x81A6 ? gl.DEPTH_COMPONENT16 : f === 0x88F0 ? gl.DEPTH24_STENCIL8 : f === 0x8D48 ? gl.STENCIL_INDEX8 : f === 0x8D62 ? gl.RGB565 : f === 0x8056 ? gl.RGBA4 : f === 0x8057 ? gl.RGB5_A1 : gl.RGBA8;
-      gl.renderbufferStorage(gl.RENDERBUFFER, fmt, w, h);
+      o.fmt = fmt;
+      const scaled = curRB === drawableRB || [...(attachments.get(drawableFB)?.values() || [])].includes(curRB);
+      allocateRB(o, scaled);
     },
-    Scissor: (x, y, w, h) => gl.scissor(x, y, w, h),
+    Scissor: (x, y, w, h) => { scissor = [x, y, w, h]; gl.scissor(...mappedBox(scissor)); },
     ShaderSource: (s, p) => gl.shaderSource(shaders.get(s), cstr(p)),
     TexImage2D: (t, l, ifmt, w, h, b, fmt, type, p) => {
       const n = boundTex[activeTex];
@@ -359,8 +421,8 @@ export function createGL(canvas, mem, log) {
     UseProgram: (p) => { curProgram = p; const o = p ? programs.get(p).obj : null; gl.useProgram(o); curGLProg = o; },
     ValidateProgram: (p) => gl.validateProgram(programs.get(p).obj),
     VertexAttribPointer: (i, size, type, norm, stride, off, p) => { Object.assign(attribs[i], { size, type, norm: !!norm, stride, buffer: arrayBuffer, offset: off, ptr: p }); },
-    Viewport: (x, y, w, h) => gl.viewport(x, y, w, h),
-    SetDrawableRenderbuffer: () => { drawableRB = curRB; const o = rbos.get(curRB); drawW = o.w; drawH = o.h; canvas.width = o.w; canvas.height = o.h; },
+    Viewport: (x, y, w, h) => { viewport = [x, y, w, h]; gl.viewport(...mappedBox(viewport)); },
+    SetDrawableRenderbuffer: () => { drawableRB = curRB; const o = rbos.get(curRB); drawW = o.w; drawH = o.h; resizeDrawable(); },
     Present: () => {
       if (stats.skipDraws) { stats.presents++; return; }
       const fb = fbos.get(drawableFB);
@@ -368,10 +430,13 @@ export function createGL(canvas, mem, log) {
       gl.bindFramebuffer(gl.READ_FRAMEBUFFER, fb);
       gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER, null);
       const sc = caps.get(0x0C11); if (sc) gl.disable(gl.SCISSOR_TEST);
-      gl.blitFramebuffer(0, 0, drawW, drawH, 0, 0, canvas.width, canvas.height, gl.COLOR_BUFFER_BIT, gl.NEAREST);
+      if (canvas.width !== renderW || canvas.height !== renderH) { canvas.width = renderW; canvas.height = renderH; }
+      gl.blitFramebuffer(0, 0, renderW, renderH, 0, 0, canvas.width, canvas.height, gl.COLOR_BUFFER_BIT, gl.NEAREST);
       if (sc) gl.enable(gl.SCISSOR_TEST);
       gl.bindFramebuffer(gl.FRAMEBUFFER, curFB ? fbos.get(curFB) : null);
       stats.presents++;
+      stats.drawCalls = frameDraws; stats.uploadBytes = frameUploads; frameDraws = frameUploads = 0;
+      stats.totalUploadBytes += stats.uploadBytes;
       if (stats.capture) { stats.capture--; stats.frames.push(stats.draws); stats.draws = []; }
       drawNo = 0;
     },
@@ -434,6 +499,7 @@ export function createGL(canvas, mem, log) {
   }
   function uloc(id) { const p = programs.get(id >> 12); return p ? p.uniforms.get(id) : null; }
   // ES1 GL_TEXTURE_ENV_COLOR via TexEnvfv is not imported; COMBINE sources use env colour default (0).
-  const stats = { presents: 0, capture: 0, draws: [], frames: [], autoMipmaps: 0 };
-  return { imports: imp, stats, gl };
+  let frameDraws = 0, frameUploads = 0;
+  const stats = { presents: 0, capture: 0, draws: [], frames: [], autoMipmaps: 0, drawCalls: 0, uploadBytes: 0, totalUploadBytes: 0, renderWidth: renderW, renderHeight: renderH };
+  return { imports: imp, stats, gl, setRenderSize, maxRenderSize };
 }

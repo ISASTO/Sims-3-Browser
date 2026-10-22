@@ -1,7 +1,6 @@
 """Private local server for the browser build.
 
-Serves build/web/ at / and the extracted app bundle (read-only) at /bundle/.  Binds to 127.0.0.1 only: the
-game content is the owner's private copy and is never published.
+Serves build/web/ at / and the extracted app bundle (read-only) at /bundle/. Binds to 127.0.0.1 by default.
 
 Usage: python3 tools/serve.py [--port 8333] [--bundle extract/Payload/sims3_iphone.app] [--web build/web]
 """

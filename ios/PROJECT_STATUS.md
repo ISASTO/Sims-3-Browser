@@ -25,6 +25,24 @@ reimplements the iOS frameworks it uses.
 - This is a connected playable build with the tested paths above. Many other gameplay systems, hardware frame
   rates and browser engines remain unverified; static recompilation is not hand recovery of original C++ source.
 
+## 2026-10-22 player and performance pass
+- Added a player border, Auto/Native/85%/67%/50% quality choices, optional detailed metrics, fit-to-tab and native
+  fullscreen. Preferences persist. Native follows the displayed game area and device pixel ratio dynamically,
+  retaining the original aspect ratio. Both drawable color and depth buffers resize; reflections keep their own
+  target sizes. The game layout, original textures and input coordinates remain those of the virtual iPhone.
+- Auto adjusts resolution under sustained load. Palette uniform allocation/caching and buffer upload copies were
+  tightened. Hidden tabs stop recurring guest frame work, while lifecycle/save flushing is retained.
+- Implemented synthetic CoreMotion accelerometer samples through the game's original callback. The small header
+  diamond triggers a shake. The Gardening Tips easter egg awarded §500 in the test, taking the balance from §690
+  to §1,190; an outside-tip shake did not award money. Reward animation must finish before dismissing the tip.
+- The extended regression covers new game/CAS/world/snack/save/reload, quality controls, dynamic render/depth
+  dimensions, fullscreen/fit, DPR changes, 4K and portrait viewports and consecutive-frame probes. See HANDOFF.md
+  for the exact automated assertions versus visually inspected outcomes.
+- Same-resolution SwiftShader performance is broadly unchanged: mean 27.2 → 28.0 FPS at 1334×750. At 667×375 the
+  new Performance preset averaged 49.4 FPS (44.3–52.1), against 25.6–29.0 before at the larger resolution. CPU time
+  averaged 4.62 → 4.37 ms at the same resolution. Hardware-GPU measurements remain outstanding. Raw samples are
+  in `verification/performance.json`.
+
 ## Inputs (verified)
 | Item | Value |
 | --- | --- |
@@ -124,7 +142,7 @@ not GPU-backed hardware results or a sustained performance guarantee.
 - **Not implemented, reported when reached.**
   - `MPMoviePlayerController` (the midp video player; no trigger seen yet).
   - `UIAlertController`, `UIActionSheet`, `UILabel` and `UIButton` (placeholder classes; none reached so far).
-- **Rendering.** WebGL logs `INVALID_ENUM` for two ES1-only `glGetParameter` queries (harmless).
+- **Rendering.** The two known ES1-only GL state queries now use emulated state without WebGL warnings. Original-device comparison and broader reflection/shadow coverage remain outstanding.
 - **Browser matrix.** Only Chromium 141 (headless, Playwright) has been tested. Firefox and Safari are untested.
 - **Unsupported by design (D11).** Network services report "offline" (More Games, Facebook, Nimble telemetry).
   StoreKit purchases are unavailable.

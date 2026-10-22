@@ -2,14 +2,28 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Sims 3 | Browser port</title>
 <style>
-  :root { --bg: #000; --fg: #d8dee6; --dim: #a3acb8; --err: #ffb4a8; }
+  :root { color-scheme: dark; --bg: #080c0e; --fg: #e0e8e9; --dim: #93a4aa; --err: #ffb4a8; --accent: #9ce4ae; }
   html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg); font: 13px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; overflow: hidden; }
-  #wrap { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+  #wrap { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; background: radial-gradient(ellipse at 50% 0%, #172723 0%, var(--bg) 65%); }
+  #player { width: 100%; max-width: 1440px; height: 100%; max-height: 940px; display: grid; grid-template-rows: auto minmax(0, 1fr) auto auto; border: 1px solid #2b3c3d; border-radius: 12px; background: #10181b; overflow: hidden; box-shadow: 0 16px 70px #0008; }
+  #titlebar { display: flex; align-items: center; gap: 10px; padding: 8px 16px 8px 10px; min-height: 42px; }
+  #titlebar h1 { font-size: 15px; letter-spacing: -.3px; font-weight: 600; margin: 0; }
+  #titlebar .hint { margin-left: auto; font-size: 11px; color: var(--dim); }
+  button, select { font: inherit; color: var(--fg); background: #182326; border: 1px solid #344449; border-radius: 6px; padding: 7px 10px; cursor: pointer; }
+  button:hover, select:hover { background: #233337; border-color: #597065; }
+  button:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  button[aria-pressed="true"] { color: #b9f2c6; border-color: #629373; }
+  button:disabled { opacity: .4; cursor: default; }
+  #plumbob { border: 0; background: transparent; padding: 3px 9px; flex: none; }
+  #plumbob svg { display: block; width: 17px; height: 29px; }
+  #plumbob.shaking svg { animation: sway .5s ease-in-out; }
+  @keyframes sway { 20% { transform: rotate(-14deg); } 40% { transform: rotate(12deg); } 65% { transform: rotate(-8deg); } 85% { transform: rotate(5deg); } }
+  #viewport { min-width: 0; min-height: 0; display: flex; align-items: center; justify-content: center; background: #000; border-block: 1px solid #253437; }
   /* landscape iPhone 6 class screen: 667 x 375 points */
-  #stage { position: relative; width: min(100vw, calc(100vh * 667 / 375)); aspect-ratio: 667 / 375; background: #000; touch-action: none; user-select: none; -webkit-user-select: none; }
+  #stage { position: relative; width: 100%; aspect-ratio: 667 / 375; flex: none; background: #000; touch-action: none; user-select: none; -webkit-user-select: none; }
   #screen { position: absolute; inset: 0; width: 100%; height: 100%; display: block; image-rendering: auto; }
   .hostview { position: absolute; pointer-events: none; object-fit: fill; box-sizing: border-box; }
   .hostinput { pointer-events: auto; border: 1px solid #888; border-radius: 4px; background: #fff; color: #000; padding: 0 6px; font: 600 16px system-ui, sans-serif; outline: none; }
@@ -30,16 +44,43 @@
   #nowplaying .np-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   #nowplaying button { border: 0; background: #ffffff1a; color: var(--fg); border-radius: 10px; min-width: 24px; height: 20px; cursor: pointer; font-size: 11px; }
   #status { position: absolute; left: 0; right: 0; bottom: 12%; text-align: center; color: var(--dim); }
-  #meter { position: fixed; right: 8px; bottom: 6px; color: var(--dim); font: 11px ui-monospace, Menlo, monospace; opacity: .7; pointer-events: none; }
+  #toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px 12px; }
+  #toolbar label { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--dim); }
+  #meter { margin: 0 auto 0 4px; font: 11px ui-monospace, Menlo, monospace; color: var(--dim); white-space: nowrap; }
+  #metrics { padding: 10px 16px; border-top: 1px solid #253437; color: var(--dim); font: 11px/1.8 ui-monospace, Menlo, monospace; }
+  #metrics[hidden] { display: none; }
+  #metric-values { display: flex; flex-wrap: wrap; column-gap: 22px; }
+  #metric-values span { white-space: nowrap; }
+  #metrics p { margin: 2px 0 0; font: 11px/1.6 system-ui, sans-serif; }
+  #shell-notice { color: var(--err); font-size: 11px; }
+  #shell-notice:empty { display: none; }
+  #wrap.expanded, #wrap:fullscreen { padding: 0; background: #000; }
+  #wrap.expanded #player, #wrap:fullscreen #player { max-width: none; max-height: none; border-radius: 0; border: 0; }
+  @media (max-width: 640px), (max-height: 480px) { #wrap { padding: 0; } #player { border: 0; border-radius: 0; } #titlebar { padding: 3px 10px; min-height: 32px; } #titlebar .hint { display: none; } #titlebar h1 { font-size: 13px; } #plumbob svg { width: 13px; height: 23px; } #toolbar { gap: 6px; padding: 6px; } #toolbar label { font-size: 11px; } button, select { font-size: 11px; padding: 6px; } #meter { font-size: 10px; } }
+  @media (prefers-reduced-motion: reduce) { #plumbob.shaking svg { animation: none; } }
   #error { display: none; position: fixed; inset: 5%; overflow: auto; background: #1a1112; color: var(--err); border: 1px solid #5a2a2a; padding: 16px; white-space: pre-wrap; font: 12px ui-monospace, Menlo, monospace; z-index: 10; }
   .toast { position: fixed; left: 50%; top: 10%; transform: translateX(-50%); background: #222a; color: var(--fg); padding: 8px 14px; border-radius: 6px; z-index: 5; pointer-events: none; }
 </style>
 </head>
 <body>
-<div id="wrap"><div id="stage"><canvas id="screen" width="1334" height="750"></canvas><div id="status">Loading…</div></div></div>
-<div id="meter"></div>
+<main id="wrap"><section id="player" aria-label="The Sims 3 player">
+  <header id="titlebar">
+    <button id="plumbob" title="The Sims 3" aria-label="Shake device" disabled><svg viewBox="0 0 40 66" aria-hidden="true"><path fill="#86e39a" d="M20 0 39 29 20 66 1 29Z"/><path fill="#3f9b63" d="M20 0v66L1 29Z"/><path fill="#bbf6ae" d="M20 0 39 29H20Z"/></svg></button>
+    <h1>The Sims 3</h1><span class="hint">Click to interact · Drag to pan · Right-drag to orbit</span>
+  </header>
+  <div id="viewport"><div id="stage"><canvas id="screen" width="1334" height="750" aria-label="Game screen"></canvas><div id="status" role="status">Loading…</div></div></div>
+  <footer id="toolbar">
+    <label for="quality">Quality <select id="quality"><option value="auto">Auto</option><option value="native">Native · 100%</option><option value="high">High · 85%</option><option value="balanced">Balanced · 67%</option><option value="performance">Performance · 50%</option></select></label>
+    <output id="meter" aria-label="Rendering performance">Starting…</output>
+    <button id="metrics-toggle" aria-pressed="false" aria-controls="metrics">Metrics</button>
+    <button id="fit-tab" aria-pressed="false">Fit to tab</button>
+    <button id="fullscreen">Fullscreen</button>
+    <span id="shell-notice" role="status"></span>
+  </footer>
+  <aside id="metrics" hidden><div id="metric-values"></div><p>Auto adjusts resolution for smoother play. Native matches display pixels. CPU time covers game logic and graphics submission; frame time also includes browser and rendering delays.</p></aside>
+</section></main>
 <pre id="error"></pre>
 <noscript>Enable JavaScript to play The Sims 3.</noscript>
-<script type="module" src="sims3.js"></script>
+<script type="module" src="sims3.js?v=935157e8d0099e54"></script>
 </body>
 </html>

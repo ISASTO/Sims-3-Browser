@@ -15,7 +15,55 @@ for what works and `DECISIONS.md` for why it is built this way.
   release contains the compiled runtime and the resources needed to play.
 - Local development servers bind to 127.0.0.1 by default.
 
-### Published delivery verification
+### Player, resolution and performance pass (2026-10-22)
+- `web/player.js` supplies a restrained player frame, persistent quality selection, optional metrics, fit-to-tab
+  and Fullscreen API controls. The small header plumbob sends a device shake; the site does not advertise a money
+  button. Native fullscreen retains the controls. Unsupported fullscreen browsers still have fit-to-tab.
+- **Native** renders at the displayed game rectangle's CSS size × `devicePixelRatio`, within GPU limits. A
+  `ResizeObserver`, window/visual-viewport resize and DPR checks handle window resizing, zoom and monitor changes.
+  The original 667:375 aspect ratio is retained, so wider/taller displays have letterboxing. Original texture and
+  UI asset detail is unchanged; the 3D scene rasterizes at the selected resolution.
+- `gl.js` reallocates the actual drawable color, depth and stencil renderbuffers and remaps viewport/scissor
+  rectangles. Guest GL queries, 667×375 input points and the @2x asset selection stay consistent. Texture-backed
+  reflection/shadow targets keep their own sizes. The canvas backing size changes only at a complete presentation,
+  preserving the existing protection against partial/black frames. Avoid simply changing canvas width/height or
+  the virtual device scale: neither implements this contract correctly.
+- **Auto** starts at no more than roughly 1080p, reduces resolution after sustained rates below 45 FPS, and
+  cautiously increases it after sustained rates above 57 FPS. It uses cooldowns, a 50%/667-pixel-wide floor where
+  appropriate, and resets its initial budget on a large display-size increase. Manual Native/85%/67%/50% presets
+  stay fixed relative to display pixels. Defaults/preferences use localStorage key `sims3-player-v1`.
+- Metrics update once per second: presented FPS, actual resolution, frame time/p95, game+GL submission CPU/peak,
+  draw calls, buffer-upload rate, DPR/render scale and WebAssembly memory. CPU is not GPU execution time; memory
+  is the wasm allocation, not the browser's entire footprint. Hidden pages stop recurring game frames after the
+  existing lifecycle/IndexedDB flush. Resuming clears timing samples.
+- Low-risk graphics changes reuse palette uniform storage/revisions and avoid an unnecessary vertex-buffer
+  upload copy. ES1 client-active-texture/matrix-mode queries now use the emulated state instead of issuing invalid
+  WebGL queries. Static packaging versions the shell's module imports together to prevent mixed cached adapters.
+- **Motion:** `runtime/misc.c` now implements the accelerometer subset of CMMotionManager/CMAccelerometerData.
+  It copies the original callback block and dispatches three-double `CMAcceleration` samples on the guest run
+  loop. `sims3_shake` queues a 650 ms waveform in g; an 800 ms cooldown and background cancellation bound it.
+  The original game owns reward eligibility and amount. There are no writes to money or other game state.
+  Gardening Tips → plumbob was verified from §690 to §1,190. Let the original reward animation finish before
+  closing the tip; the regression waits 600 virtual frames. A shake outside the tip left the balance at §690.
+- `tools/tests/player_controls.json` includes the complete new-game/snack/confirmed-save/reload regression, then
+  exercises the secret, all presets, drawable **and depth** sizes, fit/fullscreen, DPR 1→2→1, a 4K viewport, portrait
+  input and 24 consecutive frame probes. Captures require visual review for balance and menu transitions; the
+  framebuffer sizes/completeness and frame probes are asserted automatically. `?test` starts Native and disables
+  automatic quality adaptation so captures remain deterministic. Harness `resize`, `dpr`, `select` and `profile`
+  steps support display tests and Chromium CPU sampling; `SIMS3_VIEWPORT`/`SIMS3_DPR` set the initial display.
+- Fixed-resolution comparison on Chrome Headless Shell 141/SwiftShader, saved house, eight one-second samples:
+
+  | Condition | Presented FPS range | Mean FPS | Mean game + GL submission CPU |
+  | --- | --- | --- | --- |
+  | Before, 1334×750 | 25.6–29.0 | 27.2 | 4.62 ms |
+  | After, 1334×750 | 25.6–29.5 | 28.0 | 4.37 ms |
+  | After, Performance 667×375 | 44.3–52.1 | 49.4 | 4.05 ms |
+
+  Resolution control supplies the material gain in this software renderer. The small same-resolution change is
+  within run-to-run variation. See `verification/performance.json` for samples. These are not hardware-GPU FPS
+  guarantees. Hardware-backed Chrome, Firefox and Safari still need a measured pass.
+
+### Initial published delivery verification
 - Pages successfully deployed gameplay commit `a3c47f42e2cb7cd91c707d0ec41fc50e789f10f7` in Actions run
   `39773079079` (2026-10-22).
 - Downloaded all 52 static release files from the public HTTPS URL using normal TLS verification: 136,190,201

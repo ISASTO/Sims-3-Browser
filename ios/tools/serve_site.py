@@ -13,7 +13,7 @@ from project import ROOT
 
 def validate(root):
     manifest = json.loads((root / 'bundle-manifest.json').read_text())
-    required = {'index.html': None, 'sims3.js': None, 'gl.js': None,
+    required = {'index.html': None, 'sims3.js': None, 'gl.js': None, 'player.js': None,
                 'vendor/fflate.js': None, manifest['runtime']['url']: None}
     required.update({'packs/' + name: size for name, size in manifest['packs'].items()})
     required.update({'bundle/' + rel: size for rel, size in manifest['files'].items()

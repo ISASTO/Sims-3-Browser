@@ -8,6 +8,7 @@ import argparse
 import gzip
 import hashlib
 import json
+import re
 from pathlib import Path
 import shutil
 import tempfile
@@ -15,16 +16,24 @@ import tempfile
 from project import ROOT
 
 PACK_SIZE = 4 << 20
-WEB_FILES = ('index.html', 'sims3.js', 'gl.js', 'vendor/fflate.js', 'vendor/fflate-LICENSE.txt')
+WEB_FILES = ('index.html', 'sims3.js', 'gl.js', 'player.js', 'vendor/fflate.js', 'vendor/fflate-LICENSE.txt')
 
 
 def package(bundle, web, out):
     out.mkdir(parents=True, exist_ok=True)
     (out / 'packs').mkdir(exist_ok=True)
+    host_version = hashlib.sha256(b''.join((web / name).read_bytes() for name in WEB_FILES)).hexdigest()[:16]
     for name in WEB_FILES:
         dst = out / name
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(web / name, dst)
+        # A new shell must not import an older cached graphics adapter. Query versions work on
+        # ordinary Pages hosting and leave the loose development build untouched.
+        if name == 'index.html':
+            dst.write_text(dst.read_text().replace('src="sims3.js"', f'src="sims3.js?v={host_version}"'))
+        elif name.endswith('.js'):
+            dst.write_text(re.sub(r'''(\bfrom\s+['"])(\./[^'"?]+\.js)(['"])''',
+                                  lambda m: f'{m[1]}{m[2]}?v={host_version}{m[3]}', dst.read_text()))
     files, dirs, storage, packs = {}, {''}, {}, {}
     block = bytearray()
     entries = []
@@ -77,7 +86,8 @@ def package(bundle, web, out):
     (out / wasm_name).write_bytes(gzip.compress(wasm, compresslevel=9, mtime=0))
     manifest = {'files': files, 'dirs': sorted(dirs), 'storage': storage, 'packs': packs,
                 'preload': list(dict.fromkeys(storage[name][0] for name in order if name in storage))[:3],
-                'runtime': {'url': wasm_name, 'encoding': 'gzip', 'bytes': len(wasm), 'sha256': wasm_hash}}
+                'runtime': {'url': wasm_name, 'encoding': 'gzip', 'bytes': len(wasm), 'sha256': wasm_hash},
+                'hostVersion': host_version}
     (out / 'bundle-manifest.json').write_text(json.dumps(manifest, separators=(',', ':')))
     (out / '.nojekyll').touch()
     total = sum(p.stat().st_size for p in out.rglob('*') if p.is_file())

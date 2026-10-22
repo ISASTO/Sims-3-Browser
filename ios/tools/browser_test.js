@@ -28,13 +28,15 @@ fs.mkdirSync(out, { recursive: true });
   if (process.env.SIMS3_BROWSER_ARGS) launchArgs.push(...JSON.parse(process.env.SIMS3_BROWSER_ARGS));
   const pi = process.argv.indexOf('--profile');
   const executablePath = process.env.SIMS3_BROWSER_PATH || undefined;
+  const viewport = JSON.parse(process.env.SIMS3_VIEWPORT || '{"width":1334,"height":750}');
+  const deviceScaleFactor = +(process.env.SIMS3_DPR || 1);
   let browser, page, failed = false;
   if (pi > 0) {   // persistent profile: IndexedDB (saves) survives between runs
-    browser = await chromium.launchPersistentContext(process.argv[pi + 1], { executablePath, headless: true, args: launchArgs, viewport: { width: 1334, height: 750 }, deviceScaleFactor: 1 });
+    browser = await chromium.launchPersistentContext(process.argv[pi + 1], { executablePath, headless: true, args: launchArgs, viewport, deviceScaleFactor });
     page = browser.pages()[0] || await browser.newPage();
   } else {
     browser = await chromium.launch({ executablePath, headless: true, args: launchArgs });
-    page = await browser.newPage({ viewport: { width: 1334, height: 750 }, deviceScaleFactor: 1 });
+    page = await browser.newPage({ viewport, deviceScaleFactor });
   }
   const logf = fs.createWriteStream(path.join(out, 'console.log'));
   page.on('console', (m) => { logf.write(m.text() + '\n'); });
@@ -74,6 +76,21 @@ fs.mkdirSync(out, { recursive: true });
     }
     if (s.files) await page.setInputFiles(s.files[0], s.files.slice(1));   // [selector, path...] for a host file input
     if (s.click) await page.click(s.click);                                   // CSS selector of a host element
+    if (s.select) await page.selectOption(s.select[0], s.select[1]);
+    if (s.resize) await page.setViewportSize({ width: s.resize[0], height: s.resize[1] });
+    if (s.dpr) {
+      const cdp = await page.context().newCDPSession(page);
+      await cdp.send('Emulation.setDeviceMetricsOverride', { ...page.viewportSize(), deviceScaleFactor: s.dpr, mobile: false });
+      // Keep this session attached: detaching removes the emulated monitor change.
+    }
+    if (s.profile) {
+      const cdp = await page.context().newCDPSession(page);
+      await cdp.send('Profiler.enable'); await cdp.send('Profiler.start');
+      await page.waitForTimeout(s.profile);
+      const { profile } = await cdp.send('Profiler.stop');
+      fs.writeFileSync(path.join(out, 'cpu-profile.json'), JSON.stringify(profile));
+      await cdp.detach();
+    }
     if (s.type) await page.keyboard.type(s.type, { delay: 60 });
     if (s.key) await page.keyboard.press(s.key);
     if (s.reload) { await page.reload(); }
