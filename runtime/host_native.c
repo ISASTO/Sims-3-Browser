@@ -19,8 +19,11 @@ static const char *map(const char *g, char *out, size_t n) {
 const char *host_language(void) { const char *l = getenv("SIMS3_LANG"); return l ? l : "en-US"; }
 void host_console(const char *s) { fprintf(stderr, "%s\n", s); }
 void host_fatal_hook(const char *m) { (void)m; }
-double host_now_ms(void) { struct timespec t; clock_gettime(CLOCK_MONOTONIC, &t); return t.tv_sec * 1e3 + t.tv_nsec / 1e6; }
-double host_wall_ms(void) { struct timespec t; clock_gettime(CLOCK_REALTIME, &t); return t.tv_sec * 1e3 + t.tv_nsec / 1e6; }
+/* The headless driver can run on a virtual clock (SIMS3_VIRTUAL_CLOCK=1): time advances by exactly one frame
+ * period per frame, so scripted input lands at the same game state regardless of host speed. */
+double native_clock_ms = -1, native_clock_wall0;
+double host_now_ms(void) { if (native_clock_ms >= 0) return native_clock_ms; struct timespec t; clock_gettime(CLOCK_MONOTONIC, &t); return t.tv_sec * 1e3 + t.tv_nsec / 1e6; }
+double host_wall_ms(void) { if (native_clock_ms >= 0) return native_clock_wall0 + native_clock_ms; struct timespec t; clock_gettime(CLOCK_REALTIME, &t); return t.tv_sec * 1e3 + t.tv_nsec / 1e6; }
 double host_tz_offset_min(double ms) { (void)ms; return 0; }
 int host_file_size(const char *p) { char h[1100]; struct stat st; if (stat(map(p, h, sizeof h), &st) || !S_ISREG(st.st_mode)) return -1; return (int)st.st_size; }
 int host_file_read(const char *p, void *dst, uint32_t off, uint32_t len) {

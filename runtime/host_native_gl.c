@@ -90,8 +90,10 @@ void hgl_Viewport(int a, int b, int c, int d) { (void)a; (void)b; (void)c; (void
 void hgl_SetDrawableRenderbuffer(void) { CNT; }
 uint64_t native_presents;
 void hgl_Present(void) { native_presents++; }
+gptr native_last_textfield;
 uint32_t host_ui_event(int kind, gptr view, const char *arg, float x, float y, float w, float h) {
     static uint32_t ids;
+    if (kind == 7) native_last_textfield = view;
     if (rt_verbose) rt_log("ui_event kind=%d view=%08x %s (%.0f,%.0f %.0fx%.0f)", kind, view, arg ? arg : "", x, y, w, h);
     return kind == 2 || kind == 5 || kind == 6 ? 0 : ++ids;
 }

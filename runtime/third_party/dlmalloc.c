@@ -5209,7 +5209,7 @@ static void internal_inspect_all(mstate m,
 }
 #endif /* MALLOC_INSPECT_ALL */
 
-#ifdef __wasilibc_unmodified_upstream // Define a function that initializes the initial state of dlmalloc.
+#if defined(__wasilibc_unmodified_upstream) || ONLY_MSPACES // (sims3 port: only mspaces are used; no global heap init)
 #else
 /* ------------------ Exported try_init_allocator -------------------- */
 

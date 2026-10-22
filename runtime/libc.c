@@ -191,7 +191,7 @@ void H_gmtime_r(CPU *c) { time_t t = (time_t)(int32_t)LD32(ARG(0)); struct tm tm
 
 /* ------------------------------------------------------------------ stdio (guest FILE has Darwin __sFILE layout: _p@0 _r@4 _w@8 _flags@12 _file@14) */
 typedef struct HFile { char path[512]; gptr buf; uint32_t size, cap, pos; bool write, eof, err, append; } HFile;
-#define MAXF 64
+#define MAXF 256   /* iOS default per-process descriptor limit */
 static HFile *hfiles[MAXF];
 static gptr gfiles[MAXF];
 static int file_slot(gptr f) { for (int i = 0; i < MAXF; i++) if (gfiles[i] == f && hfiles[i]) return i; return -1; }

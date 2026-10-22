@@ -15,6 +15,7 @@ void nib_init(void);
 void foundation_blocks_init(void);
 void foundation_sdk_init(void);
 void crypto_selftest(void);
+void cxx_iostream_init(void);
 void hle_init_modules(void) {
     cxx_init();
     foundation_init();
@@ -31,4 +32,5 @@ void hle_init_modules(void) {
     foundation_blocks_init();
     foundation_sdk_init();
     crypto_selftest();
+    cxx_iostream_init();
 }

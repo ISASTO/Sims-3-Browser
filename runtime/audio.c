@@ -159,7 +159,7 @@ typedef struct {
     uint8_t *cookie; uint32_t cookie_size;
     int64_t valid_frames; int32_t priming, remainder;
 } AFile;
-#define NAF 32
+#define NAF 1024   /* AudioFileIDs open at once: the game keeps one per loaded sound (simlish, SFX, music) */
 static AFile *afiles[NAF];
 static uint64_t be64(const uint8_t *p) { uint64_t v = 0; for (int i = 0; i < 8; i++) v = v << 8 | p[i]; return v; }
 static uint32_t be32(const uint8_t *p) { return (uint32_t)p[0] << 24 | (uint32_t)p[1] << 16 | (uint32_t)p[2] << 8 | p[3]; }
@@ -221,7 +221,7 @@ void H_AudioFileOpenURL(CPU *c) {
     int sz = host_file_size(p);
     if (sz <= 0) { rt_log("AudioFileOpenURL: %s not found", p); RET(0x666e3f3f /* 'fnf?' */); return; }
     int k = 1; while (k < NAF && afiles[k]) k++;
-    if (k == NAF) { RET((uint32_t)-42); return; }
+    if (k == NAF) { rt_log("AudioFileOpenURL: too many open audio files (%d)", NAF); RET((uint32_t)-42); return; }
     AFile *f = calloc(1, sizeof *f);
     snprintf(f->path, sizeof f->path, "%s", p);
     f->size = (uint32_t)sz; f->bytes = malloc((size_t)sz); host_file_read(p, f->bytes, 0, (uint32_t)sz);

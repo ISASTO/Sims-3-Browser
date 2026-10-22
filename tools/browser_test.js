@@ -2,7 +2,8 @@
 // take frame captures, replay taps, and report presented-frame rate and per-frame CPU time.
 //
 // Usage: NODE_PATH=/opt/npm-tools/node_modules node tools/browser_test.js [url] [outdir] [--script steps.json]
-//   steps.json: [{"wait": ms}, {"tap": [x, y]}, {"drag": [x0, y0, x1, y1, ms]}, {"shot": "name"}, {"perf": ms}]
+//   steps.json: [{"wait": ms}, {"tap": [x, y]}, {"drag": [x0, y0, x1, y1, ms]}, {"shot": "name"}, {"perf": ms},
+//                {"type": "text"}, {"key": "Enter"}, {"reload": true}, {"eval": "js expression"}]
 //   (coordinates in game points, 667 x 375)
 const { chromium } = require('playwright');
 const fs = require('fs');
@@ -16,12 +17,16 @@ const steps = si > 0 ? JSON.parse(fs.readFileSync(process.argv[si + 1], 'utf8'))
 fs.mkdirSync(out, { recursive: true });
 
 (async () => {
-  const browser = await chromium.launch({
-    headless: true,
-    args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required',
-      '--js-flags=--stack-size=4000'],
-  });
-  const page = await browser.newPage({ viewport: { width: 1334, height: 750 }, deviceScaleFactor: 1 });
+  const launchArgs = ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required'];
+  const pi = process.argv.indexOf('--profile');
+  let browser, page;
+  if (pi > 0) {   // persistent profile: IndexedDB (saves) survives between runs
+    browser = await chromium.launchPersistentContext(process.argv[pi + 1], { headless: true, args: launchArgs, viewport: { width: 1334, height: 750 }, deviceScaleFactor: 1 });
+    page = browser.pages()[0] || await browser.newPage();
+  } else {
+    browser = await chromium.launch({ headless: true, args: launchArgs });
+    page = await browser.newPage({ viewport: { width: 1334, height: 750 }, deviceScaleFactor: 1 });
+  }
   const logf = fs.createWriteStream(path.join(out, 'console.log'));
   page.on('console', (m) => { logf.write(m.text() + '\n'); });
   page.on('pageerror', (e) => { logf.write('PAGEERROR ' + e.stack + '\n'); console.log('pageerror', e.message); });
@@ -38,6 +43,10 @@ fs.mkdirSync(out, { recursive: true });
       for (let i = 1; i <= n; i++) { await page.mouse.move(a + (c - a) * i / n, b + (d - b) * i / n); await page.waitForTimeout((ms || 300) / n); }
       await page.mouse.up();
     }
+    if (s.type) await page.keyboard.type(s.type, { delay: 60 });
+    if (s.key) await page.keyboard.press(s.key);
+    if (s.reload) { await page.reload(); }
+    if (s.eval) console.log('eval', JSON.stringify(await page.evaluate(s.eval)));
     if (s.shot) { await page.screenshot({ path: path.join(out, s.shot + '.png') }); console.log(`[${((Date.now() - t0) / 1000).toFixed(1)}s] shot ${s.shot}`); }
     if (s.perf) {
       const samples = [];

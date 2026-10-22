@@ -121,6 +121,15 @@ void trap_badresume(CPU *c, uint32_t pc) __attribute__((noreturn));
 #define ATAILN(f) do { SPILL(); c->r[14] = lr; c->async_ok = 0; f(c); c->async_ok = 1; return; } while (0)
 #define ATAILI(t) do { uint32_t _t = (t); SPILL(); c->r[14] = lr; call_indirect_async(c, _t); return; } while (0)
 
+/* optional entry hook for native debugging builds (function tracing / call counting); empty otherwise */
+#ifdef FN_TRACE
+extern volatile uint32_t fn_trace_on;
+void fn_trace(CPU *c, uint32_t addr);
+#define FN_ENTRY(a) do { if (__builtin_expect(fn_trace_on != 0, 0)) fn_trace(c, (a)); } while (0)
+#else
+#define FN_ENTRY(a) do { } while (0)
+#endif
+
 #define SPILL() (c->r[0] = r0, c->r[1] = r1, c->r[2] = r2, c->r[3] = r3, c->r[7] = r7, c->r[12] = r12, c->r[13] = sp)
 #define RELOAD() (r0 = c->r[0], r1 = c->r[1], r2 = c->r[2], r3 = c->r[3], r12 = c->r[12])
 #define UNWIND_CHECK() if (__builtin_expect(c->unwinding != 0, 0)) goto unwind

@@ -165,17 +165,64 @@ function uiEvent(kind, view, arg, x, y, w, h) {
   if (kind === 1) {   // UIImageView with a bundle image
     let el = views.get(view);
     if (!el) { el = document.createElement('img'); el.className = 'hostview'; stage.appendChild(el); views.set(view, el); }
-    const r = relBundle(arg);
+    const r = arg.startsWith('/') ? relBundle(arg) : arg;   // image names resolve in the bundle root
     if (r !== null) el.src = 'bundle/' + r;
     place(el);
     return nextViewId++;
   }
   if (kind === 3) { const c = $('screen'); views.set(view, c); return nextViewId++; }   // the EAGL view is the canvas
-  if (kind === 4) { let el = views.get(view); if (!el) { el = document.createElement('div'); el.className = 'hostview'; stage.appendChild(el); views.set(view, el); } place(el); return nextViewId++; }
+  if (kind === 4) { let el = views.get(view); if (!el) { el = document.createElement('div'); el.className = 'hostview'; stage.appendChild(el); views.set(view, el); } if (arg) el.style.background = arg; place(el); return nextViewId++; }
+  if (kind === 7) {   // UITextField: a real input element at the field's frame
+    const [secure, keyboard, retKey, placeholder, text] = arg.split('\x1f');
+    let el = views.get(view);
+    if (!el) {
+      el = document.createElement('input'); el.className = 'hostview hostinput'; el.autocomplete = 'off'; el.spellcheck = false;
+      el.addEventListener('input', () => sendText(view, 0, el.value));
+      el.addEventListener('keydown', (ev) => { ev.stopPropagation(); if (ev.key === 'Enter') { ev.preventDefault(); sendText(view, 1, el.value); } });
+      el.addEventListener('pointerdown', (ev) => ev.stopPropagation());
+      stage.appendChild(el); views.set(view, el);
+    }
+    el.type = secure === '1' ? 'password' : 'text';
+    el.inputMode = keyboard === '4' || keyboard === '5' || keyboard === '11' ? 'numeric' : keyboard === '7' ? 'email' : keyboard === '3' ? 'url' : 'text';
+    el.enterKeyHint = retKey === '9' ? 'done' : retKey === '1' ? 'go' : 'enter';
+    el.placeholder = placeholder || '';
+    if (document.activeElement !== el) el.value = text || '';
+    place(el);
+    return nextViewId++;
+  }
+  if (kind === 10) {   // UIWebView: an isolated iframe (HTML strings via srcdoc, bundle files by path)
+    const sep = arg.indexOf('\x1f'), mode = arg.slice(0, sep), body = arg.slice(sep + 1);
+    let el = views.get(view);
+    if (!el) { el = document.createElement('iframe'); el.className = 'hostview hostweb'; el.setAttribute('sandbox', ''); stage.appendChild(el); views.set(view, el); }
+    if (mode === 'html') { if (el.srcdoc !== body) el.srcdoc = body; }
+    else { const r = body.startsWith('file://') ? relBundle(decodeURI(body.slice(7))) : body.startsWith('/') ? relBundle(body) : null; el.removeAttribute('srcdoc'); el.src = r !== null ? 'bundle/' + r : 'about:blank'; }
+    place(el);
+    return nextViewId++;
+  }
+  if (kind === 11) {   // UINavigationBar: title and bar buttons
+    const [title, left, leftItem, right, rightItem] = arg.split('\x1f');
+    let el = views.get(view);
+    if (!el) { el = document.createElement('div'); el.className = 'hostview hostbar'; stage.appendChild(el); views.set(view, el); }
+    el.textContent = '';
+    const t = document.createElement('span'); t.className = 'bartitle'; t.textContent = title; el.appendChild(t);
+    const btn = (label, item, side) => { if (!label || !+item) return; const b = document.createElement('button'); b.textContent = label; b.className = 'barbtn ' + side;
+      b.addEventListener('click', (ev) => { ev.stopPropagation(); exp.sims3_ui_action(+item); }); el.appendChild(b); };
+    btn(left, leftItem, 'left'); btn(right, rightItem, 'right');
+    place(el);
+    return nextViewId++;
+  }
+  if (kind === 8) { const el = views.get(view); if (el && el.focus) setTimeout(() => el.focus(), 0); return 0; }
+  if (kind === 9) { const el = views.get(view); if (el && el.blur) el.blur(); return 0; }
   if (kind === 5) { const el = views.get(view); if (el && el.id !== 'screen') { el.style.display = arg === 'hidden' ? 'none' : ''; el.style.opacity = String(x); } return 0; }
   if (kind === 2) { const el = views.get(view); if (el && el.id !== 'screen') el.remove(); views.delete(view); return 0; }
   if (kind === 6) { toast(arg); return 0; }
   return 0;
+}
+function sendText(view, kind, value) {
+  const b = enc.encode(value), p = exp.malloc(b.length + 1);
+  U8().set(b, p); U8()[p + b.length] = 0;
+  exp.sims3_text_event(view, kind, p);
+  exp.free(p);
 }
 function toast(msg) {
   const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t);
@@ -370,6 +417,7 @@ async function main() {
   // frame loop + performance meter (frames presented per second and CPU time per frame)
   const perf = { frames: 0, presents0: 0, t0: performance.now(), cpu: 0, worst: 0 };
   window.sims3Perf = { fps: 0, cpuMs: 0, worstMs: 0, presents: () => glh.stats.presents, stats };
+  window.sims3GL = glh.stats;
   const meter = $('meter');
   function frame(now) {
     if (dead) return;

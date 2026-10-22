@@ -457,6 +457,7 @@ class Fn:
                 out.append('  }')
         else:
             out.append('  ENTRY_REGS;')
+        out.append('  FN_ENTRY(0x%xu);' % self.lo)
         out.extend(body)
         if self.uses_unwind:
             out.append('unwind:')
@@ -1416,7 +1417,7 @@ class Fn:
             size = (hw2 >> 6) & 3
             esz = 8 << size
             layout = {0x7: (1, 1, 1), 0xA: (1, 2, 1), 0x6: (1, 3, 1), 0x2: (1, 4, 1),
-                      0x8: (2, 1, 1), 0x9: (2, 1, 2), 0x3: (2, 2, 1),
+                      0x8: (2, 1, 1), 0x9: (2, 1, 2), 0x3: (2, 2, 2),
                       0x4: (3, 1, 1), 0x5: (3, 1, 2), 0x0: (4, 1, 1), 0x1: (4, 1, 2)}
             if typ not in layout:
                 raise Unsupported('vldN type')
@@ -1427,18 +1428,14 @@ class Fn:
                     r = 'd%d' % (vd + k)
                     s += ('%s = LD64(_a + %d); ' % (r, 8 * k)) if L else 'ST64(_a + %d, %s); ' % (8 * k, r)
             else:
-                # interleaved structures: nstruct registers (spacing inc), each repeated regs_per times
-                regs = []
-                for rep in range(regs_per):
-                    regs.append(['d%d' % (vd + rep + inc * j * (1 if regs_per == 1 else 1) * (1 if nstruct > 0 else 1) + (j * (regs_per - 1) if False else 0)) for j in range(nstruct)])
-                # simplified: support regs_per==1 only
-                if regs_per != 1:
-                    raise Unsupported('vldN multi')
-                rl = ['d%d' % (vd + inc * j) for j in range(nstruct)]
+                # interleaved structures (ARM ARM VLDn/VSTn multiple): for each of regs_per register groups r,
+                # registers d+r, d+r+inc, ... hold element streams interleaved in memory (VLD2 type 0011: regs=2, inc=2)
                 elems = 64 // esz
-                total = 8 * nstruct
+                total = 8 * nstruct * regs_per
                 fn = 'V_LDN' if L else 'V_STN'
-                s += 'uint64_t *_r[%d] = {%s}; %s(_a, _r, %d, %d); ' % (nstruct, ', '.join('&' + r for r in rl), fn, nstruct, esz)
+                for r in range(regs_per):
+                    rl = ['d%d' % (vd + r + inc * j) for j in range(nstruct)]
+                    s += '{ uint64_t *_r[%d] = {%s}; %s(_a + %d, _r, %d, %d); } ' % (nstruct, ', '.join('&' + x for x in rl), fn, 8 * nstruct * r, nstruct, esz)
         else:
             sz = (hw2 >> 10) & 3
             n = (hw2 >> 8) & 3  # 0: VLD1, 1: VLD2, ...
@@ -1484,6 +1481,17 @@ class Fn:
 HEADER = '#include "cpu.h"\n'
 
 
+def write_if_changed(path, text):
+    """Keep the mtime of unchanged generated units so incremental builds only recompile what changed."""
+    try:
+        if open(path).read() == text:
+            return
+    except OSError:
+        pass
+    with open(path, 'w') as fo:
+        fo.write(text)
+
+
 def main():
     out_dir = sys.argv[1]
     only = None
@@ -1516,10 +1524,7 @@ def main():
         if k % 1000 == 0:
             print('..', k, file=sys.stderr)
     for u, codes in units.items():
-        with open(os.path.join(out_dir, 'recomp_%03d.c' % u), 'w') as fo:
-            fo.write(HEADER)
-            fo.write('\n\n'.join(codes))
-            fo.write('\n')
+        write_if_changed(os.path.join(out_dir, 'recomp_%03d.c' % u), HEADER + '\n\n'.join(codes) + '\n')
     # declarations, dispatch table, import stubs
     with open(os.path.join(out_dir, 'recomp_decls.h'), 'w') as fo:
         for f in ctx.funcs:

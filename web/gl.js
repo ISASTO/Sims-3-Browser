@@ -23,6 +23,7 @@ export function createGL(canvas, mem, log) {
   const boundTex = new Array(8).fill(0);
   let drawableFB = 0, drawableRB = 0, drawW = 0, drawH = 0;
   let glError = 0;
+  let unpackAlign = 4;
   const caps = new Map();
   const isEnabledES1 = (cap) => !!caps.get(cap);
 
@@ -203,6 +204,13 @@ export function createGL(canvas, mem, log) {
   }
   function prepareDraw(nverts) {
     if (curProgram) { es1Mode = false; es2Draw(nverts); } else { es1Mode = true; es1Draw(nverts); }
+    if (stats.capture) {   // debugging aid: window.sims3GL.capture = N records the draws of the next N frames
+      const mv = stacks[GL_MODELVIEW], pr = stacks[GL_PROJECTION];
+      stats.draws.push({ fb: curFB, n: nverts, tex: [caps.get('tex0') && boundTex[0], caps.get('tex1') && boundTex[1]], depth: !!caps.get(0x0B71), blend: !!caps.get(0x0BE2),
+        cull: !!caps.get(0x0B44), alpha: !!caps.get(0x0BC0), fog: !!caps.get(0x0B60), color: color.slice(), colorArr: arrays.color.enabled,
+        vtx: [arrays.vertex.size, arrays.vertex.type, arrays.vertex.stride, !!arrays.vertex.buffer], P: Array.from(pr[pr.length - 1]).map((x) => +x.toFixed(4)),
+        MV: Array.from(mv[mv.length - 1]).map((x) => +x.toFixed(3)), vp: gl.getParameter(gl.VIEWPORT) && Array.from(gl.getParameter(gl.VIEWPORT)) });
+    }
   }
 
   const imp = {
@@ -292,7 +300,7 @@ export function createGL(canvas, mem, log) {
     },
     IsEnabled: (c) => c === 0x0DE1 ? (caps.get('tex' + activeTex) ? 1 : 0) : (caps.get(c) ? 1 : 0),
     LinkProgram: (p) => gl.linkProgram(programs.get(p).obj),
-    PixelStorei: (pn, v) => gl.pixelStorei(pn, v),
+    PixelStorei: (pn, v) => { if (pn === 0x0CF5) unpackAlign = v; gl.pixelStorei(pn, v); },
     PolygonOffset: (f, u) => gl.polygonOffset(f, u),
     RenderbufferStorage: (t, f, w, h) => {
       const o = rbos.get(curRB); o.w = w; o.h = h;
@@ -304,18 +312,10 @@ export function createGL(canvas, mem, log) {
     TexImage2D: (t, l, ifmt, w, h, b, fmt, type, p) => {
       const n = boundTex[activeTex];
       texFormats.set(n, fmt === 0x1908 ? 'rgba' : fmt === 0x1907 ? 'rgb' : fmt === 0x1906 ? 'a' : fmt === 0x1909 ? 'l' : fmt === 0x190A ? 'la' : 'rgba');
-      const bpp = type === 0x1401 ? (fmt === 0x1908 ? 4 : fmt === 0x1907 ? 3 : fmt === 0x190A ? 2 : 1) : 2;
-      const align = gl.getParameter(gl.UNPACK_ALIGNMENT);
-      const row = Math.ceil(w * bpp / align) * align;
-      const data = p ? U8().subarray(p, p + row * (h - 1) + w * bpp) : null;
-      gl.texImage2D(t, l, fmt, w, h, 0, fmt, type, data);
+      gl.texImage2D(t, l, fmt, w, h, 0, fmt, type, p ? texData(fmt, type, w, h, p) : null);
     },
     TexParameteri: (t, pn, v) => { if (pn === 0x8191) return; /* GL_GENERATE_MIPMAP */ gl.texParameteri(t, pn, v); },
-    TexSubImage2D: (t, l, x, y, w, h, fmt, type, p) => {
-      const bpp = type === 0x1401 ? (fmt === 0x1908 ? 4 : fmt === 0x1907 ? 3 : fmt === 0x190A ? 2 : 1) : 2;
-      const align = gl.getParameter(gl.UNPACK_ALIGNMENT); const row = Math.ceil(w * bpp / align) * align;
-      gl.texSubImage2D(t, l, x, y, w, h, fmt, type, U8().subarray(p, p + row * (h - 1) + w * bpp));
-    },
+    TexSubImage2D: (t, l, x, y, w, h, fmt, type, p) => { gl.texSubImage2D(t, l, x, y, w, h, fmt, type, texData(fmt, type, w, h, p)); },
     Uniform1f: (l, v) => gl.uniform1f(uloc(l), v),
     Uniform1fv: (l, n, p) => gl.uniform1fv(uloc(l), F32().subarray(p >> 2, (p >> 2) + n)),
     Uniform1i: (l, v) => gl.uniform1i(uloc(l), v),
@@ -341,6 +341,7 @@ export function createGL(canvas, mem, log) {
       if (sc) gl.enable(gl.SCISSOR_TEST);
       gl.bindFramebuffer(gl.FRAMEBUFFER, curFB ? fbos.get(curFB) : null);
       stats.presents++;
+      if (stats.capture) { stats.capture--; stats.frames.push(stats.draws); stats.draws = []; }
     },
     // ---------------- ES1 fixed function
     AlphaFunc: (f, r) => { alphaFunc = f; alphaRef = r; },
@@ -379,8 +380,21 @@ export function createGL(canvas, mem, log) {
     else if (pn >= 0x8590 && pn <= 0x8592) e.op[pn - 0x8590] = v; else if (pn >= 0x8598 && pn <= 0x859A) e.op[3 + pn - 0x8598] = v;
     else if (pn === 0x8573) e.rgbScale = v; else if (pn === 0x0D1C) e.alphaScale = v;
   }
+  // client pixel data for texImage2D/texSubImage2D: 8-bit channels as Uint8Array, packed 16-bit types as Uint16Array
+  // (WebGL requires the view type to match), honouring GL_UNPACK_ALIGNMENT row padding
+  function texData(fmt, type, w, h, p) {
+    const packed16 = type === 0x8363 || type === 0x8033 || type === 0x8034;
+    if (type !== 0x1401 && !packed16) { log(`glTexImage2D: unsupported type 0x${type.toString(16)} (format 0x${fmt.toString(16)})`); }
+    const bpp = packed16 ? 2 : (fmt === 0x1908 ? 4 : fmt === 0x1907 ? 3 : fmt === 0x190A ? 2 : 1);
+    const align = unpackAlign;
+    const row = Math.ceil(w * bpp / align) * align;
+    const len = row * (h - 1) + w * bpp;
+    if (!packed16) return U8().subarray(p, p + len);
+    if ((p & 1) === 0) return new Uint16Array(mem.buffer, p, len >> 1);
+    return new Uint16Array(U8().slice(p, p + len).buffer);
+  }
   function uloc(id) { const p = programs.get(id >> 12); return p ? p.uniforms.get(id) : null; }
   // ES1 GL_TEXTURE_ENV_COLOR via TexEnvfv is not imported; COMBINE sources use env colour default (0).
-  const stats = { presents: 0 };
+  const stats = { presents: 0, capture: 0, draws: [], frames: [] };
   return { imports: imp, stats, gl };
 }

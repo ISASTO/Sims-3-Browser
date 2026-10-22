@@ -11,7 +11,12 @@
   /* landscape iPhone 6 class screen: 667 x 375 points */
   #stage { position: relative; width: min(100vw, calc(100vh * 667 / 375)); aspect-ratio: 667 / 375; background: #000; touch-action: none; user-select: none; -webkit-user-select: none; }
   #screen { position: absolute; inset: 0; width: 100%; height: 100%; display: block; image-rendering: auto; }
-  .hostview { position: absolute; pointer-events: none; object-fit: fill; }
+  .hostview { position: absolute; pointer-events: none; object-fit: fill; box-sizing: border-box; }
+  .hostinput { pointer-events: auto; border: 1px solid #888; border-radius: 4px; background: #fff; color: #000; padding: 0 6px; font: 600 16px system-ui, sans-serif; outline: none; }
+  .hostweb { pointer-events: auto; border: 0; background: #fff; }
+  .hostbar { pointer-events: auto; background: #f7f7f7; border-bottom: 1px solid #c8c7cc; display: flex; align-items: center; justify-content: center; font: 600 15px system-ui, sans-serif; color: #000; }
+  .hostbar .barbtn { position: absolute; top: 50%; transform: translateY(-50%); border: 0; background: none; color: #007aff; font: 15px system-ui, sans-serif; cursor: pointer; padding: 4px 10px; }
+  .hostbar .barbtn.left { left: 4px; } .hostbar .barbtn.right { right: 4px; }
   #status { position: absolute; left: 0; right: 0; bottom: 12%; text-align: center; color: var(--dim); }
   #meter { position: fixed; right: 8px; bottom: 6px; color: var(--dim); font: 11px ui-monospace, Menlo, monospace; opacity: .7; pointer-events: none; }
   #error { display: none; position: fixed; inset: 5%; overflow: auto; background: #1a1112; color: var(--err); border: 1px solid #5a2a2a; padding: 16px; white-space: pre-wrap; font: 12px ui-monospace, Menlo, monospace; z-index: 10; }

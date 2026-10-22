@@ -51,6 +51,7 @@ void dispatch_init(void) {
         uint32_t a = recomp_funcs[i].addr;
         if (a >= image_text_lo && a < image_text_hi) dtab[(a - image_text_lo) >> 1] = recomp_funcs[i].fn;
     }
+    void fn_trace_init(void); fn_trace_init();
 }
 
 static const struct FuncEntry *func_containing(uint32_t a) {
@@ -175,3 +176,43 @@ void call_indirect_async(CPU *c, uint32_t t) {
     call_indirect(c, t);
     c->async_ok = 1;
 }
+
+/* ------------------------------------------------------------------ native debugging: function entry trace / call profile
+ * SIMS3_TRACE=name,~substring,...  logs entry (r0-r3, caller) of matching functions;
+ * SIMS3_PROFILE=1 counts calls per function and prints the busiest at exit. */
+#ifdef FN_TRACE
+volatile uint32_t fn_trace_on;
+static uint8_t *trace_sel; static uint32_t *call_count; static int profile_on;
+static void profile_dump(void) {
+    if (!call_count) return;
+    unsigned idx[40] = {0}; uint32_t n = (image_text_hi - image_text_lo) >> 1;
+    for (int k = 0; k < 40; k++) { uint32_t best = 0; unsigned bi = 0; for (uint32_t i = 0; i < n; i++) { bool used = false; for (int j = 0; j < k; j++) if (idx[j] == i) used = true; if (!used && call_count[i] > best) { best = call_count[i]; bi = i; } } idx[k] = bi; if (!best) break; fprintf(stderr, "profile: %10u %s\n", best, rt_symbolize(image_text_lo + 2 * bi)); }
+}
+void fn_trace(CPU *c, uint32_t a) {
+    uint32_t i = (a - image_text_lo) >> 1;
+    if (profile_on) call_count[i]++;
+    if (trace_sel && trace_sel[i]) rt_log("trace: %s(%08x, %08x, %08x, %08x) from %s [thread %u]", rt_symbolize(a), c->r[0], c->r[1], c->r[2], c->r[3], rt_symbolize(c->r[14]), c->thread_id);
+}
+void fn_trace_init(void) {
+    const char *t = getenv("SIMS3_TRACE");
+    profile_on = getenv("SIMS3_PROFILE") != NULL;
+    uint32_t n = (image_text_hi - image_text_lo) >> 1;
+    if (profile_on) { call_count = calloc(n, 4); atexit(profile_dump); }
+    if (t) {
+        trace_sel = calloc(n, 1);
+        char *s = strdup(t), *save = NULL;
+        for (char *tok = strtok_r(s, ",", &save); tok; tok = strtok_r(NULL, ",", &save)) {
+            bool sub = tok[0] == '~'; const char *q = sub ? tok + 1 : tok; int hits = 0;
+            for (unsigned k = 0; k < recomp_nfuncs; k++) {
+                const char *nm = recomp_funcs[k].name;
+                if (sub ? strstr(nm, q) != NULL : !strcmp(nm, q)) { trace_sel[(recomp_funcs[k].addr - image_text_lo) >> 1] = 1; hits++; }
+            }
+            rt_log("trace: %s matches %d functions", tok, hits);
+        }
+        free(s);
+    }
+    fn_trace_on = trace_sel || call_count;
+}
+#else
+void fn_trace_init(void) {}
+#endif

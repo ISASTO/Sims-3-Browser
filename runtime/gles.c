@@ -21,7 +21,32 @@ void H_glClear(CPU *c) { hgl_Clear(ARG(0)); }
 void H_glClearColor(CPU *c) { hgl_ClearColor(ARGF(0), ARGF(1), ARGF(2), ARGF(3)); }
 void H_glColorMask(CPU *c) { hgl_ColorMask(ARG(0) & 0xff, ARG(1) & 0xff, ARG(2) & 0xff, ARG(3) & 0xff); }
 void H_glCompileShader(CPU *c) { hgl_CompileShader(ARG(0)); }
-void H_glCompressedTexImage2D(CPU *c) { hgl_CompressedTexImage2D(ARG(0), (int)ARG(1), ARG(2), (int)ARG(3), (int)ARG(4), (int)ARG(5), (int)ARG(6), P(7)); }
+static int gl_unpack_alignment;
+/* PVRTC (GL_IMG_texture_compression_pvrtc) is decoded to RGBA8 here: WebGL has no PVRTC outside iOS Safari */
+void pvrtc_decode(const uint8_t *src, int w, int h, int bpp2, uint8_t *out);
+void H_glCompressedTexImage2D(CPU *c) {
+    uint32_t fmt = ARG(2); int w = (int)ARG(3), h = (int)ARG(4);
+    if (fmt >= 0x8C00 && fmt <= 0x8C03 && w > 0 && h > 0) {
+        uint8_t *rgba = malloc((size_t)w * h * 4);
+        pvrtc_decode(P(7), w, h, fmt == 0x8C01 || fmt == 0x8C03, rgba);
+#ifndef GUEST_IDENTITY
+        if (getenv("SIMS3_DUMP_PVRTC")) {   /* debugging aid: raw blocks + decoded RGBA for offline inspection */
+            static int n; char fn[512];
+            snprintf(fn, sizeof fn, "%s/tex%03d_%x_%dx%d.raw", getenv("SIMS3_DUMP_PVRTC"), n, fmt, w, h);
+            FILE *f = fopen(fn, "wb"); if (f) { fwrite(P(7), 1, ARG(6), f); fclose(f); }
+            snprintf(fn, sizeof fn, "%s/tex%03d_%x_%dx%d.rgba", getenv("SIMS3_DUMP_PVRTC"), n++, fmt, w, h);
+            f = fopen(fn, "wb"); if (f) { fwrite(rgba, 4, (size_t)w * h, f); fclose(f); }
+        }
+#endif
+        if (fmt == 0x8C00 || fmt == 0x8C01) for (int i = 0; i < w * h; i++) rgba[4 * i + 3] = 255;   /* RGB formats are opaque */
+        hgl_PixelStorei(0x0CF5, 1);
+        hgl_TexImage2D(ARG(0), (int)ARG(1), 0x1908, w, h, 0, 0x1908, 0x1401, rgba);
+        hgl_PixelStorei(0x0CF5, gl_unpack_alignment);
+        free(rgba);
+        return;
+    }
+    hgl_CompressedTexImage2D(ARG(0), (int)ARG(1), ARG(2), (int)ARG(3), (int)ARG(4), (int)ARG(5), (int)ARG(6), P(7));
+}
 void H_glCompressedTexSubImage2D(CPU *c) { hgl_CompressedTexSubImage2D(ARG(0), (int)ARG(1), (int)ARG(2), (int)ARG(3), (int)ARG(4), (int)ARG(5), ARG(6), (int)ARG(7), P(8)); }
 void H_glCreateProgram(CPU *c) { RET(hgl_CreateProgram()); }
 void H_glCreateShader(CPU *c) { RET(hgl_CreateShader(ARG(0))); }
@@ -58,7 +83,8 @@ void H_glGetShaderiv(CPU *c) { hgl_GetShaderiv(ARG(0), ARG(1), P(2)); }
 void H_glGetUniformLocation(CPU *c) { RET((uint32_t)hgl_GetUniformLocation(ARG(0), GSTR(ARG(1)))); }
 void H_glIsEnabled(CPU *c) { RET(hgl_IsEnabled(ARG(0))); }
 void H_glLinkProgram(CPU *c) { hgl_LinkProgram(ARG(0)); }
-void H_glPixelStorei(CPU *c) { hgl_PixelStorei(ARG(0), (int)ARG(1)); }
+static int gl_unpack_alignment = 4;
+void H_glPixelStorei(CPU *c) { if (ARG(0) == 0x0CF5) gl_unpack_alignment = (int)ARG(1); hgl_PixelStorei(ARG(0), (int)ARG(1)); }
 void H_glPolygonOffset(CPU *c) { hgl_PolygonOffset(ARGF(0), ARGF(1)); }
 void H_glRenderbufferStorage(CPU *c) { hgl_RenderbufferStorage(ARG(0), ARG(1), (int)ARG(2), (int)ARG(3)); }
 void H_glScissor(CPU *c) { hgl_Scissor((int)ARG(0), (int)ARG(1), (int)ARG(2), (int)ARG(3)); }
