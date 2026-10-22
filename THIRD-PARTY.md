@@ -21,13 +21,14 @@ This does not change the status of the user-supplied game files.
 
 ## fflate
 
-`web/vendor/fflate.js` is fflate 0.8.2, by 101arrowz.
+`web/vendor/fflate.js` and `ios/web/vendor/fflate.js` are fflate 0.8.2, by 101arrowz.
+The iOS static release includes the same module and its license under `ios/play/vendor/`.
 
-- License: MIT; see `web/vendor/FFLATE-LICENSE.txt`.
+- License: MIT; see `web/vendor/FFLATE-LICENSE.txt` and `ios/web/vendor/fflate-LICENSE.txt`.
 - Source: https://github.com/101arrowz/fflate/tree/v0.8.2
 
 ## Game files
 
 The Sims 3 and its associated artwork, data, binaries, and decompiled material
-are from the user's uploaded APK. They are not licensed by this project's
+are from the user's supplied Android APK and iOS IPA, respectively. They are not licensed by this project's
 compatibility-layer license. The original APK is not included again.

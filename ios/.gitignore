@@ -1,0 +1,7 @@
+# Raw inputs, build intermediates and analysis output stay out of source commits.
+original/
+extract/
+analysis/
+build/
+*.pyc
+__pycache__/

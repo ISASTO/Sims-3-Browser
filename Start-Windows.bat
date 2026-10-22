@@ -2,8 +2,8 @@
 cd /d "%~dp0"
 where py >nul 2>nul
 if %errorlevel% equ 0 (
-  py -3 tools\serve.py
+  py -3 ios\tools\serve_site.py
 ) else (
-  python tools\serve.py
+  python ios\tools\serve_site.py
 )
 pause
