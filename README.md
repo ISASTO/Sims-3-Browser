@@ -10,17 +10,20 @@ and saving and loading that progress after a page reload. The saved character, l
 were retained. This is an experimental playable build; many other systems and browser engines still need testing.
 GPU-backed frame rates have not yet been measured.
 
-Click or tap to interact. Drag to pan; right-drag or Ctrl+drag for two-finger camera gestures. To save progress,
+Click or tap to interact. Drag to pan and scroll to zoom. Double-click, hold the second press and drag to
+orbit; right-drag and Ctrl+drag also work. To save progress,
 choose **Save and Continue** in the game menu and confirm the green tick. Saves remain in this browser's IndexedDB.
 
 The player has **Fit to tab**, **Fullscreen**, selectable quality and optional frame-time, CPU, draw-call,
 resolution and memory metrics. **Auto** adjusts resolution for smoother play. **Native** renders at the game
 area's physical display resolution and follows resizing, pixel density and monitor changes, preserving aspect
-ratio. The small header diamond sends a device shake. In software-renderer house tests, the 50% preset averaged
+ratio. The small header diamond sends a device shake. Hold it to reveal **Unlock all content**: all 15 bundled
+packs, bonus rewards, furniture tiers and house-upgrade eligibility. Items retain their prices, and the option
+persists in this browser without completing goals or changing skills or money. In software-renderer house tests, the 50% preset averaged
 49 FPS versus 27 FPS at the previous fixed resolution; hardware-GPU frame rates remain unmeasured.
 
 The build uses ordinary static hosting. It needs WebAssembly and WebGL2, with no application server or special
-cross-origin headers. The complete release is about 130 MiB, fetched as needed; the code and initial resource
+cross-origin headers. The complete release is about 128 MiB, fetched as needed; the code and initial resource
 packs download before play begins.
 
 ## Run locally

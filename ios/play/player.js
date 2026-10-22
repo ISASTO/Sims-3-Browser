@@ -1,9 +1,9 @@
-// Player chrome, display sizing and sustained-load resolution control. No game-state edits.
+// Player chrome, display sizing, sustained-load resolution control and optional content easter egg.
 const $ = (id) => document.getElementById(id);
 const RATIO = 667 / 375;
 const SCALES = { native: 1, high: .85, balanced: .67, performance: .5 };
 const KEY = 'sims3-player-v1';
-export function createPlayer({ graphics, shake, testMode }) {
+export function createPlayer({ graphics, shake, unlockAll, unlockStatus, persistUnlock, testMode }) {
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch {}
   let quality = Object.hasOwn(SCALES, saved.quality) || saved.quality === 'auto' ? saved.quality : 'auto';
@@ -34,11 +34,42 @@ export function createPlayer({ graphics, shake, testMode }) {
     } catch { $('shell-notice').textContent = 'Fullscreen unavailable. Use Fit to tab.'; }
   });
   document.addEventListener('fullscreenchange', () => { fullscreen.textContent = document.fullscreenElement ? 'Exit fullscreen' : 'Fullscreen'; resizePending = true; });
-  diamond.addEventListener('click', () => {
+  const secrets = $('secrets'), unlockButton = $('unlock-all'), unlockMessage = $('unlock-message');
+  let modalCallback = () => {}, holdTimer = 0, holdOrigin = null, suppressClickUntil = 0, unlockPending = false;
+  function openSecrets() {
+    clearTimeout(holdTimer); modalCallback();
+    if (!secrets.open) secrets.showModal();
+  }
+  diamond.addEventListener('pointerdown', (ev) => {
+    if (ev.button !== 0 || diamond.disabled) return;
+    holdOrigin = [ev.clientX, ev.clientY];
+    holdTimer = setTimeout(() => { suppressClickUntil = performance.now() + 500; openSecrets(); }, 850);
+  });
+  diamond.addEventListener('pointermove', (ev) => { if (holdOrigin && Math.hypot(ev.clientX - holdOrigin[0], ev.clientY - holdOrigin[1]) > 8) clearTimeout(holdTimer); });
+  for (const event of ['pointerup', 'pointercancel', 'pointerleave']) diamond.addEventListener(event, () => { clearTimeout(holdTimer); holdOrigin = null; });
+  diamond.addEventListener('contextmenu', (ev) => { ev.preventDefault(); openSecrets(); });
+  diamond.addEventListener('click', (ev) => {
+    if (ev.shiftKey) { openSecrets(); return; }
+    if (secrets.open || performance.now() < suppressClickUntil) return;
     const now = performance.now(); if (now - lastShake < 800) return; lastShake = now;
     shake(); diamond.classList.remove('shaking'); void diamond.offsetWidth; diamond.classList.add('shaking');
   });
   diamond.addEventListener('animationend', () => diamond.classList.remove('shaking'));
+  unlockButton.addEventListener('click', () => {
+    if (!unlockAll()) { unlockMessage.textContent = 'Load a household and return here to unlock its content.'; return; }
+    unlockPending = true; unlockButton.disabled = true; unlockMessage.textContent = 'Unlocking…';
+  });
+  function afterFrame() {
+    if (!unlockPending) return;
+    const status = unlockStatus();
+    if (status === 1) return;
+    unlockPending = false; unlockButton.disabled = false;
+    if (status !== 2) { unlockMessage.textContent = 'Content could not be unlocked. Return to your household and try again.'; return; }
+    let saved = true;
+    try { localStorage.setItem('sims3-content-unlocked-v1', '1'); } catch { saved = false; }
+    persistUnlock();
+    unlockMessage.textContent = saved ? 'All content unlocked. Reopen the shop or wardrobe to see it.' : 'Content unlocked for this session. Browser storage is unavailable.';
+  }
   // Observer callbacks mark a pending change; allocation happens before the next complete guest frame.
   new ResizeObserver(() => { resizePending = true; }).observe(viewport);
   window.addEventListener('resize', () => { resizePending = true; });
@@ -88,5 +119,5 @@ export function createPlayer({ graphics, shake, testMode }) {
   }
   const state = { initialized: false, quality };
   beforeFrame();
-  return { beforeFrame, update, state, ready: () => { diamond.disabled = false; } };
+  return { beforeFrame, afterFrame, update, state, onModal: (callback) => { modalCallback = callback; }, ready: () => { diamond.disabled = false; } };
 }

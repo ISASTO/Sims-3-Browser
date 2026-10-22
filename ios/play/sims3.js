@@ -5,9 +5,9 @@
 // The app bundle is read from the local server (bundle/...), indexed by bundle-manifest.json.
 // The writable container (/home: saves, preferences, keychain) is kept in memory and persisted to IndexedDB.
 'use strict';
-import { createGL } from './gl.js?v=935157e8d0099e54';
-import { createPlayer } from './player.js?v=935157e8d0099e54';
-import { gunzipSync } from './vendor/fflate.js?v=935157e8d0099e54';
+import { createGL } from './gl.js?v=82aa5b93427b90f8';
+import { createPlayer } from './player.js?v=82aa5b93427b90f8';
+import { gunzipSync } from './vendor/fflate.js?v=82aa5b93427b90f8';
 
 const POINTS_W = 667, POINTS_H = 375;           // virtual device: iPhone 6 class, landscape, @2x
 const $ = (id) => document.getElementById(id);
@@ -494,43 +494,105 @@ function fatal(msg) {
 }
 
 // ------------------------------------------------------------------ input
+function zoomBar() {
+  const p = exp.sims3_zoom_bar();
+  if (!p) return null;
+  const d = DV();
+  return { x: d.getFloat32(p, true), y: d.getFloat32(p + 4, true), top: d.getFloat32(p + 8, true),
+    bottom: d.getFloat32(p + 12, true), distance: d.getFloat32(p + 16, true), scene: d.getUint32(p + 20, true) };
+}
 function setupInput(canvas) {
   const pt = (ev) => { const r = canvas.getBoundingClientRect(); return [(ev.clientX - r.left) / r.width * POINTS_W, (ev.clientY - r.top) / r.height * POINTS_H]; };
-  // Touch and pen pointers map 1:1 to UITouches.  A mouse has one pointer, so the game's two-finger gesture
-  // (orbit the camera) is synthesized: right-button drag (or Ctrl + left drag) places two virtual fingers either
-  // side of the cursor and turns them around it with horizontal motion and moves them together with vertical motion.
-  const down = new Set();
-  const TWO_A = 1000001, TWO_B = 1000002, R = 45;
-  let two = null;   // { cx, cy, x0, y0 }
+  const clock = () => env.js_now();
+  const down = new Map();
+  const TWO_A = 1000001, TWO_B = 1000002, WHEEL = 1000003, R = 45;
+  const trace = TEST ? [] : null;
+  const touch = (type, id, x, y) => {
+    exp.sims3_touch(type, id, x, y);
+    if (trace) { if (trace.length === 512) trace.shift(); trace.push({ type, id, x, y }); }
+  };
+  let two = null, lastClick = null, wheel = null, wheelPending = 0, wheelAt = 0;
   const twoPos = (dx, dy) => { const a = dx * 0.012; const ox = Math.cos(a) * R, oy = Math.sin(a) * R; return [[two.cx + ox, two.cy + oy + dy], [two.cx - ox, two.cy - oy + dy]]; };
+  const pair = (type, positions) => { touch(type, TWO_A, ...positions[0]); touch(type, TWO_B, ...positions[1]); };
+  function endWheel() { if (wheel) touch(2, WHEEL, wheel.x, wheel.y); wheel = null; }
+  function cancel() {
+    endWheel(); wheelPending = 0; lastClick = null;
+    exp.sims3_orbit_hint(0);
+    if (two) { pair(2, twoPos(two.dx, two.dy)); two = null; }
+    // This game's EAGLView has no touchesCancelled implementation; end contacts explicitly.
+    for (const [id, p] of down) touch(2, id, p.x, p.y);
+    down.clear();
+  }
   const unlockAudio = () => { if (actx && actx.state === 'suspended' && document.visibilityState === 'visible') actx.resume(); else ac(); };
   canvas.addEventListener('pointerdown', (ev) => {
+    if (ev.pointerType === 'mouse' && ev.button !== 0 && ev.button !== 2) return;
     ev.preventDefault(); unlockAudio(); canvas.setPointerCapture(ev.pointerId);
-    const [x, y] = pt(ev);
-    if (ev.pointerType === 'mouse' && (ev.button === 2 || (ev.button === 0 && ev.ctrlKey))) {
-      two = { cx: x, cy: y, x0: x, y0: y, id: ev.pointerId };
-      const [a, b] = twoPos(0, 0); exp.sims3_touch(0, TWO_A, a[0], a[1]); exp.sims3_touch(0, TWO_B, b[0], b[1]);
-      return;
+    endWheel(); wheelPending = 0;
+    const [x, y] = pt(ev), now = clock();
+    const doublePress = ev.pointerType === 'mouse' && ev.button === 0 && lastClick &&
+      now - lastClick.at <= 400 && now >= lastClick.at && Math.hypot(ev.clientX - lastClick.x, ev.clientY - lastClick.y) <= 6;
+    const prepareOrbit = doublePress && lastClick.camera;
+    lastClick = null;
+    if (ev.pointerType === 'mouse' && !two && !down.size && (ev.button === 2 || ev.ctrlKey || doublePress)) {
+      exp.sims3_orbit_hint(prepareOrbit ? 1 : 0);
+      two = { cx: x, cy: y, x0: x, y0: y, dx: 0, dy: 0, id: ev.pointerId };
+      pair(0, twoPos(0, 0)); return;
     }
-    down.add(ev.pointerId); exp.sims3_touch(0, ev.pointerId, x, y);
+    down.set(ev.pointerId, { x, y, clientX: ev.clientX, clientY: ev.clientY, at: now, moved: false,
+      camera: x > 55 && x < 610 && y > 30 && y < 305 && !!zoomBar() });
+    touch(0, ev.pointerId, x, y);
   });
   canvas.addEventListener('pointermove', (ev) => {
     const [x, y] = pt(ev);
-    if (two && ev.pointerId === two.id) { ev.preventDefault(); const [a, b] = twoPos(x - two.x0, y - two.y0); exp.sims3_touch(1, TWO_A, a[0], a[1]); exp.sims3_touch(1, TWO_B, b[0], b[1]); return; }
-    if (!down.has(ev.pointerId)) return; ev.preventDefault(); exp.sims3_touch(1, ev.pointerId, x, y);
+    if (two && ev.pointerId === two.id) { ev.preventDefault(); two.dx = x - two.x0; two.dy = y - two.y0; pair(1, twoPos(two.dx, two.dy)); return; }
+    const p = down.get(ev.pointerId);
+    if (!p) return;
+    ev.preventDefault(); p.x = x; p.y = y;
+    if (Math.hypot(ev.clientX - p.clientX, ev.clientY - p.clientY) > 6) p.moved = true;
+    touch(1, ev.pointerId, x, y);
   });
-  const end = (type) => (ev) => {
+  const end = (recordClick) => (ev) => {
     const [x, y] = pt(ev);
-    if (two && ev.pointerId === two.id) { ev.preventDefault(); const [a, b] = twoPos(x - two.x0, y - two.y0); exp.sims3_touch(type, TWO_A, a[0], a[1]); exp.sims3_touch(type, TWO_B, b[0], b[1]); two = null; return; }
-    if (!down.delete(ev.pointerId)) return; ev.preventDefault(); exp.sims3_touch(type, ev.pointerId, x, y);
+    if (two && ev.pointerId === two.id) { ev.preventDefault(); pair(2, twoPos(recordClick ? x - two.x0 : two.dx, recordClick ? y - two.y0 : two.dy)); two = null; return; }
+    const p = down.get(ev.pointerId);
+    if (!p) return;
+    down.delete(ev.pointerId); ev.preventDefault(); touch(2, ev.pointerId, recordClick ? x : p.x, recordClick ? y : p.y);
+    if (recordClick && ev.pointerType === 'mouse' && ev.button === 0 && !ev.ctrlKey && !p.moved && clock() - p.at <= 400)
+      lastClick = { at: clock(), x: ev.clientX, y: ev.clientY, camera: p.camera };
   };
-  canvas.addEventListener('pointerup', end(2)); canvas.addEventListener('pointercancel', end(3));
+  canvas.addEventListener('pointerup', end(true));
+  canvas.addEventListener('pointercancel', end(false));
+  canvas.addEventListener('lostpointercapture', end(false));
   canvas.addEventListener('contextmenu', (ev) => ev.preventDefault());
-  // lifecycle: hidden page = background (the game saves there), lost focus = inactive
-  document.addEventListener('visibilitychange', () => { if (!exp || dead) return; if (document.hidden) { exp.sims3_lifecycle(2); exp.sims3_frame(env.js_now()); homeFlush(); } else exp.sims3_lifecycle(3); });
-  window.addEventListener('blur', () => exp && exp.sims3_lifecycle(0));
+  canvas.addEventListener('wheel', (ev) => {
+    // Preserve browser Ctrl/Meta-wheel zoom and avoid interleaving held mouse/touch contacts.
+    if (ev.ctrlKey || ev.metaKey || !ev.deltaY || Math.abs(ev.deltaX) > Math.abs(ev.deltaY)) return;
+    if (two || down.size || document.hidden || dead || !zoomBar()) return;
+    ev.preventDefault(); unlockAudio();
+    const pixels = ev.deltaY * (ev.deltaMode === 1 ? 16 : ev.deltaMode === 2 ? canvas.getBoundingClientRect().height : 1);
+    wheelPending = Math.max(-1200, Math.min(1200, wheelPending + pixels)); wheelAt = clock(); lastClick = null;
+  }, { passive: false });
+  function beforeFrame(now) {
+    if (!wheel && !wheelPending) return;
+    const bar = zoomBar();
+    if (!bar || (wheel && bar.scene !== wheel.scene)) { endWheel(); wheelPending = 0; return; }
+    if (!wheel) { wheel = { ...bar, at: now }; touch(0, WHEEL, wheel.x, wheel.y); return; }
+    const maxStep = 8 * Math.max(.25, Math.min(3, (now - wheel.at) / (1000 / 60)));
+    wheel.at = now;
+    const step = Math.max(-maxStep, Math.min(maxStep, wheelPending * .15));
+    const y = Math.max(bar.top, Math.min(bar.bottom, wheel.y + step)), moved = y - wheel.y;
+    if (Math.abs(moved) > .001) {
+      wheel.y = y; wheelPending -= moved / .15;
+      if (Math.abs(wheelPending) < .01) wheelPending = 0;
+      touch(1, WHEEL, wheel.x, wheel.y);
+    } else wheelPending = 0;
+    if (!wheelPending && now - wheelAt >= 120) endWheel();
+  }
+  document.addEventListener('visibilitychange', () => { if (!exp || dead) return; if (document.hidden) { cancel(); exp.sims3_lifecycle(2); exp.sims3_frame(env.js_now()); homeFlush(); } else exp.sims3_lifecycle(3); });
+  window.addEventListener('blur', () => { cancel(); if (exp) exp.sims3_lifecycle(0); });
   window.addEventListener('focus', () => exp && exp.sims3_lifecycle(1));
-  window.addEventListener('pagehide', () => { if (exp && !dead) { exp.sims3_lifecycle(2); exp.sims3_frame(env.js_now()); } homeFlush(); });
+  window.addEventListener('pagehide', () => { if (exp && !dead) { cancel(); exp.sims3_lifecycle(2); exp.sims3_frame(env.js_now()); } homeFlush(); });
+  return { beforeFrame, cancel, takeTrace: () => trace ? trace.splice(0) : [] };
 }
 
 // ------------------------------------------------------------------ boot + frame loop
@@ -557,7 +619,7 @@ async function main() {
   await homeOpen();
   status('Compiling game code…');
   const glh = createGL(canvas, mem, log);
-  const player = createPlayer({ graphics: glh, shake: () => { if (exp && !dead) exp.sims3_shake(); }, testMode: TEST });
+  const player = createPlayer({ graphics: glh, shake: () => { if (exp && !dead) exp.sims3_shake(); }, unlockAll: () => exp && !dead ? exp.sims3_unlock_all() : 0, unlockStatus: () => exp.sims3_unlock_status(), persistUnlock: homeFlush, testMode: TEST });
   window.sims3Display = player.state;
   const t0 = performance.now();
   const imports = { env, gl: glh.imports, audio, text, wasi_snapshot_preview1: wasi };
@@ -586,7 +648,9 @@ async function main() {
   try { rc = exp.sims3_boot(); } catch (e) { if (!dead) fatal(String(e && e.stack || e)); return; }
   log(`boot: ${(performance.now() - tb).toFixed(0)} ms, result ${rc}, bundle reads ${stats.bundleReads} (${(stats.bundleBytes / 1048576).toFixed(1)} MiB, ${stats.readMs.toFixed(0)} ms)`);
   if (rc !== 0) { fatal('boot did not reach the run loop (state ' + rc + ')'); return; }
-  setupInput(canvas);
+  try { exp.sims3_content_mode(localStorage.getItem('sims3-content-unlocked-v1') === '1'); } catch {}
+  const input = setupInput(canvas);
+  player.onModal(input.cancel);
   player.ready();
   $('status').style.display = 'none';
   // frame loop + performance meter (frames presented per second and CPU time per frame)
@@ -613,7 +677,7 @@ async function main() {
     player.beforeFrame();
     const presents0 = glh.stats.presents;
     const a = performance.now();
-    try { exp.sims3_frame(now); } catch (e) { if (!dead) fatal(String(e && e.stack || e)); return; }
+    try { input.beforeFrame(now); exp.sims3_frame(now); player.afterFrame(); } catch (e) { if (!dead) fatal(String(e && e.stack || e)); return; }
     const dt = performance.now() - a;
     if (glh.stats.presents > presents0) {
       if (perf.lastPresent) perf.intervals.push((now - perf.lastPresent) / (glh.stats.presents - presents0));
@@ -640,12 +704,15 @@ async function main() {
         for (let i = 0; i < n && !dead; i++) {
           vclock += 1000 / 60;
           glh.stats.skipDraws = !(drawLast && i === n - 1);
-          try { exp.sims3_frame(vclock); } catch (e) { if (!dead) fatal(String(e && e.stack || e)); }
+          try { input.beforeFrame(vclock); exp.sims3_frame(vclock); player.afterFrame(); } catch (e) { if (!dead) fatal(String(e && e.stack || e)); }
         }
         glh.stats.skipDraws = false;
         return dead ? 'dead' : 'ok';
       },
       frame: () => Math.round(vclock * 60 / 1000),
+      takeInputTrace: input.takeTrace,
+      zoomBar,
+      memory: () => DV(),
     };
     return;
   }

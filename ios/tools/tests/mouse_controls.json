@@ -1,0 +1,464 @@
+[
+  {
+    "include": "player_controls.json"
+  },
+  {
+    "eval": "window.controlState = () => {\n const d=sims3Test.memory(), app=d.getUint32(0x2c2424,true), sceneId=d.getUint32(app+0x4f8,true), scene=sceneId===2?d.getUint32(app+0x48,true):0, sim=d.getUint32(app+0x5b4,true), world=scene?d.getUint32(scene+0x2c,true):0;\n const packs=d.getUint32(0x2c2570+0x2c,true), entries=d.getUint32(0x2c2570+0x30,true);\n return {sceneId,state:scene?d.getUint32(scene+0x1ec,true):null,pause:scene?d.getUint8(scene+0x680):null,context:scene?d.getUint8(scene+0x636):null,angle:world?d.getFloat32(world+0x488,true):null,zoom:sims3Test.zoomBar(),money:sim?d.getInt32(sim+0x790,true):null,packs,packIds:Array.from({length:packs},(_,i)=>d.getInt32(d.getUint32(entries+4*i,true)+8,true)).sort((a,b)=>a-b),bonus:d.getUint8(app+0x55c),achievements:sim?d.getUint32(sim+0x7f8,true):null,goals:Array.from(new Uint32Array(d.buffer,app+0x560,16))};\n}; controlState()"
+  },
+  {
+    "assert": "controlState().zoom!==null && controlState().money===1190 && controlState().packs===2 && controlState().bonus===0"
+  },
+  {
+    "eval": "window.zoomBefore=controlState().zoom.distance; sims3Test.takeInputTrace()"
+  },
+  {
+    "shot": "mouse_before"
+  },
+  {
+    "wheel": [
+      0,
+      -160
+    ]
+  },
+  {
+    "frames": 40
+  },
+  {
+    "assert": "controlState().zoom.distance<zoomBefore && controlState().zoom.distance>=200"
+  },
+  {
+    "shot": "wheel_in"
+  },
+  {
+    "eval": "window.gesture=sims3Test.takeInputTrace(); gesture"
+  },
+  {
+    "assert": "gesture[0].id===1000003 && gesture[0].type===0 && gesture.at(-1).type===2 && gesture.some(e=>e.type===1)"
+  },
+  {
+    "wheel": [
+      0,
+      10000
+    ]
+  },
+  {
+    "frames": 60
+  },
+  {
+    "wheel": [
+      0,
+      10000
+    ]
+  },
+  {
+    "frames": 60
+  },
+  {
+    "assert": "Math.abs(controlState().zoom.distance-750)<.1"
+  },
+  {
+    "wheel": [
+      0,
+      10000
+    ]
+  },
+  {
+    "frames": 60
+  },
+  {
+    "assert": "Math.abs(controlState().zoom.distance-750)<.1"
+  },
+  {
+    "shot": "wheel_out_limit"
+  },
+  {
+    "eval": "document.querySelector('#screen').dispatchEvent(new WheelEvent('wheel',{deltaY:-40,deltaMode:1,bubbles:true,cancelable:true}))"
+  },
+  {
+    "frames": 60
+  },
+  {
+    "assert": "controlState().zoom.distance<750"
+  },
+  {
+    "eval": "document.querySelector('#screen').dispatchEvent(new WheelEvent('wheel',{deltaY:-2,deltaMode:2,bubbles:true,cancelable:true}))"
+  },
+  {
+    "frames": 60
+  },
+  {
+    "assert": "Math.abs(controlState().zoom.distance-200)<.1"
+  },
+  {
+    "eval": "sims3Test.takeInputTrace(); window.browserWheels=[{ctrlKey:true,deltaY:120},{metaKey:true,deltaY:120},{deltaX:200,deltaY:10}].map(o=>{const e=new WheelEvent('wheel',{...o,bubbles:true,cancelable:true});document.querySelector('#screen').dispatchEvent(e);return e.defaultPrevented;});browserWheels"
+  },
+  {
+    "frames": 20
+  },
+  {
+    "assert": "browserWheels.every(v=>!v) && sims3Test.takeInputTrace().length===0"
+  },
+  {
+    "resize": [
+      960,
+      640
+    ]
+  },
+  {
+    "dpr": 2
+  },
+  {
+    "select": [
+      "#quality",
+      "performance"
+    ]
+  },
+  {
+    "wait": 100
+  },
+  {
+    "frames": 1
+  },
+  {
+    "wheel": [
+      0,
+      240
+    ]
+  },
+  {
+    "frames": 60
+  },
+  {
+    "assert": "controlState().zoom.distance>200 && nativeSized()"
+  },
+  {
+    "dpr": 1
+  },
+  {
+    "resize": [
+      1334,
+      750
+    ]
+  },
+  {
+    "select": [
+      "#quality",
+      "native"
+    ]
+  },
+  {
+    "wait": 100
+  },
+  {
+    "frames": 1
+  },
+  {
+    "eval": "sims3Test.takeInputTrace(); window.orbitBefore=controlState().angle"
+  },
+  {
+    "fdrag": [
+      400,
+      120,
+      470,
+      140,
+      30
+    ],
+    "double": true
+  },
+  {
+    "frames": 90
+  },
+  {
+    "eval": "window.gesture=sims3Test.takeInputTrace(); gesture"
+  },
+  {
+    "assert": "[1000001,1000002].every(id=>gesture.filter(e=>e.id===id&&e.type===0).length===1&&gesture.some(e=>e.id===id&&e.type===1)&&gesture.filter(e=>e.id===id&&e.type===2).length===1) && gesture[0].id===1 && gesture[1].id===1 && gesture.slice(2).every(e=>e.id===1000001||e.id===1000002)"
+  },
+  {
+    "assert": "controlState().context===0 && controlState().angle!==orbitBefore"
+  },
+  {
+    "shot": "double_hold_orbit"
+  },
+  {
+    "eval": "window.orbitBefore=controlState().angle"
+  },
+  {
+    "fdrag": [
+      400,
+      120,
+      450,
+      125,
+      24
+    ],
+    "right": true
+  },
+  {
+    "frames": 90
+  },
+  {
+    "eval": "window.gesture=sims3Test.takeInputTrace(); gesture"
+  },
+  {
+    "assert": "[1000001,1000002].every(id=>gesture.filter(e=>e.id===id&&e.type===0).length===1&&gesture.some(e=>e.id===id&&e.type===1)&&gesture.filter(e=>e.id===id&&e.type===2).length===1) && gesture.every(e=>e.id===1000001||e.id===1000002) && controlState().angle!==orbitBefore"
+  },
+  {
+    "eval": "window.orbitBefore=controlState().angle"
+  },
+  {
+    "fdrag": [
+      400,
+      120,
+      450,
+      125,
+      24
+    ],
+    "control": true
+  },
+  {
+    "frames": 90
+  },
+  {
+    "eval": "window.gesture=sims3Test.takeInputTrace(); gesture"
+  },
+  {
+    "assert": "[1000001,1000002].every(id=>gesture.filter(e=>e.id===id&&e.type===0).length===1&&gesture.some(e=>e.id===id&&e.type===1)&&gesture.filter(e=>e.id===id&&e.type===2).length===1) && controlState().angle!==orbitBefore"
+  },
+  {
+    "pointer": [
+      "down",
+      400,
+      120
+    ],
+    "right": true
+  },
+  {
+    "frames": 1
+  },
+  {
+    "wheel": [
+      0,
+      120
+    ]
+  },
+  {
+    "eval": "window.dispatchEvent(new Event('blur'))"
+  },
+  {
+    "frames": 2
+  },
+  {
+    "pointer": [
+      "up"
+    ],
+    "right": true
+  },
+  {
+    "eval": "window.dispatchEvent(new Event('focus'))"
+  },
+  {
+    "frames": 90
+  },
+  {
+    "eval": "window.gesture=sims3Test.takeInputTrace(); gesture"
+  },
+  {
+    "assert": "[1000001,1000002].every(id=>gesture.some(e=>e.id===id&&e.type===0)&&gesture.some(e=>e.id===id&&e.type===2)) && !gesture.some(e=>e.id===1000003)"
+  },
+  {
+    "assert": "controlState().pause===1 && controlState().zoom===null"
+  },
+  {
+    "wheel": [
+      0,
+      -120
+    ]
+  },
+  {
+    "frames": 30
+  },
+  {
+    "assert": "controlState().pause===1 && sims3Test.takeInputTrace().length===0"
+  },
+  {
+    "shot": "wheel_ignored_in_pause"
+  },
+  {
+    "eval": "window.beforeUnlock=controlState(); beforeUnlock"
+  },
+  {
+    "hold": "#plumbob"
+  },
+  {
+    "assert": "document.querySelector('#secrets').open && localStorage.getItem('sims3-content-unlocked-v1')===null"
+  },
+  {
+    "shot": "unlock_dialog"
+  },
+  {
+    "click": "#unlock-all"
+  },
+  {
+    "frames": 5
+  },
+  {
+    "assert": "document.querySelector('#unlock-message').textContent.startsWith('All content unlocked.') && localStorage.getItem('sims3-content-unlocked-v1')==='1'"
+  },
+  {
+    "eval": "window.unlocked=controlState(); unlocked"
+  },
+  {
+    "assert": "unlocked.packs===15 && JSON.stringify(unlocked.packIds)===JSON.stringify([1,2,3,4,5,6,7,8,9,10,11,12,13,14,16]) && unlocked.bonus===1 && unlocked.money===beforeUnlock.money && unlocked.achievements===beforeUnlock.achievements && JSON.stringify(unlocked.goals)===JSON.stringify(beforeUnlock.goals)"
+  },
+  {
+    "shot": "all_content_unlocked"
+  },
+  {
+    "click": "#unlock-all"
+  },
+  {
+    "frames": 2
+  },
+  {
+    "assert": "controlState().packs===15 && controlState().money===beforeUnlock.money"
+  },
+  {
+    "key": "Escape"
+  },
+  {
+    "assert": "!document.querySelector('#secrets').open"
+  },
+  {
+    "ftap": [
+      333,
+      238
+    ]
+  },
+  {
+    "frames": 180
+  },
+  {
+    "ftap": [
+      382,
+      232
+    ]
+  },
+  {
+    "frames": 300
+  },
+  {
+    "background": 200
+  },
+  {
+    "frames": 120
+  },
+  {
+    "assert": "sims3Home()['Documents/sim3dat0']>0"
+  },
+  {
+    "reload": true
+  },
+  {
+    "waitBoot": true
+  },
+  {
+    "frames": 1600
+  },
+  {
+    "eval": "window.controlState = () => {\n const d=sims3Test.memory(), app=d.getUint32(0x2c2424,true), sceneId=d.getUint32(app+0x4f8,true), scene=sceneId===2?d.getUint32(app+0x48,true):0, sim=d.getUint32(app+0x5b4,true), world=scene?d.getUint32(scene+0x2c,true):0;\n const packs=d.getUint32(0x2c2570+0x2c,true), entries=d.getUint32(0x2c2570+0x30,true);\n return {sceneId,state:scene?d.getUint32(scene+0x1ec,true):null,pause:scene?d.getUint8(scene+0x680):null,context:scene?d.getUint8(scene+0x636):null,angle:world?d.getFloat32(world+0x488,true):null,zoom:sims3Test.zoomBar(),money:sim?d.getInt32(sim+0x790,true):null,packs,packIds:Array.from({length:packs},(_,i)=>d.getInt32(d.getUint32(entries+4*i,true)+8,true)).sort((a,b)=>a-b),bonus:d.getUint8(app+0x55c),achievements:sim?d.getUint32(sim+0x7f8,true):null,goals:Array.from(new Uint32Array(d.buffer,app+0x560,16))};\n}; controlState()"
+  },
+  {
+    "assert": "controlState().sceneId===1 && controlState().packs===15 && controlState().bonus===1 && localStorage.getItem('sims3-content-unlocked-v1')==='1'"
+  },
+  {
+    "eval": "sims3Test.takeInputTrace()"
+  },
+  {
+    "wheel": [
+      0,
+      -240
+    ],
+    "at": [
+      450,
+      182
+    ]
+  },
+  {
+    "frames": 30
+  },
+  {
+    "assert": "controlState().sceneId===1 && sims3Test.takeInputTrace().length===0"
+  },
+  {
+    "ftap": [
+      450,
+      182
+    ]
+  },
+  {
+    "frames": 235
+  },
+  {
+    "ftap": [
+      226,
+      158
+    ]
+  },
+  {
+    "frames": 1800
+  },
+  {
+    "assert": "controlState().sceneId===2 && controlState().money===1190 && controlState().packs===15 && controlState().bonus===1 && controlState().achievements===0"
+  },
+  {
+    "shot": "unlocks_saved_household"
+  },
+  {
+    "ftap": [
+      30,
+      285
+    ]
+  },
+  {
+    "frames": 90
+  },
+  {
+    "ftap": [
+      196,
+      105
+    ]
+  },
+  {
+    "frames": 90
+  },
+  {
+    "shot": "unlocked_build_mode"
+  },
+  {
+    "eval": "controlState()"
+  },
+  {
+    "ftap": [
+      470,
+      187
+    ]
+  },
+  {
+    "frames": 90
+  },
+  {
+    "ftap": [
+      286,
+      285
+    ]
+  },
+  {
+    "frames": 90
+  },
+  {
+    "shot": "upgrade_cancelled"
+  },
+  {
+    "assert": "controlState().money===1190"
+  }
+]

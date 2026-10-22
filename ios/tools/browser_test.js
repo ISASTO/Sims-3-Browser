@@ -63,9 +63,24 @@ fs.mkdirSync(out, { recursive: true });
     }
     if (s.fdrag) {
       const [x0, y0, x1, y1, n] = s.fdrag; const [a, b] = await toPage(x0, y0); const [c, d] = await toPage(x1, y1);
-      await page.mouse.move(a, b); await page.mouse.down({ button: s.right ? 'right' : 'left' });
+      await page.mouse.move(a, b);
+      if (s.double) { await page.mouse.down(); await page.evaluate(() => sims3Test.step(3, false)); await page.mouse.up(); await page.evaluate(() => sims3Test.step(3, false)); }
+      if (s.control) await page.keyboard.down('Control');
+      await page.mouse.down({ button: s.right ? 'right' : 'left' });
       for (let i = 1; i <= n; i++) { await page.mouse.move(a + (c - a) * i / n, b + (d - b) * i / n); await page.evaluate(() => window.sims3Test.step(1, false)); }
-      await page.mouse.up({ button: s.right ? 'right' : 'left' }); await page.evaluate(() => window.sims3Test.step(1, false));
+      await page.mouse.up({ button: s.right ? 'right' : 'left' });
+      if (s.control) await page.keyboard.up('Control');
+      await page.evaluate(() => window.sims3Test.step(1, false));
+    }
+    if (s.wheel) {
+      const [x, y] = await toPage(...(s.at || [333, 187]));
+      await page.mouse.move(x, y); await page.mouse.wheel(...s.wheel); await page.waitForTimeout(30);
+    }
+    if (s.pointer) {
+      const [command, x, y] = s.pointer;
+      if (x !== undefined) { const [a, b] = await toPage(x, y); await page.mouse.move(a, b); }
+      if (command === 'down') await page.mouse.down({ button: s.right ? 'right' : 'left' });
+      else if (command === 'up') await page.mouse.up({ button: s.right ? 'right' : 'left' });
     }
     if (s.waitBoot) await page.waitForFunction(() => window.sims3Test, null, { timeout: 120000 });
     if (s.rdrag) {   // right-button drag (two-finger gesture on the desktop mapping)
@@ -76,6 +91,7 @@ fs.mkdirSync(out, { recursive: true });
     }
     if (s.files) await page.setInputFiles(s.files[0], s.files.slice(1));   // [selector, path...] for a host file input
     if (s.click) await page.click(s.click);                                   // CSS selector of a host element
+    if (s.hold) { const el = page.locator(s.hold), b = await el.boundingBox(); await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2); await page.mouse.down(); await page.waitForTimeout(950); await page.mouse.up(); }
     if (s.select) await page.selectOption(s.select[0], s.select[1]);
     if (s.resize) await page.setViewportSize({ width: s.resize[0], height: s.resize[1] });
     if (s.dpr) {
