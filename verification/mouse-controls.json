@@ -10,7 +10,7 @@
   "script": "tools/tests/mouse_controls.json",
   "fresh_profile": true,
   "exit_code": 0,
-  "assertions_passed": 39,
+  "assertions_passed": 40,
   "frame_probes": [
     9,
     9,
@@ -304,5 +304,17 @@
     "goal_achievement_and_balance_preserved": true,
     "original_house_upgrade_price_visually_checked": 1000,
     "all_pack_items_purchased_or_rendered": false
+  },
+  "published_delivery": {
+    "gameplay_commit": "11a7e4c0366f20a97e78f270cc626fbae7a4e08e",
+    "source_commit": "2e173464bb275d5ca388a97d8128febe735b1a82",
+    "pages_run": 39820638134,
+    "status": "success",
+    "url": "https://isasto.github.io/Sims-3-Browser/ios/play/",
+    "files": 52,
+    "bytes": 134287801,
+    "all_git_blob_hashes_match": true,
+    "tls_verification": "curl default certificate validation; no bypass",
+    "host_version": "82aa5b93427b90f8"
   }
 }
