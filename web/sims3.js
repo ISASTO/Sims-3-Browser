@@ -219,6 +219,12 @@ function uiEvent(kind, view, arg, x, y, w, h) {
     place(el);
     return nextViewId++;
   }
+  if (kind === 12) {   // MPMediaPickerController: songs from this computer
+    let el = views.get(view);
+    if (!el) { const [multi, prompt] = arg.split('\x1f'); el = mediaPicker(view, multi === '1', prompt); stage.appendChild(el); views.set(view, el); }
+    place(el);
+    return nextViewId++;
+  }
   if (kind === 8) { const el = views.get(view); if (el && el.focus) setTimeout(() => el.focus(), 0); return 0; }
   if (kind === 9) { const el = views.get(view); if (el && el.blur) el.blur(); return 0; }
   if (kind === 5) { const el = views.get(view); if (el && el.id !== 'screen') { el.style.display = arg === 'hidden' ? 'none' : ''; el.style.opacity = String(x); } return 0; }
@@ -294,6 +300,84 @@ function sSchedule(s, ck, fromFrame) {
   n.start(t, off); ck.node = n; s.schedEnd = t + ck.frames / s.rate - off;
 }
 function sHalt(s) { for (const ck of s.chunks) if (ck.node) { try { ck.node.stop(); } catch (e) {} ck.node.disconnect(); ck.node = null; } s.schedEnd = 0; }
+// ------------------------------------------------------------------ device music library (MediaPlayer framework)
+// The picker panel (ui kind 12) lets the user choose audio files from this computer; the system music player plays
+// them with an audio element outside the game's audio graph; the now-playing chip stands in for the system's
+// playback controls (Control Center on the device).
+const media = { files: new Map(), nextId: 1, queue: [], index: -1, state: 0, el: null, repeat: 0, chip: null };
+function mediaEl() {
+  if (media.el) return media.el;
+  const el = media.el = new Audio(); el.preload = 'auto';
+  el.addEventListener('ended', () => {
+    if (media.repeat === 2) { el.currentTime = 0; el.play().catch(() => {}); return; }   // MPMusicRepeatModeOne
+    if (media.index + 1 < media.queue.length) mediaStart(media.index + 1);
+    else if (media.repeat === 3 && media.queue.length) mediaStart(0);                    // MPMusicRepeatModeAll
+    else { media.state = 0; media.index = media.queue.length ? 0 : -1; mediaChip(); }
+  });
+  el.addEventListener('error', () => { log(`media: cannot play ${media.files.get(media.queue[media.index])?.title}`); if (media.index + 1 < media.queue.length) mediaStart(media.index + 1); else { media.state = 0; mediaChip(); } });
+  return el;
+}
+function mediaHalt() { if (media.el) media.el.pause(); media.state = 0; }
+function mediaStart(i, at = 0) {
+  const f = media.files.get(media.queue[i]); if (!f) { media.state = 0; mediaChip(); return; }
+  const el = mediaEl(); media.index = i;
+  if (el.src !== f.url) el.src = f.url;
+  el.currentTime = at; el.play().catch((e) => log(`media: play refused: ${e}`)); media.state = 1; mediaChip();
+}
+function mediaCmd(cmd, arg) {
+  const el = mediaEl(), n = media.queue.length;
+  if (cmd === 0) { if (media.index < 0) return; if (media.state === 2) { el.play().catch(() => {}); media.state = 1; } else if (media.state === 0) mediaStart(media.index); }
+  else if (cmd === 1) { if (media.state === 1) { el.pause(); media.state = 2; } }
+  else if (cmd === 2) { mediaHalt(); media.index = n ? 0 : -1; }
+  else if (cmd === 3 && n) { const was = media.state; mediaStart((media.index + 1) % n); if (was !== 1) { el.pause(); media.state = was ? 2 : 0; } }
+  else if (cmd === 4 && n) { const was = media.state; mediaStart((media.index + n - 1) % n); if (was !== 1) { el.pause(); media.state = was ? 2 : 0; } }
+  else if (cmd === 5) el.currentTime = 0;
+  else if (cmd === 6) el.currentTime = arg;
+  else if (cmd === 7) media.repeat = arg | 0;
+  else if (cmd === 8) el.volume = Math.max(0, Math.min(1, arg));
+  mediaChip();
+}
+function mediaChip() {
+  let c = media.chip;
+  if (!c) {
+    c = media.chip = document.createElement('div'); c.id = 'nowplaying';
+    c.innerHTML = '<span class="np-title"></span><button class="np-pp" title="Play/Pause"></button><button class="np-next" title="Next">&#9197;</button><button class="np-stop" title="Stop">&#9632;</button>';
+    c.querySelector('.np-pp').onclick = () => mediaCmd(media.state === 1 ? 1 : 0);
+    c.querySelector('.np-next').onclick = () => mediaCmd(3);
+    c.querySelector('.np-stop').onclick = () => mediaCmd(2);
+    document.body.appendChild(c);
+  }
+  const f = media.index >= 0 ? media.files.get(media.queue[media.index]) : null;
+  c.style.display = f && media.state ? '' : 'none';
+  c.querySelector('.np-title').textContent = f ? '\u266a ' + f.title : '';
+  c.querySelector('.np-pp').innerHTML = media.state === 1 ? '&#10074;&#10074;' : '&#9654;';
+}
+function mediaPicker(view, multiple, prompt) {
+  const el = document.createElement('div'); el.className = 'hostview hostpicker';
+  el.innerHTML = '<div class="pk-bar"><button class="pk-cancel">Cancel</button><span class="pk-title">Songs</span><button class="pk-done" disabled>Done</button></div>' +
+    '<div class="pk-body"><p class="pk-prompt"></p><p>The music library here is this computer: choose audio files to play while you play the game.</p>' +
+    '<label class="pk-choose">Choose songs\u2026<input type="file" accept="audio/*" hidden></label><ol class="pk-list"></ol></div>';
+  el.querySelector('.pk-prompt').textContent = prompt || '';
+  const input = el.querySelector('input'), list = el.querySelector('.pk-list'), done = el.querySelector('.pk-done');
+  if (multiple) input.multiple = true;
+  let chosen = [], answered = false;
+  input.addEventListener('change', () => {
+    chosen = Array.from(input.files || []); list.textContent = '';
+    for (const f of chosen) { const li = document.createElement('li'); li.textContent = f.name; list.appendChild(li); }
+    done.disabled = !chosen.length;
+  });
+  const answer = (files) => {
+    if (answered) return; answered = true;
+    const recs = files.map((f) => { const id = media.nextId++; const title = f.name.replace(/\.[^.]+$/, ''); media.files.set(id, { url: URL.createObjectURL(f), title }); return id + '\x1f' + title; });
+    const b = enc.encode(recs.join('\x1e')), p = exp.malloc(b.length + 1); U8().set(b, p); U8()[p + b.length] = 0;
+    exp.sims3_media_picked(view, p); exp.free(p);
+  };
+  el.querySelector('.pk-cancel').onclick = () => answer([]);
+  done.onclick = () => answer(chosen);
+  el.addEventListener('pointerdown', (ev) => ev.stopPropagation());
+  return el;
+}
+
 const audio = {
   buffer: (id, pcm, bytes, chn, bits, freq) => {
     audioStats.buffers++;
@@ -346,6 +430,12 @@ const audio = {
   stream_stop: (q) => { const s = streams.get(q); if (s) { sHalt(s); s.g.disconnect(); streams.delete(q); } },
   stream_volume: (q, gain) => { const s = streams.get(q); if (s) s.g.gain.value = gain; },
   suspend: (on) => { if (actx) on ? actx.suspend() : actx.resume(); },
+  // system music player (MPMusicPlayerController): songs the user picked from this computer
+  media_queue: (p, n) => { media.queue = Array.from(new Uint32Array(mem.buffer, p, n)); mediaHalt(); media.index = n ? 0 : -1; mediaChip(); },
+  media_cmd: (cmd, arg) => mediaCmd(cmd, arg),
+  media_state: () => media.state,
+  media_index: () => media.index,
+  media_time: () => (media.el && media.state ? media.el.currentTime : 0),
 };
 
 // ------------------------------------------------------------------ WASI (stdout/stderr, clocks, random)

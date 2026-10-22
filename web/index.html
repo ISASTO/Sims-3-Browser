@@ -17,6 +17,18 @@
   .hostbar { pointer-events: auto; background: #f7f7f7; border-bottom: 1px solid #c8c7cc; display: flex; align-items: center; justify-content: center; font: 600 15px system-ui, sans-serif; color: #000; }
   .hostbar .barbtn { position: absolute; top: 50%; transform: translateY(-50%); border: 0; background: none; color: #007aff; font: 15px system-ui, sans-serif; cursor: pointer; padding: 4px 10px; }
   .hostbar .barbtn.left { left: 4px; } .hostbar .barbtn.right { right: 4px; }
+  .hostpicker { pointer-events: auto; background: #fff; color: #000; display: flex; flex-direction: column; font: 15px system-ui, sans-serif; }
+  .hostpicker .pk-bar { display: flex; align-items: center; justify-content: space-between; height: 44px; background: #f7f7f7; border-bottom: 1px solid #c8c7cc; padding: 0 6px; flex: none; }
+  .hostpicker .pk-bar button { border: 0; background: none; color: #007aff; font: 15px system-ui, sans-serif; cursor: pointer; padding: 6px 10px; }
+  .hostpicker .pk-bar button:disabled { color: #b4b4b4; cursor: default; }
+  .hostpicker .pk-title { font-weight: 600; }
+  .hostpicker .pk-body { padding: 10px 18px; overflow: auto; }
+  .hostpicker .pk-body p { margin: 6px 0; color: #444; }
+  .hostpicker .pk-choose { display: inline-block; margin: 8px 0; padding: 7px 14px; border: 1px solid #007aff; border-radius: 6px; color: #007aff; cursor: pointer; }
+  .hostpicker .pk-list { margin: 6px 0; padding-left: 22px; }
+  #nowplaying { position: fixed; top: 6px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; background: #1c2128e6; color: var(--fg); border-radius: 14px; padding: 3px 6px 3px 12px; font: 12px system-ui, sans-serif; z-index: 6; max-width: 60vw; }
+  #nowplaying .np-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #nowplaying button { border: 0; background: #ffffff1a; color: var(--fg); border-radius: 10px; min-width: 24px; height: 20px; cursor: pointer; font-size: 11px; }
   #status { position: absolute; left: 0; right: 0; bottom: 12%; text-align: center; color: var(--dim); }
   #meter { position: fixed; right: 8px; bottom: 6px; color: var(--dim); font: 11px ui-monospace, Menlo, monospace; opacity: .7; pointer-events: none; }
   #error { display: none; position: fixed; inset: 5%; overflow: auto; background: #1a1112; color: var(--err); border: 1px solid #5a2a2a; padding: 16px; white-space: pre-wrap; font: 12px ui-monospace, Menlo, monospace; z-index: 10; }

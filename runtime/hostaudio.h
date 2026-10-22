@@ -27,3 +27,11 @@ HA(double, stream_played, (uint32_t q))
 HA(void, stream_stop, (uint32_t q))
 HA(void, stream_volume, (uint32_t q, float gain))
 HA(void, suspend, (int suspended))
+/* system music player (mediaplayer.c): the queue holds host media ids from the picker; cmd: 0 play, 1 pause, 2 stop,
+   3 next, 4 previous, 5 to beginning, 6 seek to arg seconds, 7 repeat mode arg, 8 volume arg.
+   media_state: 0 stopped, 1 playing, 2 paused; media_index: queue index of the current item, -1 if none. */
+HA(void, media_queue, (const uint32_t *ids, uint32_t n))
+HA(void, media_cmd, (int cmd, double arg))
+HA(int, media_state, (void))
+HA(int, media_index, (void))
+HA(double, media_time, (void))

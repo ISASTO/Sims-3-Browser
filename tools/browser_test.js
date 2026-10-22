@@ -3,7 +3,8 @@
 //
 // Usage: NODE_PATH=/opt/npm-tools/node_modules node tools/browser_test.js [url] [outdir] [--script steps.json]
 //   steps.json: [{"wait": ms}, {"tap": [x, y]}, {"drag": [x0, y0, x1, y1, ms]}, {"shot": "name"}, {"perf": ms},
-//                {"type": "text"}, {"key": "Enter"}, {"reload": true}, {"eval": "js expression"}]
+//                {"type": "text"}, {"key": "Enter"}, {"reload": true}, {"eval": "js expression"},
+//                {"files": [selector, path...]}, {"click": selector}]
 //   (coordinates in game points, 667 x 375)
 const { chromium } = require('playwright');
 const fs = require('fs');
@@ -62,6 +63,8 @@ fs.mkdirSync(out, { recursive: true });
       for (let i = 1; i <= n; i++) { await page.mouse.move(a + (c - a) * i / n, b + (d - b) * i / n); await page.waitForTimeout((ms || 400) / n); }
       await page.mouse.up({ button: 'right' });
     }
+    if (s.files) await page.setInputFiles(s.files[0], s.files.slice(1));   // [selector, path...] for a host file input
+    if (s.click) await page.click(s.click);                                   // CSS selector of a host element
     if (s.type) await page.keyboard.type(s.type, { delay: 60 });
     if (s.key) await page.keyboard.press(s.key);
     if (s.reload) { await page.reload(); }

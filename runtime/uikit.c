@@ -158,6 +158,8 @@ void uikit_view_set_image(gptr view, gptr image) { V(view)->image = objc_retain_
 const float *uicolor_rgba(gptr col);
 static bool textfield_sync(gptr v, float x, float y, float w, float h);
 static bool chrome_sync(gptr v, float x, float y, float w, float h);
+bool media_is_picker(gptr v);                                      /* mediaplayer.c: the media picker panel */
+uint32_t media_sync(gptr v, float x, float y, float w, float h);
 static void sync_host(gptr v) {
     View *s = hostdata(v);
     if (!s || !in_window(v)) return;
@@ -169,6 +171,7 @@ static void sync_host(gptr v) {
     else if (eagl) s->host_id = host_ui_event(3, v, NULL, x, y, s->w, s->h);
     else if (textfield_sync(v, x, y, s->w, s->h)) ;
     else if (chrome_sync(v, x, y, s->w, s->h)) ;
+    else if (media_is_picker(v)) s->host_id = media_sync(v, x, y, s->w, s->h);
     else if (s->bg && s->nsub) { char css[64]; const float *k = uicolor_rgba(s->bg); snprintf(css, sizeof css, "rgba(%d,%d,%d,%.3f)", k ? (int)(k[0] * 255) : 0, k ? (int)(k[1] * 255) : 0, k ? (int)(k[2] * 255) : 0, k ? k[3] : 0); s->host_id = host_ui_event(4, v, css, x, y, s->w, s->h); }
     if (s->host_id) host_ui_event(5, v, s->hidden ? "hidden" : "visible", s->alpha, 0, 0, 0);
     for (uint32_t i = 0; i < s->nsub; i++) sync_host(s->sub[i]);
@@ -324,9 +327,11 @@ static gptr find_touch_view(void) {
 }
 static void ui_dispatch_text(CPU *c);
 static void ui_dispatch_actions(CPU *c);
+void media_dispatch(CPU *c);
 void ui_dispatch_input(CPU *c) {
     ui_dispatch_text(c);
     ui_dispatch_actions(c);
+    media_dispatch(c);
     if (!ninq) return;
     gptr view = find_touch_view();
     for (uint32_t k = 0; k < ninq; k++) {

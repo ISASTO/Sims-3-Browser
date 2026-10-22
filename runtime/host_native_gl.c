@@ -91,9 +91,14 @@ void hgl_SetDrawableRenderbuffer(void) { CNT; }
 uint64_t native_presents;
 void hgl_Present(void) { native_presents++; }
 gptr native_last_textfield;
+void sims3_media_picked(uint32_t view, const char *list);
 uint32_t host_ui_event(int kind, gptr view, const char *arg, float x, float y, float w, float h) {
     static uint32_t ids;
     if (kind == 7) native_last_textfield = view;
+    if (kind == 12) {   /* media picker panel: SIMS3_MEDIA=pick chooses two stand-in songs, anything else cancels */
+        const char *m = getenv("SIMS3_MEDIA");
+        sims3_media_picked(view, m && !strcmp(m, "pick") ? "1\x1f" "Song One\x1e" "2\x1f" "Song Two" : "");
+    }
     if (rt_verbose) rt_log("ui_event kind=%d view=%08x %s (%.0f,%.0f %.0fx%.0f)", kind, view, arg ? arg : "", x, y, w, h);
     return kind == 2 || kind == 5 || kind == 6 ? 0 : ++ids;
 }
@@ -144,6 +149,26 @@ void ha_stream_run(uint32_t q, int on) {
 double ha_stream_played(uint32_t q) { NStream *s = nst(q); return s->used ? ns_played(s) : 0; }
 void ha_stream_stop(uint32_t q) { NStream *s = nst(q); if (s->dump) fclose(s->dump); memset(s, 0, sizeof *s); }
 void ha_stream_volume(uint32_t q, float g) { (void)q; (void)g; }
+/* system music player stand-in: plays its queue in run-loop time, 180 s per song */
+static uint32_t mq[256], mqn; static int mstate, midx = -1; static double mstart;
+void ha_media_queue(const uint32_t *ids, uint32_t n) { mqn = n > 256 ? 256 : n; memcpy(mq, ids, mqn * 4); mstate = 0; midx = mqn ? 0 : -1; }
+static void media_advance(void) {
+    if (mstate != 1 || midx < 0) return;
+    while (midx >= 0 && rt_now_ms / 1000.0 - mstart >= 180) { mstart += 180; if (++midx >= (int)mqn) { midx = mqn ? 0 : -1; mstate = 0; } }
+}
+void ha_media_cmd(int cmd, double arg) {
+    media_advance();
+    if (rt_verbose) rt_log("media: cmd %d (%.2f), %u queued", cmd, arg, mqn);
+    if (cmd == 0 && midx >= 0 && mstate != 1) { mstate = 1; mstart = rt_now_ms / 1000.0; }
+    else if (cmd == 1 && mstate == 1) mstate = 2;
+    else if (cmd == 2) { mstate = 0; midx = mqn ? 0 : -1; }
+    else if (cmd == 3 && mqn) { midx = (midx + 1) % (int)mqn; mstart = rt_now_ms / 1000.0; }
+    else if (cmd == 4 && mqn) { midx = (midx + (int)mqn - 1) % (int)mqn; mstart = rt_now_ms / 1000.0; }
+    else if (cmd == 5 || cmd == 6) mstart = rt_now_ms / 1000.0 - (cmd == 6 ? arg : 0);
+}
+int ha_media_state(void) { media_advance(); return mstate; }
+int ha_media_index(void) { media_advance(); return midx; }
+double ha_media_time(void) { media_advance(); return mstate ? rt_now_ms / 1000.0 - mstart : 0; }
 void ha_suspend(int on) {
     if (dev_suspended == !!on) return;
     for (int i = 0; i < 8; i++) {

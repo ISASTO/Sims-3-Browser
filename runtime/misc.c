@@ -28,10 +28,8 @@ static void av_setCategory(CPU *c) { RET(1); }
 static void av_rate(CPU *c) { RETD(44100.0); }
 static void av_vol(CPU *c) { RETF(1.0f); }
 static void av_category(CPU *c) { RET(nsstr("AVAudioSessionCategoryAmbient")); }
-/* MPMusicPlayerController: the browser has no system music player */
-static gptr mpm;
-static void mp_ipod(CPU *c) { RET(mpm); }
-static void mp_state(CPU *c) { RET(0); /* MPMusicPlaybackStateStopped */ }
+bool media_other_audio_playing(void);   /* mediaplayer.c: the system music player is playing */
+static void av_otherAudio(CPU *c) { RET(media_other_audio_playing()); }
 /* SKPaymentQueue: purchases unavailable */
 static gptr skq;
 static void sk_default(CPU *c) { RET(skq); }
@@ -122,13 +120,10 @@ void misc_init(void) {
     M(k, "subscriberCellularProvider", r_nil); M(k, "currentRadioAccessTechnology", r_nil);
     k = host_class("AVAudioSession", "NSObject", 4); avs = singleton("AVAudioSession");
     CM(k, "sharedInstance", av_shared); M(k, "setCategory:error:", av_setCategory); M(k, "setActive:error:", av_setCategory);
-    M(k, "setActive:withOptions:error:", av_setCategory); M(k, "category", av_category); M(k, "isOtherAudioPlaying", r_no);
+    M(k, "setActive:withOptions:error:", av_setCategory); M(k, "category", av_category); M(k, "isOtherAudioPlaying", av_otherAudio);
     M(k, "secondaryAudioShouldBeSilencedHint", r_no); M(k, "setMode:error:", av_setCategory);
     M(k, "setPreferredSampleRate:error:", av_setCategory); M(k, "setPreferredIOBufferDuration:error:", av_setCategory);
     M(k, "setCategory:withOptions:error:", av_setCategory); M(k, "setDelegate:", r_noop); M(k, "sampleRate", av_rate); M(k, "outputVolume", av_vol);
-    k = host_class("MPMusicPlayerController", "NSObject", 4); mpm = singleton("MPMusicPlayerController");
-    CM(k, "iPodMusicPlayer", mp_ipod); CM(k, "systemMusicPlayer", mp_ipod); M(k, "playbackState", mp_state);
-    M(k, "beginGeneratingPlaybackNotifications", r_noop); M(k, "endGeneratingPlaybackNotifications", r_noop); M(k, "nowPlayingItem", r_nil);
     k = host_class("SKPaymentQueue", "NSObject", 4); skq = singleton("SKPaymentQueue");
     CM(k, "defaultQueue", sk_default); CM(k, "canMakePayments", r_no); M(k, "addTransactionObserver:", r_noop); M(k, "removeTransactionObserver:", r_noop);
     M(k, "transactions", sk_transactions);
