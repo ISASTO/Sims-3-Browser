@@ -80,7 +80,11 @@ export function createGL(canvas, mem, log) {
       for (let k = 0; k < st.palUnits; k++) vs += ` p += aWeight[${k}] * (uPal[int(aMIdx[${k}])] * aPos);\n`;
       vs += ' vec4 eye = p;\n';
     } else vs += ' vec4 eye = uMV * aPos;\n';
-    vs += ' gl_Position = uP * eye;\n vFogDist = abs(eye.z);\n';
+    // A vertex on the eye plane (clip w ~ 0) is always outside the near plane and must be clipped away. Some
+    // rasterizers (SwiftShader) drop the whole visible remainder of such triangles instead: the sky dome's zenith
+    // vertex sits exactly above the camera, which opened a hole in the menu sky. Moving w off zero by at most 1e-3
+    // keeps the vertex outside the near plane, so the clipped result is the one the GL specification defines.
+    vs += ' gl_Position = uP * eye;\n if (abs(gl_Position.w) < 1e-3) gl_Position.w = gl_Position.w < 0.0 ? -1e-3 : 1e-3;\n vFogDist = abs(eye.z);\n';
     vs += st.colorArray ? ' vColor = aColor;\n' : ' vColor = uColor;\n';
     vs += ' vTex0 = (uT0 * aTex0).xy;\n vTex1 = (uT1 * aTex1).xy;\n}\n';
     let fs = '#version 300 es\nprecision mediump float;\n' + `${st.flat ? 'flat ' : ''}in vec4 vColor;\nin vec2 vTex0;\nin vec2 vTex1;\nin float vFogDist;\n` +
@@ -166,12 +170,14 @@ export function createGL(canvas, mem, log) {
     if (type === 0x1401) { let m = 0; for (let i = 0; i < count; i++) if (src[ptr + i] > m) m = src[ptr + i]; return m + 1; }
     const a = new Uint32Array(src.buffer, src.byteOffset + ptr, count); let m = 0; for (let i = 0; i < count; i++) if (a[i] > m) m = a[i]; return m + 1;
   }
+  let drawNo = 0;
   function es1Draw(nverts) {
+    const dbgSolid = stats.debugSolid === drawNo++;   // debugging aid: draw N of each frame untextured, in red
     const st = { tex: [], env: [], texFmt: [], colorArray: arrays.color.enabled, flat: shadeFlat,
       alphaTest: isEnabledES1(0x0BC0), alphaFunc, fog: isEnabledES1(0x0B60), fogMode: fog.mode,
       palette: isEnabledES1(0x8840) && arrays.mindex.enabled && arrays.weight.enabled, palSize: 32, palUnits: arrays.weight.size };
     for (let u = 0; u < 2; u++) {
-      const on = (caps.get('tex' + u) || false) && boundTex[u] && arrays.tex[u].enabled;
+      const on = !dbgSolid && (caps.get('tex' + u) || false) && boundTex[u] && arrays.tex[u].enabled;
       st.tex.push(on); st.env.push(texEnv[u]); st.texFmt.push(texFormats.get(boundTex[u]) || 'rgba');
     }
     const key = JSON.stringify([st.tex, st.tex.map((t, u) => t ? [texEnv[u].mode, texEnv[u].combineRGB, texEnv[u].combineAlpha, texEnv[u].src, texEnv[u].op, texEnv[u].rgbScale, texEnv[u].alphaScale, st.texFmt[u]] : 0),
@@ -196,6 +202,7 @@ export function createGL(canvas, mem, log) {
     if (st.palette) { setupArray(4, Object.assign({}, arrays.mindex, { norm: false }), nverts, 4); setupArray(5, arrays.weight, nverts, 5); }
     else { gl.disableVertexAttribArray(4); gl.disableVertexAttribArray(5); gl.vertexAttrib4f(4, 0, 0, 0, 0); gl.vertexAttrib4f(5, 1, 0, 0, 0); }
     if (!arrays.color.enabled) gl.vertexAttrib4fv(1, color);
+    if (dbgSolid) { gl.disableVertexAttribArray(1); gl.vertexAttrib4f(1, 1, 0, 0, 1); gl.uniform4f(p.u.uColor, 1, 0, 0, 1); }
     if (!st.tex[0]) gl.vertexAttrib4f(2, 0, 0, 0, 1);
     if (!st.tex[1]) gl.vertexAttrib4f(3, 0, 0, 0, 1);
   }
@@ -209,8 +216,13 @@ export function createGL(canvas, mem, log) {
       const mv = stacks[GL_MODELVIEW], pr = stacks[GL_PROJECTION];
       stats.draws.push({ fb: curFB, n: nverts, tex: [caps.get('tex0') && boundTex[0], caps.get('tex1') && boundTex[1]], depth: !!caps.get(0x0B71), blend: !!caps.get(0x0BE2),
         cull: !!caps.get(0x0B44), alpha: !!caps.get(0x0BC0), fog: !!caps.get(0x0B60), fogp: [fog.mode, fog.density, fog.start, fog.end, fog.color.map((x) => +x.toFixed(2)).join('/')], dmask: depthMask, color: color.slice(), colorArr: arrays.color.enabled,
-        vtx: [arrays.vertex.size, arrays.vertex.type, arrays.vertex.stride, !!arrays.vertex.buffer], P: Array.from(pr[pr.length - 1]).map((x) => +x.toFixed(4)),
-        MV: Array.from(mv[mv.length - 1]).map((x) => +x.toFixed(3)), vp: gl.getParameter(gl.VIEWPORT) && Array.from(gl.getParameter(gl.VIEWPORT)) });
+        vtx: [arrays.vertex.size, arrays.vertex.type, arrays.vertex.stride, !!arrays.vertex.buffer], P: Array.from(pr[pr.length - 1]),
+        MV: Array.from(mv[mv.length - 1]), vp: gl.getParameter(gl.VIEWPORT) && Array.from(gl.getParameter(gl.VIEWPORT)),
+        pos: stats.capturePos && nverts >= stats.capturePos && !arrays.vertex.buffer && arrays.vertex.type === 0x1402 ?
+          Array.from({ length: nverts }, (_, i) => Array.from(new Int16Array(U8().buffer, arrays.vertex.ptr + i * (arrays.vertex.stride || arrays.vertex.size * 2), arrays.vertex.size))) : undefined,
+        tc: stats.capturePos && nverts >= stats.capturePos && arrays.tex[0].enabled && !arrays.tex[0].buffer ? (() => { const a = arrays.tex[0], ts = a.type === 0x1406 ? 4 : a.type === 0x1402 ? 2 : 1, C = a.type === 0x1406 ? Float32Array : a.type === 0x1402 ? Int16Array : Int8Array;
+          return { type: a.type, size: a.size, v: Array.from({ length: nverts }, (_, i) => Array.from(new C(U8().buffer.slice(a.ptr + i * (a.stride || a.size * ts), a.ptr + i * (a.stride || a.size * ts) + a.size * ts)))) }; })() : undefined,
+        T0: Array.from(stacks.tex[0][stacks.tex[0].length - 1]).map((x) => +x.toFixed(6)), boundTex0: boundTex[0] });
     }
   }
 
@@ -241,7 +253,7 @@ export function createGL(canvas, mem, log) {
     },
     BufferSubData: (t, off, size, p) => { const d = U8().subarray(p, p + size); gl.bufferSubData(t, off, d); const o = buffers.get(t === 0x8892 ? arrayBuffer : elementBuffer); if (t === 0x8893 && o && o.shadow) o.shadow.set(d, off); },
     CheckFramebufferStatus: (t) => gl.checkFramebufferStatus(gl.FRAMEBUFFER),
-    Clear: (m) => { if (!stats.skipDraws) gl.clear(m); },
+    Clear: (m) => { if (stats.capture) stats.draws.push({ clear: m, fb: curFB, cc: Array.from(gl.getParameter(gl.COLOR_CLEAR_VALUE)) }); if (!stats.skipDraws) gl.clear(m); },
     ClearColor: (r, g, b, a) => gl.clearColor(r, g, b, a),
     ColorMask: (r, g, b, a) => gl.colorMask(!!r, !!g, !!b, !!a),
     CompileShader: (s) => gl.compileShader(shaders.get(s)),
@@ -259,11 +271,12 @@ export function createGL(canvas, mem, log) {
     DepthMask: (f) => { depthMask = !!f; gl.depthMask(!!f); },
     Disable: (c) => { if (c === 0x0DE1) { caps.set('tex' + activeTex, false); return; } caps.set(c, false); if (c === 0x0BC0 || c === 0x0B60 || c === 0x8840 || c === 0x0B50 || c === 0x0B57 || c === 0x0BA1 || c === 0x0B71 + 1000) return; try { gl.disable(c); } catch (e) {} },
     DisableVertexAttribArray: (i) => { attribs[i].enabled = false; },
-    DrawArrays: (m, first, count) => { if (count <= 0 || stats.skipDraws) return; prepareDraw(first + count); gl.drawArrays(m, first, count); },
+    DrawArrays: (m, first, count) => { if (count <= 0 || stats.skipDraws) return; prepareDraw(first + count); if (stats.capture) Object.assign(stats.draws[stats.draws.length - 1], { mode: m, first }); gl.drawArrays(m, first, count); },
     DrawElements: (m, count, type, off, p) => {
       if (count <= 0 || stats.skipDraws) return;
       const n = maxIndex(count, type, p, off);
       prepareDraw(n);
+      if (stats.capture && stats.capturePos && n >= stats.capturePos && !elementBuffer && type === 0x1403) { const d = stats.draws[stats.draws.length - 1]; d.mode = m; d.idx = Array.from(new Uint16Array(U8().buffer, p, count)); }
       if (elementBuffer) gl.drawElements(m, count, type, off);
       else { gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, streamIB); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, U8().subarray(p, p + count * typeSize(type)), gl.STREAM_DRAW); gl.drawElements(m, count, type, 0); }
     },
@@ -314,9 +327,12 @@ export function createGL(canvas, mem, log) {
       const n = boundTex[activeTex];
       texFormats.set(n, fmt === 0x1908 ? 'rgba' : fmt === 0x1907 ? 'rgb' : fmt === 0x1906 ? 'a' : fmt === 0x1909 ? 'l' : fmt === 0x190A ? 'la' : 'rgba');
       gl.texImage2D(t, l, fmt, w, h, 0, fmt, type, p ? texData(fmt, type, w, h, p) : null);
+      if (l === 0) autoMipmap(t, n);
     },
-    TexParameteri: (t, pn, v) => { if (pn === 0x8191) return; /* GL_GENERATE_MIPMAP */ gl.texParameteri(t, pn, v); },
-    TexSubImage2D: (t, l, x, y, w, h, fmt, type, p) => { gl.texSubImage2D(t, l, x, y, w, h, fmt, type, texData(fmt, type, w, h, p)); },
+    // ES1.1 GL_GENERATE_MIPMAP: while set, every change to level 0 recomputes the other levels (WebGL2 has only the
+    // explicit glGenerateMipmap, so it is issued after each level-0 upload)
+    TexParameteri: (t, pn, v) => { if (pn === 0x8191) { genMip.set(boundTex[activeTex], !!v); return; } gl.texParameteri(t, pn, v); },
+    TexSubImage2D: (t, l, x, y, w, h, fmt, type, p) => { gl.texSubImage2D(t, l, x, y, w, h, fmt, type, texData(fmt, type, w, h, p)); if (l === 0) autoMipmap(t, boundTex[activeTex]); },
     Uniform1f: (l, v) => gl.uniform1f(uloc(l), v),
     Uniform1fv: (l, n, p) => gl.uniform1fv(uloc(l), F32().subarray(p >> 2, (p >> 2) + n)),
     Uniform1i: (l, v) => gl.uniform1i(uloc(l), v),
@@ -344,6 +360,7 @@ export function createGL(canvas, mem, log) {
       gl.bindFramebuffer(gl.FRAMEBUFFER, curFB ? fbos.get(curFB) : null);
       stats.presents++;
       if (stats.capture) { stats.capture--; stats.frames.push(stats.draws); stats.draws = []; }
+      drawNo = 0;
     },
     // ---------------- ES1 fixed function
     AlphaFunc: (f, r) => { alphaFunc = f; alphaRef = r; },
@@ -395,8 +412,14 @@ export function createGL(canvas, mem, log) {
     if ((p & 1) === 0) return new Uint16Array(mem.buffer, p, len >> 1);
     return new Uint16Array(U8().slice(p, p + len).buffer);
   }
+  const genMip = new Map();
+  function autoMipmap(t, n) {
+    if (!genMip.get(n)) return;
+    stats.autoMipmaps++;
+    try { gl.generateMipmap(t); } catch (e) { log(`GL_GENERATE_MIPMAP: ${e}`); }
+  }
   function uloc(id) { const p = programs.get(id >> 12); return p ? p.uniforms.get(id) : null; }
   // ES1 GL_TEXTURE_ENV_COLOR via TexEnvfv is not imported; COMBINE sources use env colour default (0).
-  const stats = { presents: 0, capture: 0, draws: [], frames: [] };
+  const stats = { presents: 0, capture: 0, draws: [], frames: [], autoMipmaps: 0 };
   return { imports: imp, stats, gl };
 }
