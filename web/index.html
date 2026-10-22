@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>The Sims 3 (private port)</title>
+<title>The Sims 3 | Browser port</title>
 <style>
-  :root { --bg: #0b0d10; --fg: #d8dee6; --dim: #7d8794; --err: #ffb4a8; }
+  :root { --bg: #000; --fg: #d8dee6; --dim: #a3acb8; --err: #ffb4a8; }
   html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg); font: 13px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; overflow: hidden; }
   #wrap { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
   /* landscape iPhone 6 class screen: 667 x 375 points */
@@ -39,6 +39,7 @@
 <div id="wrap"><div id="stage"><canvas id="screen" width="1334" height="750"></canvas><div id="status">Loading…</div></div></div>
 <div id="meter"></div>
 <pre id="error"></pre>
+<noscript>Enable JavaScript to play The Sims 3.</noscript>
 <script type="module" src="sims3.js"></script>
 </body>
 </html>

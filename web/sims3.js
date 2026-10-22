@@ -6,6 +6,7 @@
 // The writable container (/home: saves, preferences, keychain) is kept in memory and persisted to IndexedDB.
 'use strict';
 import { createGL } from './gl.js';
+import { gunzipSync } from './vendor/fflate.js';
 
 const POINTS_W = 667, POINTS_H = 375;           // virtual device: iPhone 6 class, landscape, @2x
 const $ = (id) => document.getElementById(id);
@@ -37,7 +38,10 @@ const BUNDLE_PREFIX = '/app/sims3_iphone.app';
 const fileCache = new Map();  // rel -> Uint8Array (LRU by insertion)
 let fileCacheBytes = 0;
 const FILE_CACHE_MAX = 96 << 20;
-const stats = { bundleReads: 0, bundleBytes: 0, readMs: 0 };
+const packCache = new Map();
+let packCacheBytes = 0;
+const PACK_CACHE_MAX = 12 << 20;
+const stats = { bundleReads: 0, bundleBytes: 0, readMs: 0, bundleFiles: [] };
 
 function relBundle(path) {
   if (path === BUNDLE_PREFIX) return '';
@@ -70,8 +74,23 @@ function syncFetch(url) {
 function bundleBytes(rel) {
   let b = fileCache.get(rel);
   if (b) { fileCache.delete(rel); fileCache.set(rel, b); return b; }
-  b = syncFetch('bundle/' + rel.split('/').map(encodeURIComponent).join('/'));
+  const stored = manifest.storage && manifest.storage[rel];
+  if (stored) {
+    const [name, offset, length, gzip] = stored;
+    let pack = packCache.get(name);
+    if (pack) { packCache.delete(name); packCache.set(name, pack); }
+    else {
+      pack = syncFetch('packs/' + encodeURIComponent(name));
+      if (!pack || pack.length !== manifest.packs[name]) throw new Error('Could not load resource pack: ' + name + '. Reload to retry.');
+      packCache.set(name, pack); packCacheBytes += pack.length;
+      while (packCacheBytes > PACK_CACHE_MAX && packCache.size > 1) { const [k, v] = packCache.entries().next().value; packCache.delete(k); packCacheBytes -= v.length; }
+    }
+    if (offset < 0 || length < 0 || offset + length > pack.length) throw new Error('Invalid resource range: ' + rel);
+    b = gzip ? gunzipSync(pack.subarray(offset, offset + length)) : pack.slice(offset, offset + length);
+    if (b.length !== manifest.files[rel]) throw new Error('Resource size mismatch: ' + rel);
+  } else b = syncFetch('bundle/' + rel.split('/').map(encodeURIComponent).join('/'));
   if (!b) return null;
+  stats.bundleFiles.push(rel);
   fileCache.set(rel, b); fileCacheBytes += b.length;
   while (fileCacheBytes > FILE_CACHE_MAX && fileCache.size > 1) { const [k, v] = fileCache.entries().next().value; fileCache.delete(k); fileCacheBytes -= v.length; }
   return b;
@@ -174,7 +193,15 @@ function uiEvent(kind, view, arg, x, y, w, h) {
     let el = views.get(view);
     if (!el) { el = document.createElement('img'); el.className = 'hostview'; stage.appendChild(el); views.set(view, el); }
     const r = arg.startsWith('/') ? relBundle(arg) : arg;   // image names resolve in the bundle root
-    if (r !== null) el.src = 'bundle/' + r;
+    if (r !== null) {
+      if (el.dataset.blobURL) { URL.revokeObjectURL(el.dataset.blobURL); delete el.dataset.blobURL; }
+      if (manifest.storage && manifest.storage[r]) {
+        const bytes = bundleBytes(r);
+        if (!bytes) throw new Error('Could not load image: ' + r);
+        el.dataset.blobURL = URL.createObjectURL(new Blob([bytes], { type: r.toLowerCase().endsWith('.png') ? 'image/png' : 'image/jpeg' }));
+        el.src = el.dataset.blobURL;
+      } else el.src = 'bundle/' + r.split('/').map(encodeURIComponent).join('/');
+    }
     place(el);
     return nextViewId++;
   }
@@ -228,7 +255,7 @@ function uiEvent(kind, view, arg, x, y, w, h) {
   if (kind === 8) { const el = views.get(view); if (el && el.focus) setTimeout(() => el.focus(), 0); return 0; }
   if (kind === 9) { const el = views.get(view); if (el && el.blur) el.blur(); return 0; }
   if (kind === 5) { const el = views.get(view); if (el && el.id !== 'screen') { el.style.display = arg === 'hidden' ? 'none' : ''; el.style.opacity = String(x); } return 0; }
-  if (kind === 2) { const el = views.get(view); if (el && el.id !== 'screen') el.remove(); views.delete(view); return 0; }
+  if (kind === 2) { const el = views.get(view); if (el && el.id !== 'screen') { if (el.dataset.blobURL) URL.revokeObjectURL(el.dataset.blobURL); el.remove(); } views.delete(view); return 0; }
   if (kind === 6) { toast(arg); return 0; }
   return 0;
 }
@@ -499,23 +526,52 @@ function setupInput(canvas) {
   canvas.addEventListener('pointerup', end(2)); canvas.addEventListener('pointercancel', end(3));
   canvas.addEventListener('contextmenu', (ev) => ev.preventDefault());
   // lifecycle: hidden page = background (the game saves there), lost focus = inactive
-  document.addEventListener('visibilitychange', () => { if (!exp) return; if (document.hidden) { exp.sims3_lifecycle(2); exp.sims3_frame(performance.now()); homeFlush(); } else exp.sims3_lifecycle(3); });
+  document.addEventListener('visibilitychange', () => { if (!exp || dead) return; if (document.hidden) { exp.sims3_lifecycle(2); exp.sims3_frame(env.js_now()); homeFlush(); } else exp.sims3_lifecycle(3); });
   window.addEventListener('blur', () => exp && exp.sims3_lifecycle(0));
   window.addEventListener('focus', () => exp && exp.sims3_lifecycle(1));
-  window.addEventListener('pagehide', () => { if (exp && !dead) { exp.sims3_lifecycle(2); exp.sims3_frame(performance.now()); } homeFlush(); });
+  window.addEventListener('pagehide', () => { if (exp && !dead) { exp.sims3_lifecycle(2); exp.sims3_frame(env.js_now()); } homeFlush(); });
 }
 
 // ------------------------------------------------------------------ boot + frame loop
 async function main() {
   const canvas = $('screen');
   status('Loading bundle index…');
-  manifest = await (await fetch('bundle-manifest.json')).json();
+  const index = await fetch('bundle-manifest.json', { cache: 'no-cache' });
+  if (!index.ok) throw new Error('The game resource index could not be loaded (HTTP ' + index.status + '). Reload to retry.');
+  manifest = await index.json();
   indexBundle();
+  if (manifest.preload && manifest.preload.length) {
+    status('Loading game resources…');
+    const loaded = await Promise.all(manifest.preload.map(async (name) => {
+      const t = performance.now();
+      const response = await fetch('packs/' + encodeURIComponent(name));
+      if (!response.ok) throw new Error('Could not load game resources (HTTP ' + response.status + '). Reload to retry.');
+      const bytes = new Uint8Array(await response.arrayBuffer());
+      if (bytes.length !== manifest.packs[name]) throw new Error('Resource download is incomplete: ' + name);
+      stats.bundleReads++; stats.bundleBytes += bytes.length; stats.readMs += performance.now() - t;
+      return [name, bytes];
+    }));
+    for (const [name, bytes] of loaded) { packCache.set(name, bytes); packCacheBytes += bytes.length; }
+  }
   await homeOpen();
   status('Compiling game code…');
   const glh = createGL(canvas, mem, log);
   const t0 = performance.now();
-  const { instance } = await WebAssembly.instantiateStreaming(fetch('sims3.wasm'), { env, gl: glh.imports, audio, text, wasi_snapshot_preview1: wasi });
+  const imports = { env, gl: glh.imports, audio, text, wasi_snapshot_preview1: wasi };
+  const runtime = manifest.runtime || { url: 'sims3.wasm' };
+  status('Downloading game code…');
+  const code = await fetch(runtime.url);
+  if (!code.ok) throw new Error('The game code could not be loaded (HTTP ' + code.status + '). Reload to retry.');
+  let result;
+  if (runtime.encoding === 'gzip') {
+    const bytes = gunzipSync(new Uint8Array(await code.arrayBuffer()));
+    if (bytes.length !== runtime.bytes) throw new Error('The game code download is incomplete. Reload to retry.');
+    status('Compiling game code…');
+    result = await WebAssembly.instantiate(bytes, imports);
+  } else if ((code.headers.get('Content-Type') || '').split(';')[0] === 'application/wasm') {
+    result = await WebAssembly.instantiateStreaming(code, imports);
+  } else result = await WebAssembly.instantiate(await code.arrayBuffer(), imports);
+  const { instance } = result;
   inst = instance; exp = instance.exports;
   log(`wasm: instantiated in ${(performance.now() - t0).toFixed(0)} ms`);
   if (exp._initialize) exp._initialize();

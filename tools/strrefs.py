@@ -1,10 +1,10 @@
 """List string/selector/class references in a function (constant propagation)."""
 import sys, json
-sys.path.insert(0, '/home/claude/sims3/tools')
+from project import ROOT
 from macho import *
-img = Image('/home/claude/sims3/original/sims3_iphone')
-x = json.load(open('/home/claude/sims3/analysis/xrefs.json'))
-fn = {f['name']: '%x' % f['addr'] for f in json.load(open('/home/claude/sims3/analysis/functions.json'))}
+img = Image(ROOT + '/original/sims3_iphone')
+x = json.load(open(ROOT + '/analysis/xrefs.json'))
+fn = {f['name']: '%x' % f['addr'] for f in json.load(open(ROOT + '/analysis/functions.json'))}
 cs = img.section('__DATA', '__cfstring'); sr = img.section('__DATA', '__objc_selrefs'); cr = img.section('__DATA', '__objc_classrefs')
 syms = {s.value: s.name for s in img.symbols if not s.is_stab and s.name}
 binds = {a: n for a, n, *_ in img.binds()}

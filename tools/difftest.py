@@ -11,7 +11,7 @@ from thumb2c import A, arm, Unsupported
 import unicorn
 from unicorn import arm_const as U
 
-ROOT = '/home/claude/sims3'
+from project import ROOT
 OUT = ROOT + '/build/difftest'
 SCRATCH = 0x10000000
 SCRATCH_SIZE = 0x20000

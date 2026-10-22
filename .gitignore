@@ -1,4 +1,4 @@
-# Private inputs and generated material derived from the IPA are never committed.
+# Raw inputs, build intermediates and analysis output stay out of source commits.
 original/
 extract/
 analysis/

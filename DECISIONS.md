@@ -1,15 +1,17 @@
 # DECISIONS
 
-Material technical choices for the private browser port of *The Sims 3* for iOS (com.ea.sims3inc, version 1.4.16).
+Material technical choices for the browser port of *The Sims 3* for iOS (com.ea.sims3inc, version 1.4.16).
 Each entry lists the evidence it rests on and what would justify revisiting it.
 
-## D1. Inputs are immutable and private
+## D1. Immutable inputs; release scope updated on 2026-10-22
 - `original/com_ea_sims3inc-iOS8_0.ipa` (SHA-256 `8820bd62…5c55aa`) and `original/sims3_iphone` (SHA-256 `2fe8b7be…a164e1`)
   are read-only. Everything derived from them (`extract/`, `analysis/`, `build/`) is git-ignored.
-- Nothing is pushed or deployed. The user's GitHub repository `ISASTO/Sims-3-Browser` is **public**, so the user's
-  privacy requirement rules out pushing even tooling there without explicit instruction. The browser build is
-  served only by `tools/serve.py`, which binds to 127.0.0.1.
-- Revisit only if the user explicitly authorizes a private remote.
+- On 2026-10-22 the user explicitly supplied the IPA again and requested continuing the GitHub branch and making
+  it playable on the public GitHub Pages site. This supersedes the earlier private-only brief.
+- Publish the compiled static release and the source/tooling under `ios/` on `main`. Keep the original IPA,
+  generated C, analysis, test profiles, saved games and captures out of source commits. Signing records and the
+  bundled Nimble log are omitted from the static resource package.
+- `tools/serve.py` still binds to 127.0.0.1 for local development. The public release is ordinary static files.
 
 ## D2. Recovery strategy: whole-image static recompilation
 - **Evidence.**
@@ -157,6 +159,8 @@ Each entry lists the evidence it rests on and what would justify revisiting it.
 - **Bundle files.** These are read synchronously, as the game expects, via XMLHttpRequest
   (`x-user-defined` charset). `bundle-manifest.json` answers size, existence and directory queries without
   network round trips. Boot reads 37 files (18.5 MiB) in about 0.6 s on localhost.
+  For the published packed build, see D18: files come from lossless gzip members in cached packs. Help HTML stays
+  directly addressable for UIWebView, and UIImageView can use Blob URLs for packed images.
 - **No special requirements.** SharedArrayBuffer, special headers and extensions are not needed.
 - **`/home`.** Lives in memory and is persisted to IndexedDB (debounced, and flushed on `pagehide` and
   `visibilitychange`).
@@ -197,3 +201,23 @@ Each entry lists the evidence it rests on and what would justify revisiting it.
 | Playwright | 1.56.0 |
 | Chromium (headless test browser) | 141.0.7390.37 |
 | FFmpeg (AAC reference decoder, tests only) | 6.1.1 (Ubuntu) |
+
+The 2026-10-22 rebuild used the same clang 18.1.3, wasi-libc, capstone 5.0.7, Unicorn 2.1.0, Playwright 1.56.0
+and Chromium 141.0.7390.37, with Python 3.12.14 and Node 24.19.0. Node/Python versions do not identify a different
+input binary; the original IPA and executable hashes remain the build gate.
+
+## D18. Static resource delivery for GitHub Pages
+- `tools/package_site.py` produces `build/site/`, copied to `play/` in the source branch and `ios/play/` on main.
+- Each resource retains its original virtual path and exact uncompressed size. Resources are optionally gzip
+  compressed, then combined into packs up to 4 MiB. The manifest maps each file to a pack, offset, length and
+  encoding. The browser fetches/caches packs and uses vendored fflate 0.8.2 to inflate individual resources for
+  the existing synchronous file API. Its MIT license is included beside the module.
+- Three boot packs preload asynchronously, in recorded boot-access order (`tools/resource-order.json`), avoiding
+  most synchronous network waits during initialization. Pack and decompressed-file caches are bounded to
+  12 MiB and 96 MiB respectively. Startup resource traffic measured 13.9 MiB versus 53.6 MiB for alphabetical packs.
+- WebAssembly is also distributed losslessly compressed. Its manifest records the original SHA-256 and size;
+  code and pack filenames contain content hashes. No Content-Encoding configuration, shared memory, worker
+  execution service or server process is needed. All URLs are relative to the release directory.
+- `tools/verify_site.py` compares every reconstructed resource and the wasm against the loose build, not merely
+  against metadata produced by the packer. Browser tests exercise decoding and real original gameplay.
+- Revisit pack sizing or use a worker if measured network stalls or long decompression tasks impair play.

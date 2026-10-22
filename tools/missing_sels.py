@@ -1,9 +1,8 @@
 """Selectors referenced by the binary that neither the game's own classes nor the HLE host classes implement.
 Used to find Foundation/UIKit API gaps before they are hit at run time."""
 import json, re, glob, sys
-sys.path.insert(0, '/home/claude/sims3/tools')
+from project import ROOT
 from macho import *
-ROOT = '/home/claude/sims3'
 img = Image(ROOT + '/original/sims3_iphone')
 sr = img.section('__DATA', '__objc_selrefs')
 sels = set(img.cstr(img.u32(a)) for a in range(sr.addr, sr.addr + sr.size, 4))

@@ -1,6 +1,5 @@
 """Build analysis/functions.json: every function start with best name, size, source unit."""
 import sys, json, bisect
-sys.path.insert(0, '/home/claude/sims3/tools')
 from macho import *
 img = Image(sys.argv[1])
 stabs = json.load(open(sys.argv[2]))

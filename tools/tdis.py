@@ -1,11 +1,11 @@
 """Annotated Thumb-2 disassembly: dis.py <name-substring|0xaddr> [max]"""
 import sys, json, bisect, struct, subprocess
-sys.path.insert(0, '/home/claude/sims3/tools')
+from project import ROOT
 from macho import *
 import capstone
 from capstone import arm
-img = Image('/home/claude/sims3/original/sims3_iphone')
-funcs = json.load(open('/home/claude/sims3/analysis/functions.json'))
+img = Image(ROOT + '/original/sims3_iphone')
+funcs = json.load(open(ROOT + '/analysis/functions.json'))
 addrs = [f['addr'] for f in funcs]
 stubs = img.stub_targets()
 def demangle(n):

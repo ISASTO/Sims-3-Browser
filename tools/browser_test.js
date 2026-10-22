@@ -12,26 +12,35 @@ const path = require('path');
 
 const url = process.argv[2] || 'http://127.0.0.1:8333/';
 const out = process.argv[3] || '/tmp/sims3-shots';
+function loadSteps(file, parents = new Set()) {
+  file = path.resolve(file);
+  if (parents.has(file)) throw new Error('Test include cycle: ' + file);
+  const next = new Set(parents).add(file);
+  return JSON.parse(fs.readFileSync(file, 'utf8')).flatMap((s) => s.include ? loadSteps(path.resolve(path.dirname(file), s.include), next) : [s]);
+}
 const si = process.argv.indexOf('--script');
-const steps = si > 0 ? JSON.parse(fs.readFileSync(process.argv[si + 1], 'utf8')) :
+const steps = si > 0 ? loadSteps(process.argv[si + 1]) :
   [{ wait: 15000 }, { shot: 'boot' }, { perf: 5000 }, { shot: 'after' }];
 fs.mkdirSync(out, { recursive: true });
 
 (async () => {
   const launchArgs = ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required'];
+  if (process.env.SIMS3_BROWSER_ARGS) launchArgs.push(...JSON.parse(process.env.SIMS3_BROWSER_ARGS));
   const pi = process.argv.indexOf('--profile');
-  let browser, page;
+  const executablePath = process.env.SIMS3_BROWSER_PATH || undefined;
+  let browser, page, failed = false;
   if (pi > 0) {   // persistent profile: IndexedDB (saves) survives between runs
-    browser = await chromium.launchPersistentContext(process.argv[pi + 1], { headless: true, args: launchArgs, viewport: { width: 1334, height: 750 }, deviceScaleFactor: 1 });
+    browser = await chromium.launchPersistentContext(process.argv[pi + 1], { executablePath, headless: true, args: launchArgs, viewport: { width: 1334, height: 750 }, deviceScaleFactor: 1 });
     page = browser.pages()[0] || await browser.newPage();
   } else {
-    browser = await chromium.launch({ headless: true, args: launchArgs });
+    browser = await chromium.launch({ executablePath, headless: true, args: launchArgs });
     page = await browser.newPage({ viewport: { width: 1334, height: 750 }, deviceScaleFactor: 1 });
   }
   const logf = fs.createWriteStream(path.join(out, 'console.log'));
   page.on('console', (m) => { logf.write(m.text() + '\n'); });
-  page.on('pageerror', (e) => { logf.write('PAGEERROR ' + e.stack + '\n'); console.log('pageerror', e.message); });
+  page.on('pageerror', (e) => { failed = true; logf.write('PAGEERROR ' + e.stack + '\n'); console.log('pageerror', e.message); });
   const t0 = Date.now();
+  try {
   await page.goto(url);
   const stage = async () => (await page.$('#stage')).boundingBox();
   const toPage = async (x, y) => { const b = await stage(); return [b.x + x / 667 * b.width, b.y + y / 375 * b.height]; };
@@ -73,6 +82,10 @@ fs.mkdirSync(out, { recursive: true });
       await setHidden(true); await page.waitForTimeout(s.background || 500); await setHidden(false);
     }
     if (s.eval) console.log('eval', JSON.stringify(await page.evaluate(s.eval)));
+    if (s.assert) {
+      if (!await page.evaluate(s.assert)) throw new Error('Assertion failed: ' + s.assert);
+      console.log('PASS', s.assert);
+    }
     if (s.shot) { await page.screenshot({ path: path.join(out, s.shot + '.png') }); console.log(`[${((Date.now() - t0) / 1000).toFixed(1)}s] shot ${s.shot}`); }
     if (s.perf) {
       const samples = [];
@@ -81,8 +94,11 @@ fs.mkdirSync(out, { recursive: true });
       console.log('perf', JSON.stringify(samples));
     }
     const err = await page.evaluate(() => { const e = document.getElementById('error'); return e && e.style.display === 'block' ? e.textContent : null; });
-    if (err) { console.log('GAME ERROR:\n' + err.slice(0, 3000)); break; }
+    if (err) { failed = true; console.log('GAME ERROR:\n' + err.slice(0, 3000)); break; }
   }
-  logf.end();
-  await browser.close();
-})();
+  if (failed) throw new Error('Browser run encountered a game error; see console.log');
+  } finally {
+    logf.end();
+    await browser.close();
+  }
+})().catch((e) => { console.error(e); process.exitCode = 1; });

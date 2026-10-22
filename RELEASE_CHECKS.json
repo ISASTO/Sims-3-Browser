@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-22",
+  "base_ios_commit": "e12d028823675b8d70fc64a55cbc2be30b945409",
+  "input_sha256": "8820bd6221c288d3d2d413ccd013b2300276a22c55cdaa14399af18b745c55aa",
+  "runtime": {
+    "url": "game-code-780256b14e581d47.bin",
+    "encoding": "gzip",
+    "bytes": 13697886,
+    "sha256": "780256b14e581d475105b2929c3a845ef6c07af4512e08e468cbca226e977609"
+  },
+  "packaged_resources": 1265,
+  "packs": 36,
+  "packaging": "all included resources and wasm compared byte for byte with the extracted input/build",
+  "browser": "Chrome Headless Shell 141.0.7390.37, Playwright 1.56.0, SwiftShader",
+  "browser_mode": "single-process, no-zygote, in-process-gpu; local testing flags only",
+  "test": "tools/tests/save_reload.json",
+  "tested_path": [
+    "new game",
+    "Create-A-Sim",
+    "world entry",
+    "fridge quick snack",
+    "confirm Save and Continue",
+    "background and foreground",
+    "page reload",
+    "select saved Alex",
+    "load world with saved 690 balance and locked wish"
+  ],
+  "balance_verification": "manual review of loaded_world.png; script also checks saved-file existence and fatal errors",
+  "local_static_prefix": "/Sims-3-Browser/ios/play/",
+  "runtime_modes_tested": [
+    "deterministic",
+    "real-time"
+  ],
+  "real_time_software_fps": {
+    "menu": [
+      48,
+      51
+    ],
+    "world": [
+      20,
+      28
+    ],
+    "world_after_background": [
+      20,
+      25
+    ]
+  },
+  "gpu_backed_performance": "unverified",
+  "firefox": "untested",
+  "safari": "untested",
+  "known_gaps": [
+    "build/buy, town travel, careers and minigames need broader testing",
+    "some UIKit and video classes remain placeholders",
+    "network/store services are offline",
+    "no original-device comparison for all behavior"
+  ]
+}

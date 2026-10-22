@@ -1,11 +1,11 @@
 """Linear-ish sweep per function to collect direct call edges (bl/blx imm, b.w to other function)."""
 import sys, json, bisect, pickle
-sys.path.insert(0, '/home/claude/sims3/tools')
+from project import ROOT
 from macho import *
 import capstone
 from capstone import arm
-img = Image('/home/claude/sims3/original/sims3_iphone')
-funcs = json.load(open('/home/claude/sims3/analysis/functions.json'))
+img = Image(ROOT + '/original/sims3_iphone')
+funcs = json.load(open(ROOT + '/analysis/functions.json'))
 addrs = [f['addr'] for f in funcs]
 stubs = img.stub_targets()
 dic = {a: l for a, l, k in img.data_in_code()}
@@ -30,6 +30,6 @@ for f in funcs:
                 k = bisect.bisect_right(addrs, t & ~1) - 1
                 if k >= 0: calls.add(funcs[k]['name'] + ('' if funcs[k]['addr'] == t & ~1 else '+%x' % ((t & ~1) - funcs[k]['addr'])))
     edges[f['name']] = sorted(calls)
-json.dump(edges, open('/home/claude/sims3/analysis/callgraph.json', 'w'))
-json.dump(sorted(mnem.items(), key=lambda x: -x[1]), open('/home/claude/sims3/analysis/mnemonics.json', 'w'))
+json.dump(edges, open(ROOT + '/analysis/callgraph.json', 'w'))
+json.dump(sorted(mnem.items(), key=lambda x: -x[1]), open(ROOT + '/analysis/mnemonics.json', 'w'))
 print(len(edges), 'functions;', sum(len(v) for v in edges.values()), 'edges;', len(mnem), 'mnemonics')

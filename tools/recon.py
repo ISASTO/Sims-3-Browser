@@ -1,5 +1,4 @@
 import sys, collections
-sys.path.insert(0, '/home/claude/sims3/tools')
 from macho import *
 img = Image(sys.argv[1])
 print('slice_off', img.slice_off, 'slice size', len(img.data), 'cpusub', img.cpusubtype)

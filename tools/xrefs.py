@@ -32,5 +32,5 @@ for f in ctx.funcs:
     try: fn.analyze()
     except Exception: continue
     out['%x' % f['addr']] = sorted(track(fn))
-json.dump(out, open('/home/claude/sims3/analysis/xrefs.json', 'w'))
+json.dump(out, open(thumb2c.ROOT + '/analysis/xrefs.json', 'w'))
 print(len(out))

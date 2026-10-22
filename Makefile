@@ -28,7 +28,9 @@ native: build/sims3_native
 # ---------------- wasm (browser build): guest address == linear-memory address; the C data starts at 16 MiB so
 # the original image's preferred range [0x4000, 0x4E8000) stays free for the loader.
 WASM_O = build/wasm
-WASM_CC = $(CC) --target=wasm32-wasi -DGUEST_IDENTITY -mbulk-memory -mnontrapping-fptoint -msign-ext
+WASI_SYSROOT ?= /usr
+WASM_LDFLAGS ?=
+WASM_CC = $(CC) --target=wasm32-wasi --sysroot=$(WASI_SYSROOT) -DGUEST_IDENTITY -mbulk-memory -mnontrapping-fptoint -msign-ext
 WASM_GEN_OBJ = $(patsubst $(GEN)/%.c,$(WASM_O)/gen/%.o,$(GEN_SRC))
 WASM_RT_OBJ = $(patsubst runtime/%.c,$(WASM_O)/rt/%.o,$(RT_SRC)) $(WASM_O)/rt/dlmalloc.o
 $(WASM_O)/gen/%.o: $(GEN)/%.c runtime/cpu.h
@@ -42,14 +44,19 @@ $(WASM_O)/rt/dlmalloc.o: runtime/third_party/dlmalloc.c
 	$(WASM_CC) -c -O2 $(DLM) -w $< -o $@
 build/web/sims3.wasm: $(WASM_GEN_OBJ) $(WASM_RT_OBJ)
 	@mkdir -p $(dir $@)
-	$(WASM_CC) -nostartfiles /usr/lib/wasm32-wasi/crt1-reactor.o -Wl,--no-entry -Wl,--export=_initialize -o $@ $^ -lm -Wl,--global-base=16777216 -Wl,-z,stack-size=8388608 \
+	$(WASM_CC) $(WASM_LDFLAGS) -nostartfiles $(WASI_SYSROOT)/lib/wasm32-wasi/crt1-reactor.o -Wl,--no-entry -Wl,--export=_initialize -o $@ $^ -lm -Wl,--global-base=16777216 -Wl,-z,stack-size=8388608 \
 	  -Wl,--initial-memory=67108864 -Wl,--max-memory=4294967296 -Wl,--export=sims3_boot -Wl,--export=sims3_set_verbose -Wl,--export=sims3_frame \
 	  -Wl,--export=sims3_touch -Wl,--export=sims3_lifecycle -Wl,--export=sims3_text_event -Wl,--export=sims3_ui_action -Wl,--export=sims3_media_picked -Wl,--export=malloc -Wl,--export=free
-build/web/index.html build/web/sims3.js build/web/gl.js: build/web/%: web/%
+WEB_FILES = index.html sims3.js gl.js vendor/fflate.js vendor/fflate-LICENSE.txt
+$(addprefix build/web/,$(WEB_FILES)): build/web/%: web/%
 	@mkdir -p $(dir $@)
 	cp $< $@
 build/web/bundle-manifest.json: tools/bundle_manifest.py
 	@mkdir -p $(dir $@)
 	python3 tools/bundle_manifest.py extract/Payload/sims3_iphone.app $@
-wasm: build/web/sims3.wasm build/web/index.html build/web/sims3.js build/web/gl.js build/web/bundle-manifest.json
+wasm: build/web/sims3.wasm $(addprefix build/web/,$(WEB_FILES)) build/web/bundle-manifest.json
 .PHONY: wasm
+
+site: wasm
+	python3 tools/package_site.py
+.PHONY: site

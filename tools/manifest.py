@@ -5,7 +5,7 @@ import sys, os, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from macho import Image, N_SECT
 
-ROOT = '/home/claude/sims3'
+from project import ROOT
 img = Image(ROOT + '/original/sims3_iphone')
 out = ['#include "rt.h"', '#include "image_manifest.h"']
 

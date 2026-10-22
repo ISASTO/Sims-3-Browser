@@ -1,8 +1,29 @@
 # PROJECT STATUS
 
-This is the private browser port of *The Sims 3* for iOS (bundle `com.ea.sims3inc`, version 1.4.16). The original
+This is the browser port of *The Sims 3* for iOS (bundle `com.ea.sims3inc`, version 1.4.16). The original
 armv7 code is statically recompiled to C and compiled to WebAssembly. It runs on a compatibility runtime that
 reimplements the iOS frameworks it uses.
+
+## 2026-10-22 Pages integration
+- Continued Claude's `ios-recompiled-port` at `e12d028823675b8d70fc64a55cbc2be30b945409` using the supplied IPA
+  with the same verified hash. Recovery tools now derive their root from the checkout and `tools/prepare.py`
+  regenerates the translation. All 10,423 functions rebuilt; there were no unsupported instructions.
+- Added `make site` and `tools/verify_site.py`. The static release contains 1,265 resources in 36 lossless packs,
+  eight direct help documents and the host. Total release size: 129.9 MiB. Its compressed WebAssembly code is
+  3,039,786 bytes (13,697,886 bytes uncompressed). The complete build needs no application server or custom headers.
+- Recorded resource-access order through the first privacy screen and grouped the boot files together. The first
+  three packs preload asynchronously; boot resource transfers fell from 53.6 MiB to 13.9 MiB on the tested paths.
+- Byte-for-byte verification passed for every packaged resource and the WebAssembly module. Content hashes name
+  packs and code so revisions cannot silently share stale resource URLs.
+- Replayed new game → character creation → world → fridge → snack, then explicitly saved and confirmed,
+  backgrounded/resumed, reloaded, and loaded Alex. The loaded world retained the §690 balance and the locked wish.
+  The full sequence ran through the static package at a `/Sims-3-Browser/ios/play/` prefix.
+- Re-verified Claude's NSEnumerator/NSDate fixes on that path. Fixed host lifecycle calls in deterministic mode
+  to use the virtual clock consistently. The test driver now fails on page/game errors and supports assertions
+  and script includes.
+- Public release belongs under `ios/play/` on `main`; the source branch retains its root layout. See HANDOFF.md.
+- This is a connected playable build with the tested paths above. Many other gameplay systems, hardware frame
+  rates and browser engines remain unverified; static recompilation is not hand recovery of original C++ source.
 
 ## Inputs (verified)
 | Item | Value |
@@ -80,17 +101,22 @@ frame captures, and native scripted runs.
     in the world there were no black frames, and luminance was stable (frame-to-frame mean change ≤ 0.72/255).
 
 ## Performance
+The first three rows below are Claude's earlier measurements. The final rows are the 2026-10-22 rebuild's
+short real-time checks; these use Chrome Headless Shell with in-process SwiftShader on this machine and are
+not GPU-backed hardware results or a sustained performance guarantee.
+
 | Measurement | Value |
 | --- | --- |
 | wasm + GL submission CPU per frame (headless Chromium, this machine) | menu 1.4–3 ms, CAS 3–6 ms, world 4.7 ms (11.8 ms before the GL-layer optimizations) |
 | Presented frame rate (headless Chromium with SwiftShader software rendering) | 7–15 fps, bound by software rasterization in the GPU process; the main thread is idle 93–95 % of the time |
 | GPU-backed browser | not measured (no GPU here); the 60 fps target and 30 fps minimum are unverified |
+| 2026-10-22 packed release, real-time menu flyover | about 48–51 fps, 0.9–1.1 ms wasm + GL submission CPU per frame |
+| 2026-10-22 packed release, real-time loaded house | about 20–28 fps, 4.4–5.9 ms wasm + GL submission CPU per frame; about 20–25 fps after background/resume |
 
 ## Known failures and open items
-- **Background and reload (fix in progress).**
-  - Background, which also runs on page unload, ran Nimble's shutdown path. That path hit two runtime gaps:
-    fast enumeration over `reverseObjectEnumerator`, and `-[NSDate copyWithZone:]`. Both are now implemented.
-  - The background → foreground → reload → load-save sequence is being re-verified.
+- **Background and reload.** The NSEnumerator and NSDate runtime fixes passed the new browser regression.
+  Backgrounding flushes files the game has written; use the in-game Save and Continue command and its green-tick
+  confirmation to preserve recent world progress. The confirmed-save/reload regression retained the §690 balance.
 - **In-world music.** After the home cue, the game restarts its track at volume 0 (`BGMusic::update`, flags 0). This
   comes from the translated code, but has not been compared against a device.
 - **Native harness divergence.** Text metrics differ, so native scripted taps desynchronize before the naming

@@ -9,8 +9,8 @@
 
 static const char *map(const char *g, char *out, size_t n) {
     const char *b = getenv("SIMS3_BUNDLE"), *h = getenv("SIMS3_HOME");
-    if (!b) b = "/home/claude/sims3/extract/Payload/sims3_iphone.app";
-    if (!h) h = "/home/claude/sims3/build/home";
+    if (!b) b = "extract/Payload/sims3_iphone.app";
+    if (!h) h = "build/home";
     if (!strncmp(g, "/app/sims3_iphone.app", 21)) snprintf(out, n, "%s%s", b, g + 21);
     else if (!strncmp(g, "/home", 5)) snprintf(out, n, "%s%s", h, g + 5);
     else snprintf(out, n, "/nonexistent%s", g);

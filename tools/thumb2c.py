@@ -20,7 +20,7 @@ import capstone
 from capstone import arm_const as A
 from capstone import arm
 
-ROOT = '/home/claude/sims3'
+from project import ROOT
 CC = {A.ARM_CC_EQ: 'z', A.ARM_CC_NE: '!z', A.ARM_CC_HS: 'cf', A.ARM_CC_LO: '!cf', A.ARM_CC_MI: 'n',
       A.ARM_CC_PL: '!n', A.ARM_CC_VS: 'v', A.ARM_CC_VC: '!v', A.ARM_CC_HI: '(cf && !z)',
       A.ARM_CC_LS: '(!cf || z)', A.ARM_CC_GE: '(n == v)', A.ARM_CC_LT: '(n != v)',

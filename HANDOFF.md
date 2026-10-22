@@ -1,13 +1,26 @@
 # HANDOFF
 
-How to rebuild, run and continue the private browser port of *The Sims 3* (iOS 1.4.16). Read `PROJECT_STATUS.md`
+How to rebuild, run and continue the browser port of *The Sims 3* (iOS 1.4.16). Read `PROJECT_STATUS.md`
 for what works and `DECISIONS.md` for why it is built this way.
 
-## Privacy
-- The IPA, extracted assets, analysis output and builds are private and git-ignored. Do not push or deploy them.
-- The user's GitHub repository `ISASTO/Sims-3-Browser` is public, so nothing from this work has been pushed there.
-  That repository already holds game files from an earlier Android-based attempt; that is outside this work.
-- `tools/serve.py` binds to 127.0.0.1 only.
+## Current release and checkout layout (2026-10-22)
+- The user explicitly requested continuing Claude's `ios-recompiled-port` branch and publishing a working build
+  on the existing GitHub Pages site. This supersedes the earlier private-only project brief.
+- The source branch keeps this project at its root. On `main`, the same project is under `ios/`, with the static
+  release in `ios/play/`. The repository root entry page opens that release. The previous Android prototype
+  remains under `web/` and its recovery work is preserved.
+- Public release URL: https://isasto.github.io/Sims-3-Browser/ios/play/
+- The original IPA, extraction, generated C, analysis output, test captures, and users' saves are still excluded
+  from source commits. The published release contains the compiled runtime and the resources needed to play.
+- Local development servers bind to 127.0.0.1 by default.
+
+## Run the prebuilt release
+From `main`, run `python3 -m http.server 8333 --bind 127.0.0.1` in the repository root, then open
+`http://127.0.0.1:8333/ios/play/`. On the source branch, serve `play/` instead.
+
+Click/tap for ordinary input, drag to pan, and right-drag or Ctrl+drag for two-finger camera gestures. Use the
+game's **Save and Continue**, then confirm the green tick, before reloading. Saves are stored in IndexedDB on
+the current browser origin; the former Android build's saves are separate and are not imported.
 
 ## Layout
 | Path | Contents |
@@ -22,28 +35,28 @@ for what works and `DECISIONS.md` for why it is built this way.
 | `build/gen/` | generated C from the recompiler (`recomp_*.c`, `recomp_table.c`, `imports_weak.c`, …) |
 | `build/native/`, `build/sims3_native` | headless native build used for fast scripted testing |
 | `build/wasm/`, `build/web/` | the browser build (`sims3.wasm` plus copied web files and `bundle-manifest.json`) |
+| `build/site/` | generated static release: compressed code, lossless resource packs, browser host and manifest |
+| `play/` | checked-in Pages release; copy only files listed by the generated manifest and the known host files |
 
 ## From a clean private checkout
 ```sh
-# prerequisites: clang/lld 18, wasi-libc (apt: wasi-libc), python3 + capstone 5 + unicorn 2 (difftest),
-#                node 22 + playwright (tests), ffmpeg (AAC oracle only)
-mkdir -p original extract && cp /path/to/com_ea_sims3inc-iOS8_0.ipa original/
-sha256sum original/com_ea_sims3inc-iOS8_0.ipa      # must be 8820bd6221c288d3d2d413ccd013b2300276a22c55cdaa14399af18b745c55aa
-(cd extract && unzip -q ../original/com_ea_sims3inc-iOS8_0.ipa)
-cp extract/Payload/sims3_iphone.app/sims3_iphone original/ && chmod a-w original/*
-mkdir -p analysis build/gen
-python3 tools/stabs.py original/sims3_iphone analysis/stabs.json                       # debug-map STABS per compile unit
-python3 tools/symmap.py original/sims3_iphone analysis/stabs.json analysis/functions.json   # function list
-python3 tools/objc.py original/sims3_iphone analysis/objc.json                         # ObjC classes/categories
-python3 tools/callgraph.py         # -> analysis/callgraph.json (needed for the resumable-thread set)
-python3 tools/xrefs.py             # -> analysis/xrefs.json (used by strrefs.py / missing_sels.py)
-python3 tools/manifest.py          # -> build/gen/image_manifest.c/.h (segments, binds, ObjC sections, init funcs)
-python3 tools/thumb2c.py build/gen    # -> recomp_*.c (about 30 s; prints problem counts)
-make -j"$(nproc)" native           # headless build (about 5 min on 2 cores)
-make -j"$(nproc)" wasm             # browser build (about 10 min on 2 cores) -> build/web/
+# On main, first: cd ios
+# prerequisites: clang/lld 18, wasi-libc, libclang-rt-dev-wasm32, Python 3.11+
+python3 -m pip install -r requirements-analysis.txt
+python3 tools/prepare.py /path/to/com.ea.sims3inc-iOS8.0.ipa
+make -j4 wasm
+make site
+python3 tools/verify_site.py       # every resource + wasm must match, byte for byte
+python3 -m http.server 8333 --bind 127.0.0.1 --directory build/site
+# To develop against loose bundle files instead:
 python3 tools/serve.py             # http://127.0.0.1:8333/
 ```
-- The tools use the absolute root `/home/claude/sims3` (the `ROOT` constant). To build elsewhere, adjust it.
+- Tools derive the checkout root from `tools/project.py`; no `/home/claude` symlink or path edits are needed.
+- For a custom compiler/sysroot, pass `CC=/path/to/clang-18 WASI_SYSROOT=/path/to/usr` to make. Use
+  `WASM_LDFLAGS=-fuse-ld=/path/to/wasm-ld` if the linker is not discoverable.
+- `make native` remains available. Its default paths are relative to the checkout; from another working directory
+  set `SIMS3_BUNDLE` and `SIMS3_HOME` to absolute paths.
+- `python3 tools/xrefs.py` is optional for a build, and generates xrefs used by the disassembly analysis helpers.
 - `runtime/aac_tables.h` is generated data and is committed. To regenerate it, see `tools/gen_aac_tables.py`.
 
 ## Testing
@@ -63,6 +76,19 @@ python3 tools/serve.py             # http://127.0.0.1:8333/
     | --- | --- | --- |
     | `tools/tests/newgame.json` | fresh profile, then privacy, DLC notice, menu, CAS, persona, traits, name "Alex", confirm, world | 21 `b_*` captures and `w0`–`w5` (tutorial prompt) |
     | `tools/tests/world_snack.json` | continues from the world: declines the tutorial, closes the hint, opens the fridge, Quick snack | `z1`–`z4` (§690, then "New Wish: Cook minestrone") |
+    | `tools/tests/save_reload.json` | includes `world_snack`, locks the wish, dismisses its hint, explicitly saves and confirms, backgrounds/resumes, reloads, selects Alex and reloads the world | `after_save`, `saved_slot`, `loaded_world`, `loaded_world_resumed`; saved balance §690 |
+
+  - The save/reload path was re-verified on the packed static release under a `/Sims-3-Browser/ios/play/` prefix.
+    Check the screenshots as well as assertions: finding `sim3dat0` alone does not prove recent progress was saved.
+    The original game asks for a second confirmation after "Save and Continue".
+  - `assert` steps fail the process on false; fatal game errors and page exceptions now also return nonzero.
+    `include` composes scripts relative to their containing JSON file.
+  - Install Playwright 1.56.0 in `build/test-tools/`, then set
+    `NODE_PATH="$PWD/build/test-tools/node_modules"`. `SIMS3_BROWSER_PATH` can select an existing browser binary;
+    `SIMS3_BROWSER_ARGS` accepts a JSON array of extra test-only flags.
+  - The 2026-10-22 validation used Chrome Headless Shell 141.0.7390.37 with SwiftShader, Playwright 1.56.0, Node
+    24.19.0 and Python 3.12.14. Restricted CI required `--single-process`, `--no-zygote`, `--in-process-gpu`.
+    These flags are for the test machine, not requirements for players.
 
   - Steps:
     - `frames`, `ftap`, `fdrag` advance the virtual clock;
@@ -131,8 +157,8 @@ python3 tools/serve.py             # http://127.0.0.1:8333/
 See PROJECT_STATUS.md, "Known failures and open items".
 
 ## Next concrete targets
-1. Re-verify the background → foreground → reload → load-saved-game sequence after the NSEnumerator and NSDate
-   fixes. Then add it to `tools/tests/`.
+1. Run the Pages release on GPU-backed desktop browsers, record real frame times, and test Firefox and Safari.
+   The background → foreground → confirmed save → reload → load-save sequence has passed and is now in `tools/tests/`.
 2. Explore the remaining systems for runtime gaps:
    - build/buy mode;
    - leaving the lot (town map, Corsican Bistro, other lots);
