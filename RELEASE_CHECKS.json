@@ -3,17 +3,17 @@
   "base_ios_commit": "e12d028823675b8d70fc64a55cbc2be30b945409",
   "input_sha256": "8820bd6221c288d3d2d413ccd013b2300276a22c55cdaa14399af18b745c55aa",
   "runtime": {
-    "url": "game-code-ca21c70b0854dad0.bin",
+    "url": "game-code-f71cbc6d842f1374.bin",
     "encoding": "gzip",
-    "bytes": 13700994,
-    "sha256": "ca21c70b0854dad0aae8501864ce079f315563a7eb0ec4d74e8561e432e6530a"
+    "bytes": 13703075,
+    "sha256": "f71cbc6d842f1374b02f4e97bc61263e9d73b89f8abb937abedd3d37c0067b5e"
   },
-  "packaged_resources": 1265,
-  "packs": 36,
-  "packaging": "all included resources and wasm compared byte for byte with the extracted input/build",
+  "packaged_resources": 1263,
+  "packs": 35,
+  "packaging": "complete original resource inventory, each resource and wasm verified byte for byte; excludes file-sync staging artifacts",
   "browser": "Chrome Headless Shell 141.0.7390.37, Playwright 1.56.0, SwiftShader",
   "browser_mode": "single-process, no-zygote, in-process-gpu; local testing flags only",
-  "test": "tools/tests/player_controls.json",
+  "test": "tools/tests/mouse_controls.json",
   "tested_path": [
     "new game",
     "Create-A-Sim",
@@ -25,7 +25,7 @@
     "select saved Alex",
     "load world with saved 690 balance and locked wish"
   ],
-  "balance_verification": "manual review of loaded_world.png; script also checks saved-file existence and fatal errors",
+  "balance_verification": "Automated read-only original SimData checks: 1190 before/after unlock and after confirmed save/reload, with unchanged achievement/goal fields; selected captures also visually reviewed.",
   "local_static_prefix": "/Sims-3-Browser/ios/play/",
   "runtime_modes_tested": [
     "deterministic",
@@ -60,7 +60,7 @@
     "note": "Local Chromium with WebGL2 passed gameplay. Public files were independently downloaded and hash checked."
   },
   "screenshot": "verification/gameplay.png",
-  "host_version": "935157e8d0099e54",
+  "host_version": "82aa5b93427b90f8",
   "player_pass": {
     "presets": [
       "Auto",
@@ -156,7 +156,7 @@
     "all_git_blob_hashes_match": true,
     "tls_verification": "curl default certificate validation; no certificate bypass"
   },
-  "published_delivery": {
+  "previous_player_delivery": {
     "gameplay_commit": "efd96f9827cb009e5991fc7aeb9b5152d8276786",
     "source_commit": "e9c6361277f23205fa79f504de48391e7f49e198",
     "pages_run": 39780557567,
@@ -167,5 +167,90 @@
     "all_git_blob_hashes_match": true,
     "tls_verification": "curl default certificate validation; no bypass",
     "host_version": "935157e8d0099e54"
+  },
+  "published_delivery": {
+    "status": "awaiting deployment verification"
+  },
+  "mouse_and_content_pass": {
+    "date": "2026-10-22",
+    "script": "tools/tests/mouse_controls.json",
+    "fresh_profile": true,
+    "exit_code": 0,
+    "assertions_passed": 39,
+    "frame_probes": [
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9
+    ],
+    "mouse": {
+      "wheel_house_limits": [
+        200,
+        750
+      ],
+      "delta_units": [
+        "pixel",
+        "line",
+        "page"
+      ],
+      "modifier_wheel_preserved": true,
+      "double_hold_orbit": true,
+      "right_and_control_orbit": true,
+      "original_object_popup_closed_for_double_orbit": true,
+      "blur_contacts_released": true,
+      "pause_and_main_menu_wheel_ignored": true,
+      "resizing_and_dpr": true
+    },
+    "content": {
+      "pack_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        16
+      ],
+      "bonus": true,
+      "idempotent": true,
+      "persistent_after_reload": true,
+      "goal_achievement_and_balance_preserved": true,
+      "original_house_upgrade_price_visually_checked": 1000,
+      "all_pack_items_purchased_or_rendered": false
+    },
+    "real_time_smoke": {
+      "status": "passed",
+      "conditions": "original saved household, 50% quality, software renderer",
+      "wheel_and_double_hold_captures": "visually reviewed",
+      "samples_are_not_hardware_benchmark": true
+    }
   }
 }

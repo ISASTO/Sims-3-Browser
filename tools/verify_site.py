@@ -16,6 +16,11 @@ def main():
     parser.add_argument('--wasm', type=Path, default=root / 'build/web/sims3.wasm')
     args = parser.parse_args()
     manifest = json.loads((args.site / 'bundle-manifest.json').read_text())
+    expected = {p.relative_to(args.bundle).as_posix() for p in args.bundle.rglob('*') if p.is_file()
+                and not any(part.startswith('.') for part in p.relative_to(args.bundle).parts)
+                and p.relative_to(args.bundle).parts[0] not in ('_CodeSignature', 'SC_Info', '_MASReceipt')
+                and p.name not in ('NimbleLog.plist', 'embedded.mobileprovision')}
+    assert set(manifest['files']) == expected, 'resource inventory differs from the input bundle'
     packs = {}
     for name, size in manifest['packs'].items():
         data = (args.site / 'packs' / name).read_bytes()

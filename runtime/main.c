@@ -69,6 +69,8 @@ int sims3_frame(double now_ms) {
     rt_now_ms = now_ms;
     CPU *c = main_cpu;
     c->r[13] = ui_sp_base;
+    void browser_controls_tick(CPU *c);
+    browser_controls_tick(c);
     runloop_tick(c, now_ms);
     sched_run_threads();
     frames++;

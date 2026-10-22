@@ -443,6 +443,23 @@ class Fn:
             else:
                 body.append('  TRAP_FALLOFF(c, 0x%xu);' % prev_fall)
         out.append('void %s(CPU *c) { /* %s */' % (fname, self.f['name']))
+        # Opt-in browser content cheat. Keep the recovered code as the default and do not forge goals/stats.
+        # Match both symbol and address so a different input build cannot silently acquire these hooks.
+        content_gates = {
+            '__ZNK8SimWorld20isFurnitureAvailableEi': (0x876ee, 'c->r[0] = 1;'),
+            '__ZNK8SimWorld19getHouseUpgradeCostEv': (0x7f630,
+                'uint32_t level = LD8(c->r[0] + 0x31c); c->r[0] = level == 0 ? 1000 : level == 1 ? 2500 : 0xffffffffu;'),
+        }
+        gate = content_gates.get(self.f['name'])
+        if gate:
+            if self.lo != gate[0]:
+                raise ValueError('Content gate address does not match the supported image')
+            out.append('  extern int browser_content_unlocked;')
+            out.append('  if (browser_content_unlocked) { %s return; }' % gate[1])
+        if self.f['name'] == '__ZN9SceneGame12processInputEiRKN4midp5arrayIiEE':
+            if self.lo != 0x41734:
+                raise ValueError('Orbit input address does not match the supported image')
+            out.append('  void browser_prepare_orbit(CPU *c); browser_prepare_orbit(c);')
         if async_mode:
             out.append('  ENTRY_REGS_A;')
             if self.sites:

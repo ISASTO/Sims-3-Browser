@@ -60,13 +60,19 @@
   @media (prefers-reduced-motion: reduce) { #plumbob.shaking svg { animation: none; } }
   #error { display: none; position: fixed; inset: 5%; overflow: auto; background: #1a1112; color: var(--err); border: 1px solid #5a2a2a; padding: 16px; white-space: pre-wrap; font: 12px ui-monospace, Menlo, monospace; z-index: 10; }
   .toast { position: fixed; left: 50%; top: 10%; transform: translateX(-50%); background: #222a; color: var(--fg); padding: 8px 14px; border-radius: 6px; z-index: 5; pointer-events: none; }
+  #secrets { color: var(--fg); background: #101b1e; border: 1px solid #47665b; border-radius: 12px; padding: 24px; width: min(340px, calc(100vw - 64px)); box-shadow: 0 16px 70px #0009; }
+  #secrets::backdrop { background: #0009; }
+  #secrets h2 { font-size: 17px; margin: 0 0 12px; }
+  #secrets p { color: var(--dim); margin: 12px 0; }
+  #secrets .actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+  #unlock-all { color: #b9f2c6; border-color: #629373; }
 </style>
 </head>
 <body>
 <main id="wrap"><section id="player" aria-label="The Sims 3 player">
   <header id="titlebar">
     <button id="plumbob" title="The Sims 3" aria-label="Shake device" disabled><svg viewBox="0 0 40 66" aria-hidden="true"><path fill="#86e39a" d="M20 0 39 29 20 66 1 29Z"/><path fill="#3f9b63" d="M20 0v66L1 29Z"/><path fill="#bbf6ae" d="M20 0 39 29H20Z"/></svg></button>
-    <h1>The Sims 3</h1><span class="hint">Click to interact · Drag to pan · Right-drag to orbit</span>
+    <h1>The Sims 3</h1><span class="hint">Drag to pan · Scroll to zoom · Double-click and hold to orbit</span>
   </header>
   <div id="viewport"><div id="stage"><canvas id="screen" width="1334" height="750" aria-label="Game screen"></canvas><div id="status" role="status">Loading…</div></div></div>
   <footer id="toolbar">
@@ -78,9 +84,16 @@
     <span id="shell-notice" role="status"></span>
   </footer>
   <aside id="metrics" hidden><div id="metric-values"></div><p>Auto adjusts resolution for smoother play. Native matches display pixels. CPU time covers game logic and graphics submission; frame time also includes browser and rendering delays.</p></aside>
-</section></main>
+</section>
+<dialog id="secrets" aria-labelledby="secrets-title" aria-describedby="secrets-description">
+  <h2 id="secrets-title">A little extra</h2>
+  <p id="secrets-description">Unlock all bundled content packs, bonus rewards, furniture tiers and house-upgrade eligibility. Items still cost Simoleons. Goals, skills and your balance stay as they are.</p>
+  <p id="unlock-message" role="status">Applies in this browser. Load a household first.</p>
+  <form method="dialog" class="actions"><button value="close">Close</button><button type="button" id="unlock-all">Unlock all content</button></form>
+</dialog>
+</main>
 <pre id="error"></pre>
 <noscript>Enable JavaScript to play The Sims 3.</noscript>
-<script type="module" src="sims3.js?v=935157e8d0099e54"></script>
+<script type="module" src="sims3.js?v=82aa5b93427b90f8"></script>
 </body>
 </html>

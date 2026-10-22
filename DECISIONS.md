@@ -245,3 +245,24 @@ input binary; the original IPA and executable hashes remain the build gate.
 - A plumbob click injects a short acceleration waveform. The recompiled game decides whether it is in Gardening
   Tips and awards its original §500. Idle samples represent a stationary device; gyro/device-motion APIs remain
   unavailable. No browser hardware-sensor permission or direct SimData/money access is required.
+
+## D21. Desktop camera input through original controls
+- The wheel drives the original live HUD zoom slider using ordinary touch events. A read-only metadata export
+  returns its logical geometry/current distance, guarded by the original world/build and modal states. Normalize
+  wheel units, cap accumulated work, consume it per frame and release on idle or interruption. Browser modifier
+  zoom and all game menus retain their existing behavior.
+- A second left press within 400 ms / 6 CSS pixels becomes the existing synthetic two-finger gesture. Keep the
+  first click immediate. An opt-in hint at the original SceneGame input entry dismisses only a root object menu
+  opened by that first camera-area click, through its original Back method, before the two-finger begin.
+- Explicitly end contacts on cancellation/blur/background; the original EAGLView has no cancellation handler.
+
+## D22. Explicit optional content unlock
+- A long-press/Shift-click/context-menu easter egg on the player diamond opens a native accessible modal; the
+  ordinary shake action is retained. Unlocking is explicit and requires a loaded household.
+- Use original functions to load every bundled pack (1–14, 16) and persist the bonus. Two address-and-symbol
+  checked optional entry hooks bypass furniture availability and house-upgrade eligibility while retaining
+  original purchase costs. Do not intercept achievement queries, fabricate goal completion or modify balances.
+- Store the access option separately from household progress; the game's own pack/settings persistence remains
+  authoritative for its records. Verify the original records and a confirmed saved household after reload.
+- Exclude sync staging artifacts from both loose and packed resource indexes, and assert the full resource set
+  during release verification so local workspace files cannot silently change the distributed bundle.

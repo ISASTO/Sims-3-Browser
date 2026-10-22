@@ -58,6 +58,9 @@ def package(bundle, web, out):
         if not path.is_file():
             continue
         rel = path.relative_to(bundle).as_posix()
+        # File-sync staging files are not part of the IPA and must not enter a release pack.
+        if any(part.startswith('.') for part in path.relative_to(bundle).parts):
+            continue
         # Signing records and device/application logs are not runtime resources.
         if rel.split('/')[0] in ('_CodeSignature', 'SC_Info', '_MASReceipt') or path.name in ('NimbleLog.plist', 'embedded.mobileprovision', '.DS_Store'):
             continue

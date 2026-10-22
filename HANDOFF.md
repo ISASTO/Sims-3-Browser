@@ -15,6 +15,50 @@ for what works and `DECISIONS.md` for why it is built this way.
   release contains the compiled runtime and the resources needed to play.
 - Local development servers bind to 127.0.0.1 by default.
 
+### Mouse controls and content easter egg (2026-10-22)
+- Scroll over the game to zoom: up moves closer, down moves farther away. `runtime/browser_controls.c` reads
+  the original live zoom-bar geometry and distance, and the host sends a single virtual finger down/move/up
+  on that slider. This changes the original camera, with its own limits, rather than scaling the canvas. The
+  recovered functions are `renderHUDZoomBar` (0x46aac) and `processInputCameraNavigation` (0x47038); the normal
+  house range is 200–750, and the map range is 800–1800. Wheel events are ignored in menus, during held contacts,
+  and when the original camera control is unavailable. Ctrl/Meta-wheel retains browser zoom. Pixel, line and
+  page deltas normalize into a bounded queue consumed before game frames; resizing/DPR does not change input points.
+- Double-click and keep the second press held, then drag, for the same two-finger gesture as right-drag or
+  Ctrl+drag. Detection uses 400 ms and a 6 CSS-pixel radius, ignores completed drags, and leaves ordinary clicks
+  immediate. If the first camera-area click opened an object menu, a narrowly scoped input hook calls the
+  original `processContextMenuBack` before the original two-finger begin. This prevents the orbit from being
+  swallowed by that first click's menu. The hint expires after 500 ms. Touch and pen still map directly.
+- Pointer cancellation, lost capture, window blur, backgrounding and page exit release all synthetic contacts.
+  Releases use touchesEnded because this original EAGLView does not implement touchesCancelled. No wheel work
+  runs when idle. Input traces and read-only camera/memory diagnostics exist only behind `?test`.
+- Hold the small header diamond for 850 ms to reveal **Unlock all content**. Shift-click (including keyboard
+  Shift+Enter) or right-click also opens the same native modal dialog. A normal diamond click still sends the
+  existing device shake. Unlocking requires a loaded household; a queued request executes between game frames.
+- Unlocking loads all **15 bundled packs**, IDs 1–14 and 16, through the original `DLCManager::unlockDLC`, then
+  calls `AppEngine::unlockBonus`, including its original settings writer. No missing pack 15 or server download
+  is invented. Two opt-in recompiler entry hooks make furniture available and expose the original house-upgrade
+  prices (§1,000 then §2,500; no upgrade beyond level 2). They match both symbol and verified address. All normal
+  execution paths remain the recovered code until the user enables this option. Items still cost Simoleons.
+- The cheat does not mark goals complete, alter skills, grant money, change achievement flags or remodel the
+  house. Its access preference is `sims3-content-unlocked-v1` in localStorage; the original pack and bonus records
+  persist through the existing game settings files in IndexedDB. Reopen an existing shop/wardrobe list to refresh
+  its contents. Save household progress through **Save and Continue** and its green confirmation as usual.
+- `tools/tests/mouse_controls.json` includes the entire player regression, then verifies actual camera distance
+  and angle, wheel bounds and delta units, browser modifier-wheel preservation, resizing/DPR, double/right/Ctrl
+  two-finger traces, blur cleanup, no wheel activation in pause/main menus, the real long press, idempotent unlock,
+  original goal/achievement/balance preservation, confirmed save and unlock persistence after a page reload.
+  The original shake reward reaches §1,190 before the cheat, and the reloaded household retains §1,190 afterward.
+  A normal real-time saved-household smoke also passed wheel, double-hold and long-press dialog checks.
+  Review the captures as well as assertions. `fdrag` supports `double`/`control`; `wheel`, `pointer` and `hold`
+  steps support real browser input. Fullscreen, quality, DPR and all 24 complete-frame probes still pass.
+- Packaging now excludes file-sync staging artifacts. The release inventory contains **1,263 original resources
+  in 35 packs, 52 files / 134,287,801 bytes**. `verify_site.py` also checks that the complete resource inventory
+  matches the input bundle. Current wasm: `game-code-f71cbc6d842f1374.bin`, 13,703,075 uncompressed bytes,
+  SHA-256 `f71cbc6d842f1374b02f4e97bc61263e9d73b89f8abb937abedd3d37c0067b5e`; host version `82aa5b93427b90f8`.
+- Remaining validation: hardware-backed Chrome, Firefox/Safari input and frame rate, purchasing/rendering every
+  individual pack item, town travel, careers and minigames. Do not treat successful static translation or these
+  browser regressions as proof of complete gameplay coverage.
+
 ### Player, resolution and performance pass (2026-10-22)
 - `web/player.js` supplies a restrained player frame, persistent quality selection, optional metrics, fit-to-tab
   and Fullscreen API controls. The small header plumbob sends a device shake; the site does not advertise a money
@@ -63,7 +107,7 @@ for what works and `DECISIONS.md` for why it is built this way.
   within run-to-run variation. See `verification/performance.json` for samples. These are not hardware-GPU FPS
   guarantees. Hardware-backed Chrome, Firefox and Safari still need a measured pass.
 
-### Current published player verification
+### Previous published player verification
 - Gameplay commit `efd96f9827cb009e5991fc7aeb9b5152d8276786`, source commit
   `e9c6361277f23205fa79f504de48391e7f49e198`, Pages run `39780557567`: deployment succeeded.
 - Downloaded all 53 public release files (136,207,293 bytes) with normal TLS verification. Every Git blob hash
@@ -92,7 +136,8 @@ for what works and `DECISIONS.md` for why it is built this way.
 From `main`, run `python3 -m http.server 8333 --bind 127.0.0.1` in the repository root, then open
 `http://127.0.0.1:8333/ios/play/`. On the source branch, serve `play/` instead.
 
-Click/tap for ordinary input, drag to pan, and right-drag or Ctrl+drag for two-finger camera gestures. Use the
+Click/tap for ordinary input, drag to pan, scroll to zoom, and double-click-hold, right-drag or Ctrl+drag for
+two-finger camera gestures. Hold the header diamond for the optional content unlock. Use the
 game's **Save and Continue**, then confirm the green tick, before reloading. Saves are stored in IndexedDB on
 the current browser origin; the former Android build's saves are separate and are not imported.
 

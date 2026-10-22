@@ -47,6 +47,24 @@ reimplements the iOS frameworks it uses.
   passed. The final fresh-profile regression passed all render/depth/DPR/fullscreen assertions and 24 frame
   probes. Auto's final four-sample software-renderer smoke was 49–58 FPS; selected quality survived reload.
 
+## 2026-10-22 mouse and content controls
+- Added original-camera scroll-wheel zoom with the original 200–750 house limits; it also uses the recovered
+  map slider range. Pixel/line/page inputs, bounds, release cleanup, DPR/resize and menu suppression are tested.
+- Double-click and hold the second press to orbit with two virtual fingers. Existing right/Ctrl-drag remains.
+  A first-click object popup is dismissed through the original Back action before a double-press orbit begins.
+- A long press on the header diamond reveals the optional content unlock. It loads all 15 bundled packs and the
+  original bonus reward, enables all furniture tiers and house-upgrade eligibility, and retains normal prices.
+  It does not forge completed goals, achievements, skills or money. The access preference and original content
+  settings survive reload. A normal diamond click still sends a device shake.
+- The fresh-profile mouse regression includes the entire player/save/reload/shake/resolution regression. Actual
+  camera angle/distance and synthetic contact cleanup are asserted; all 15 pack IDs, bonus state, unchanged goal
+  and achievement fields, idempotence, saved §1,190 balance and unlock persistence are checked after reload.
+- The packaged inventory is now 1,263 original resources in 35 packs, 52 files / 134,287,801 bytes. File-sync
+  staging artifacts are excluded, and verification checks the complete inventory as well as every resource byte.
+  Historical release counts above include the former artifacts. See HANDOFF.md for current runtime hashes.
+- Hardware-GPU and Firefox/Safari measurements remain outstanding; every individual pack item has not been
+  purchased/rendered during this pass.
+
 ## Inputs (verified)
 | Item | Value |
 | --- | --- |
